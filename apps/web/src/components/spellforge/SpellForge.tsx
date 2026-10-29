@@ -16,6 +16,7 @@ import { MicroPause } from './MicroPause'
 import { ModeSelector } from './ModeSelector'
 import { ReflectionHint } from './ReflectionHint'
 import { bumpRetryEpoch, makeRetry, type RetryEpoch } from './error-retry'
+import { NO_FIRST_ERRORS, firstErrorFor, firstErrorOwner, recordFirstError, type FirstErrors } from './first-error'
 import { SingleBox } from './SingleBox'
 
 import { useActiveHint } from '@/hooks/useActiveHint'
@@ -149,9 +150,12 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
   const retryEpochRef = useRef<RetryEpoch>({ current: 0 })
   // 이 오답 한 번에 묶인 재시도 — 단추의 onClick 이 곧 그 인스턴스라, 옛 단어의 보관된 onClick 은 새 단어의 재시도를 부르지 못한다
   const [retryAction, setRetryAction] = useState<(() => boolean) | null>(null)
+  // T-0238 이번 판에서 처음 틀리게 제출한 철자 — 판 주인(본인 · 자료 · 판 시작) · 낱말 id + 철자에 묶인 화면 메모리
+  const [firstErrors, setFirstErrors] = useState<FirstErrors>(NO_FIRST_ERRORS)
   useEffect(() => {
     bumpRetryEpoch(retryEpochRef.current)
     setRetryAction(null)
+    setFirstErrors(NO_FIRST_ERRORS)
   }, [viewerId, authStatus])
   useEffect(() => {
     const epoch = retryEpochRef.current
@@ -291,7 +295,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
     if (evalResult.correct) {
       handleSuccess()
     } else {
-      handleError(evalResult)
+      handleError(evalResult, userInput)
     }
   }, [currentWord, userInput, mode, confirm, handleSuccess, ownsSession, phase])
 
@@ -299,9 +303,14 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
    * 오답 처리 + Reflection
    */
   const handleError = useCallback(
-    (evalResult: ReturnType<typeof evaluateInput>) => {
+    (evalResult: ReturnType<typeof evaluateInput>, submitted: string) => {
       setPhase('error')
       if (currentWord) markMissed(currentWord.id, 'retried')
+      // 처음 틀리게 제출한 값 하나만(이후 오답 · 재시도 · 정답은 덮지 않는다) — 주인이 아니면 넣지 않는다
+      if (currentWord && ownsSession()) {
+        const word = currentWord
+        setFirstErrors((prev) => recordFirstError(prev, firstErrorOwner(viewerId, textId, session.startedAt.getTime()), word, submitted))
+      }
       setReflectionMsg(generateReflectionMessage(evalResult))
 
       // 입력 · 안내는 학습자가 「다시 입력하기」를 누르거나 직접 고칠 때까지 남긴다(예전 3초 자동 삭제는 고쳐 쓰던 입력까지 지웠다).
@@ -316,7 +325,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
       })
       setRetryAction(() => retry)
     },
-    [resetFeedback, ownsSession, currentWord, markMissed]
+    [resetFeedback, ownsSession, currentWord, markMissed, viewerId, textId, session.startedAt]
   )
 
   /**
@@ -487,7 +496,17 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
         content={content}
         recommendation={recommendation}
         viewerId={viewerId}
-        missedWords={session.words.filter((w) => missed[w.id]).map((w) => ({ word: w, kind: missed[w.id] }))}
+        missedWords={session.words
+          .filter((w) => missed[w.id])
+          .map((w) => ({
+            word: w,
+            kind: missed[w.id],
+            // 긍정 확인(same)된 본인 화면에서만 — checking · changed 에서는 개인 입력을 넘기지 않는다
+            firstError:
+              viewerId === undefined || authStatus === 'same'
+                ? firstErrorFor(firstErrors, firstErrorOwner(viewerId, textId, session.startedAt.getTime()), w)
+                : null,
+          }))}
       />
     )
   }

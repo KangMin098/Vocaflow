@@ -7,6 +7,7 @@ import path from 'node:path'
 import ts from 'typescript'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { bumpRetryEpoch, makeRetry, type RetryEpoch } from '../error-retry'
+import { firstErrorOwner, recordFirstError } from '../first-error'
 
 const SRC = fs.readFileSync(path.resolve(__dirname, '../SpellForge.tsx'), 'utf8').replace(/\r\n/g, '\n')
 
@@ -53,6 +54,13 @@ function mount(mode: Mode, owns = { v: true }) {
     handleSuccess: vi.fn(),
     // 완료 화면 복기용 놓친 낱말 표시 — 화면 상태일 뿐 기록 · 평가가 아니다(P-4)
     markMissed: vi.fn(),
+    // T-0238 처음 틀리게 제출한 철자 — 화면 메모리(실제 helper 를 그대로 쓴다)
+    setFirstErrors: vi.fn(),
+    recordFirstError,
+    firstErrorOwner,
+    viewerId: 'u-1',
+    textId: 't1',
+    session: { startedAt: new Date(0) },
     pushOwnedResult,
     setTimeout,
     clearTimeout,
