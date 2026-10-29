@@ -83,6 +83,8 @@ export interface MaterialOption {
 }
 
 export interface AvailableMaterials {
+  /** 이 목록을 읽은 서버 Auth 의 id(T-0240 r11) — 개인 스크립트가 섞이므로 화면은 계획 소유자와 같을 때만 쓴다(비로그인 null) */
+  viewerId?: string | null
   books: MaterialOption[]
   articles: MaterialOption[]
   wordSets: MaterialOption[]
@@ -143,22 +145,74 @@ const EMPTY_EXTRAS = {
   source: null as string | null,
 }
 
-/** 현재 사용자의 학습 계획 항목 — 자료 메타 join 포함. */
+/**
+ * 학습 계획 읽기 결과(/plan 전용 facade · T-0240) — 목록과 함께 **읽기에 실패했는가**와 **누구의 계획인가**를 준다.
+ *   failed: 주 목록 오류 · 배열 아님 · 형식이 어긋난 행 · 자료 메타/세트 챕터 조회 오류 — 이때 items 는 완전한 계획이 아니다.
+ *   viewerId: 이 목록을 읽은 바로 그 서버 Auth(getUser)의 id — 화면은 이 값으로 계정 경계를 묶는다(비로그인 null).
+ */
+export interface StudyPlanSnapshot {
+  items: PlanItem[]
+  failed: boolean
+  viewerId: string | null
+}
+
+/** 조회는 성공했지만 자료 행이 없을 때 — 실제 삭제를 증명하지 못하므로 /plan 은 보수적으로 말한다 */
+const UNCONFIRMED_TITLE = '(자료를 확인할 수 없음)'
+/** 기존 배열 wrapper 의 표기 — 다른 호출자(hub-lab · manage-overview) 화면은 그대로 둔다 */
+const LEGACY_MISSING_TITLE = '(삭제된 자료)'
+
+/** 화면의 viewer 와 서버 신원이 다를 때 — 쓰기 전에 거부한 결과 */
+const OWNER_CHANGED = '로그인 계정이 바뀌어 저장하지 않았어요. 화면을 새로 열어 주세요.'
+
+const MATERIAL_TYPES = new Set<string>(['book', 'article', 'script', 'word_set'])
+function validRow(r: unknown): r is PlanRow {
+  if (!r || typeof r !== 'object') return false
+  const x = r as Record<string, unknown>
+  // 배열 열은 명시적 null(미정) 이거나 정확한 원소 형식의 배열이어야 한다 — 열이 빠진(undefined) 행 · 다른 타입은 조회 실패(r7)
+  const arrOf = (v: unknown, el: 'string' | 'number') => v === null || (Array.isArray(v) && v.every((e) => typeof e === el))
+  return (
+    typeof x.id === 'string' && x.id.length > 0 &&
+    typeof x.material_type === 'string' && MATERIAL_TYPES.has(x.material_type) &&
+    typeof x.material_id === 'string' && x.material_id.length > 0 &&
+    arrOf(x.modules, 'string') && arrOf(x.chapters, 'number') && arrOf(x.weekdays, 'number')
+  )
+}
+
+/** 현재 사용자의 학습 계획 — /plan 이 쓰는 읽기 facade. 조회는 한 번(기존 wrapper 와 같은 질의) */
+export async function fetchStudyPlanSnapshot(): Promise<StudyPlanSnapshot> {
+  return loadStudyPlan(UNCONFIRMED_TITLE)
+}
+
+/** 현재 사용자의 학습 계획 항목 — 자료 메타 join 포함(기존 배열 계약 · hub-lab · manage-overview 호환). */
 export async function fetchStudyPlanItems(): Promise<PlanItem[]> {
+  return (await loadStudyPlan(LEGACY_MISSING_TITLE)).items
+}
+
+async function loadStudyPlan(missingTitle: string): Promise<StudyPlanSnapshot> {
   const client = await createClient()
   const {
     data: { user },
+    error: authErr,
   } = await client.auth.getUser()
-  if (!user) return []
+  // 인증 조회 오류는 「비로그인 · 빈 계획」이 아니다 — 세션이 없을 뿐인 경우(AuthSessionMissingError)만 비로그인
+  if (authErr && authErr.name !== 'AuthSessionMissingError') return { items: [], failed: true, viewerId: null }
+  if (!user) return { items: [], failed: false, viewerId: null }
+  const viewerId = user.id
   const lc = loose(client)
 
-  const { data: rowsRaw } = await lc
+  const { data: rowsRaw, error: rowsErr } = await lc
     .from('study_plan_items')
     .select('id, material_type, material_id, modules, chapters, weekdays')
     .eq('user_id', user.id)
     .order('created_at', { ascending: true })
-  const rows = (rowsRaw ?? []) as PlanRow[]
-  if (rows.length === 0) return []
+  // 오류 · 배열 아님은 「빈 계획」이 아니다
+  // 실제 배열일 때만 성공 — data:null(오류 없음)도 빈 계획으로 바꾸지 않는다
+  if (rowsErr || !Array.isArray(rowsRaw)) return { items: [], failed: true, viewerId }
+  const all = rowsRaw as unknown[]
+  const rows = all.filter(validRow)
+  // 형식이 어긋난 행이 있으면 남은 행만 「전체 계획」이라 부르지 않는다
+  let failed = rows.length !== all.length
+  if (rows.length === 0) return { items: [], failed, viewerId }
 
   const idsByType = (t: MaterialType) =>
     rows.filter((r) => r.material_type === t).map((r) => r.material_id)
@@ -191,6 +245,12 @@ export async function fetchStudyPlanItems(): Promise<PlanItem[]> {
       : Promise.resolve({ data: [] }),
   ])
 
+  // 자료 메타 조회 오류를 기본값 · 「삭제된 자료」로 덮지 않는다
+  for (const r of [booksRes, articlesRes, scriptsRes, setsRes] as { error?: unknown; data?: unknown }[]) {
+    if (r.error) failed = true
+    // 배열이 아닌 메타는 조인할 수 없다 — 터지기 전에 실패 결과로 돌려준다. 오류 없는 data:null 도 비배열과 같다(r9)
+    else if (!Array.isArray(r.data)) return { items: [], failed: true, viewerId }
+  }
   const bookMap = new Map(((booksRes.data ?? []) as BookRow[]).map((b) => [b.id, b]))
   const articleMap = new Map(((articlesRes.data ?? []) as ArticleRow[]).map((a) => [a.id, a]))
   const scriptMap = new Map(((scriptsRes.data ?? []) as ScriptRow[]).map((s) => [s.id, s]))
@@ -200,11 +260,15 @@ export async function fetchStudyPlanItems(): Promise<PlanItem[]> {
   //   챕터 미부여 세트(chapter NULL)는 0 → 단일 세트로 취급(챕터 선택 숨김).
   const setChapterMax = new Map<string, number>()
   if (setIds.length) {
-    const { data: chRows } = await lc
+    const { data: chRows, error: chErr } = await lc
       .from('shared_words')
       .select('set_id, chapter')
       .in('set_id', setIds)
       .not('chapter', 'is', null)
+    // 챕터 조회 오류를 「0챕터」로 만들지 않는다
+    if (chErr) failed = true
+    // 오류 없는 data:null 은 「0챕터」가 아니다(r9) — 비배열과 같이 실패
+    else if (!Array.isArray(chRows)) return { items: [], failed: true, viewerId }
     for (const r of (chRows ?? []) as { set_id: string; chapter: number | null }[]) {
       if (r.chapter != null) {
         setChapterMax.set(r.set_id, Math.max(setChapterMax.get(r.set_id) ?? 0, r.chapter))
@@ -212,8 +276,8 @@ export async function fetchStudyPlanItems(): Promise<PlanItem[]> {
     }
   }
 
-  return rows.map((r) => {
-    let title = '(삭제된 자료)'
+  const items = rows.map((r) => {
+    let title = missingTitle
     let subtitle: string | null = null
     const extras = { ...EMPTY_EXTRAS }
     let vLevel: number | null = null
@@ -275,6 +339,7 @@ export async function fetchStudyPlanItems(): Promise<PlanItem[]> {
       source: extras.source,
     }
   })
+  return { items, failed, viewerId }
 }
 
 function mkOption(over: Partial<MaterialOption> & { id: string; title: string }): MaterialOption {
@@ -306,7 +371,7 @@ function wordSetVLevel(slug: string | null, cefr: string | null): number | null 
 
 /** 계획에 추가 가능한 자료 — 도서 / 스크립트(article) / 공용단어장 / 내 스크립트. */
 export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
-  const empty: AvailableMaterials = { books: [], articles: [], wordSets: [], scripts: [] }
+  const empty: AvailableMaterials = { viewerId: null, books: [], articles: [], wordSets: [], scripts: [] }
   const client = await createClient()
   const {
     data: { user },
@@ -362,6 +427,7 @@ export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
   }
 
   return {
+    viewerId: user.id,
     books: ((books ?? []) as BookRow[]).map((b) =>
       mkOption({
         id: b.id,
@@ -476,6 +542,11 @@ export async function savePlanItem(input: {
   modules: PlanActivity[]
   chapters?: number[]
   weekdays?: number[]
+  /**
+   * 이 저장을 시작한 화면의 viewer(T-0240 r3) — 서버 getUser 와 다르면 쓰기 전에 거부한다.
+   * 거부용 결속일 뿐 권한 근거가 아니다(권한은 기존 Auth/RLS). 넘기지 않으면 기존과 같다.
+   */
+  expectedOwner?: string
 }): Promise<{ ok: boolean; id?: string; error?: string }> {
   if (!input?.materialId) return { ok: false, error: '자료가 필요합니다.' }
   const client = await createClient()
@@ -483,6 +554,7 @@ export async function savePlanItem(input: {
     data: { user },
   } = await client.auth.getUser()
   if (!user) return { ok: false, error: '로그인이 필요합니다.' }
+  if (input.expectedOwner !== undefined && user.id !== input.expectedOwner) return { ok: false, error: OWNER_CHANGED }
 
   const allowed = new Set(activitiesForType(input.materialType))
   const modules = Array.from(new Set(input.modules)).filter((m) => allowed.has(m))
@@ -522,13 +594,14 @@ export async function savePlanItem(input: {
   return { ok: true, id: (data as { id: string } | null)?.id }
 }
 
-/** 계획 항목 제거. */
-export async function removePlanItem(itemId: string): Promise<{ ok: boolean; error?: string }> {
+/** 계획 항목 제거. expectedOwner(T-0240 r3) — 서버 getUser 와 다르면 지우기 전에 거부(넘기지 않으면 기존과 같다). */
+export async function removePlanItem(itemId: string, expectedOwner?: string): Promise<{ ok: boolean; error?: string }> {
   const client = await createClient()
   const {
     data: { user },
   } = await client.auth.getUser()
   if (!user) return { ok: false, error: '로그인이 필요합니다.' }
+  if (expectedOwner !== undefined && user.id !== expectedOwner) return { ok: false, error: OWNER_CHANGED }
 
   const { error } = await loose(client)
     .from('study_plan_items')
