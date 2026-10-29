@@ -398,6 +398,8 @@ export function DiagnosticClient({
   const submitting = useRef(false)
   /** 완답 확인 화면 잠금 — 「처음부터 새로 풀기」를 누른 순간 이전 답 제출과 새 시작이 겹치지 않게 */
   const [reviewLocked, setReviewLocked] = useState(false)
+  /** 새 시작의 문항 조회가 진행 중(그 요청 세대) — 그동안 진행 화면의 답 단추를 잠근다(이전 진단 문항에 답해 새 시험으로 보관되지 않게) */
+  const [startPending, setStartPending] = useState<number | null>(null)
 
   async function startTest(test: TestInfo) {
     const my = ++req.current
@@ -406,14 +408,22 @@ export function DiagnosticClient({
     setResuming(false)
     setError(null)
     setResumeBlocked(null)
-    setSelectedTest(test)
-    const got = await fetchQuestions(test.id)
+    setStartPending(my)
+    // selectedTest · questions · responses 는 이 요청이 받아들여질 때 **한 묶음으로** 바꾼다 —
+    //   먼저 selectedTest 만 바꾸면, 조회가 버려졌을 때 이전 진단의 문항 · 답이 새 시험 이름으로 보이고 보관된다
+    let got: Awaited<ReturnType<typeof fetchQuestions>>
+    try {
+      got = await fetchQuestions(test.id)
+    } finally {
+      if (my === req.current) setStartPending(null)
+    }
     if (!stillMine(my, token)) return
     if ('err' in got) {
       setError(got.err)
       return
     }
     const data = got.data
+    setSelectedTest(test)
     // 새로 시작하면 본인 보관분은 버린다 — 두 진단의 답이 섞이면 안 된다. 옛 형식 · 다른 계정 보관분은 건드리지 않는다.
     if (owner) clearProgress(kv(), owner)
     memProgress.current = null
@@ -483,6 +493,7 @@ export function DiagnosticClient({
   function handleAnswer(knew: boolean) {
     const q = questions[currentIdx]
     if (!q || !selectedTest) return
+    if (startPending !== null) return
     if (viewerId !== null && authStatus !== 'same') return
     const next: Response[] = [...responses, { question_id: q.id, knew }]
     setResponses(next)
@@ -604,6 +615,8 @@ export function DiagnosticClient({
           ? await supabase.rpc('analyze_and_apply_comprehensive_diagnostic_result', p)
           : await supabase.rpc('analyze_and_apply_diagnostic_result', p)
 
+    // 오류도 반영 전에 세대 · 인증을 본다 — 이전 제출의 분석 실패가 새 진단 화면을 덮지 않게
+    if (authGone()) return
     if (applyErr) {
       setError(applyErr.message)
       return
@@ -1098,12 +1111,14 @@ export function DiagnosticClient({
 
         <div className="grid grid-cols-2 gap-4">
           <button
+            disabled={startPending !== null}
             onClick={() => handleAnswer(false)}
             className="flex items-center justify-center gap-2 rounded-[var(--r-md)] border-2 border-[var(--bd)] bg-[var(--bg)] px-6 py-4 font-display text-[16px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--t3)] hover:bg-[var(--bg2)] active:scale-[0.97]"
           >
             <XCircle size={20} /> 모릅니다
           </button>
           <button
+            disabled={startPending !== null}
             onClick={() => handleAnswer(true)}
             className="flex items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--on-ju)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] active:scale-[0.97]"
           >
