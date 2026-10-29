@@ -6,10 +6,14 @@
 // 부르지 않는다 — 펼쳐 본 것을 이해·숙달의 증거로 세지 않기 위해서다(새 제출·기록·TTS 없음).
 // 상태는 현재 판의 메모리뿐이다. 판이 다시 시작되거나 라운드가 remount 되면 함께 사라지고,
 // 과거 판을 복원하거나 서버에서 다시 읽지 않는다.
+//
+// 「대조 닫기」로 상세를 닫으면 초점을 **그때 대조하던 단어의 목록 버튼**으로 한 번 돌려준다 — 닫기 버튼이 사라져
+// 초점이 body 로 떨어지면 키보드 학습자는 목록 어디였는지 잃는다. 「다음 단어」로 넘긴 뒤 닫으면 넘어간 그 단어로 간다.
+// 단어는 en 으로 찾으므로 부모가 다시 그려도 같은 단어 버튼이고, 목록에서 빠졌으면 아무 데도 옮기지 않는다.
 
 'use client';
 
-import { useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 
 import type { Word } from '@/components/game/_shared/gamekit';
 
@@ -51,6 +55,17 @@ function face(w: Word, form: MissForm): { main: string; sub: string } {
 
 export function MistakeCompare({ misses }: { misses: MissEntry[] }) {
   const [open, setOpen] = useState<number | null>(null);
+  /** 단어(en) → 목록 버튼 */
+  const itemRefs = useRef(new Map<string, HTMLButtonElement>());
+  /** 「대조 닫기」 직후 한 번만 돌려줄 단어(en). 쓰고 나면 비운다 */
+  const returnTo = useRef<string | null>(null);
+  // 상세가 사라진 바로 그 커밋에서(그리기 전) 옮긴다 — body 에 머무는 프레임이 없게
+  useLayoutEffect(() => {
+    if (open !== null || returnTo.current === null) return;
+    const key = returnTo.current;
+    returnTo.current = null;
+    itemRefs.current.get(key)?.focus();
+  }, [open]);
   if (misses.length === 0) return null;
   const cur = open !== null ? misses[open] : null;
 
@@ -64,6 +79,10 @@ export function MistakeCompare({ misses }: { misses: MissEntry[] }) {
         {misses.map((m, i) => (
           <li key={m.target.en}>
             <button
+              ref={(el) => {
+                if (el) itemRefs.current.set(m.target.en, el);
+                else itemRefs.current.delete(m.target.en);
+              }}
               type="button"
               className="wbz-mx-item"
               aria-pressed={open === i}
@@ -122,7 +141,14 @@ export function MistakeCompare({ misses }: { misses: MissEntry[] }) {
                   다음 단어
                 </button>
               )}
-              <button type="button" className="wbz-mx-btn" onClick={() => setOpen(null)}>
+              <button
+                type="button"
+                className="wbz-mx-btn"
+                onClick={() => {
+                  returnTo.current = cur.target.en;
+                  setOpen(null);
+                }}
+              >
                 대조 닫기
               </button>
             </div>
