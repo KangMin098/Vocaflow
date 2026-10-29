@@ -45,3 +45,32 @@ export function practiceCountFor(av: ArticlePracticeAvailability | null | undefi
   if (!av || av.state !== 'ok') return null
   return av.counts[articleId.toLowerCase()] ?? null
 }
+
+export type PracticeReadyArticles<T> =
+  | { state: 'signed_out' }
+  | { state: 'failed' }
+  | { state: 'ok'; items: { article: T; count: number }[] }
+
+/**
+ * R0-C2-01 — 「연습이 준비된 글」: **지금 받은 발행 목록** ∩ 서버의 양수 문항 수 id.
+ * 목록 밖 id 는 서버가 줘도 버린다(발행·권리 관문은 목록이 단일 출처). 목록 순서를 그대로 쓰고, 같은 id 는 한 번만.
+ * 추천 점수·자동 선택 없음 — 고르는 것은 학습자다. 실패 · 로그아웃은 「없음」 과 다르게 돌려준다.
+ */
+export function practiceReadyArticles<T extends { id: string }>(
+  articles: readonly T[],
+  av: ArticlePracticeAvailability | null | undefined,
+): PracticeReadyArticles<T> {
+  if (!av || av.state === 'failed') return { state: 'failed' }
+  if (av.state === 'signed_out') return { state: 'signed_out' }
+  const seen = new Set<string>()
+  const items: { article: T; count: number }[] = []
+  for (const article of articles) {
+    const key = article.id.toLowerCase()
+    if (seen.has(key)) continue
+    const count = practiceCountFor(av, key)
+    if (count == null) continue
+    seen.add(key)
+    items.push({ article, count })
+  }
+  return { state: 'ok', items }
+}
