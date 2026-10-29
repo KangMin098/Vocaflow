@@ -6,6 +6,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import ts from 'typescript'
 import { describe, expect, it, vi } from 'vitest'
+import { nativeControlOwnsKey } from '@/lib/ui/learner-keyboard-scope'
 
 const SRC = fs.readFileSync(path.resolve(__dirname, '../SpellForge.tsx'), 'utf8').replace(/\r\n/g, '\n')
 
@@ -30,6 +31,7 @@ function mount(opts: { showCompletion: boolean; phase?: string }) {
     playWordAudio: vi.fn(),
     handleConfirm: vi.fn(),
     handleSkip: vi.fn(),
+    nativeControlOwnsKey,
     document: {
       addEventListener: (_t: string, f: (e: unknown) => void) => listeners.push(f),
       removeEventListener: (_t: string, f: (e: unknown) => void) => listeners.splice(listeners.indexOf(f), 1),
@@ -50,6 +52,12 @@ function mount(opts: { showCompletion: boolean; phase?: string }) {
 
 const button = { tagName: 'BUTTON', closest: () => null }
 const link = { tagName: 'A', closest: () => null }
+// 기본 조작부 대역 — nativeControlOwnsKey 의 closest(선택자) 에 자기 자신을 돌려준다(retry 표지는 없음)
+const control = (tagName: string, extra: Record<string, unknown> = {}) => {
+  const el: Record<string, unknown> = { tagName, ...extra }
+  el.closest = (sel: string) => (sel.includes('[data-sf-retry]') ? null : el)
+  return el
+}
 
 describe('SpellForge 키보드 · 완료 화면', () => {
   it('완료 화면에서는 keydown 을 걸지 않는다 — 버튼·링크 Enter 는 채점·preventDefault 없이 브라우저 몫', () => {
@@ -81,5 +89,31 @@ describe('SpellForge 키보드 · 완료 화면', () => {
     const c = mount({ showCompletion: false })
     c.cleanup?.()
     expect(c.listeners).toHaveLength(0)
+  })
+})
+
+describe('SpellForge 키보드 · 학습 중 단추 · 링크 Enter (T-0261)', () => {
+  it('모드 · 발음 단추 · 닫기 링크의 Enter 는 채점하지 않고 preventDefault 하지 않는다(그 조작의 기본 동작)', () => {
+    const c = mount({ showCompletion: false })
+    for (const t of [control('BUTTON', { role: 'radio' }), control('BUTTON'), control('A')]) {
+      const e = c.press('Enter', t)
+      expect(e.preventDefault).not.toHaveBeenCalled()
+    }
+    expect(c.deps.handleConfirm).not.toHaveBeenCalled()
+  })
+
+  it('입력칸 Enter 는 그대로 확인 1회(입력칸은 기본 조작부지만 게임의 확인 키다)', () => {
+    const c = mount({ showCompletion: false })
+    const input = c.deps.inputRef.current as Record<string, unknown>
+    input.closest = (sel: string) => (sel.includes('[data-sf-retry]') ? null : input)
+    const e = c.press('Enter', input)
+    expect(e.preventDefault).toHaveBeenCalled()
+    expect(c.deps.handleConfirm).toHaveBeenCalledTimes(1)
+  })
+
+  it('조작부가 아닌 곳(본문 영역)의 Enter 는 기존처럼 확인', () => {
+    const c = mount({ showCompletion: false })
+    c.press('Enter', { tagName: 'DIV', closest: () => null })
+    expect(c.deps.handleConfirm).toHaveBeenCalledTimes(1)
   })
 })
