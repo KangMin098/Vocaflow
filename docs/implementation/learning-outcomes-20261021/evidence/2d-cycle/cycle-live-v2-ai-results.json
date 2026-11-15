@@ -1,0 +1,364 @@
+{
+  "kind": "ACTUAL_AI_CYCLE_RESPONSES_WITH_PRODUCT_GRADER_NOT_EFFECT_ESTIMATE",
+  "records": [
+    {
+      "agent": "codex",
+      "session_id": "01a15e3a-dadd-73b2-b53b-5cfe934024c3",
+      "item_id": "r5-cm-transfer-1",
+      "prompt_sha256": "773cc16f3c4180ec5fd2643fe2f3597c29f099d4a0d8b927f1ccfbb08fb1baef",
+      "response_sha256": "291c5008435837ce7d2f01e6b29afa9974c7e89a03e0065512cb04295fa9afc4",
+      "raw_response": {
+        "id": "r5-cm-transfer-1",
+        "claim_sentence": 5,
+        "support_sentences": [
+          1,
+          2,
+          3,
+          4,
+          6
+        ],
+        "relation": "example",
+        "choice": 2,
+        "claim_paraphrase": "The label “natural” provides less information about a drink than buyers assume.",
+        "evidence_reasoning": "The shoppers assume the label guarantees health or safety, but it reveals no specific ingredients. The possible sweeteners and additives illustrate that gap. Reading ingredients offers a more reliable alternative."
+      },
+      "normalized_response": {
+        "claim": 4,
+        "support": [
+          0,
+          1,
+          2,
+          3,
+          5
+        ],
+        "relation": "example",
+        "choice": 1
+      },
+      "actual_product_grade": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": false,
+        "supportMissed": [],
+        "supportExtra": [
+          1
+        ],
+        "relationOk": true,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      },
+      "index_conversion": "1-based to0-based only, no semantic edits"
+    },
+    {
+      "agent": "codex",
+      "session_id": "01a15e3a-dadd-73b2-b53b-5cfe934024c3",
+      "item_id": "r5-cycle-transfer-2",
+      "prompt_sha256": "773cc16f3c4180ec5fd2643fe2f3597c29f099d4a0d8b927f1ccfbb08fb1baef",
+      "response_sha256": "291c5008435837ce7d2f01e6b29afa9974c7e89a03e0065512cb04295fa9afc4",
+      "raw_response": {
+        "id": "r5-cycle-transfer-2",
+        "claim_sentence": 5,
+        "support_sentences": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "relation": "reason",
+        "choice": 4,
+        "claim_paraphrase": "The team should organize records around the information each job requires.",
+        "evidence_reasoning": "Incoming workers need immediate tasks, while analysts need historical detail. Sentence 4 explains why either format alone fails to meet both needs, supporting the decision to maintain separate records."
+      },
+      "normalized_response": {
+        "claim": 4,
+        "support": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "relation": "reason",
+        "choice": 3
+      },
+      "actual_product_grade": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": true,
+        "supportMissed": [],
+        "supportExtra": [],
+        "relationOk": true,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      },
+      "index_conversion": "1-based to0-based only, no semantic edits"
+    },
+    {
+      "agent": "codex",
+      "session_id": "01a15e3a-dadd-73b2-b53b-5cfe934024c3",
+      "item_id": "r5-cycle-ind-1",
+      "prompt_sha256": "773cc16f3c4180ec5fd2643fe2f3597c29f099d4a0d8b927f1ccfbb08fb1baef",
+      "response_sha256": "291c5008435837ce7d2f01e6b29afa9974c7e89a03e0065512cb04295fa9afc4",
+      "raw_response": {
+        "id": "r5-cycle-ind-1",
+        "claim_sentence": 1,
+        "support_sentences": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "relation": "reason",
+        "choice": 3,
+        "claim_paraphrase": "Fault logs are valuable when used to improve work rather than blame volunteers.",
+        "evidence_reasoning": "Recorded difficulties can guide changes to shelves and instructions. Sentence 3 gives the condition under which reporting prevents repeated problems. Ranking volunteers instead can discourage reporting, showing why the log’s use determines its value."
+      },
+      "normalized_response": {
+        "claim": 0,
+        "support": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "relation": "reason",
+        "choice": 2
+      },
+      "actual_product_grade": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": true,
+        "supportMissed": [],
+        "supportExtra": [],
+        "relationOk": true,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      },
+      "index_conversion": "1-based to0-based only, no semantic edits"
+    },
+    {
+      "agent": "codex",
+      "session_id": "01a15e3a-dadd-73b2-b53b-5cfe934024c3",
+      "item_id": "r5-cycle-ind-2",
+      "prompt_sha256": "773cc16f3c4180ec5fd2643fe2f3597c29f099d4a0d8b927f1ccfbb08fb1baef",
+      "response_sha256": "291c5008435837ce7d2f01e6b29afa9974c7e89a03e0065512cb04295fa9afc4",
+      "raw_response": {
+        "id": "r5-cycle-ind-2",
+        "claim_sentence": 2,
+        "support_sentences": [
+          1,
+          3,
+          4,
+          5
+        ],
+        "relation": "reason",
+        "choice": 1,
+        "claim_paraphrase": "The club should clarify access hours alongside improving its room.",
+        "evidence_reasoning": "Members cannot benefit from new seats when they arrive at locked doors. Sentence 4 explains why replacing seats cannot resolve uncertainty about entry times. A timetable directly addresses that access problem."
+      },
+      "normalized_response": {
+        "claim": 1,
+        "support": [
+          0,
+          2,
+          3,
+          4
+        ],
+        "relation": "reason",
+        "choice": 0
+      },
+      "actual_product_grade": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": true,
+        "supportMissed": [],
+        "supportExtra": [],
+        "relationOk": true,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      },
+      "index_conversion": "1-based to0-based only, no semantic edits"
+    },
+    {
+      "agent": "claude",
+      "session_id": "cb000d69-4745-4583-b807-4420c21a154d",
+      "item_id": "r5-cm-transfer-1",
+      "prompt_sha256": "51c151f4ebb1d11a24ad226eb976e930a3a4e930257700b485631ea700e7c489",
+      "response_sha256": "0eadd641480f817c06ab5916e25087a46611e6ccc7b60b7658bf5a70bfe5351d",
+      "raw_response": {
+        "id": "r5-cm-transfer-1",
+        "claim_sentence": 5,
+        "support_sentences": [
+          2,
+          3,
+          4
+        ],
+        "relation": "example",
+        "choice": 2,
+        "claim_paraphrase": "'natural'이라는 단어는 소비자가 믿는 것보다 훨씬 적은 정보를 준다.",
+        "evidence_reasoning": "3번이 단어가 성분을 설명하지 않는다는 이유, 4번이 첨가물이 든 가상 사례로 이를 보여 준다. 6번은 대안 제시. 1·5는 글에 없는 판단, 3은 세부, 4는 대안을 주제로 키웠다."
+      },
+      "normalized_response": {
+        "claim": 4,
+        "support": [
+          1,
+          2,
+          3
+        ],
+        "relation": "example",
+        "choice": 1
+      },
+      "actual_product_grade": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": false,
+        "supportMissed": [],
+        "supportExtra": [
+          1
+        ],
+        "relationOk": true,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      },
+      "index_conversion": "1-based to0-based only, no semantic edits"
+    },
+    {
+      "agent": "claude",
+      "session_id": "cb000d69-4745-4583-b807-4420c21a154d",
+      "item_id": "r5-cycle-transfer-2",
+      "prompt_sha256": "51c151f4ebb1d11a24ad226eb976e930a3a4e930257700b485631ea700e7c489",
+      "response_sha256": "0eadd641480f817c06ab5916e25087a46611e6ccc7b60b7658bf5a70bfe5351d",
+      "raw_response": {
+        "id": "r5-cycle-transfer-2",
+        "claim_sentence": 5,
+        "support_sentences": [
+          2,
+          3,
+          4
+        ],
+        "relation": "reason",
+        "choice": 4,
+        "claim_paraphrase": "한 보고서로 모든 일을 처리하지 않고 작업별 필요에 맞춰 인수 메모와 상세 기록을 따로 둔다.",
+        "evidence_reasoning": "2·3번이 두 작업의 다른 필요를, 4번이 한 기록으로는 둘 다 못 채우는 이유를 대어 5번 결론을 떠받친다. 1·2·5는 한쪽만 택했고 3은 무관."
+      },
+      "normalized_response": {
+        "claim": 4,
+        "support": [
+          1,
+          2,
+          3
+        ],
+        "relation": "reason",
+        "choice": 3
+      },
+      "actual_product_grade": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": true,
+        "supportMissed": [],
+        "supportExtra": [],
+        "relationOk": true,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      },
+      "index_conversion": "1-based to0-based only, no semantic edits"
+    },
+    {
+      "agent": "claude",
+      "session_id": "cb000d69-4745-4583-b807-4420c21a154d",
+      "item_id": "r5-cycle-ind-1",
+      "prompt_sha256": "51c151f4ebb1d11a24ad226eb976e930a3a4e930257700b485631ea700e7c489",
+      "response_sha256": "0eadd641480f817c06ab5916e25087a46611e6ccc7b60b7658bf5a70bfe5351d",
+      "raw_response": {
+        "id": "r5-cycle-ind-1",
+        "claim_sentence": 1,
+        "support_sentences": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "relation": "example",
+        "choice": 3,
+        "claim_paraphrase": "오류 기록은 탓하기보다 작업 개선에 쓰일 때 가치가 있다.",
+        "evidence_reasoning": "3번은 기록에 따라 선반·지침을 고쳐 문제를 피하는 개선 사례, 4번은 순위 매기기의 역효과, 5번은 쓰임에 따라 결과가 갈린다고 다시 말한다. 1·4는 반대, 2·5는 글에 없음."
+      },
+      "normalized_response": {
+        "claim": 0,
+        "support": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "relation": "example",
+        "choice": 2
+      },
+      "actual_product_grade": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": true,
+        "supportMissed": [],
+        "supportExtra": [],
+        "relationOk": false,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      },
+      "index_conversion": "1-based to0-based only, no semantic edits"
+    },
+    {
+      "agent": "claude",
+      "session_id": "cb000d69-4745-4583-b807-4420c21a154d",
+      "item_id": "r5-cycle-ind-2",
+      "prompt_sha256": "51c151f4ebb1d11a24ad226eb976e930a3a4e930257700b485631ea700e7c489",
+      "response_sha256": "0eadd641480f817c06ab5916e25087a46611e6ccc7b60b7658bf5a70bfe5351d",
+      "raw_response": {
+        "id": "r5-cycle-ind-2",
+        "claim_sentence": 2,
+        "support_sentences": [
+          3,
+          4,
+          5
+        ],
+        "relation": "reason",
+        "choice": 1,
+        "claim_paraphrase": "방 개선과 함께 이용 시간 안내를 분명히 하는 것이 중요하다.",
+        "evidence_reasoning": "3번은 잠긴 방 앞에서 돌아가는 회원의 문제, 4번은 좌석 재교체로는 입장 시간을 알릴 수 없다는 이유, 5번은 시간표라는 해결책. 4번 선택지는 '필요 전혀 없다'로 과장, 2·3·5는 글과 무관."
+      },
+      "normalized_response": {
+        "claim": 1,
+        "support": [
+          2,
+          3,
+          4
+        ],
+        "relation": "reason",
+        "choice": 0
+      },
+      "actual_product_grade": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": true,
+        "supportMissed": [],
+        "supportExtra": [],
+        "relationOk": true,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      },
+      "index_conversion": "1-based to0-based only, no semantic edits"
+    }
+  ],
+  "packet_sha256": "79a7e9223b24b710be5354b1f54bdbe910a7f2492e24fb7b4025827dc0248d08",
+  "database_writes": 0,
+  "limits": [
+    "Fresh sessions with guided transcript replay; no causal gain or human memory measured.",
+    "Product learner projection and actual existing grader, no Gold/hints supplied.",
+    "Only content/format graded here; SQL binding and plan transition are separate isolated integration tests."
+  ]
+}

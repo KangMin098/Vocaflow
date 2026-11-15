@@ -76,7 +76,7 @@ describe('상태 · 먼저 확인할 것', () => {
 
 describe('학생 메인 화면(v6.2 단일 지도) — 내부 용어 없음', () => {
   it('라인 코드 · 현재 계산 · vNext · 54라인 호환 · 0.6/0.8 · 영어 단계 코드가 화면 글에 없다', () => {
-    const src = ['UnifiedLearningMap.tsx', 'TaskInspector.tsx', 'GoalRecordBar.tsx', 'WorkspaceList.tsx', 'TaskPopup.tsx', 'WorkspaceModal.tsx'].map((f) => fs.readFileSync(path.join(MAP_DIR, f), 'utf8')).join('\n')
+    const src = ['UnifiedLearningMap.tsx', 'TaskInspector.tsx', 'GoalRecordBar.tsx', 'WorkspaceList.tsx', 'LearningDetailDialog.tsx', 'WorkspaceModal.tsx'].map((f) => fs.readFileSync(path.join(MAP_DIR, f), 'utf8')).join('\n')
     // 주석을 뺀 코드만 본다
     const code = src.split(/\r?\n/).filter((l) => !/^\s*(\/\/|\*|\/\*)/.test(l)).join('\n')
     for (const bad of [/현재 계산/, /vNext/, /54라인/, /호환/, /0\.6|0\.8/, /'(FIND|REPAIR|TRANSFER|CHECK)'/, /관찰 낮음|관찰 중간|관찰 높음/, /\b[A-J]\d{1,2}\b/]) {

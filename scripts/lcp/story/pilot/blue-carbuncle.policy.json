@@ -1,0 +1,733 @@
+{
+  "schema": "lcp-story/editorial-policy@1",
+  "policy_id": "doyle-blue-carbuncle-policy",
+  "policy_version": 1,
+  "work_key": "doyle-blue-carbuncle",
+  "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+  "reason_to_read": "크리스마스 이틀 뒤, 셜록 홈스의 의자에 낡은 모자 하나가 걸려 있다. 홈스는 이 모자만 보고 주인이 어떤 사람인지 줄줄이 추리해 보이고, 왓슨은 그것이 범죄와 상관없는 놀이라고 웃는다. 함께 주운 거위 한 마리가 그 놀이를 진짜 사건으로 바꾼다. 단서가 한 사람에서 다음 사람으로 이어지는 추적을 따라가며, 추론이 어디까지 근거에 기대고 어디부터 짐작인지 직접 가려 볼 수 있다.",
+  "preserve": {
+    "events": [
+      {
+        "id": "ev-hat-and-goose-dropped",
+        "description": "크리스마스 새벽, 불량배와 시비가 붙은 남자가 상점 유리를 깨고 놀라 모자와 거위를 버리고 달아난다.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 10,
+            "start": 3493,
+            "end": 3579,
+            "quote": "dropped his goose, took to his heels, and vanished amid the labyrinth of small streets"
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      },
+      {
+        "id": "ev-hat-deductions",
+        "description": "홈스가 모자만으로 주인의 지성 · 형편 · 습관을 추론해 보인다.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 27,
+            "start": 6340,
+            "end": 6417,
+            "quote": "That the man was highly intellectual is of course obvious upon the face of it"
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      },
+      {
+        "id": "ev-stone-in-crop",
+        "description": "피터슨의 아내가 거위 모이주머니에서 푸른 보석을 찾아낸다.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 50,
+            "start": 11356,
+            "end": 11391,
+            "quote": "See what my wife found in its crop!"
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      },
+      {
+        "id": "ev-horner-accused",
+        "description": "백작 부인의 보석을 훔친 혐의로 배관공 존 호너가 재판에 넘겨졌다.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 59,
+            "start": 12740,
+            "end": 12827,
+            "quote": "John Horner, a plumber, was accused of having abstracted it from the lady’s jewel-case."
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      },
+      {
+        "id": "ev-advertisement",
+        "description": "홈스가 신문에 광고를 내 모자와 거위의 주인 헨리 베이커를 부른다.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 63,
+            "start": 15749,
+            "end": 15838,
+            "quote": "Mr. Henry Baker can have the same by applying at 6:30 this evening at 221B, Baker Street."
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      },
+      {
+        "id": "ev-baker-test",
+        "description": "베이커는 먹어 버린 원래 거위의 남은 부분에 관심이 없다 — 홈스는 그가 보석과 무관하다고 판단한다.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 90,
+            "start": 21386,
+            "end": 21472,
+            "quote": "I will confine my attentions to the excellent bird which I perceive upon the sideboard"
+          },
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 94,
+            "start": 22517,
+            "end": 22585,
+            "quote": "It is quite certain that he knows nothing whatever about the matter."
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      },
+      {
+        "id": "ev-trail-to-covent-garden",
+        "description": "알파 술집 주인이 거위를 코번트 가든의 상인 브레킨리지에게서 샀다고 말한다.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 104,
+            "start": 23729,
+            "end": 23788,
+            "quote": "Well, I got the two dozen from a salesman in Covent Garden."
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      },
+      {
+        "id": "ev-the-bet",
+        "description": "홈스가 내기를 걸어 상인의 장부에서 공급자(브릭스턴 로드의 오크쇼트 부인)를 알아낸다.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 127,
+            "start": 26399,
+            "end": 26456,
+            "quote": "I have a fiver on it that the bird I ate is country bred."
+          },
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 141,
+            "start": 27709,
+            "end": 27745,
+            "quote": "Mrs. Oakshott, 117, Brixton Road—249"
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      },
+      {
+        "id": "ev-ryder-revealed",
+        "description": "거위를 찾아 상인에게 매달리던 남자가 가명을 대다가 호텔 수석 종업원 제임스 라이더라고 밝힌다.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 153,
+            "start": 29771,
+            "end": 29804,
+            "quote": "one of them was mine all the same"
+          },
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 168,
+            "start": 31923,
+            "end": 31951,
+            "quote": "my real name is James Ryder."
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      },
+      {
+        "id": "ev-confession",
+        "description": "라이더가 보석을 거위 목에 밀어 넣었고, 꼬리에 줄무늬가 있는 거위가 두 마리라 엉뚱한 거위를 가져갔다고 털어놓는다.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 190,
+            "start": 38283,
+            "end": 38350,
+            "quote": "I thrust the stone down its throat as far as my finger could reach."
+          },
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 206,
+            "start": 40184,
+            "end": 40253,
+            "quote": "there were two barred-tailed ones, and I could never tell them apart."
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      },
+      {
+        "id": "ev-release",
+        "description": "홈스가 라이더를 경찰에 넘기지 않고 내보낸다.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 209,
+            "start": 41019,
+            "end": 41027,
+            "quote": "Get out!"
+          },
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 213,
+            "start": 41520,
+            "end": 41608,
+            "quote": "I suppose that I am commuting a felony, but it is just possible that I am saving a soul."
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      }
+    ],
+    "motivations": [
+      {
+        "id": "mo-holmes-problem",
+        "description": "홈스는 범죄가 아니어도 모자를 '지적인 문제'로 대한다 — 사건에 뛰어드는 동기.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 10,
+            "start": 2395,
+            "end": 2487,
+            "quote": "I beg that you will look upon it not as a battered billycock but as an intellectual problem."
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      },
+      {
+        "id": "mo-save-horner",
+        "description": "누명을 쓴 호너가 징역을 살게 될 수 있어서 홈스는 그날 밤 바로 추적한다.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 108,
+            "start": 24166,
+            "end": 24282,
+            "quote": "we have at the other a man who will certainly get seven years’ penal servitude unless we can establish his innocence"
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      },
+      {
+        "id": "mo-ryder-greed-fear",
+        "description": "라이더는 쉬운 큰돈의 유혹에 넘어갔고, 몸수색이 두려워 보석을 거위 속에 숨겨 옮기려 했다.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 183,
+            "start": 34521,
+            "end": 34592,
+            "quote": "the temptation of sudden wealth so easily acquired was too much for you"
+          },
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 189,
+            "start": 37576,
+            "end": 37674,
+            "quote": "I might at any moment be seized and searched, and there would be the stone in my waistcoat pocket."
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      },
+      {
+        "id": "mo-holmes-mercy",
+        "description": "홈스는 감옥이 라이더를 평생 범죄자로 만들 것이라 보고, 용서의 계절이라며 놓아준다.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 213,
+            "start": 41677,
+            "end": 41779,
+            "quote": "Send him to gaol now, and you make him a gaol-bird for life. Besides, it is the season of forgiveness."
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      }
+    ],
+    "causality": [
+      {
+        "id": "ca-goose-chain",
+        "description": "보석이 든 거위의 경로 — 오크쇼트 부인 → 브레킨리지 → 알파의 윈디게이트 → 거위 클럽의 베이커 → 피터슨 → 홈스.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 61,
+            "start": 14833,
+            "end": 14996,
+            "quote": "The question for us now to solve is the sequence of events leading from a rifled jewel-case at one end to the crop of a goose in Tottenham Court Road at the other."
+          },
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 163,
+            "start": 30958,
+            "end": 31192,
+            "quote": "You are endeavouring to trace some geese which were sold by Mrs. Oakshott, of Brixton Road, to a salesman named Breckinridge, by him in turn to Mr. Windigate, of the Alpha, and by him to his club, of which Mr. Henry Baker is a member."
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      },
+      {
+        "id": "ca-two-barred-tails",
+        "description": "라이더가 누나가 키워 둔 거위 대신 방금 붙잡았던 거위를 달라고 했는데, 같은 줄무늬 거위가 두 마리여서 보석이 든 거위가 시장으로 갔다.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 194,
+            "start": 39055,
+            "end": 39104,
+            "quote": "I’d rather have that one I was handling just now."
+          },
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 206,
+            "start": 40184,
+            "end": 40253,
+            "quote": "there were two barred-tailed ones, and I could never tell them apart."
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      },
+      {
+        "id": "ca-horner-framed",
+        "description": "전과가 있는 호너에게 의심이 쏠리리라 계산해 라이더가 그를 방으로 부르게 했다.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 183,
+            "start": 34773,
+            "end": 34920,
+            "quote": "You knew that this man Horner, the plumber, had been concerned in some such matter before, and that suspicion would rest the more readily upon him."
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      },
+      {
+        "id": "ca-case-collapses",
+        "description": "라이더가 증언하지 않으면 호너에 대한 재판은 무너진다 — 홈스가 놓아줘도 호너는 위험하지 않다고 판단한 근거.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 213,
+            "start": 41451,
+            "end": 41519,
+            "quote": "this fellow will not appear against him, and the case must collapse."
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      }
+    ],
+    "foreshadowing": [
+      {
+        "id": "fs-names-in-report",
+        "description": "신문 기사에 이미 라이더와 하녀 캐서린 쿠삭이 증인으로 나온다 — 독자에게 공정하게 주어진 단서.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 60,
+            "start": 13338,
+            "end": 13398,
+            "quote": "James Ryder, upper-attendant at the hotel, gave his evidence"
+          },
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 60,
+            "start": 14070,
+            "end": 14155,
+            "quote": "Catherine Cusack, maid to the Countess, deposed to having heard Ryder’s cry of dismay"
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      },
+      {
+        "id": "fs-others-asking",
+        "description": "상인이 다른 사람도 거위를 캐묻는다며 화를 낸다 — 거위를 쫓는 또 다른 사람이 있다는 단서.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 126,
+            "start": 25977,
+            "end": 26036,
+            "quote": "‘Where are the geese?’ and ‘Who did you sell the geese to?’"
+          },
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 150,
+            "start": 29016,
+            "end": 29083,
+            "quote": "there are others besides ourselves who are anxious about the matter"
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      },
+      {
+        "id": "fs-no-crime",
+        "description": "왓슨은 무서운 사연을 짐작하고 홈스는 '범죄는 없다'고 웃는다 — 곧 뒤집힐 판단.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 3,
+            "start": 1192,
+            "end": 1240,
+            "quote": "this thing has some deadly story linked on to it"
+          },
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 4,
+            "start": 1351,
+            "end": 1367,
+            "quote": "No, no. No crime"
+          }
+        ],
+        "required_in": [
+          "story_edition"
+        ]
+      }
+    ],
+    "tone_devices": [
+      {
+        "id": "td-trivial-to-crime",
+        "description": "'아주 사소한 일'이 보석이 나온 뒤 '범죄의 중심'으로 바뀌는 대비.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 2,
+            "start": 777,
+            "end": 814,
+            "quote": "The matter is a perfectly trivial one"
+          },
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 70,
+            "start": 17014,
+            "end": 17059,
+            "quote": "Of course it is a nucleus and focus of crime."
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      },
+      {
+        "id": "td-christmas-frame",
+        "description": "크리스마스 이틀 뒤에 시작해 '용서의 계절'로 끝나는 계절의 틀.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 0,
+            "start": 44,
+            "end": 83,
+            "quote": "upon the second morning after Christmas"
+          },
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 213,
+            "start": 41747,
+            "end": 41778,
+            "quote": "it is the season of forgiveness"
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      },
+      {
+        "id": "td-holmes-wit",
+        "description": "보석을 '죽은 뒤에 낳은 푸른 알'이라 부르는 홈스의 건조한 농담.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 177,
+            "start": 33241,
+            "end": 33333,
+            "quote": "It laid an egg after it was dead—the bonniest, brightest little blue egg that ever was seen."
+          }
+        ],
+        "required_in": [
+          "story_edition"
+        ]
+      },
+      {
+        "id": "td-closing-bird-joke",
+        "description": "마지막 문장에서 저녁 메뉴의 새(멧도요)로 다음 '조사'를 예고하는 농담.",
+        "anchors": [
+          {
+            "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+            "paragraph": 213,
+            "start": 41938,
+            "end": 42023,
+            "quote": "we will begin another investigation, in which, also a bird will be the chief feature."
+          }
+        ],
+        "required_in": [
+          "story_edition"
+        ]
+      }
+    ]
+  },
+  "changeable": [
+    "빅토리아 시대 어휘 · 철자(billycock · commissionaire · ulster · gaol · endeavour · crystallised · lime-cream)를 현대 표현으로 바꾸거나 풀이",
+    "길고 격식 있는 문장(홈스의 추론 설명 · 신문 기사)을 나누기, easy_reader 에서는 줄이기",
+    "돈 단위(£ · s. · d. · sovereign · fiver)와 런던 지명은 그대로 두고 필요한 곳만 풀이",
+    "라틴어 · 법률 · 관용 표현(disjecta membra · inst. · Assizes · treasure trove · commuting a felony) 풀이",
+    "거리 · 술집 · 시장 장면의 배경 묘사 줄이기(easy_reader)"
+  ],
+  "sensitive_content": [
+    {
+      "id": "se-head-size-intellect",
+      "anchors": [
+        {
+          "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+          "paragraph": 33,
+          "start": 7752,
+          "end": 7855,
+          "quote": "“It is a question of cubic capacity,” said he; “a man with so large a brain must have something in it.”"
+        }
+      ],
+      "issue": "머리(뇌) 크기로 지능을 판단하는 19세기 유사과학(두개 계측 · 골상학)에 기댄 추론. 이 생각은 당시 인종 · 성별 위계를 정당화하는 데에도 쓰였다.",
+      "handling": "retain_with_context",
+      "rationale": "모자 추론 장면의 일부이고, 추론이 시대의 가정에 기대는 지점을 학습자가 직접 가려 보는 것이 이 작품의 좋은 비판적 읽기 재료다. 그대로 두되, 오늘날 과학은 머리 크기와 지능을 이렇게 연결하지 않는다는 짧은 맥락 주석을 판본마다 붙인다."
+    },
+    {
+      "id": "se-wife-affection",
+      "anchors": [
+        {
+          "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+          "paragraph": 27,
+          "start": 6740,
+          "end": 6820,
+          "quote": "This may account also for the obvious fact that his wife has ceased to love him."
+        },
+        {
+          "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+          "paragraph": 41,
+          "start": 9921,
+          "end": 10059,
+          "quote": "when your wife allows you to go out in such a state, I shall fear that you also have been unfortunate enough to lose your wife’s affection"
+        }
+      ],
+      "issue": "남편의 옷차림을 챙기는 것이 아내의 애정 표현이라는 성 역할 가정에 기댄 추론.",
+      "handling": "retain_with_context",
+      "rationale": "홈스의 추론 사슬(거위를 아내에게 가져가던 길)과 이어져 있어 빼면 추론이 끊긴다. 그대로 두고 당시 성 역할 관념에 기댄 짐작이라는 짧은 맥락 주석을 붙인다."
+    }
+  ],
+  "entry_scene": {
+    "anchors": [
+      {
+        "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+        "paragraph": 0,
+        "start": 0,
+        "end": 644,
+        "quote": "I had called upon my friend Sherlock Holmes upon the second morning after Christmas, with the intention of wishing him the compliments of the season. He was lounging upon the sofa in a purple dressing-gown, a pipe-rack within his reach upon the right, and a pile of crumpled morning papers, evidently newly studied, near at hand. Beside the couch was a wooden chair, and on the angle of the back hung a very seedy and disreputable hard-felt hat, much the worse for wear, and cracked in several places. A lens and a forceps lying upon the seat of the chair suggested that the hat had been suspended in this manner for the purpose of examination."
+      },
+      {
+        "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+        "paragraph": 2,
+        "start": 701,
+        "end": 979,
+        "quote": "“Not at all. I am glad to have a friend with whom I can discuss my results. The matter is a perfectly trivial one”—he jerked his thumb in the direction of the old hat—“but there are points in connection with it which are not entirely devoid of interest and even of instruction.”"
+      },
+      {
+        "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+        "paragraph": 10,
+        "start": 2524,
+        "end": 2672,
+        "quote": "It arrived upon Christmas morning, in company with a good fat goose, which is, I have no doubt, roasting at this moment in front of Peterson’s fire."
+      },
+      {
+        "source_sha256": "391413941cedf99977ff340a1f5b49476222c38facd578b0afe2884bb570a129",
+        "paragraph": 22,
+        "start": 5023,
+        "end": 5153,
+        "quote": "“Here is my lens. You know my methods. What can you gather yourself as to the individuality of the man who has worn this article?”"
+      }
+    ],
+    "spoiler_free": true,
+    "rationale": "의자에 걸린 낡은 모자, 함께 온 거위, '스스로 추리해 보라'는 홈스의 도전까지만 보여 준다. 거위 속 보석 · 호너의 재판 · 거위의 경로 · 범인과 결말은 드러내지 않는다."
+  },
+  "review_concerns": [
+    "홈스의 추론이 '근거 → 결론' 형태로 남았는가 — easy_reader 가 결론만 남기고 근거를 지우지 않았는가",
+    "결말 전에 주어진 공정한 단서(신문 기사 속 Ryder · Cusack 이름, 상인의 '다른 사람도 묻는다')가 판본에 그대로 남았는가",
+    "머리 크기 · 아내의 애정 추론의 맥락 주석이 홈스를 조롱하지도, 그 가정을 사실처럼 남기지도 않는가",
+    "'rat-faced' · 'massive head … intelligent face' 같은 외모-성품 연결 묘사를 판본이 더 강조하지 않았는가",
+    "라이더를 놓아주는 결말(중죄 묵인)과 그 이유(호너 사건 붕괴 · 감옥이 만드는 상습범 · 용서의 계절)가 단순화되지 않았는가",
+    "원천 표면 단어 수가 약 7,800 으로 파일럿 목표 상한(약 7,000)을 넘는다 — easy_reader 의 축약이 사건 · 단서를 빠뜨리지 않았는가"
+  ],
+  "production": [
+    {
+      "edition_key": "story-b2",
+      "kind": "story_edition",
+      "transformation": "language_modernization",
+      "coverage": "complete_work",
+      "scope": {
+        "first_paragraph": 0,
+        "last_paragraph": 213
+      },
+      "target": {
+        "language": {
+          "cefr": "B2",
+          "v_level_min": 7,
+          "v_level_max": 8,
+          "basis": "editorial_target"
+        },
+        "cognitive": {
+          "demand": "high",
+          "basis": "editorial_judgment",
+          "note": "여러 단계의 추론과 거위의 이동 경로를 기억하며 따라가야 하고, 어떤 추론이 근거에 기대고 어떤 추론이 시대의 가정에 기대는지 가려야 한다(편집 판단)."
+        },
+        "background_knowledge": {
+          "load": "moderate",
+          "supports": [
+            "빅토리아 시대 런던의 거위 클럽 · 술집 · 코번트 가든 시장 한 줄 배경",
+            "가스등과 양초(가스가 들어오지 않은 집) 차이 한 줄 풀이",
+            "돈 단위(£ · 실링 · 소버린 · fiver)와 순회 재판(Assizes) · 징역(penal servitude) 풀이"
+          ]
+        },
+        "emotional_suitability": {
+          "note": "동물을 해치는 장면이 짧게 직접 서술된다 — 살아 있는 거위의 부리를 억지로 벌려 보석을 목구멍에 밀어 넣는 장면(거위가 버둥거린다)과, 거위를 잡아 칼로 갈라 여는 장면이 있다. 사람에게 가하는 폭력은 거리 시비(모자를 쳐 떨어뜨리고 막대기를 휘두르다 유리창을 깸) 정도이고, 보석의 과거사에 강력 범죄가 한 줄로 언급되며, 범인이 무너져 우는 장면이 있다. 특정 연령에 맞는다고 보증하지 않는다(편집 판단).",
+          "cautions": [
+            "동물 해침 · 도살: 거위의 부리를 억지로 벌려 보석을 목구멍에 밀어 넣는 장면, 거위를 잡아 칼로 가르는 장면(범인의 고백)",
+            "거리 시비: 불량배가 모자를 쳐 떨어뜨리고, 남자가 막대기를 휘두르다 가게 유리창을 깬다",
+            "보석의 과거사로 살인 · 자살 · 황산 투척이 한 줄 언급된다",
+            "범인이 무릎 꿇고 울며 용서를 비는 장면",
+            "음주 암시, 쓰러질 듯한 사람에게 브랜디를 먹이는 장면"
+          ]
+        },
+        "goals": [
+          "모자에서 이끌어 낸 추론과 그 근거를 짝짓고, 시대의 가정에 기댄 추론을 가려내기",
+          "거위의 이동 경로를 사건 순서대로 재구성하기",
+          "홈스가 범인을 놓아준 이유를 본문 근거로 설명하기"
+        ]
+      },
+      "activities": [
+        "deep_reading"
+      ]
+    },
+    {
+      "edition_key": "easy-b1",
+      "kind": "easy_reader",
+      "transformation": "level_adaptation",
+      "coverage": "complete_work",
+      "scope": {
+        "first_paragraph": 0,
+        "last_paragraph": 213
+      },
+      "target": {
+        "language": {
+          "cefr": "B1",
+          "v_level_min": 5,
+          "v_level_max": 6,
+          "basis": "editorial_target"
+        },
+        "cognitive": {
+          "demand": "moderate",
+          "basis": "editorial_judgment",
+          "note": "추론의 단계를 줄이되 근거와 결론의 짝은 남긴다. 거위의 경로와 범인을 순서대로 따라가면 된다(편집 판단)."
+        },
+        "background_knowledge": {
+          "load": "low",
+          "supports": [
+            "크리스마스 거위와 '거위 클럽'(매주 조금씩 돈을 모아 크리스마스에 거위를 받는 모임) 짧은 설명",
+            "파운드 · 실링 같은 돈 단위 한 줄 풀이"
+          ]
+        },
+        "emotional_suitability": {
+          "note": "보존해야 할 사건(범인의 고백)에 동물을 해치는 장면이 들어 있다 — 살아 있는 거위의 목구멍에 보석을 억지로 밀어 넣는 장면과, 거위를 잡아 칼로 가르는 장면. 쉬운 판본에서도 이 장면을 더 자세히 그리지 않고, 보석의 과거 범죄를 자세히 풀지 않는다. 특정 연령에 맞는다고 보증하지 않는다(편집 판단).",
+          "cautions": [
+            "동물 해침 · 도살: 거위의 부리를 억지로 벌려 보석을 목구멍에 밀어 넣는 장면, 거위를 잡아 칼로 가르는 장면(범인의 고백)",
+            "범인이 무릎 꿇고 울며 용서를 비는 장면"
+          ]
+        },
+        "goals": [
+          "거위가 누구의 손을 거쳐 홈스에게 왔는지 순서대로 말하기",
+          "진짜 범인이 누구이며 어떤 단서로 드러났는지 말하기"
+        ]
+      },
+      "activities": [
+        "deep_reading"
+      ]
+    }
+  ]
+}

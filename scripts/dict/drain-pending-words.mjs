@@ -114,7 +114,10 @@ if (MODE === 'export') {
       .from('pending_words')
       .select('lemma, encounter_count, doc_freq')
       .eq('status', 'pending')
-      .order('encounter_count', { ascending: false }),
+      .order('encounter_count', { ascending: false })
+      // 동률 해소 키 — 같은 encounter_count 가 많아 range 페이지 경계에서 순서가 흔들리면 행이 중복되고 같은 수만큼 빠진다
+      // (2026-10-24 실측: 4,885행 중 서로 다른 낱말 3,819).
+      .order('lemma', { ascending: true }),
   )
 
   const shaped = rows

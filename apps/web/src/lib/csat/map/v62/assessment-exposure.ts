@@ -2,14 +2,14 @@
 //
 // R5 연습 ↔ 독립 평가 경계(순수 · 쓰기 없음). PR #281 감사 E01 · E03 · E04 대응.
 //   · 노출 = 그 학습자가 그 문항(또는 같은 정규화 지문)을 **어떤 경로로든** 본 기록 — 과제 키 · 활동 · phase 와 무관.
-//     원장: G2 시도 · G2 세션(삭제된 세션 포함) · 함정 훈련 · 문제지 풀이 · 복습 큐 · 진단 응답.
+//     원장: G2 시도 · G2 세션(삭제된 세션 포함) · 함정 훈련 · 문제지 풀이 · 복습 큐 · 진단 응답 · P6 정답/결정적 단서 노출(learning_exposures · K6-b).
 //   · 원장 하나라도 못 읽었거나 지문 식별이 없으면 「미노출」이 아니라 unknown — 독립 평가로 공급하지 않는다(fail-closed).
 //   · 독립 확인 · 전이로 예약된 문항은, 그 학습자가 아직 보지 않은 동안 연습 순환에서 뺀다(연습이 평가 자료를 소모하지 않게).
 //   · 정식 자격(FQ) reader 가 설치돼 있지 않으면 not_installed 를 그대로 — 기존 공개 경로로 열 수 있음 ≠ 자격 검증.
 
-export type ExposureSource = 'g2_attempt' | 'g2_session' | 'trap' | 'paper' | 'review_queue' | 'dx_response'
+export type ExposureSource = 'g2_attempt' | 'g2_session' | 'trap' | 'paper' | 'review_queue' | 'dx_response' | 'p6'
 
-export const EXPOSURE_SOURCES: readonly ExposureSource[] = ['g2_attempt', 'g2_session', 'trap', 'paper', 'review_queue', 'dx_response']
+export const EXPOSURE_SOURCES: readonly ExposureSource[] = ['g2_attempt', 'g2_session', 'trap', 'paper', 'review_queue', 'dx_response', 'p6']
 
 export interface ExposureEvent {
   itemRef: string

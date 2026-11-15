@@ -6,11 +6,15 @@
 import { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import {
+  CURATION_LINES,
   CURATION_VIEWS,
   CURATION_METHODS,
+  curationLine,
+  curationLineHref,
   curationLocation,
   curationHref,
   curationViewHref,
+  type CurationLine,
   type CurationView,
   type CurationMethod,
 } from '@/lib/admin/curation-view'
@@ -34,6 +38,7 @@ import type { WikibooksPreview } from '@/components/admin/curation/WikibooksIdTa
 import type { WikisourcePreview } from '@/components/admin/curation/WikisourceIdTab'
 import type { OpenStaxPreview } from '@/components/admin/curation/OpenStaxIdTab'
 import type { StoryWeaverPreview } from '@/components/admin/curation/StoryWeaverIdTab'
+import { StoryCurationClient } from './StoryCurationClient'
 
 interface AdminCurationClientProps {
   catalogs: SourceCatalog[]
@@ -45,6 +50,10 @@ export function AdminCurationClient({ catalogs, books, stats }: AdminCurationCli
   const router = useRouter()
   const params = useSearchParams()
   const { view, method: tab } = curationLocation(params)
+  const line = curationLine(params)
+  // 라인 전환은 `line` 만 바꾼다 — 원본 라인의 보기·검색·필터·쪽·선택 URL 은 그대로 남아 돌아오면 되살아난다.
+  const setLine = (value: CurationLine) =>
+    updateAdminUrl(curationLineHref(new URLSearchParams(params.toString()), value), 'push')
   const setTab = (method: CurationMethod | 'mine') => {
     const next = new URLSearchParams(params.toString())
     if (method === 'mine')
@@ -101,8 +110,22 @@ export function AdminCurationClient({ catalogs, books, stats }: AdminCurationCli
     router.refresh()
   }
 
+  const storyLabel = CURATION_LINES.find((item) => item.key === 'story')!.label
+
+  if (line === 'story') {
+    return (
+      <div className="flex flex-col gap-6" data-curation-ready={ready || undefined} data-curation-line="story">
+        <LineSwitch line={line} onChange={setLine} />
+        {/* 이야기 판본 라인의 도움말 — 키는 CURATION_LINES 의 라벨 문자열이다. */}
+        <AdminScreenHelp screen="curation" tab={storyLabel} className="-mb-2" />
+        <StoryCurationClient />
+      </div>
+    )
+  }
+
   return (
-    <div className="flex flex-col gap-6" data-curation-ready={ready || undefined}>
+    <div className="flex flex-col gap-6" data-curation-ready={ready || undefined} data-curation-line="original">
+      <LineSwitch line={line} onChange={setLine} />
       <StatsBar stats={stats} />
 
       {/* 화면 도움말 — 탭을 옮기면 그 탭의 도움말로 바뀐다 (라벨 문자열로 조회). */}
@@ -191,6 +214,36 @@ export function AdminCurationClient({ catalogs, books, stats }: AdminCurationCli
         }}
       />
     </div>
+  )
+}
+
+// ─────────────────────────────────────────────
+// 작업 라인 — 원본 도서 / 이야기 판본
+// ─────────────────────────────────────────────
+
+function LineSwitch({ line, onChange }: { line: CurationLine; onChange: (line: CurationLine) => void }) {
+  return (
+    <nav aria-label="작업 라인" className="flex flex-wrap items-center gap-3">
+      <span className="text-sm font-semibold text-[var(--t1)] break-keep">작업 라인</span>
+      <div className="inline-flex rounded-[var(--r-md)] border border-[var(--bd)] p-1">
+        {CURATION_LINES.map((item) => (
+          <button
+            key={item.key}
+            type="button"
+            aria-current={line === item.key ? 'page' : undefined}
+            onClick={() => line !== item.key && onChange(item.key)}
+            className={
+              'inline-flex min-h-11 items-center rounded-[var(--r-sm)] px-4 text-sm break-keep focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--bdf)] ' +
+              (line === item.key
+                ? 'bg-[var(--bg2)] font-semibold text-[var(--t1)]'
+                : 'text-[var(--t2)] hover:text-[var(--t1)]')
+            }
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
+    </nav>
   )
 }
 

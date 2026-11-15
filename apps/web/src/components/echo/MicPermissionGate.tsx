@@ -27,9 +27,14 @@ export function MicPermissionGate({ onGrant, error }: Props) {
         </h2>
         <p className="mt-3 break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
           따라읽기는 원어민 음성을 듣고 따라 말해 학습하는 모듈이에요.
-          <br />
-          음성을 녹음해 분석한 뒤 즉시 삭제돼요.
         </p>
+        {/* 앱이 직접 하는 일과 브라우저 음성 인식의 처리를 나눠 말한다 — 인식은 플랫폼 SpeechRecognition 이라
+            브라우저에 따라 원격 처리될 수 있다(로컬 처리를 강제하지 않는다). 메모리 완전 삭제는 약속하지 않는다. */}
+        <ul data-echo-privacy className="mt-3 space-y-1.5 text-left break-keep font-body text-[12px] leading-relaxed text-[var(--t2)]">
+          <li>녹음은 억양 비교와 결과 화면의 「내 발화 다시 듣기」에만 쓰고, 다음 녹음 · 다른 문장 · 화면을 떠날 때 놓아요.</li>
+          <li>Vocaflow 는 녹음을 파일이나 계정에 저장하거나 서버로 올리지 않아요. 로그인했다면 점수와 연습 기록만 남겨요.</li>
+          <li>단어 인식은 브라우저의 음성 인식 기능을 써요. 브라우저에 따라 음성이 그 인식 서비스에서 처리될 수 있어요.</li>
+        </ul>
         {error && (
           <div
             role="alert"

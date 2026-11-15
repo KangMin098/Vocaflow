@@ -24,7 +24,7 @@
 import { useTransition } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { ArrowRight, Clock, ExternalLink, Loader2, Target, Volume2 } from 'lucide-react'
+import { ArrowRight, ClipboardCheck, Clock, ExternalLink, Loader2, Target, Volume2 } from 'lucide-react'
 import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 import { sourceMeta } from '@/lib/articles/source-meta'
@@ -54,10 +54,19 @@ export function ArticleCard({
   article,
   userVLevel,
   featured = false,
+  practiceCount = null,
+  hideFit = false,
+  prefetch,
 }: {
   article: PublishedArticle
   userVLevel: number
   featured?: boolean
+  /** T-0215 — 이 글에 설치된 안내 연습 문항 수(서버 1회 조회). null 이면 표시 없음(없음 · 로그아웃 · 조회 실패) */
+  practiceCount?: number | null
+  /** R0-C2-01 — 임시 목표 패널처럼 수준 적합을 말하지 않아야 하는 자리에서만 켠다(적합 표지 숨김). 기본은 그대로 표시 */
+  hideFit?: boolean
+  /** R0-C2-01 — 「추가 요청 0」 자리(임시 목표 패널)에서만 false. 생략하면 Next 기본 prefetch 그대로 */
+  prefetch?: boolean
 }) {
   const router = useRouter()
   const [pending, startTransition] = useTransition()
@@ -65,7 +74,7 @@ export function ArticleCard({
   const src = sourceMeta(article.source)
   const cefr = article.cefr_level
   const cefrColor = cefr ? CEFR_COLOR[cefr] ?? 'var(--t3)' : null
-  const fit = judgeArticleIPlusOne(article.article_v_level, userVLevel)
+  const fit = hideFit ? null : judgeArticleIPlusOne(article.article_v_level, userVLevel)
   const hasAudio = !!(article.audio_url && article.audio_url.trim())
   // ACP §20 — 쉬운 판은 출처를 원본 그대로 쓰므로 카탈로그에서 원본 옆에 선다.
   //   표시가 없으면 학습자에게는 같은 글이 두 개로 보인다.
@@ -132,13 +141,18 @@ export function ArticleCard({
         </span>
       )}
       {fit && (
-        <span className="inline-flex items-center gap-1" style={{ color: fit.color }}>
+        <span data-testid="article-fit" className="inline-flex items-center gap-1" style={{ color: fit.color }}>
           <Target size={11} aria-hidden /> {fit.label}
         </span>
       )}
       {hasAudio && (
         <span className="inline-flex items-center gap-1" title="원어민 음성 포함">
           <Volume2 size={11} aria-hidden /> 음성
+        </span>
+      )}
+      {practiceCount != null && practiceCount > 0 && (
+        <span className="inline-flex items-center gap-1 text-[var(--p)]" data-testid="article-practice-available" title="읽은 뒤 이 글로 안내 연습을 할 수 있어요">
+          <ClipboardCheck size={11} aria-hidden /> 연습 있음 · {practiceCount}문항
         </span>
       )}
       {isEasier && (
@@ -171,6 +185,7 @@ export function ArticleCard({
       <article className="relative">
         <Link
           href={href}
+          prefetch={prefetch}
           onClick={handleLearn}
           // `<a>` 에는 disabled 가 없다 — 진행 중임을 보조기술에 알리고 재클릭만 막는다.
           aria-disabled={pending || undefined}
@@ -215,6 +230,7 @@ export function ArticleCard({
     <article className="relative h-full">
       <Link
         href={href}
+        prefetch={prefetch}
         onClick={handleLearn}
         aria-disabled={pending || undefined}
         className="group flex h-full w-full flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 pr-9 text-left shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--p)_50%,var(--bd))] hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 aria-disabled:pointer-events-none aria-disabled:opacity-60"
@@ -238,7 +254,7 @@ export function ArticleCard({
           {Tags}
         </div>
         {pending && (
-          <span aria-hidden className="absolute inset-0 flex items-center justify-center rounded-[var(--r-lg)] bg-[var(--bg)]/60">
+          <span aria-hidden className="absolute inset-0 flex items-center justify-center rounded-[var(--r-lg)] bg-[color-mix(in_srgb,var(--bg)_60%,transparent)]">
             <Loader2 size={16} className="animate-spin text-[var(--p)]" />
           </span>
         )}
@@ -260,9 +276,13 @@ function OriginalLink({ href }: { href: string }) {
       onClick={(e) => e.stopPropagation()}
       title="원문 보기"
       aria-label="원문 보기"
-      className="absolute right-2.5 top-2.5 inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+      // 누름 영역 44px(h-11) — 보이는 원은 안쪽 28px 그대로. 카드 우상단 모서리에 붙여
+      // 제목 줄(헤더 행 아래, pr-9 안쪽)과 겹치지 않게 한다.
+      className="group/orig absolute right-0 top-0 inline-flex h-11 w-11 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] focus-visible:outline-none"
     >
-      <ExternalLink size={13} aria-hidden />
+      <span className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-full)] transition-colors group-hover/orig:bg-[var(--bg2)] group-focus-visible/orig:ring-2 group-focus-visible/orig:ring-[var(--p)]">
+        <ExternalLink size={13} aria-hidden />
+      </span>
     </a>
   )
 }

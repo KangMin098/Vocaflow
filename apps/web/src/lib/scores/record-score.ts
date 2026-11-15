@@ -63,9 +63,14 @@ export interface GameScoreInput {
    */
   content?: ContentRef
   metadata?: Record<string, unknown>
+  /**
+   * 이 판을 시작한 사람(uid · 시작 때 로그인 없음이면 null). 주면 저장 시점의 사용자와 다를 때 적재하지 않는다 —
+   * 언마운트 flush 가 옛 판(A)의 누적을 그 사이 바뀐 계정(B)으로 적재하던 경로를 막는다. 권한 증명이 아니다(쓰는 주인은 getUser · RLS).
+   */
+  expectedUserId?: string | null
 }
 
-/** scores 1행 INSERT. 미로그인/실패는 조용히 무시(게임 흐름 비차단). */
+/** scores 1행 INSERT. 미로그인/실패/판 시작자와 다른 계정은 조용히 무시(게임 흐름 비차단). */
 export async function recordGameScore(input: GameScoreInput): Promise<void> {
   try {
     const client = createClient()
@@ -73,6 +78,7 @@ export async function recordGameScore(input: GameScoreInput): Promise<void> {
       data: { user },
     } = await client.auth.getUser()
     if (!user) return
+    if (input.expectedUserId !== undefined && input.expectedUserId !== user.id) return
 
     const row = {
       user_id: user.id,

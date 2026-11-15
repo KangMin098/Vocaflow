@@ -1,0 +1,314 @@
+{
+  "schema": "lcp-story/editorial-policy@1",
+  "policy_id": "synthetic-gull-rock-policy",
+  "policy_version": 1,
+  "work_key": "synthetic-gull-rock",
+  "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+  "reason_to_read": "어른이 「여자아이에게 맞지 않는 곳」이라 한 등대를 열두 살 마라가 폭풍 속에서 지켜 낸다 — 작은 단서(금 간 아홉째 계단)가 결말까지 이어진다.",
+  "preserve": {
+    "events": [
+      {
+        "id": "ev-gale-fall",
+        "description": "폭풍 속에서 토비아스가 금 간 아홉째 계단에서 넘어져 일어나지 못한다.",
+        "anchors": [
+          {
+            "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+            "paragraph": 3,
+            "start": 925,
+            "end": 1034,
+            "quote": "Upon the ninth step Tobias's foot slipped where the stone was cracked, and he fell, and could not rise again."
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      },
+      {
+        "id": "ev-mara-lights-lamp",
+        "description": "마라가 혼자 올라가 등불을 켠다.",
+        "anchors": [
+          {
+            "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+            "paragraph": 5,
+            "start": 1443,
+            "end": 1506,
+            "quote": "The lamp caught, and its beam swung out across the black water."
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      },
+      {
+        "id": "ev-brig-saved",
+        "description": "범선이 암초(이빨)를 피해 만으로 들어간다.",
+        "anchors": [
+          {
+            "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+            "paragraph": 6,
+            "start": 1508,
+            "end": 1623,
+            "quote": "Below the point the brig came about, as neatly as a dancer, and slipped past the Teeth into the shelter of the bay."
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      }
+    ],
+    "motivations": [
+      {
+        "id": "mo-mara-knows-tower",
+        "description": "마라는 할아버지만큼 등대를 알고 싶어 계단을 센다.",
+        "anchors": [
+          {
+            "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+            "paragraph": 1,
+            "start": 293,
+            "end": 349,
+            "quote": "for she had resolved to know the tower as well as he did"
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      },
+      {
+        "id": "mo-mara-saves-brig",
+        "description": "불이 꺼지면 범선이 암초에 부딪힌다는 것을 알기에 마라가 나선다.",
+        "anchors": [
+          {
+            "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+            "paragraph": 4,
+            "start": 1191,
+            "end": 1271,
+            "quote": "If the light failed, it would strike the reef that the sailors called the Teeth."
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      }
+    ],
+    "causality": [
+      {
+        "id": "ca-crack-causes-fall",
+        "description": "앞에서 마라가 말한 금이 토비아스가 넘어지는 원인이 된다.",
+        "anchors": [
+          {
+            "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+            "paragraph": 1,
+            "start": 390,
+            "end": 417,
+            "quote": "'and the ninth is cracked.'"
+          },
+          {
+            "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+            "paragraph": 3,
+            "start": 967,
+            "end": 994,
+            "quote": "where the stone was cracked"
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      }
+    ],
+    "foreshadowing": [
+      {
+        "id": "fs-ninth-step",
+        "description": "아홉째 계단의 금은 첫 장면의 복선이다.",
+        "anchors": [
+          {
+            "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+            "paragraph": 1,
+            "start": 351,
+            "end": 417,
+            "quote": "'One hundred and nine,' she would say, 'and the ninth is cracked.'"
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      }
+    ],
+    "tone_devices": [
+      {
+        "id": "td-proper-keeper-irony",
+        "description": "「a proper keeper」가 처음엔 마라를 배제하는 말, 끝에는 마라를 인정하는 말로 되풀이되는 반어.",
+        "anchors": [
+          {
+            "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+            "paragraph": 2,
+            "start": 692,
+            "end": 727,
+            "quote": "the board will send a proper keeper"
+          },
+          {
+            "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+            "paragraph": 7,
+            "start": 1917,
+            "end": 1954,
+            "quote": "Gull Rock already had a proper keeper"
+          }
+        ],
+        "required_in": [
+          "story_edition",
+          "easy_reader"
+        ]
+      },
+      {
+        "id": "td-counting-nothing",
+        "description": "계단을 세던 마라와 달리 「아무것도 세지 않고」 오르는 남자 — 대조 표현.",
+        "anchors": [
+          {
+            "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+            "paragraph": 7,
+            "start": 1763,
+            "end": 1779,
+            "quote": "counting nothing"
+          }
+        ],
+        "required_in": [
+          "story_edition"
+        ]
+      }
+    ]
+  },
+  "changeable": [
+    "고어 · 영국식 철자와 어순(Upon · dwelt · harbour · fortnight)",
+    "긴 복문을 짧은 문장으로 나누기",
+    "해양 용어(brig) 풀이"
+  ],
+  "sensitive_content": [
+    {
+      "id": "se-no-place-for-a-girl",
+      "anchors": [
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 2,
+          "start": 616,
+          "end": 653,
+          "quote": "'A lighthouse is no place for a girl."
+        }
+      ],
+      "issue": "당시의 성차별적 고정관념을 담은 말이다.",
+      "handling": "retain_with_context",
+      "rationale": "이야기의 갈등과 반어(proper keeper)의 출발점이라 지우면 의미가 사라진다. 그대로 두고 그 생각을 이야기가 뒤집는다는 맥락 설명을 붙인다."
+    }
+  ],
+  "entry_scene": {
+    "anchors": [
+      {
+        "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+        "paragraph": 0,
+        "start": 0,
+        "end": 172,
+        "quote": "Upon the bleak shoulder of Gull Rock there stood a lighthouse, and in the lighthouse dwelt old Tobias Wren and his granddaughter Mara, who was then but twelve years of age."
+      },
+      {
+        "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+        "paragraph": 1,
+        "start": 174,
+        "end": 476,
+        "quote": "Each evening Tobias climbed the winding stair to kindle the great lamp, and each evening Mara counted the steps aloud, for she had resolved to know the tower as well as he did. 'One hundred and nine,' she would say, 'and the ninth is cracked.' Her grandfather laughed at this, but he did not forget it."
+      }
+    ],
+    "spoiler_free": true,
+    "rationale": "등대 · 인물 · 계단 세기만 보여 준다. 폭풍 · 사고 · 결말을 드러내지 않는다."
+  },
+  "review_concerns": [
+    "반어(proper keeper)가 쉬운 판본에서도 살아 있는가",
+    "성차별 발언의 맥락 설명이 설교가 되지 않는가"
+  ],
+  "production": [
+    {
+      "edition_key": "story-b1",
+      "kind": "story_edition",
+      "transformation": "language_modernization",
+      "coverage": "complete_work",
+      "scope": {
+        "first_paragraph": 0,
+        "last_paragraph": 7
+      },
+      "target": {
+        "language": {
+          "cefr": "B1",
+          "v_level_min": 5,
+          "v_level_max": 7,
+          "basis": "editorial_target"
+        },
+        "cognitive": {
+          "demand": "moderate",
+          "basis": "editorial_judgment",
+          "note": "복선과 반어를 스스로 연결하는 추론이 필요하다(편집 판단)."
+        },
+        "background_knowledge": {
+          "load": "low",
+          "supports": [
+            "brig(범선) 풀이"
+          ]
+        },
+        "emotional_suitability": {
+          "note": "사고 장면(넘어짐)이 있으나 구체적 부상 묘사는 없다.",
+          "cautions": [
+            "할아버지가 다쳐 일어나지 못하는 장면"
+          ]
+        },
+        "goals": [
+          "복선을 결말과 연결하기",
+          "반복 표현의 뜻 변화 알아차리기"
+        ]
+      },
+      "activities": [
+        "deep_reading",
+        "original_bridge"
+      ]
+    },
+    {
+      "edition_key": "easy-a2",
+      "kind": "easy_reader",
+      "transformation": "level_adaptation",
+      "coverage": "complete_work",
+      "scope": {
+        "first_paragraph": 0,
+        "last_paragraph": 7
+      },
+      "target": {
+        "language": {
+          "cefr": "A2",
+          "v_level_min": 3,
+          "v_level_max": 4,
+          "basis": "editorial_target"
+        },
+        "cognitive": {
+          "demand": "low",
+          "basis": "editorial_judgment",
+          "note": "사건 순서와 원인 하나를 따라가면 된다(편집 판단)."
+        },
+        "background_knowledge": {
+          "load": "low",
+          "supports": []
+        },
+        "emotional_suitability": {
+          "note": "사고 장면(넘어짐)이 있으나 구체적 부상 묘사는 없다.",
+          "cautions": [
+            "할아버지가 다쳐 일어나지 못하는 장면"
+          ]
+        },
+        "goals": [
+          "사건 순서 따라가기"
+        ]
+      },
+      "activities": []
+    }
+  ]
+}

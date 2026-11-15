@@ -1,0 +1,206 @@
+// apps/web/src/lib/learner/__tests__/plan-snapshot.test.ts
+// T-0240 — 학습 계획 읽기 facade(fetchStudyPlanSnapshot): 목록 · 실패 · viewer. 기존 fetchStudyPlanItems 배열 wrapper 호환.
+// Supabase 대역 — 질의별 결과를 지정하고, 호출한 표 · 쓰기 여부를 센다.
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+
+type Res = { data: unknown; error: unknown }
+const st = vi.hoisted(() => ({
+  user: 'user-a' as string | null,
+  authErr: null as null | { name: string; message: string },
+  res: {} as Record<string, Res>,
+  calls: [] as string[],
+  writes: 0,
+}))
+
+vi.mock('@/lib/supabase/server', () => ({
+  createClient: async () => ({
+    auth: { getUser: async () => ({ data: { user: st.user ? { id: st.user } : null }, error: st.authErr }) },
+    from: (t: string) => {
+      st.calls.push(t)
+      const chain: Record<string, unknown> = {}
+      for (const k of ['select', 'eq', 'in', 'not', 'order', 'single']) chain[k] = () => chain
+      for (const k of ['insert', 'update', 'delete', 'upsert']) chain[k] = () => { st.writes++; return chain }
+      chain.then = (ok: (v: unknown) => unknown) => Promise.resolve(st.res[t] ?? { data: [], error: null }).then(ok)
+      return chain
+    },
+  }),
+}))
+vi.mock('@/lib/learner/plan-material-queries', () => ({ fetchPlanBooks: vi.fn(), fetchPlanCuratedSets: vi.fn(), fetchPlanChapterSets: vi.fn() }))
+
+import { fetchStudyPlanItems, fetchStudyPlanSnapshot, removePlanItem, savePlanItem } from '../plan-actions'
+
+const ROW = (id: string, material_type: string, material_id: string) => ({ id, material_type, material_id, modules: ['read'], chapters: [], weekdays: [1] })
+const ok = (data: unknown): Res => ({ data, error: null })
+const err: Res = { data: null, error: { message: 'boom' } }
+
+beforeEach(() => {
+  st.user = 'user-a'
+  st.authErr = null
+  st.calls = []
+  st.writes = 0
+  st.res = {
+    study_plan_items: ok([ROW('p1', 'book', 'b1'), ROW('p2', 'word_set', 's1')]),
+    library_books: ok([{ id: 'b1', title: 'Book One', author: 'A', book_v_level: 3, cover_image_url: null, chapter_count: 12 }]),
+    shared_word_sets: ok([{ id: 's1', title: 'Set One', slug: 'x', category: null, word_count: 20, cover_emoji: null }]),
+    shared_words: ok([{ set_id: 's1', chapter: 3 }]),
+  }
+})
+
+describe('fetchStudyPlanSnapshot', () => {
+  it('정상 — items · failed false · viewerId = 읽은 getUser', async () => {
+    const s = await fetchStudyPlanSnapshot()
+    expect(s.failed).toBe(false)
+    expect(s.viewerId).toBe('user-a')
+    expect(s.items.map((i) => [i.id, i.title, i.chapterCount])).toEqual([['p1', 'Book One', 12], ['p2', 'Set One', 3]])
+  })
+  it('진짜 빈 계획 — items [] · failed false(실패와 구분)', async () => {
+    st.res.study_plan_items = ok([])
+    expect(await fetchStudyPlanSnapshot()).toEqual({ items: [], failed: false, viewerId: 'user-a' })
+  })
+  it('비로그인 — 빈 · 실패 아님 · viewer null', async () => {
+    st.user = null
+    expect(await fetchStudyPlanSnapshot()).toEqual({ items: [], failed: false, viewerId: null })
+  })
+  it('주 목록 오류 · 배열 아님 → failed', async () => {
+    st.res.study_plan_items = err
+    expect(await fetchStudyPlanSnapshot()).toMatchObject({ items: [], failed: true, viewerId: 'user-a' })
+    st.res.study_plan_items = ok({ not: 'array' })
+    expect((await fetchStudyPlanSnapshot()).failed).toBe(true)
+  })
+  it('형식이 어긋난 행 → failed(남은 행만 「전체」로 부르지 않는다)', async () => {
+    st.res.study_plan_items = ok([ROW('p1', 'book', 'b1'), { id: 'bad', material_type: 'video', material_id: 'z' }, null])
+    const s = await fetchStudyPlanSnapshot()
+    expect(s.failed).toBe(true)
+    expect(s.items.map((i) => i.id)).toEqual(['p1'])
+  })
+  it('자료 메타 조회 오류 → failed(「삭제된 자료」로 완전한 계획처럼 만들지 않는다)', async () => {
+    st.res.library_books = err
+    expect((await fetchStudyPlanSnapshot()).failed).toBe(true)
+  })
+  it('세트 챕터 조회 오류 → failed(0챕터로 만들지 않는다)', async () => {
+    st.res.shared_words = err
+    expect((await fetchStudyPlanSnapshot()).failed).toBe(true)
+  })
+  it('조회는 성공했지만 자료가 없음 → 실패는 아니고 보수적 표기 「(자료를 확인할 수 없음)」', async () => {
+    st.res.library_books = ok([])
+    const s = await fetchStudyPlanSnapshot()
+    expect(s.failed).toBe(false)
+    expect(s.items[0].title).toBe('(자료를 확인할 수 없음)')
+  })
+  it('쓰기 0 · 조회 표는 기존과 같다(목록 1 · 메타 · 챕터)', async () => {
+    await fetchStudyPlanSnapshot()
+    expect(st.writes).toBe(0)
+    expect(st.calls).toEqual(['study_plan_items', 'library_books', 'shared_word_sets', 'shared_words'])
+  })
+})
+
+describe('리뷰 r2 반례', () => {
+  it('[P2] 인증 조회 오류 → failed(「비로그인 · 빈 계획」이 아니다) · 세션 없음만 비로그인', async () => {
+    st.user = null
+    st.authErr = { name: 'AuthRetryableFetchError', message: 'fetch failed' }
+    expect(await fetchStudyPlanSnapshot()).toEqual({ items: [], failed: true, viewerId: null })
+    st.authErr = { name: 'AuthSessionMissingError', message: 'Auth session missing!' }
+    expect(await fetchStudyPlanSnapshot()).toEqual({ items: [], failed: false, viewerId: null })
+  })
+  it('[P2] modules · weekdays · chapters 가 배열이 아니거나 원소 형식이 다르면 → failed · 예외 없음', async () => {
+    for (const bad of [{ modules: 'read' }, { weekdays: '1,2' }, { chapters: [1, '2'] }, { modules: [1] }]) {
+      st.res.study_plan_items = ok([{ ...ROW('p1', 'book', 'b1'), ...bad }])
+      const s = await fetchStudyPlanSnapshot()
+      expect(s.failed).toBe(true)
+      expect(s.items).toEqual([])
+    }
+  })
+  it('[P2] 비배열 메타 → 조인 전에 failed 로 반환 · 예외 없음', async () => {
+    st.res.library_books = ok({ id: 'b1' })
+    await expect(fetchStudyPlanSnapshot()).resolves.toEqual({ items: [], failed: true, viewerId: 'user-a' })
+    st.res.library_books = ok([{ id: 'b1', title: 'Book One' }])
+    st.res.shared_words = ok({ set_id: 's1' })
+    await expect(fetchStudyPlanSnapshot()).resolves.toEqual({ items: [], failed: true, viewerId: 'user-a' })
+  })
+  it('[P2] 목록 data:null · error:null → 빈 계획이 아니라 failed', async () => {
+    st.res.study_plan_items = { data: null, error: null }
+    expect(await fetchStudyPlanSnapshot()).toEqual({ items: [], failed: true, viewerId: 'user-a' })
+  })
+})
+
+describe('fetchStudyPlanItems — 기존 배열 wrapper 호환(hub-lab · manage-overview)', () => {
+  it('정상은 같은 배열', async () => {
+    const a = await fetchStudyPlanItems()
+    expect(a.map((i) => i.id)).toEqual(['p1', 'p2'])
+  })
+  it('자료가 없으면 기존 표기 「(삭제된 자료)」 그대로 · 목록 오류는 기존처럼 빈 배열', async () => {
+    st.res.library_books = ok([])
+    expect((await fetchStudyPlanItems())[0].title).toBe('(삭제된 자료)')
+    st.res.study_plan_items = err
+    expect(await fetchStudyPlanItems()).toEqual([])
+  })
+  it('조회 표 · 횟수는 facade 와 같다(한 번 호출에 목록 1)', async () => {
+    await fetchStudyPlanItems()
+    expect(st.calls.filter((c) => c === 'study_plan_items')).toHaveLength(1)
+  })
+})
+
+describe('expectedOwner — 화면 viewer 와 서버 getUser 가 다르면 쓰기 전에 거부(T-0240 r3 P1)', () => {
+  it('저장: 서버가 B 인데 expected A → ok:false · INSERT/UPDATE 0', async () => {
+    st.user = 'user-b'
+    const r = await savePlanItem({ materialType: 'book', materialId: 'b1', modules: ['read'], expectedOwner: 'user-a' })
+    expect(r.ok).toBe(false)
+    expect(r.error).toContain('계정이 바뀌어')
+    const u = await savePlanItem({ id: 'p1', materialType: 'book', materialId: 'b1', modules: ['read'], expectedOwner: 'user-a' })
+    expect(u.ok).toBe(false)
+    expect(st.writes).toBe(0)
+    expect(st.calls).toEqual([])
+  })
+  it('삭제: 서버가 B 인데 expected A → ok:false · DELETE 0', async () => {
+    st.user = 'user-b'
+    expect((await removePlanItem('p1', 'user-a')).ok).toBe(false)
+    expect(st.writes).toBe(0)
+  })
+  it('같으면 기존대로 쓴다 · 넘기지 않으면 기존과 같다', async () => {
+    st.res.study_plan_items = ok({ id: 'new-1' })
+    await savePlanItem({ materialType: 'book', materialId: 'b1', modules: ['read'], expectedOwner: 'user-a' })
+    expect(st.writes).toBe(1)
+    await savePlanItem({ materialType: 'book', materialId: 'b1', modules: ['read'] })
+    expect(st.writes).toBe(2)
+    await removePlanItem('p1', 'user-a')
+    expect(st.writes).toBe(3)
+  })
+})
+
+describe('리뷰 r7 — 배열 열은 명시적 null 또는 정상 배열만', () => {
+  it('열이 빠진(undefined) 행 → failed · 명시적 null 은 정상(미정)', async () => {
+    for (const k of ['modules', 'chapters', 'weekdays'] as const) {
+      const row: Record<string, unknown> = { ...ROW('p1', 'book', 'b1') }
+      delete row[k]
+      st.res.study_plan_items = ok([row])
+      expect((await fetchStudyPlanSnapshot()).failed).toBe(true)
+    }
+    st.res.study_plan_items = ok([{ ...ROW('p1', 'book', 'b1'), modules: null, chapters: null, weekdays: null }])
+    const s = await fetchStudyPlanSnapshot()
+    expect(s.failed).toBe(false)
+    expect(s.items[0]).toMatchObject({ modules: [], chapters: [], weekdays: [] })
+  })
+  it('다른 타입(숫자 · 객체) → failed', async () => {
+    for (const bad of [{ modules: 3 }, { weekdays: { 0: 1 } }]) {
+      st.res.study_plan_items = ok([{ ...ROW('p1', 'book', 'b1'), ...bad }])
+      expect((await fetchStudyPlanSnapshot()).failed).toBe(true)
+    }
+  })
+})
+
+describe('리뷰 r9 — 메타 · 챕터 응답의 data:null(오류 없음)도 실패', () => {
+  it('메타 data:null · error:null → failed(삭제된 자료 · 완전한 계획처럼 만들지 않는다)', async () => {
+    st.res.library_books = { data: null, error: null }
+    expect(await fetchStudyPlanSnapshot()).toEqual({ items: [], failed: true, viewerId: 'user-a' })
+  })
+  it('세트 챕터 data:null · error:null → failed(0챕터로 만들지 않는다)', async () => {
+    st.res.shared_words = { data: null, error: null }
+    expect(await fetchStudyPlanSnapshot()).toEqual({ items: [], failed: true, viewerId: 'user-a' })
+  })
+  it('대조 — 정상 빈 배열 메타 · 챕터는 실패가 아니다', async () => {
+    st.res.shared_words = ok([])
+    const s = await fetchStudyPlanSnapshot()
+    expect(s.failed).toBe(false)
+    expect(s.items.find((i) => i.id === 'p2')?.chapterCount).toBe(0)
+  })
+})

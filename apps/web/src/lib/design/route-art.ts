@@ -61,6 +61,8 @@ const NO_BANNER = [
   // 해설 극장은 제 상단 막대를 갖는 작업 공간이라 머리띠가 얹히면 화면이 두 번 시작한다
   /^\/csat\/item\//,
   /^\/text\/[^/]+/, /^\/library\/books\/[^/]+/, /^\/my\/books\/[^/]+/, /^\/settings/, /^\/diagnostic\/[^/]+/,
+  // 이야기 판본 독서(LCP Story S5)도 읽기 본문이다 — 도서 한 권 · /text/[id] 와 같은 규칙. 서가(/library/stories)는 머리띠를 받는다.
+  /^\/library\/stories\/[^/]+/,
 ]
 /**
  * `slot` — 셸(main)은 서가 하위를 건너뛴다: 서가는 구역 탭 **아래**에 머리띠가 와야 참조 순서(구역 내비 → 머리)와 같아서

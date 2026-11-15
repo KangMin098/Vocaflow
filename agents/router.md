@@ -14,14 +14,14 @@
 | LLM 판단 드레인(청크 채우기) | **Claude Code** | 전용 서브에이전트·슬래시 명령이 있다. Codex 도 같은 3단 구조로 할 수 있다(AGENTS.md) |
 | 명세가 분명한 구현 · 테스트 주도 디버깅 | **Codex** (`codex exec`) | 실패 로그 → 원인 추적 루프가 짧다 |
 | 회귀 테스트 작성 | **Codex** (`test-writer` 에이전트) | `.codex/agents/test-writer.toml` |
-| 교차 검토(사용자 요청 시만) | **쓴 쪽의 반대** | 다른 모델이 다른 종류의 오류를 잡는다 |
+| 교차 검토(실제 필요·명시적 요청·계약 시만) | **쓴 쪽의 반대** | 다른 모델이 다른 종류의 오류를 잡는다 |
 
 - 요청 → 현재 목적과 관련성 판단 → 현재 브랜치 유지/기존 공간 재사용/독립 분리 → 분석·설계·구현 → 영향 범위 검증 → 통합 → 필요한 화면 확인. 역할은 강제 배타 배정이 아니며 한 세션이 끝낼 수 있는 일반 작업은 직접 끝낸다.
 - **자동 Codex 리뷰는 없다**(2026-10-10 사용자 결정 · RP-2026-10-10.2). Stop 훅·커밋·task submit·DB 게이트·PR·머지 어디서도 Codex 리뷰를 자동으로 부르지 않는다.
-- 교차 검토는 **사용자가 요청할 때만** 한다 — Claude 가 쓴 기능은 `node agents/scripts/review.mjs`(목적 대조 · 정본 [goal-review.md](./goal-review.md)), Codex 가 쓴 기능은 Claude 세션의 `/code-review`. Codex 실패 시 재시도를 반복하지 않는다.
-- 일반 개발/원격 납품은 재승인 없이 진행하고 DB 배포·데이터 삭제·중대 보안 변경은 정본 `agents/policies/PR_AUTOMATION_POLICY.md`를 따른다. main 병합은 범위 계약을 받은 `safe-merge.mjs`만 사용하며 `.env`는 출력하지 않는다.
-- 실행 모드는 중앙 `Vocaflow-AI-Control/config/dev-mode.json`을 먼저 읽는다. LOCAL_FAST는 로컬 검증·커밋·`bin/local-integrate.mjs --task <ID>`이며 일반 push·PR·Actions 조회/CI 대기·원격 병합은 하지 않는다. 원격 백업은 중앙 `bin/backup.mjs`만 사용한다. PR/CI·safe-merge 절차는 명시적 GITHUB 모드에 적용한다.
-- 2026-10-20 개발 자동화 지시는 공식 원격 납품을 상시 승인한다. 중앙 LOCAL_FAST의 공식 통합 경로를 재사용하며 이 저장소의 납품 단계에 VFC_DEV_MODE=GITHUB를 명시한다. 구현 워커의 격리와 호스트 납품 역할은 유지하고 호스트 실행을 현재 샌드박스의 우회 경로로 사용하지 않는다.
+- 교차 검토는 **실제 필요하거나 명시적 요청·독립 검토 계약이 있을 때만** 선택한다 — Claude가 쓴 기능은 `node agents/scripts/review.mjs`(정본 [goal-review.md](./goal-review.md)), Codex가 쓴 기능은 Claude 세션의 `/code-review`. 일반 작업의 자동 선행 조건으로 만들지 않으며 실패 시 재시도를 반복하지 않는다.
+- 일반 개발은 재승인 없이 로컬 통합까지 진행하고 DB 구조·실데이터 변경 적용·삭제·중대 보안 변경은 `agents/policies/PR_AUTOMATION_POLICY.md`의 승인 통제를 따른다. 원격 main 병합만 범위 계약을 받은 `safe-merge.mjs`를 사용하며 `.env`는 출력하지 않는다.
+- 실행 모드는 중앙 `Vocaflow-AI-Control/config/dev-mode.json`을 먼저 읽는다. LOCAL_FAST 일반 개발은 TASK 등록 없이 [WORKTREE §2](../docs/WORKTREE.md)의 기존 잠금·검증 SHA 병합을 사용한다. 등록 작업만 `bin/local-integrate.mjs --task <ID>`를 사용한다. 단계별 TASK·PR·새 공간·인계를 만들지 않는다.
+- 원격은 기존 백업과 일일 동기화 실행기 `bin/main-sync.mjs`로 분리한다. 미반영 변경만 하루 PR 하나로 모아 `VFC_DEV_MODE=GITHUB`의 필수 CI·safe-merge를 거친다. 원격 실패로 독립적인 로컬 개발을 중단하지 않는다. 호스트 실행을 강제 보안 통제의 우회 경로로 사용하지 않는다.
 
 ## 2. 같은 워크트리를 동시에 쓰지 않는다
 

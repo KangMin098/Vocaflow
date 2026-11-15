@@ -89,6 +89,13 @@ const PUBLIC: ReadonlyArray<{ route: string; why: string }> = [
   { route: 'csat/authored/supply', why: '창작 자료 공급 요청 — 로그인 확인은 라우트 안(learnerContext), 수요는 서버가 계획 보기로 재계산 · 수요/공급/주문은 학습자 세션 정의자 RPC 가 소유 · 자격 · 사람 결정 · 노출을 재판정' },
   { route: 'csat/authored/[id]/attempt', why: '창작 자료 풀이 — 로그인 확인은 라우트 안(learnerContext), 납품된 자료만 · 채점은 DB Gold · 결속 판정은 DB' },
   { route: 'csat/diagnosis/map/plan', why: '학습 지도 — 본인 학습 묶음 계획 버전 조회 · 저장. 로그인 확인은 라우트 안(learnerContext), userId 는 세션에서만 · 가용량은 서버 재계산 · 알 수 없는 필드 거절' },
+  { route: 'csat/diagnosis/map/goal/final-assessment', why: '학습 지도 — 본인 최신 목표 버전의 최종 평가 결속. 로그인 확인은 라우트 안(learnerContext), userId 는 세션에서만 · 목표 변경 충돌은 409' },
+  // 교재공장 DCP 학습자 경로 — learnerContext() 로 401, 읽기·쓰기는 학습자 세션 클라이언트(createClient)의
+  // 정의자 RPC 가 auth.uid() 로 소유 Workspace 를 정한다. 본문에서 userId · 정오 · 승인 값은 받지 않는다.
+  { route: 'csat/factory', why: '공장 DCP 납품 목록 — 로그인 확인은 라우트 안(learnerContext), 학습자 세션 RPC 가 auth.uid() 로 본인 Workspace 만' },
+  { route: 'csat/factory/request', why: '공장 연습 자료 요청 — 로그인 확인은 라우트 안(learnerContext) · 같은 출처 · 수요는 서버가 저장 계획으로 재계산 · 쓰기는 학습자 세션 RPC' },
+  { route: 'csat/factory/[deliveryId]/attempt', why: '공장 DCP 풀이 제출 — 같은 출처 · 로그인 확인은 라우트 안(learnerContext) · 채점은 DB grade_dcp_item · 학습자 세션 RPC' },
+  { route: 'csat/factory/[deliveryId]/lesson', why: '공장 요지 연습 진행 · 자기 설명 저장 — 로그인 확인은 라우트 안(learnerContext) · POST 는 같은 출처 · 학습자 세션 RPC' },
   { route: 'csat/diagnosis/map/tasks/[id]', why: '학습 지도 — 본인 과제 완료 체크. 로그인 확인은 라우트 안(learnerContext), 과제 id 는 형식 검증 + FK' },
 ]
 

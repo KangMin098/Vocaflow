@@ -14,7 +14,7 @@
 // 라벨은 여기서도 짓지 않는다 — `MATERIAL_LABEL`(자료 유형 이름의 단일 출처)에서 가져온다.
 // 라우트 URL 은 고정이다(딥링크·북마크·e2e `12-navigation` 이 이 주소를 쓴다).
 
-import { BookOpen, FileText, GraduationCap, Layers, type LucideIcon } from 'lucide-react'
+import { BookOpen, BookOpenText, FileText, GraduationCap, Layers, type LucideIcon } from 'lucide-react'
 
 import { MATERIAL_LABEL } from '@/lib/learner/plan-activities'
 
@@ -27,6 +27,14 @@ import { MATERIAL_LABEL } from '@/lib/learner/plan-activities'
  * 없는 유형을 그 표에 끼워 넣으면 Plan 이 **저장할 수 없는 유형**을 팔게 된다.
  */
 export const TEXTBOOK_LABEL = 'Textbooks'
+
+/**
+ * 이야기 판본 면의 이름(LCP Story · docs/LCP_STORY.md) — 이 파일이 단일 출처.
+ *
+ * ⚠️ `MATERIAL_LABEL` 이 아닌 이유는 교재와 같다: 이야기 판본은 `study_plan_items.material_type` CHECK 의 유형이 아니라
+ * 격리 스키마 `story` 의 발행본이다. 그 표에 끼워 넣으면 Plan 이 저장할 수 없는 유형을 팔게 된다.
+ */
+export const STORY_LABEL = 'Stories'
 
 export interface LibraryTab {
   /** 학습자가 읽는 이름 — MATERIAL_LABEL 파생 */
@@ -58,6 +66,13 @@ export const LIBRARY_TABS: readonly LibraryTab[] = [
     href: '/library/vocab',
     icon: Layers,
     says: '발행 단어장',
+  },
+  {
+    // 원본 Books(원문 도서)와 별개 라인 — 작품 단위로 고르는 각색 판본. 「원문 완독」이 아니다.
+    label: STORY_LABEL,
+    href: '/library/stories',
+    icon: BookOpenText,
+    says: '작품 단위로 고르는 이야기 판본',
   },
   {
     // ⚠️ 반드시 **끝**에 둔다 — `DiscoveryFooter` 가 이 배열을 인덱스로 참조한다.

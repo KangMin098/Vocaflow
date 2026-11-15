@@ -5,6 +5,8 @@
 import { Clock, RefreshCw } from 'lucide-react'
 import Link from 'next/link'
 
+import { NEXT_READING_CHOICE } from '@/lib/learner/next-reading-choice'
+
 import { NextActionCard } from '@/components/recommend/NextActionCard'
 import type { ContentRef } from '@/lib/content/content-ref'
 import type { RecommendedAction } from '@/lib/recommend/types'
@@ -31,8 +33,9 @@ export function CompletionState({
 }: CompletionStateProps) {
   const totalMinutes = Math.round(stats.durationSeconds / 60)
 
-  // 내일 다시 만날 카드 = again + hard 평가 받은 카드
-  const tomorrowCount = stats.ratingCounts.again + stats.ratingCounts.hard
+  // 이번 세션에 「몰라요 · 어려워요」로 자기평가한 카드 수(again + hard). 확정된 복습 일정이 아니다 —
+  // SessionStats 에는 다음 복습 시각이 없으므로 「내일 오전」 같은 일정을 약속하지 않는다(T-0260).
+  const hardOrAgainCount = stats.ratingCounts.again + stats.ratingCounts.hard
 
   // 게임 세션 점수 적재 (scores) — 완료 화면 1회. learning_records(단어별)와 별개.
   const totalRated =
@@ -77,7 +80,7 @@ export function CompletionState({
         <div className="mb-8 grid grid-cols-3 gap-3">
           <CompletionStat value={stats.totalCards} label="학습한 단어" />
           <CompletionStat value={`${totalMinutes}m`} label="학습 시간" />
-          <CompletionStat value={tomorrowCount} label="내일 다시" />
+          <CompletionStat value={hardOrAgainCount} label="몰라요·어려워요" />
         </div>
 
         {/* 어려웠던 단어 */}
@@ -119,21 +122,26 @@ export function CompletionState({
           </div>
         )}
 
-        {/* 다음 만남 */}
+        {/* 이번 자기평가 — 일정이 아니라 평가 결과 */}
         <div className="mb-8 text-left">
-          <SectionTitle>다음 만남</SectionTitle>
+          <SectionTitle>이번 자기평가</SectionTitle>
           <div className="rounded-[var(--r-lg)] border border-[rgba(59,130,246,0.2)] bg-gradient-to-br from-[var(--p-light)] to-[var(--bg2)] p-5">
             <div className="flex items-center gap-3">
               <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[var(--p)] text-[var(--on-p)]">
                 <Clock size={20} strokeWidth={2} aria-hidden="true" />
               </span>
               <p className="font-editorial text-[16px] leading-relaxed text-[var(--t1)] [word-break:keep-all]">
-                <strong className="font-display font-[700] not-italic text-[var(--p)]">
-                  {tomorrowCount}개
-                </strong>
-                의 단어가 내일 오전에 다시 만나러 와요.
-                <br />
-                기억이 안정될 때까지 함께해요.
+                {hardOrAgainCount > 0 ? (
+                  <>
+                    이번에{' '}
+                    <strong className="font-display font-[700] not-italic text-[var(--p)]">{hardOrAgainCount}개</strong>
+                    를 「몰라요」·「어려워요」로 평가했어요.
+                    <br />
+                    다음 복습 시점은 평가에 따라 정해져요.
+                  </>
+                ) : (
+                  <>이번에는 「몰라요」·「어려워요」로 평가한 카드가 없어요.</>
+                )}
               </p>
             </div>
           </div>
@@ -167,6 +175,17 @@ export function CompletionState({
           >
             <span>Workspace 돌아가기</span>
             <span aria-hidden="true">→</span>
+          </Link>
+        </div>
+
+        {/* R0 — 복습 뒤 다음에 읽을 글을 스스로 고르는 보조 선택(기사 연습 완료와 같은 서가 · 같은 문구). 추천 카드와 별개 · 처방이 아니다. */}
+        <div className="mt-3 flex justify-center">
+          <Link
+            href={NEXT_READING_CHOICE.href}
+            data-testid="flashcard-done-next-reading"
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-[var(--t2)] no-underline transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          >
+            {NEXT_READING_CHOICE.label}
           </Link>
         </div>
       </div>

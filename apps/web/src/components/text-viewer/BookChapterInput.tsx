@@ -393,7 +393,7 @@ function RailArrow({
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
-      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-bd bg-bg text-t2 shadow-xs transition-colors duration-normal hover:border-[var(--p)] hover:text-[var(--p)] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-bd disabled:hover:text-t2"
+      className="relative after:absolute after:-inset-[4px] after:content-[''] flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-bd bg-bg text-t2 shadow-xs transition-colors duration-normal hover:border-[var(--p)] hover:text-[var(--p)] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-bd disabled:hover:text-t2"
     >
       {dir === 'left' ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
     </button>
@@ -420,7 +420,7 @@ function IconBtn({
       disabled={disabled}
       aria-label={label}
       title={label}
-      className={`flex h-8 w-8 items-center justify-center rounded-lg text-t3 transition-colors duration-normal disabled:cursor-not-allowed disabled:opacity-30 ${
+      className={`relative after:absolute after:-inset-[6px] after:content-[''] flex h-8 w-8 items-center justify-center rounded-lg text-t3 transition-colors duration-normal disabled:cursor-not-allowed disabled:opacity-30 ${
         danger
           ? 'hover:bg-[var(--error-light)] hover:text-[var(--error-ink)]'
           : 'hover:bg-bg3 hover:text-t1'

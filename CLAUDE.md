@@ -28,6 +28,7 @@
 ## Codex 와 함께 일할 때
 
 - 분담·폴백 규칙: `agents/router.md`. 공통 브랜치 판단은 `AGENTS.md`와 `docs/WORKTREE.md`를 따르며 AI 교대·작업 단계 변경만으로 공간을 새로 만들지 않는다.
-- 자동 Codex 리뷰는 없다(2026-10-10 사용자 결정). Stop 훅·DB 게이트·오케스트레이터 모두 Codex 를 부르지 않는다. `review.mjs` · `codex review` 는 사용자가 요청할 때만 쓴다. 계획·머지 전에 Codex 리뷰를 돌리지 않는다.
+- 자동 Codex 리뷰는 없다(2026-10-10 사용자 결정). Stop 훅·DB 게이트·오케스트레이터 모두 Codex를 자동 호출하지 않는다. `review.mjs` · `codex review`는 실제 필요하거나 명시적 요청·독립 검토 계약이 있을 때만 선택한다. 일반 작업의 계획·커밋·통합에 추가 AI 리뷰를 강제하지 않는다.
+- **Codex 협업이 필요하면 AI-Control 에 등록해서 진행한다**(2026-10-23 사용자 지시). 일회성 `codex exec` 로 끝내지 않는다. 순서: 겹치는 기존 TASK 확인(`vfc task list`) → `vfc owner add` · `bind-worktree`(작업 owner 와 Codex owner 를 따로, Codex 는 main 기준 리뷰 worktree) → `vfc task check` → `task add` → Codex 실행 → `task start --pid <codex pid>` → 결과 커밋 → `task evidence` · `submit` → 다른 owner 가 `complete`/`reject`. Codex CLI 는 PATH 에 없다: `~/AppData/Local/OpenAI/Codex/bin/<hash>/codex.exe exec -s read-only|workspace-write`. 쓰기는 TASK `allowed_paths` 안만.
 - 사용량 한도 메시지를 보면 즉시 `node agents/scripts/handoff.mjs claude codex` → 출력된 시작 명령을 사용자에게 전달.
 - 세션 시작 훅이 `.agent-handoff/latest.md` 요약을 주입하면, 첫 동작은 그 파일의 **수용 기준 재확인**이다.

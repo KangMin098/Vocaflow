@@ -92,7 +92,7 @@ describe('칠하기 규칙 (A)', () => {
     expect(html).toContain('retrieval')
     expect(html).toContain('학년별 어휘 커버리지')
     expect(html).toContain('적정')
-    expect(html).toContain('처음 만나는 낱말')
+    expect(html).toContain('어휘 기준 밖 낱말')
   })
 })
 

@@ -65,8 +65,8 @@ export default async function Image({ params }: { params: { payload: string } })
   const headline = !profile
     ? '이 지문, 우리 반에 맞을까?'
     : profile.fitLevel !== null
-      ? `${LEVEL_LABEL[profile.fitLevel]} 수준이면 편하게 읽혀요`
-      : '고등 교육과정을 넘는 지문이에요'
+      ? `어휘 기준 ${LEVEL_LABEL[profile.fitLevel]} 수준 추정`
+      : '기준에 닿는 학년을 확인하지 못했어요'
 
   // Satori 기본 폰트는 라틴 전용이라 한글이 빈칸으로 나온다. 폰트를 명시 주입한다.
   //
@@ -80,7 +80,7 @@ export default async function Image({ params }: { params: { payload: string } })
       headline,
       '지문 난이도 진단',
       '교과서 지문이든 수업 프린트든 붙여넣으면 됩니다. 가입도, 설치도 필요 없어요.',
-      '기준 = 편하게 읽히는 구간',
+      '기준 = 어휘 커버리지 기준선',
       '로그인 없이, 저장하지 않고',
       ...Object.values(LEVEL_LABEL),
     ].join(''),
@@ -215,7 +215,7 @@ export default async function Image({ params }: { params: { payload: string } })
           }}
         >
           {profile
-            ? `기준 ${(BAND_THRESHOLDS.growth * 100).toFixed(0)}% = 편하게 읽히는 구간 · Hu & Nation (2000)`
+            ? `기준 ${(BAND_THRESHOLDS.growth * 100).toFixed(0)}% = 어휘 커버리지 기준선 · Hu & Nation (2000)`
             : 'vocaflow.app/fit — 로그인 없이, 저장하지 않고'}
         </div>
       </div>

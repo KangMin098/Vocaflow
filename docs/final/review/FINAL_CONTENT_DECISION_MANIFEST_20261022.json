@@ -1,0 +1,4233 @@
+{
+  "schema": "final-content-review-snapshot/1",
+  "observed_date_kst": "2026-10-22",
+  "source_main": "676ab71078cab0e4cd67fbd5b909022925566070",
+  "origin_main": "f573ef8e5d1671d2ba9f42f04abfe695fe49a75e",
+  "scope": "18 actually imported files, 17 TASKs, each exact file revision and item role; not an approval",
+  "counts": {
+    "files": 18,
+    "tasks": 17,
+    "items": 155,
+    "assessment": 120
+  },
+  "A": {
+    "state": "APPLIED_VERIFIED_READ_ONLY",
+    "migration": "20261021175340",
+    "server_statement_count": 1,
+    "server_statement_sha256": "e84a960723766efc6c798ae09307d8a9e776e46b4d3e7d6f937966a54b312d8d",
+    "original_schema_sha256": "dfb29f2dc3c3c0ecf516bdf47efa1d50f2f203ef7d399a60f3072d57c93ac229",
+    "scope": "Schema/policy functions and two rationale strings applied by separately recorded direct approval; content approvals and actual supply not included"
+  },
+  "db_observation": {
+    "at": "2026-10-21T18:21:08.26823Z",
+    "authored_items": 0,
+    "human_decisions": 0,
+    "human_revocations": 0,
+    "ai_decisions": 0,
+    "qualifications": 0,
+    "release_approvals": 0,
+    "deliveries": 0,
+    "g2_bindings": 0,
+    "factory_practice_attempts": 0
+  },
+  "human_decision_scope": {
+    "B": "R5 primary v3 plus cycle supplement v2: select exact assessment item IDs and file hashes",
+    "B2": "Other 16 TASK files: select exact assessment item IDs and file hashes",
+    "C": "Every selected item including teaching/guided requires rights decision with explicit operations; independent assessment requires assess",
+    "release": "Separate public/assessment release scopes and explicit data-write/supply authorization; not implied by A or by this manifest",
+    "offline_human_review": "UNKNOWN; DB zero only proves no recorded decision",
+    "AI_review": "Not a human Gold or rights grant; no decisions written"
+  },
+  "hash_algorithm": "file_sha256: exact bytes. body/gold_js_canonical_sha256: UTF-8 JSON with object keys recursively sorted, array order preserved. NOT PostgreSQL jsonb revision/gold hashes. DB revision remains NOT_REGISTERED until actual registration.",
+  "decision_form": {
+    "file_sha256": "",
+    "item_ids": [],
+    "gold": {
+      "decision": "PENDING",
+      "reviewer": "",
+      "notes": ""
+    },
+    "rights": {
+      "decision": "PENDING",
+      "reviewer": "",
+      "basis": "",
+      "operations": []
+    },
+    "release": {
+      "decision": "PENDING",
+      "scopes": []
+    },
+    "approved_db_write_scope": "NONE"
+  },
+  "sets": [
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json",
+      "set_revision": "r5-central-meaning.v3",
+      "task": "r.central_meaning",
+      "task_key": "authored-central-meaning",
+      "format": "central_meaning",
+      "file_sha256": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846",
+      "byte_length": 34093,
+      "workspace_templates": [
+        "ws.central-meaning",
+        "ws.option-match"
+      ],
+      "raw_provenance": {
+        "author": "Claude Opus 5.5 (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다. 평가원 문항의 '형식'(요지·제목·주제 5지선다)만 따랐다.",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전(검수 패킷 docs/final/review/r5-authored-gold-packet.md)",
+        "rights": "pending — 사람 원저작 확인 전(같은 패킷)",
+        "revisionNote": "v2(2026-10-18): 정답 선택지 3건 바꿔 쓰기(ind-2 · transfer-2 · delayed-1, 맹검 C 단서 노출 지적) · transfer-1 약한 오답 2건 강화. 사람 Gold 전. · 오답 근거 감사 반영(guided-1 요지 과장 수정 · guided-2 오답① 유형 · 설명 문구 4건) · delayed-1 정답 재표현. · FI-005(#297): ind-1 5번 문장을 원논문(성인 · 응답 수 증가 · 독창성 차이 비유의)에 맞게 수정 — 아동 · 독창성 서술 제거. · v3 candidate 2026-10-21 Codex: independent AI reviews c0b6f657/fde8422c identified logical/distractor defects. Correct selected five items; remove untraced statistics, global legal assertion and invented office-worker experiment. ind-3 is an explicitly hypothetical baker example about selecting task-relevant memory, not a claim that detailed memory prevents recognition. Only these five are submitted for current AI review; all other items remain outside this review scope. · candidate R2: independent Claude/Codex both found stale GPS distractor explanation; remove it. Accept delayed sentence 3 as a restated claim and probe its explicitly hypothetical example at sentence 4. Remove baker no-longer presupposition and use example relation for its concrete case. Earlier candidate and both dissenting reviews preserved.",
+        "aiReviewScope": [
+          "r5-cm-guided-1",
+          "r5-cm-ind-2",
+          "r5-cm-ind-3",
+          "r5-cm-transfer-1",
+          "r5-cm-delayed-1"
+        ]
+      },
+      "counts": {
+        "items": 11,
+        "human_gold_required": 8
+      },
+      "items": [
+        {
+          "id": "r5-cm-teach-1",
+          "role": "model_explanation",
+          "review_pointer": "/items/0",
+          "body_pointer": "/items/0/body",
+          "gold_pointer": "/items/0/gold",
+          "body_js_canonical_sha256": "68dc5d1ed235452677d01eb49be550693b85c81f30093376b9764d9afda4e91c",
+          "gold_js_canonical_sha256": "d4d407199b4a89c8da07786a43e6dd2acc227d1a830dc64dcfdb01f917036198",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "r5-cm-guided-1",
+          "role": "guided_practice",
+          "review_pointer": "/items/1",
+          "body_pointer": "/items/1/body",
+          "gold_pointer": "/items/1/gold",
+          "body_js_canonical_sha256": "370d823765c1716e937633d3654249795c42255ae5f59bf3390ca333e6178963",
+          "gold_js_canonical_sha256": "fd779eb465c83a3eb78f2fed06fe708e9e3ea5bb80315921f78acdd28ac92a18",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "r5-cm-guided-2",
+          "role": "guided_practice",
+          "review_pointer": "/items/2",
+          "body_pointer": "/items/2/body",
+          "gold_pointer": "/items/2/gold",
+          "body_js_canonical_sha256": "3a1d66b154eaef7a465b3031137cd52b58431bd9ae59d49a00784ca4bbd0fce6",
+          "gold_js_canonical_sha256": "86b1eeecf7bb118dfdad916ad62717fe9f9ec232a2fc44864261337ffaa03702",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "r5-cm-ind-1",
+          "role": "independent_check",
+          "review_pointer": "/items/3",
+          "body_pointer": "/items/3/body",
+          "gold_pointer": "/items/3/gold",
+          "body_js_canonical_sha256": "66a0e4c6776869b433673871302db05e24e17841225d13139d6cb279131eb8f3",
+          "gold_js_canonical_sha256": "ee52e461aec4926c657d30a2ecc5d44b205855a0280464d079b12164fac89946",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "r5-cm-ind-2",
+          "role": "independent_check",
+          "review_pointer": "/items/4",
+          "body_pointer": "/items/4/body",
+          "gold_pointer": "/items/4/gold",
+          "body_js_canonical_sha256": "4c0bc5ffcbda9310620faf3049ed3ac0d02081bf466d7ae9777e22e950912227",
+          "gold_js_canonical_sha256": "548575cb5ad089792b5de6aa3f5a6bc6e4430cdc6f8cab84abbc1b8ed297bb87",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "r5-cm-transfer-1",
+          "role": "transfer",
+          "review_pointer": "/items/5",
+          "body_pointer": "/items/5/body",
+          "gold_pointer": "/items/5/gold",
+          "body_js_canonical_sha256": "b19885df5942c5a6521754e9d87f8040ff204be84f87f6385ff79075beddb67c",
+          "gold_js_canonical_sha256": "1a0800018bc69ca3455343b1f7c4351dbd5eb46c8d9fa83569055aecdf2a8662",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "r5-cm-transfer-2",
+          "role": "transfer",
+          "review_pointer": "/items/6",
+          "body_pointer": "/items/6/body",
+          "gold_pointer": "/items/6/gold",
+          "body_js_canonical_sha256": "a57379d8818abedbbd97021b7a859eb0c8071f147122d1f23550cb8504eca599",
+          "gold_js_canonical_sha256": "83bc5d57a47751e48b17149409badc819eb727e3477591f76d0059467f0f3b6c",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "r5-cm-delayed-1",
+          "role": "delayed_check",
+          "review_pointer": "/items/7",
+          "body_pointer": "/items/7/body",
+          "gold_pointer": "/items/7/gold",
+          "body_js_canonical_sha256": "d32a8abe60ddf231552a50397d054efe2ef768f889e863182d8555c9a120b666",
+          "gold_js_canonical_sha256": "710d9a7a564e895ea772a844af41714c44199d14885996970e35689011a5d378",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "r5-cm-delayed-2",
+          "role": "delayed_check",
+          "review_pointer": "/items/8",
+          "body_pointer": "/items/8/body",
+          "gold_pointer": "/items/8/gold",
+          "body_js_canonical_sha256": "6a685365cefb0844c8ffae2ea84f33e0747687d2a08733b668e667295631f31e",
+          "gold_js_canonical_sha256": "6cd2bcbb61ad0fd9e5bb84b6f0e56aca678bc0fd5dd580b963b1ec49375b1ba5",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "r5-cm-ind-3",
+          "role": "independent_check",
+          "review_pointer": "/items/9",
+          "body_pointer": "/items/9/body",
+          "gold_pointer": "/items/9/gold",
+          "body_js_canonical_sha256": "c542bcb6cce123783711694baf5bd27f213c6271f87cd484fc6c4df255dca390",
+          "gold_js_canonical_sha256": "5a313b22ec511ea616e95b2d81152b9e9c94c22e5e9ee11ce84f90e7751cc593",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "r5-cm-ind-4",
+          "role": "independent_check",
+          "review_pointer": "/items/10",
+          "body_pointer": "/items/10/body",
+          "gold_pointer": "/items/10/gold",
+          "body_js_canonical_sha256": "40ad4c5e7d5d6a243912410279a4c048dce656c545093658e709b862936fb2fd",
+          "gold_js_canonical_sha256": "1964dbf57a9fed5c3ff1689e273c33f4601b86255215a38456b8b46f5d29d9f4",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        }
+      ],
+      "origin_main_file_sha256": "78ddc60e5f10dde35c6838b3df211f9a566ddd076bf15e6a7b8ee0b203505d2f",
+      "same_bytes_as_origin_main": false
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json",
+      "set_revision": "e-evidence-location.v1",
+      "task": "e.evidence_location",
+      "task_key": "authored-evidence-locate",
+      "format": "choice_evidence",
+      "file_sha256": "b98f5d11282528b90740ef78334afb6dc455045ca32768c518552b24140613fe",
+      "byte_length": 26066,
+      "workspace_templates": [
+        "ws.evidence-locate"
+      ],
+      "raw_provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전"
+      },
+      "counts": {
+        "items": 9,
+        "human_gold_required": 7
+      },
+      "items": [
+        {
+          "id": "ev-teach-1",
+          "role": "model_explanation",
+          "review_pointer": "/items/0",
+          "body_pointer": "/items/0/body",
+          "gold_pointer": "/items/0/gold",
+          "body_js_canonical_sha256": "c2fb6bc73ece97fa9c59d6d5090d9c215b84883757c989f2909d705fe1c76d23",
+          "gold_js_canonical_sha256": "804de1a43eceeac0d1a567096258c30f176219eb2ab01c32f229657695f0b5a4",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "ev-guided-1",
+          "role": "guided_practice",
+          "review_pointer": "/items/1",
+          "body_pointer": "/items/1/body",
+          "gold_pointer": "/items/1/gold",
+          "body_js_canonical_sha256": "82b615842294268e04610e529fb4689ee2d897330c722a561b43e914aeeca145",
+          "gold_js_canonical_sha256": "a9d19bd4e624a1503de7a41959b7c437d9499b865ba552d0802ef90592839ab2",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "ev-ind-1",
+          "role": "independent_check",
+          "review_pointer": "/items/2",
+          "body_pointer": "/items/2/body",
+          "gold_pointer": "/items/2/gold",
+          "body_js_canonical_sha256": "b6c104d368cd3c6082d74cad7c1023707805e28a65d14c1c99bb574e23e43d95",
+          "gold_js_canonical_sha256": "88c5004a129c9ce1e2a5e0b8c00ba34e822b9e4269fa21612d0f04ad890c5dd2",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "ev-ind-2",
+          "role": "independent_check",
+          "review_pointer": "/items/3",
+          "body_pointer": "/items/3/body",
+          "gold_pointer": "/items/3/gold",
+          "body_js_canonical_sha256": "82baf24518711af354a8f37f268bf4e6b1cae5b0e40d23c829a582177d280b1d",
+          "gold_js_canonical_sha256": "3a113cd0d6234c9abac6b7ad4ea176ace210daa51e82acca946fd54e9e798cbb",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "ev-transfer-1",
+          "role": "transfer",
+          "review_pointer": "/items/4",
+          "body_pointer": "/items/4/body",
+          "gold_pointer": "/items/4/gold",
+          "body_js_canonical_sha256": "9af9e748a3116184941e72f026bdb00d334bca97e6bf040b12588d01e9b6908c",
+          "gold_js_canonical_sha256": "eb79ecfdb184dda7c7a7db16534b6ef5e57231370306f09fd4ccd8130dc74dc6",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "ev-delayed-1",
+          "role": "delayed_check",
+          "review_pointer": "/items/5",
+          "body_pointer": "/items/5/body",
+          "gold_pointer": "/items/5/gold",
+          "body_js_canonical_sha256": "ff7fdbc8bc4a201440ed33b992586b34b3b3a162870c7cc0426406e120172301",
+          "gold_js_canonical_sha256": "29c5c8ef6a5009a316ce1303c6e46c4823ce43b45fc20ffd998714341e88ba5b",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "ev-ind-3",
+          "role": "independent_check",
+          "review_pointer": "/items/6",
+          "body_pointer": "/items/6/body",
+          "gold_pointer": "/items/6/gold",
+          "body_js_canonical_sha256": "26447f9413b12fbd72deab559b3eb2ddebbe6ede40800bdabf4ea7a2e00994f6",
+          "gold_js_canonical_sha256": "68c93c57c17996713751f25ac976e6bc9c82058dc8af79c5a6c43de5ebfc19b6",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "ev-ind-4",
+          "role": "independent_check",
+          "review_pointer": "/items/7",
+          "body_pointer": "/items/7/body",
+          "gold_pointer": "/items/7/gold",
+          "body_js_canonical_sha256": "60cc4f6de2e9ea7a9d5d3208879fb0d397c9fc5a1c4734ba6a8a0cd2d089eac8",
+          "gold_js_canonical_sha256": "3c175c50d501c32fda38127b9f5cf2f6136b7ce0f4c07dc2922da192fc98914e",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "ev-transfer-2",
+          "role": "transfer",
+          "review_pointer": "/items/8",
+          "body_pointer": "/items/8/body",
+          "gold_pointer": "/items/8/gold",
+          "body_js_canonical_sha256": "8eea3e7cd0009bb8a74c975e30dba92645cfb0de3b8c34be2d6b332d3fe22278",
+          "gold_js_canonical_sha256": "503d424a4d3c2fc778edb475a8b62eb936e4286e9f9d8692ab2c135aa21e9cec",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        }
+      ],
+      "origin_main_file_sha256": "b98f5d11282528b90740ef78334afb6dc455045ca32768c518552b24140613fe",
+      "same_bytes_as_origin_main": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-option-correspondence.v1.json",
+      "set_revision": "e-option-correspondence.v1",
+      "task": "e.option_correspondence",
+      "task_key": "authored-option-match",
+      "format": "option_correspondence",
+      "file_sha256": "09654111ee813850861249cfb142ce0ec887c36bd65ffd15294911ed5115ea0f",
+      "byte_length": 24163,
+      "workspace_templates": [
+        "ws.option-match"
+      ],
+      "raw_provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전"
+      },
+      "counts": {
+        "items": 9,
+        "human_gold_required": 7
+      },
+      "items": [
+        {
+          "id": "opt-teach-1",
+          "role": "model_explanation",
+          "review_pointer": "/items/0",
+          "body_pointer": "/items/0/body",
+          "gold_pointer": "/items/0/gold",
+          "body_js_canonical_sha256": "777fb69d27fc0354817c8105be4baaf0cbf21814d2cfac0445f35978fb73fa40",
+          "gold_js_canonical_sha256": "11d881ad01f562aa95caaa073344770fc906461646cf98e9d7bd699bd215539b",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "opt-guided-1",
+          "role": "guided_practice",
+          "review_pointer": "/items/1",
+          "body_pointer": "/items/1/body",
+          "gold_pointer": "/items/1/gold",
+          "body_js_canonical_sha256": "8898178eb9ec859f7d389501e8a1953bca4cc9b7169dee8dabb4232e9b3f9c74",
+          "gold_js_canonical_sha256": "1502a8b8aa028b018d323cb4ff35cbe358ad12a32796b553df64d972b7f531c1",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "opt-ind-1",
+          "role": "independent_check",
+          "review_pointer": "/items/2",
+          "body_pointer": "/items/2/body",
+          "gold_pointer": "/items/2/gold",
+          "body_js_canonical_sha256": "1bcc27f3074d1b31cb7e2424ed2764807918859fff3a2537fec85f4312d7b726",
+          "gold_js_canonical_sha256": "56322389fff3cd616e673fce43fa75b5ba196ac7efcf247f3d3673376a6b82ad",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "opt-ind-2",
+          "role": "independent_check",
+          "review_pointer": "/items/3",
+          "body_pointer": "/items/3/body",
+          "gold_pointer": "/items/3/gold",
+          "body_js_canonical_sha256": "1bd61f0804a5a1a16482f57306565522852ed37ea4809027689deaaa0aceb40e",
+          "gold_js_canonical_sha256": "9f2fc8d4dae90145a46626e3d6e7b83a5f90c15b7086485c70645e557045b466",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "opt-transfer-1",
+          "role": "transfer",
+          "review_pointer": "/items/4",
+          "body_pointer": "/items/4/body",
+          "gold_pointer": "/items/4/gold",
+          "body_js_canonical_sha256": "9f62df5a808954e3654499074f7e6d382928d4416744760b153e1b150910b627",
+          "gold_js_canonical_sha256": "6448ed3759105cc52ed2920e3c7e703a69ba7d3cc7469d056fd7fe440e81ea9f",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "opt-delayed-1",
+          "role": "delayed_check",
+          "review_pointer": "/items/5",
+          "body_pointer": "/items/5/body",
+          "gold_pointer": "/items/5/gold",
+          "body_js_canonical_sha256": "d98b3786bf41ab0a38b8d8150884557402766d84304b57a6503026da5ac812cb",
+          "gold_js_canonical_sha256": "223077b05200d8bee791c964e6c987b947b34db1a3a4da10350c360a87a7c226",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "opt-ind-3",
+          "role": "independent_check",
+          "review_pointer": "/items/6",
+          "body_pointer": "/items/6/body",
+          "gold_pointer": "/items/6/gold",
+          "body_js_canonical_sha256": "e375e22c81d6be0f9515eb1427787d70859be1439897563b4dbd2e774c584f1b",
+          "gold_js_canonical_sha256": "b643f655819b6583192dd0f97e4dcfd9e1ab508cf843484fc48ff4bbc354e7fb",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "opt-ind-4",
+          "role": "independent_check",
+          "review_pointer": "/items/7",
+          "body_pointer": "/items/7/body",
+          "gold_pointer": "/items/7/gold",
+          "body_js_canonical_sha256": "603ba7afa2763bdb48aed72580dc11e472423a92153faab49b129912e40ee3c2",
+          "gold_js_canonical_sha256": "31d773b8e44f237589b9dd3024f9b4bb0ee4c620444739c57345dd005ce95835",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "opt-transfer-2",
+          "role": "transfer",
+          "review_pointer": "/items/8",
+          "body_pointer": "/items/8/body",
+          "gold_pointer": "/items/8/gold",
+          "body_js_canonical_sha256": "608957e15a4cd550ecf77c10c1082922e66a776eabc72df63b1ca8b92545d61c",
+          "gold_js_canonical_sha256": "bd3c06720b1b03ab9a380c03cb610d3aa52850b99a6b94fd780ad785b72f2766",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        }
+      ],
+      "origin_main_file_sha256": "09654111ee813850861249cfb142ce0ec887c36bd65ffd15294911ed5115ea0f",
+      "same_bytes_as_origin_main": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-inference.v1.json",
+      "set_revision": "r-inference.v1",
+      "task": "r.inference",
+      "task_key": "authored-inference",
+      "format": "choice_evidence",
+      "file_sha256": "651ccbe064fbc5ba63feea4e2e3fa3d0522eb378649bffd03f3ffa27cda3902d",
+      "byte_length": 27025,
+      "workspace_templates": [
+        "ws.inference"
+      ],
+      "raw_provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전",
+        "revisionNote": "블라인드 검토 반영(2026-10-18): 정답 선지 바꿔 쓰기·길이 균형(guided-1·ind-1·ind-2·delayed-1) · ind-2 의존 축 매력 오답 · transfer-1 함의 추론형 재설계 · teach-1 비유 교체 · 밑줄 문장을 evidenceAlt 에 포함. 사람 Gold 전."
+      },
+      "counts": {
+        "items": 9,
+        "human_gold_required": 7
+      },
+      "items": [
+        {
+          "id": "inf-teach-1",
+          "role": "model_explanation",
+          "review_pointer": "/items/0",
+          "body_pointer": "/items/0/body",
+          "gold_pointer": "/items/0/gold",
+          "body_js_canonical_sha256": "6d76efd8f162abfff4564b07a7607b682c6918e6e815f713a3be57db7622562f",
+          "gold_js_canonical_sha256": "cfb77cafade8da9d9b616dc67cf04a8ad21eb719da93579436c4142d6b3235f9",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "inf-guided-1",
+          "role": "guided_practice",
+          "review_pointer": "/items/1",
+          "body_pointer": "/items/1/body",
+          "gold_pointer": "/items/1/gold",
+          "body_js_canonical_sha256": "6d14ab4fe1ca34d13bf12d42fc7608df7665c821423904b6a1fb16e4b3095cb0",
+          "gold_js_canonical_sha256": "c180910cf9bf2185af60aa46ce4ef47485d9165c2bd4ca7ead3f50e59f3af2e0",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "inf-ind-1",
+          "role": "independent_check",
+          "review_pointer": "/items/2",
+          "body_pointer": "/items/2/body",
+          "gold_pointer": "/items/2/gold",
+          "body_js_canonical_sha256": "a9da391eaebb7cf7227086dfc7b7a33a2a7c5a411ca3e4688b2d5c1462e35e32",
+          "gold_js_canonical_sha256": "2b60f78b4b4a13dd3135fee0f2d28c821c85ab4d997455d7baa00fb8fbe46b73",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "inf-ind-2",
+          "role": "independent_check",
+          "review_pointer": "/items/3",
+          "body_pointer": "/items/3/body",
+          "gold_pointer": "/items/3/gold",
+          "body_js_canonical_sha256": "fd9b338b76e883c7b4c2f0be1990e5e549200119ab4ebe7443edc6fdd96c9cc6",
+          "gold_js_canonical_sha256": "a299d6c4a8625f392a0c299b3d26451eac405a23cafbf9002cfb8e5edf611c7a",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "inf-transfer-1",
+          "role": "transfer",
+          "review_pointer": "/items/4",
+          "body_pointer": "/items/4/body",
+          "gold_pointer": "/items/4/gold",
+          "body_js_canonical_sha256": "104a59cf11458bedf7e35e5dcc9b77c7dac53c25c99f8b40e78d3b2c9eea765c",
+          "gold_js_canonical_sha256": "5bdf818c145141233fea2741619a30f0bd16c4d976f2ea6aa5bc495a7d3b8ce3",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "inf-delayed-1",
+          "role": "delayed_check",
+          "review_pointer": "/items/5",
+          "body_pointer": "/items/5/body",
+          "gold_pointer": "/items/5/gold",
+          "body_js_canonical_sha256": "e726e191c3adcb6b7520603f8c92fcfbb29527eca6b89c7955de28282e0a4b25",
+          "gold_js_canonical_sha256": "112fd50efcc92298fb4e548d66dcdbafef41af13bfb196666da8204ecea290f1",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "inf-ind-3",
+          "role": "independent_check",
+          "review_pointer": "/items/6",
+          "body_pointer": "/items/6/body",
+          "gold_pointer": "/items/6/gold",
+          "body_js_canonical_sha256": "29425fe86200fc4cdc6295e22faa74b57e778bb192a6fc06e7d85ba6b6bdcacf",
+          "gold_js_canonical_sha256": "acc6c84a241414d8c935affb2b47de02bf6c231c3cdd9669027ae5e8e2b4efd8",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "inf-ind-4",
+          "role": "independent_check",
+          "review_pointer": "/items/7",
+          "body_pointer": "/items/7/body",
+          "gold_pointer": "/items/7/gold",
+          "body_js_canonical_sha256": "097f92d4406df5183f5f7a0fb00f6fa39835738dcb0aaad395b8e888c85e24d8",
+          "gold_js_canonical_sha256": "c12f17b7c382f5785349e1ba2158b622515a7d09673031fc2302b343ea103595",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "inf-transfer-2",
+          "role": "transfer",
+          "review_pointer": "/items/8",
+          "body_pointer": "/items/8/body",
+          "gold_pointer": "/items/8/gold",
+          "body_js_canonical_sha256": "0b9cb94e686390d74f80b33b823e0cba7e68e619180b6eea075df4f03ad6f25e",
+          "gold_js_canonical_sha256": "60c589ca2669fd398dc697fb31522dc78d6a66b9292480f40ed2d84d2140f3d4",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        }
+      ],
+      "origin_main_file_sha256": "651ccbe064fbc5ba63feea4e2e3fa3d0522eb378649bffd03f3ffa27cda3902d",
+      "same_bytes_as_origin_main": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-relation.v1.json",
+      "set_revision": "r-relation.v1",
+      "task": "r.relation",
+      "task_key": "authored-cohesion",
+      "format": "sentence_relation",
+      "file_sha256": "4a8c34feaa40228b3ec2389b6c6a7bd8852f067ba181e708e1285389bf7d5ea0",
+      "byte_length": 18954,
+      "workspace_templates": [
+        "ws.cohesion"
+      ],
+      "raw_provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전"
+      },
+      "counts": {
+        "items": 9,
+        "human_gold_required": 7
+      },
+      "items": [
+        {
+          "id": "rel-teach-1",
+          "role": "model_explanation",
+          "review_pointer": "/items/0",
+          "body_pointer": "/items/0/body",
+          "gold_pointer": "/items/0/gold",
+          "body_js_canonical_sha256": "3063afef3382973fa4430a7e69c90f45250ab9987925d6709598096aa1a30433",
+          "gold_js_canonical_sha256": "004c177a187d556cb097f5d55016b70b6da3dfb2355c6863ff0a6e53d7fefcf1",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "rel-guided-1",
+          "role": "guided_practice",
+          "review_pointer": "/items/1",
+          "body_pointer": "/items/1/body",
+          "gold_pointer": "/items/1/gold",
+          "body_js_canonical_sha256": "4a45a20de28a6986d196230ab877593abc71950d49222c85194634f421a1f91d",
+          "gold_js_canonical_sha256": "ec2f787133101dd117c736da30f226c5ecb0429a0c8e0a4ff06d76ee94e45369",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "rel-ind-1",
+          "role": "independent_check",
+          "review_pointer": "/items/2",
+          "body_pointer": "/items/2/body",
+          "gold_pointer": "/items/2/gold",
+          "body_js_canonical_sha256": "78d2d74cc2df628835059b00d8235289a081fd4cd73621680931074ae7b32e17",
+          "gold_js_canonical_sha256": "1290639d76cdde5d1538eadf8d579826543efe17589d35641fd63e43feb541ec",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "rel-ind-2",
+          "role": "independent_check",
+          "review_pointer": "/items/3",
+          "body_pointer": "/items/3/body",
+          "gold_pointer": "/items/3/gold",
+          "body_js_canonical_sha256": "4b260d7b48cd533c6139501d0592f9b530b2983054d07dbbff05de64e46e33fc",
+          "gold_js_canonical_sha256": "f67df8d78ebdec32b0efa6309e1067242dfd57918d4f6b36714b021906e6de16",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "rel-transfer-1",
+          "role": "transfer",
+          "review_pointer": "/items/4",
+          "body_pointer": "/items/4/body",
+          "gold_pointer": "/items/4/gold",
+          "body_js_canonical_sha256": "71a60c402ee9ea3adba7871f16771a73a3f5148832cb3309177f91c0347557ba",
+          "gold_js_canonical_sha256": "cc1a7e018f2620a6325b8acc3e915b2d1812fd9512419c350092cb80a027dc89",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "rel-delayed-1",
+          "role": "delayed_check",
+          "review_pointer": "/items/5",
+          "body_pointer": "/items/5/body",
+          "gold_pointer": "/items/5/gold",
+          "body_js_canonical_sha256": "0053fc67c9fa877060254dc74a836431e3706d2837fe1f9211e7bb494824abbb",
+          "gold_js_canonical_sha256": "67f1a35b9462e3b89773b972884361b1c25f0c1156714f83cc6db31714d437d7",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "rel-ind-3",
+          "role": "independent_check",
+          "review_pointer": "/items/6",
+          "body_pointer": "/items/6/body",
+          "gold_pointer": "/items/6/gold",
+          "body_js_canonical_sha256": "ef2719c7c6e75ee21b06e88577cbe828633507edf3fb44a463079bb4ad0a850d",
+          "gold_js_canonical_sha256": "190144198f7d11767b4fdbfd21ddfcbcb90df44128b449e4f15a1ffe8f6502a6",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "rel-ind-4",
+          "role": "independent_check",
+          "review_pointer": "/items/7",
+          "body_pointer": "/items/7/body",
+          "gold_pointer": "/items/7/gold",
+          "body_js_canonical_sha256": "070a034a6a87158216cab5d89ca3fb10ed499efb533dbbcb0cb8c5cabfd767ec",
+          "gold_js_canonical_sha256": "87df1b2b21ee9be298f8638cdc0255492ec7d3ddd692e53c36bf6b95e076d07c",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "rel-transfer-2",
+          "role": "transfer",
+          "review_pointer": "/items/8",
+          "body_pointer": "/items/8/body",
+          "gold_pointer": "/items/8/gold",
+          "body_js_canonical_sha256": "a39bf64489a15cbe4a31c3cbc18117e845ad56689b9216c6f7e96207ff316a3a",
+          "gold_js_canonical_sha256": "beef0fc6ae9ae6b68e94cff4b0718c23ec6514ef6aa0ffe883ed8b32c3b9ab61",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        }
+      ],
+      "origin_main_file_sha256": "4a8c34feaa40228b3ec2389b6c6a7bd8852f067ba181e708e1285389bf7d5ea0",
+      "same_bytes_as_origin_main": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-form-scope.v1.json",
+      "set_revision": "s-form-scope.v1",
+      "task": "s.form_scope",
+      "task_key": "authored-grammar-scope",
+      "format": "form_scope",
+      "file_sha256": "cedf02062f07755698bd3816f889baf5959942a80dbaceefa334a3dfaafb1604",
+      "byte_length": 23008,
+      "workspace_templates": [
+        "ws.grammar-scope"
+      ],
+      "raw_provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전",
+        "revisionNote": " · FI-013(#306): gs-transfer-1 의 단수 선행사(the simple irrigation ditch)를 없애 its 의 다른 해석을 막음 — 첫 밑줄 is → are."
+      },
+      "counts": {
+        "items": 9,
+        "human_gold_required": 7
+      },
+      "items": [
+        {
+          "id": "gs-teach-1",
+          "role": "model_explanation",
+          "review_pointer": "/items/0",
+          "body_pointer": "/items/0/body",
+          "gold_pointer": "/items/0/gold",
+          "body_js_canonical_sha256": "6eb894e24cc411ecab1edd3e6200e0f876193dccddfb3c31043d3bed9dfa71ec",
+          "gold_js_canonical_sha256": "779dfbeeb5fb2b87e98b0b11f787999b18a37581d3c228b477c0467b95700e16",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "gs-guided-1",
+          "role": "guided_practice",
+          "review_pointer": "/items/1",
+          "body_pointer": "/items/1/body",
+          "gold_pointer": "/items/1/gold",
+          "body_js_canonical_sha256": "355722de5d79fe65a11f85cfbf8748d31203e4c6a0fe78a66f0437f03e5fff1b",
+          "gold_js_canonical_sha256": "eec5200b609035fd39267d180b30615b6c1a5dc512543bdb5201a74d5567f4fe",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "gs-ind-1",
+          "role": "independent_check",
+          "review_pointer": "/items/2",
+          "body_pointer": "/items/2/body",
+          "gold_pointer": "/items/2/gold",
+          "body_js_canonical_sha256": "1da1468bf6ea76115ef76bf15fb1319f081460bfd73810bc17af99bdedf705d8",
+          "gold_js_canonical_sha256": "a61fb6d4fa15484c4d93b1865ac40362ca4e5f53d8776116af65ec1994a2e96f",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "gs-ind-2",
+          "role": "independent_check",
+          "review_pointer": "/items/3",
+          "body_pointer": "/items/3/body",
+          "gold_pointer": "/items/3/gold",
+          "body_js_canonical_sha256": "821bbf939df4e9eac2af7d8258b2d4732a2e17a373952fbf88a8b96451529528",
+          "gold_js_canonical_sha256": "a39f311162ed958ad3497e81a8905766ede506da59cccdc389316789b241b6cb",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "gs-transfer-1",
+          "role": "transfer",
+          "review_pointer": "/items/4",
+          "body_pointer": "/items/4/body",
+          "gold_pointer": "/items/4/gold",
+          "body_js_canonical_sha256": "0c2374c5ad781cd7d99035a8f86ac0ab9bc1fd8ad7c908afed60c0b5d468ccfe",
+          "gold_js_canonical_sha256": "41ed1b9c9783c64e638710798f24e4ddf3114849e96d159a688c88cb069d83a0",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "gs-delayed-1",
+          "role": "delayed_check",
+          "review_pointer": "/items/5",
+          "body_pointer": "/items/5/body",
+          "gold_pointer": "/items/5/gold",
+          "body_js_canonical_sha256": "eb0729698813f781e43fd3024e7f353edc9e04ed538f9def14ac6f0fe599c032",
+          "gold_js_canonical_sha256": "bff66cac76b54b8c3efaf736cec8d148202f9d0eb832cc856684cf73f741481d",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "gs-ind-3",
+          "role": "independent_check",
+          "review_pointer": "/items/6",
+          "body_pointer": "/items/6/body",
+          "gold_pointer": "/items/6/gold",
+          "body_js_canonical_sha256": "208c4e1e5ad16c4ccca1334c5de46811a5f046557c57c8d11805eea607c44191",
+          "gold_js_canonical_sha256": "589e240fecdb381439b9c2ce2946ce0b6654b6f5bfd7cc68a31828a290e0f55a",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "gs-ind-4",
+          "role": "independent_check",
+          "review_pointer": "/items/7",
+          "body_pointer": "/items/7/body",
+          "gold_pointer": "/items/7/gold",
+          "body_js_canonical_sha256": "19846fb821576cc1880153c824bb07e5474388a26963305c9008a39649584980",
+          "gold_js_canonical_sha256": "07ad7a978e051171a5946d4223acc862150f3698cdaa57ee529d9cd2aab1e5ed",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "gs-transfer-2",
+          "role": "transfer",
+          "review_pointer": "/items/8",
+          "body_pointer": "/items/8/body",
+          "gold_pointer": "/items/8/gold",
+          "body_js_canonical_sha256": "4afe9bedb685ab794b6ece34bb2ddbacb0d8e2fabd4eb8c6de281c683d3e819e",
+          "gold_js_canonical_sha256": "e7aa0e5bb49865b8a309852d8b005904851bc9e244cef3447e4b1d0eb55fe162",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        }
+      ],
+      "origin_main_file_sha256": "cedf02062f07755698bd3816f889baf5959942a80dbaceefa334a3dfaafb1604",
+      "same_bytes_as_origin_main": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-contextual-sense.v1.json",
+      "set_revision": "v-contextual-sense.v1",
+      "task": "v.contextual_sense",
+      "task_key": "authored-vocab-context",
+      "format": "contextual_sense",
+      "file_sha256": "fb8bfaeba6461a2cf94ae65d22c95240c88e9a283f72f2bfaca840c5c3026ddb",
+      "byte_length": 22057,
+      "workspace_templates": [
+        "ws.vocab-context",
+        "ws.inference"
+      ],
+      "raw_provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전"
+      },
+      "counts": {
+        "items": 9,
+        "human_gold_required": 7
+      },
+      "items": [
+        {
+          "id": "vcs-teach-1",
+          "role": "model_explanation",
+          "review_pointer": "/items/0",
+          "body_pointer": "/items/0/body",
+          "gold_pointer": "/items/0/gold",
+          "body_js_canonical_sha256": "4eb3d53de1db71d9480f067150342930eb723cbcf84c967262824962f628c5ad",
+          "gold_js_canonical_sha256": "762d6d7c876d61a41bada93b8080daa81ed40c03bd560399f54a7c2ea9f8a413",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "vcs-guided-1",
+          "role": "guided_practice",
+          "review_pointer": "/items/1",
+          "body_pointer": "/items/1/body",
+          "gold_pointer": "/items/1/gold",
+          "body_js_canonical_sha256": "92aea7762c99c9bb262a28210c8059d8c58497e4f08ad24653bd3081c19fd7eb",
+          "gold_js_canonical_sha256": "e1305d78a211319634e04ef8b8e13c59f092cc32f64fb7593367ff73228d064e",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "vcs-ind-1",
+          "role": "independent_check",
+          "review_pointer": "/items/2",
+          "body_pointer": "/items/2/body",
+          "gold_pointer": "/items/2/gold",
+          "body_js_canonical_sha256": "a0e2c57f89ff44d72edf4b89a281aa5af9fc8c377624e141c3d2a31f5c3e5cb3",
+          "gold_js_canonical_sha256": "470499a7ebb5cb7c0ee4c54f4798417ff007dc7c7115a9faa4b53baa581d378d",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "vcs-ind-2",
+          "role": "independent_check",
+          "review_pointer": "/items/3",
+          "body_pointer": "/items/3/body",
+          "gold_pointer": "/items/3/gold",
+          "body_js_canonical_sha256": "bbb0d56d6079782a0d24aa3366879cc0c5b12bc0fb1b3e1d7a9d71f73bb06d8a",
+          "gold_js_canonical_sha256": "d9bb19d3ca7cb98a00c78c69765542f811bf6dfb43fc4ab711e2343a282e47d5",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "vcs-transfer-1",
+          "role": "transfer",
+          "review_pointer": "/items/4",
+          "body_pointer": "/items/4/body",
+          "gold_pointer": "/items/4/gold",
+          "body_js_canonical_sha256": "7af92bbabbd3dce357dea958715b2d72f94a0ef738a2b06a4d16f2da1f1580a8",
+          "gold_js_canonical_sha256": "0768fb69c2ad2ca03ffe89cb24b0ab95c1cf6738c308cae1d25a6b3b46499c1e",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "vcs-delayed-1",
+          "role": "delayed_check",
+          "review_pointer": "/items/5",
+          "body_pointer": "/items/5/body",
+          "gold_pointer": "/items/5/gold",
+          "body_js_canonical_sha256": "80a0bf77ce0ecf54e815eb46452c3f2036049748351aca408b06b3a4ec6082a5",
+          "gold_js_canonical_sha256": "d72cc1838738c8acc4166f646e9171b426326016ab3164eedf6fcfbb9c43b5ee",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "vcs-ind-3",
+          "role": "independent_check",
+          "review_pointer": "/items/6",
+          "body_pointer": "/items/6/body",
+          "gold_pointer": "/items/6/gold",
+          "body_js_canonical_sha256": "cebc371d844f675644c309b53253fd58fc9ac6051aa51ba1963a08a8f88188f2",
+          "gold_js_canonical_sha256": "0a33e5ba481d1e34d1c8fe7c078765783c488048a83efb57a8c23500e7d2358b",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "vcs-ind-4",
+          "role": "independent_check",
+          "review_pointer": "/items/7",
+          "body_pointer": "/items/7/body",
+          "gold_pointer": "/items/7/gold",
+          "body_js_canonical_sha256": "4b9e87618d2f35431590a68aa2f5c10dfb012f4b1f30540565fc0ec205497fc6",
+          "gold_js_canonical_sha256": "cfa8846bb96e8db7fade6594032e81aee7c093c6af9e81d831289a5d4bbf07d7",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "vcs-transfer-2",
+          "role": "transfer",
+          "review_pointer": "/items/8",
+          "body_pointer": "/items/8/body",
+          "gold_pointer": "/items/8/gold",
+          "body_js_canonical_sha256": "a2bfc80c44ff215c9a030f5145cbb15ee9a2b483705288d5a1d2cfd2ab72ddc9",
+          "gold_js_canonical_sha256": "f924557b2e0a19210c71f37d3b6e913607881981aa91b9d55ebf2c06d63f4476",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        }
+      ],
+      "origin_main_file_sha256": "fb8bfaeba6461a2cf94ae65d22c95240c88e9a283f72f2bfaca840c5c3026ddb",
+      "same_bytes_as_origin_main": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-reference.v1.json",
+      "set_revision": "r-reference.v1",
+      "task": "r.reference",
+      "task_key": "authored-reference",
+      "format": "choice_evidence",
+      "file_sha256": "6807473e00f86c456b6500ca8007bc5e497196dc2f1930183d25d6024f5f5ecf",
+      "byte_length": 23528,
+      "workspace_templates": [
+        "ws.cohesion"
+      ],
+      "raw_provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전"
+      },
+      "counts": {
+        "items": 9,
+        "human_gold_required": 7
+      },
+      "items": [
+        {
+          "id": "ref-teach-1",
+          "role": "model_explanation",
+          "review_pointer": "/items/0",
+          "body_pointer": "/items/0/body",
+          "gold_pointer": "/items/0/gold",
+          "body_js_canonical_sha256": "d7e948e268f165497f9d07733b44fcc9e80bca88e7f29f4c504ab2c0c5b0cc1e",
+          "gold_js_canonical_sha256": "b801af6f648c3cda69d5d4fbbdf291ba7207f8972a8eec16fe115c3d0e0a249f",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "ref-guided-1",
+          "role": "guided_practice",
+          "review_pointer": "/items/1",
+          "body_pointer": "/items/1/body",
+          "gold_pointer": "/items/1/gold",
+          "body_js_canonical_sha256": "9f13404257d6f92ff2625e53c5746682d0aae80e5038b4033f812247ec7795db",
+          "gold_js_canonical_sha256": "7b828a2e0555df580252d23802bf78f28ad4a10b51e9f2ffa68294968edf59b6",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "ref-ind-1",
+          "role": "independent_check",
+          "review_pointer": "/items/2",
+          "body_pointer": "/items/2/body",
+          "gold_pointer": "/items/2/gold",
+          "body_js_canonical_sha256": "012359da8afdaff0cd06bd89a0f5564350866466f24391a0e5bc414cffc01f63",
+          "gold_js_canonical_sha256": "cc3c2644a64336b7b4e3762fa0237d080e97fd9cd0e2a25327bd653e2e114a9b",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "ref-ind-2",
+          "role": "independent_check",
+          "review_pointer": "/items/3",
+          "body_pointer": "/items/3/body",
+          "gold_pointer": "/items/3/gold",
+          "body_js_canonical_sha256": "d2d0b124fd2cbd36999db5ecc6a6e5ab870db26371d872974a1d56d06b9de393",
+          "gold_js_canonical_sha256": "e960b2e79d60e6c558115e77cbb76ea23107f0251ee141d7480cca143c4e9959",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "ref-transfer-1",
+          "role": "transfer",
+          "review_pointer": "/items/4",
+          "body_pointer": "/items/4/body",
+          "gold_pointer": "/items/4/gold",
+          "body_js_canonical_sha256": "236f1034c2c6b2335d2a8921271938ffb8d0c4dc45aac48f86ec7eb9009c9fab",
+          "gold_js_canonical_sha256": "475211eb9b6e2b50be37515e2f97796142e0bb88981522ec296de1d4efc03a34",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "ref-delayed-1",
+          "role": "delayed_check",
+          "review_pointer": "/items/5",
+          "body_pointer": "/items/5/body",
+          "gold_pointer": "/items/5/gold",
+          "body_js_canonical_sha256": "9c3419e1564e427f06233eb54099c09efee93afe817928a6036fddacd0b521c1",
+          "gold_js_canonical_sha256": "39a9089bc4bef7c91311e59f5b2ec3eda85ff248c8d686fb6f99e8e98b1ed110",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "ref-ind-3",
+          "role": "independent_check",
+          "review_pointer": "/items/6",
+          "body_pointer": "/items/6/body",
+          "gold_pointer": "/items/6/gold",
+          "body_js_canonical_sha256": "061adf422fdeb40477d327e030594156d2711ecff8d437bcc5eb5c8a946a929f",
+          "gold_js_canonical_sha256": "1591633b88f786a94029d55eb88f929f60d5e94e11a4300c95178c89f36aca2a",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "ref-ind-4",
+          "role": "independent_check",
+          "review_pointer": "/items/7",
+          "body_pointer": "/items/7/body",
+          "gold_pointer": "/items/7/gold",
+          "body_js_canonical_sha256": "4ef96f8a16b9703eb8242802cb552b23c9e1c32a36f57c4858e39bcb0c1a234a",
+          "gold_js_canonical_sha256": "f4a49e94478ae7c0ecc4dd8f7f5ac776942979e1c0ad5297657ab7392724edec",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "ref-transfer-2",
+          "role": "transfer",
+          "review_pointer": "/items/8",
+          "body_pointer": "/items/8/body",
+          "gold_pointer": "/items/8/gold",
+          "body_js_canonical_sha256": "5dd22519225fb3ec9ab4c0c4166f537ba27c15aa366650aadae6fe6043ed8f3c",
+          "gold_js_canonical_sha256": "6ea70623ee984b3a9ca446285704aa2976149cc420516fef9cf592e35aa1f39a",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        }
+      ],
+      "origin_main_file_sha256": "6807473e00f86c456b6500ca8007bc5e497196dc2f1930183d25d6024f5f5ecf",
+      "same_bytes_as_origin_main": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-multiword.v1.json",
+      "set_revision": "v-multiword.v1",
+      "task": "v.multiword",
+      "task_key": "authored-multiword",
+      "format": "contextual_sense",
+      "file_sha256": "179725ab501da614cebd6d2076f475b2123829657e194e462fb579a5f49fb5b6",
+      "byte_length": 20734,
+      "workspace_templates": [
+        "ws.vocab-context"
+      ],
+      "raw_provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전"
+      },
+      "counts": {
+        "items": 9,
+        "human_gold_required": 7
+      },
+      "items": [
+        {
+          "id": "mw-teach-1",
+          "role": "model_explanation",
+          "review_pointer": "/items/0",
+          "body_pointer": "/items/0/body",
+          "gold_pointer": "/items/0/gold",
+          "body_js_canonical_sha256": "137a1d4fc688fe333e46fb9ae420fe0b33868cd62530c69222b9b4fa60808142",
+          "gold_js_canonical_sha256": "2a8ad14530da9fbcd30be1b676f0197d25c4556f2a9a00f8e69f84a9b7d4b200",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "mw-guided-1",
+          "role": "guided_practice",
+          "review_pointer": "/items/1",
+          "body_pointer": "/items/1/body",
+          "gold_pointer": "/items/1/gold",
+          "body_js_canonical_sha256": "e5377019ea6d869d67c9e2f9af091de5b724ea67840383d057a72b1adcdacc25",
+          "gold_js_canonical_sha256": "7c21b50b695abf43cc81859f968fc5b0e58507b329a30a1cddfcbbb84809e17a",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "mw-ind-1",
+          "role": "independent_check",
+          "review_pointer": "/items/2",
+          "body_pointer": "/items/2/body",
+          "gold_pointer": "/items/2/gold",
+          "body_js_canonical_sha256": "aab26f83ec6d3cac2f26b965d6098a97f6d4d6981843538738365948705d5c6b",
+          "gold_js_canonical_sha256": "6088ed32a8010a64a644068c786206c0d33f9db5c8368e1b3b2ff03ed2436844",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "mw-ind-2",
+          "role": "independent_check",
+          "review_pointer": "/items/3",
+          "body_pointer": "/items/3/body",
+          "gold_pointer": "/items/3/gold",
+          "body_js_canonical_sha256": "c0e8c47d338abee365b9e765844c973a869892ebab41eedbd5a0f5a02de4abbc",
+          "gold_js_canonical_sha256": "3c7e3d7fc1892cdbd2df8141868eb0af2a6e8747ecb584a523961fa2965c2a83",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "mw-transfer-1",
+          "role": "transfer",
+          "review_pointer": "/items/4",
+          "body_pointer": "/items/4/body",
+          "gold_pointer": "/items/4/gold",
+          "body_js_canonical_sha256": "54d571258ee4726280a8e17d50ecbf63cc27bf1870d51392c1c87c7e6a9978cb",
+          "gold_js_canonical_sha256": "53fd7fbb5ce3b36d98d7f56afddcb3e55e39b4baa707ff8b7d8b8735033a4c48",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "mw-delayed-1",
+          "role": "delayed_check",
+          "review_pointer": "/items/5",
+          "body_pointer": "/items/5/body",
+          "gold_pointer": "/items/5/gold",
+          "body_js_canonical_sha256": "d4e879236acca5e6da298dcf1abd10e91d2ba11a5d5dd7ca2b380dc74f7c94ed",
+          "gold_js_canonical_sha256": "f7bba14f4d9b18e90b953983b47330649bea8d643dd8ccb0d4ed2faf0ff8dff5",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "mw-ind-3",
+          "role": "independent_check",
+          "review_pointer": "/items/6",
+          "body_pointer": "/items/6/body",
+          "gold_pointer": "/items/6/gold",
+          "body_js_canonical_sha256": "6bb0af5c7d9884b5fe7f4102ee1df49a5558443db82e0bf98326106fb17b90da",
+          "gold_js_canonical_sha256": "46c433a5a5caab7edfb83a95d6771bfa7b3889efa539959e87f6ba84109fee10",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "mw-ind-4",
+          "role": "independent_check",
+          "review_pointer": "/items/7",
+          "body_pointer": "/items/7/body",
+          "gold_pointer": "/items/7/gold",
+          "body_js_canonical_sha256": "b92b064b96ccafbc5d59561e7e4c6ee35a6728bd9f3672c95625ea83e4b1dfd4",
+          "gold_js_canonical_sha256": "9d634a082ac3adafd4e197a321d0a7fc153060b0c96e202ccb7b00d1ceb6902f",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "mw-transfer-2",
+          "role": "transfer",
+          "review_pointer": "/items/8",
+          "body_pointer": "/items/8/body",
+          "gold_pointer": "/items/8/gold",
+          "body_js_canonical_sha256": "fc93d627789b6b628ac364b61070d1e7109e4dc38d85efb504b350ead2c77a1f",
+          "gold_js_canonical_sha256": "e86d4ce94bf256b89300fc67aaf670364748f7924a3009419abae59c7957db81",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        }
+      ],
+      "origin_main_file_sha256": "179725ab501da614cebd6d2076f475b2123829657e194e462fb579a5f49fb5b6",
+      "same_bytes_as_origin_main": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json",
+      "set_revision": "r-discourse-function.v1",
+      "task": "r.discourse_function",
+      "task_key": "authored-discourse-function",
+      "format": "discourse_roles",
+      "file_sha256": "a50f17d423ae4b1d09a9970be80ec0e6b9033f949a04f6f0b65f2c23faf1b083",
+      "byte_length": 17129,
+      "workspace_templates": [
+        "ws.central-meaning"
+      ],
+      "raw_provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전"
+      },
+      "counts": {
+        "items": 9,
+        "human_gold_required": 7
+      },
+      "items": [
+        {
+          "id": "df-teach-1",
+          "role": "model_explanation",
+          "review_pointer": "/items/0",
+          "body_pointer": "/items/0/body",
+          "gold_pointer": "/items/0/gold",
+          "body_js_canonical_sha256": "8934b11cae62c6c6d2859a770b29a42a45667682016e198b57877e4554e6fedf",
+          "gold_js_canonical_sha256": "138e01f4b7ff72cf75e7ba41d1c02b5c7cc530ff76a5c24c02fa121a464da692",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "df-guided-1",
+          "role": "guided_practice",
+          "review_pointer": "/items/1",
+          "body_pointer": "/items/1/body",
+          "gold_pointer": "/items/1/gold",
+          "body_js_canonical_sha256": "2fa969728822fd08aaebd8433f61745d937644dcec9875727275e82772eb85c8",
+          "gold_js_canonical_sha256": "ae0acb58eeb09ef60a6e9fad0f578448032b630f11579aade79805426c4cbe2b",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "df-ind-1",
+          "role": "independent_check",
+          "review_pointer": "/items/2",
+          "body_pointer": "/items/2/body",
+          "gold_pointer": "/items/2/gold",
+          "body_js_canonical_sha256": "d7ba9545f533f723703385300b840abff54d8274c2850bfde2aadb6152df32a1",
+          "gold_js_canonical_sha256": "d4f32c60b3af7842239806ee9c001500df05408848fc8c9add8531c3f6cdd5f6",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "df-ind-2",
+          "role": "independent_check",
+          "review_pointer": "/items/3",
+          "body_pointer": "/items/3/body",
+          "gold_pointer": "/items/3/gold",
+          "body_js_canonical_sha256": "8846bd682026fed6ee31c29a08bd764e8fcf613cbd5343582177dbc330809e95",
+          "gold_js_canonical_sha256": "51d2773a278c2a7cdcbecff2e565fe1e0d8fb3c5cf9f84bb9dc851b969a48884",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "df-transfer-1",
+          "role": "transfer",
+          "review_pointer": "/items/4",
+          "body_pointer": "/items/4/body",
+          "gold_pointer": "/items/4/gold",
+          "body_js_canonical_sha256": "dd641bdd373f2d8ac28b6077a59b21834ed2337f56aff5583a6206fa4c0f2e5e",
+          "gold_js_canonical_sha256": "47b9b3015d382fa0a59ffd45271d629b7cf925808fb53d04ed91d0422ff2dd56",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "df-delayed-1",
+          "role": "delayed_check",
+          "review_pointer": "/items/5",
+          "body_pointer": "/items/5/body",
+          "gold_pointer": "/items/5/gold",
+          "body_js_canonical_sha256": "4eab000c0a99d5f7a7ee45951de2373ed91a220408c2c21962f1e7ca3862f40f",
+          "gold_js_canonical_sha256": "891d8712af9116e1ab81141d5b5d11ea5613e59772a2dbe9e139a7b66e3fe123",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "df-ind-3",
+          "role": "independent_check",
+          "review_pointer": "/items/6",
+          "body_pointer": "/items/6/body",
+          "gold_pointer": "/items/6/gold",
+          "body_js_canonical_sha256": "3db3a93d67220bc6d3c2b80f9557692c20845279a13e69644269440720c12ac8",
+          "gold_js_canonical_sha256": "513f1e0eaf83c359af78a8191ddd4fc0a28f29b2cc0205c2797cf1b16a533128",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "df-ind-4",
+          "role": "independent_check",
+          "review_pointer": "/items/7",
+          "body_pointer": "/items/7/body",
+          "gold_pointer": "/items/7/gold",
+          "body_js_canonical_sha256": "48faaf1f9365f7e3566adbe315918159fbd5866b619f0f177caec635747a9301",
+          "gold_js_canonical_sha256": "9745ef69b605a6dbd744cdb789adf412fdeb708ad1f3f572d1a2ae82811159fb",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "df-transfer-2",
+          "role": "transfer",
+          "review_pointer": "/items/8",
+          "body_pointer": "/items/8/body",
+          "gold_pointer": "/items/8/gold",
+          "body_js_canonical_sha256": "8cb802866d1d65cb2f5ae6a24dc13bccbac2fb8132cdbcb45fb833370c315075",
+          "gold_js_canonical_sha256": "204ec8726a6e48442a8e09a01e3a092796ec1c223b9b35ff1683d8fab152306a",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        }
+      ],
+      "origin_main_file_sha256": "a50f17d423ae4b1d09a9970be80ec0e6b9033f949a04f6f0b65f2c23faf1b083",
+      "same_bytes_as_origin_main": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json",
+      "set_revision": "r-discourse-structure.v1",
+      "task": "r.discourse_structure",
+      "task_key": "authored-discourse-structure",
+      "format": "discourse_roles",
+      "file_sha256": "3f8345758d6106c7dfc8348004fb5d246903fea70c8cfd32d1644c10b9374a9e",
+      "byte_length": 18676,
+      "workspace_templates": [
+        "ws.central-meaning"
+      ],
+      "raw_provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전"
+      },
+      "counts": {
+        "items": 9,
+        "human_gold_required": 7
+      },
+      "items": [
+        {
+          "id": "ds-teach-1",
+          "role": "model_explanation",
+          "review_pointer": "/items/0",
+          "body_pointer": "/items/0/body",
+          "gold_pointer": "/items/0/gold",
+          "body_js_canonical_sha256": "b22c8fd539acfbefea48eb6d6e3b289a07aa58f117f09a87ed4616d2796edc4b",
+          "gold_js_canonical_sha256": "3db28ade8a43153fcff11f8652c52d382df5cad97617a7044c7cead4d7d15419",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "ds-guided-1",
+          "role": "guided_practice",
+          "review_pointer": "/items/1",
+          "body_pointer": "/items/1/body",
+          "gold_pointer": "/items/1/gold",
+          "body_js_canonical_sha256": "dc332dd34d05195ffab6ff94e8f093072805960a8b120cd58b6d198ba8e7ae0c",
+          "gold_js_canonical_sha256": "6a0802331bdbd15d0ee960b6c32f78eb1b973024910be56509706196a9ba77c5",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "ds-ind-1",
+          "role": "independent_check",
+          "review_pointer": "/items/2",
+          "body_pointer": "/items/2/body",
+          "gold_pointer": "/items/2/gold",
+          "body_js_canonical_sha256": "02eb18d153e9e4b095eced3552ccb31ea98f68409a726a358d789087e530901a",
+          "gold_js_canonical_sha256": "8364422299d02acb46e04726e0ebb7d99241d8251a9f4ced0b0a699b54a769b1",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "ds-ind-2",
+          "role": "independent_check",
+          "review_pointer": "/items/3",
+          "body_pointer": "/items/3/body",
+          "gold_pointer": "/items/3/gold",
+          "body_js_canonical_sha256": "7d8fefd86cdc076e98932e6aeb10a8c02c871e861a13ab2a7d689d9d6774fdd8",
+          "gold_js_canonical_sha256": "ad85755af12d14f4e6c6ffc0df860cb4bdcb60bed65ee4ea4055c3da38291e0d",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "ds-transfer-1",
+          "role": "transfer",
+          "review_pointer": "/items/4",
+          "body_pointer": "/items/4/body",
+          "gold_pointer": "/items/4/gold",
+          "body_js_canonical_sha256": "8d3d3dbbb10690c9b516216dbd23fb6fc47c6090325bc7ab0d20b44590c21b2f",
+          "gold_js_canonical_sha256": "de7c06dad84fbd145c9381c39bc9a7911548d6d1f854f4cbdd2fa48630bce00b",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "ds-delayed-1",
+          "role": "delayed_check",
+          "review_pointer": "/items/5",
+          "body_pointer": "/items/5/body",
+          "gold_pointer": "/items/5/gold",
+          "body_js_canonical_sha256": "aff772cab9ea7bec4c5273a11d5d9756016de1c5b6e0a61f5205cffcc662d0d0",
+          "gold_js_canonical_sha256": "cbf43f6601f263686c54f2695e2d06297c7deb6c755ee9160eb8d854dce9eeaf",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "ds-ind-3",
+          "role": "independent_check",
+          "review_pointer": "/items/6",
+          "body_pointer": "/items/6/body",
+          "gold_pointer": "/items/6/gold",
+          "body_js_canonical_sha256": "2263347a1f8afc94fc950ac62ad30eec0f41c7fca10c09dccee31ee33284df9c",
+          "gold_js_canonical_sha256": "55a5b023667b5ebd63158f77c87b9f7ed2d6fb3da85767bca89975ac2310f594",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "ds-ind-4",
+          "role": "independent_check",
+          "review_pointer": "/items/7",
+          "body_pointer": "/items/7/body",
+          "gold_pointer": "/items/7/gold",
+          "body_js_canonical_sha256": "a56b293d101b57c8efce83399f685de3b8a0eb6367d1da3eef218f5fcf24a8d5",
+          "gold_js_canonical_sha256": "b6c9d6e6a609431c3dd53764a616487d2b2341fbf12fd75a2b186662fce050ce",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "ds-transfer-2",
+          "role": "transfer",
+          "review_pointer": "/items/8",
+          "body_pointer": "/items/8/body",
+          "gold_pointer": "/items/8/gold",
+          "body_js_canonical_sha256": "76da09a70464d761cc8d48e6f1b76dbef918540c4f907dc9fb1ba3fce63c7b7d",
+          "gold_js_canonical_sha256": "e1ce01df81cde51f5c195a26d5b21b43425061880a8c52107393454de4b614cd",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        }
+      ],
+      "origin_main_file_sha256": "3f8345758d6106c7dfc8348004fb5d246903fea70c8cfd32d1644c10b9374a9e",
+      "same_bytes_as_origin_main": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-task-demand.v1.json",
+      "set_revision": "e-task-demand.v1",
+      "task": "e.task_demand",
+      "task_key": "authored-task-demand",
+      "format": "demand_choice",
+      "file_sha256": "8a91033b38d9ee68108a02422aff00790f0c21b5428facb4c56a2fa78c068bda",
+      "byte_length": 22866,
+      "workspace_templates": [
+        "ws.evidence-locate"
+      ],
+      "raw_provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전",
+        "supplementedAt": "2026-10-20",
+        "supplement": "T-0066 — independent_check 2(td-ind-3 · td-ind-4) · transfer 1(td-transfer-2) 새 지문 보충. 기존 6문항 내용 · 채점 계약 불변. 사람 Gold · 권리 pending 유지"
+      },
+      "counts": {
+        "items": 9,
+        "human_gold_required": 7
+      },
+      "items": [
+        {
+          "id": "td-teach-1",
+          "role": "model_explanation",
+          "review_pointer": "/items/0",
+          "body_pointer": "/items/0/body",
+          "gold_pointer": "/items/0/gold",
+          "body_js_canonical_sha256": "43d942742c97d0e00ed489c3a7fd1348fc6a65abafb7f3a5fbf3ded8f86edca9",
+          "gold_js_canonical_sha256": "75a9a77e0929433dfb34b2f0bd8c9b6f42efec025560fa58248c1d984d9c895a",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "td-guided-1",
+          "role": "guided_practice",
+          "review_pointer": "/items/1",
+          "body_pointer": "/items/1/body",
+          "gold_pointer": "/items/1/gold",
+          "body_js_canonical_sha256": "91f74f1449991747a0c4e3f5b79b49470b0fe59ab4c9dd9ea22944ba29d96cfd",
+          "gold_js_canonical_sha256": "014b8aa7d959c6cf273e5c91015d5d31c1f6769d1f791292bdebd128b80606fd",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "td-ind-1",
+          "role": "independent_check",
+          "review_pointer": "/items/2",
+          "body_pointer": "/items/2/body",
+          "gold_pointer": "/items/2/gold",
+          "body_js_canonical_sha256": "4e621b7b5926fcc8664cf976e38e3bd9b9a09c4b29e3b38c19aecbd03af2cbae",
+          "gold_js_canonical_sha256": "45a5feda24a2057cb2f37bec9fe1a6d7730a3240ed72356d64465c0b6f9ca767",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "td-ind-2",
+          "role": "independent_check",
+          "review_pointer": "/items/3",
+          "body_pointer": "/items/3/body",
+          "gold_pointer": "/items/3/gold",
+          "body_js_canonical_sha256": "b34e74e5eeb7abf3e576a0e7f717a7a95b860aa3e620c11b5428637e70d5f89a",
+          "gold_js_canonical_sha256": "f123bb32119e5dedd3f9bac5f9fab3e12458979a990fb34999abbf1a53e69027",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "td-transfer-1",
+          "role": "transfer",
+          "review_pointer": "/items/4",
+          "body_pointer": "/items/4/body",
+          "gold_pointer": "/items/4/gold",
+          "body_js_canonical_sha256": "c23afb0f2290cc3394ff8322b13dc05c2cfbc5fa3a3af7a738c6b23de00de3ab",
+          "gold_js_canonical_sha256": "51bf81c0cbecc203b069d847a6fe75aef72dbd24c0057ef933d6664e3198751c",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "td-delayed-1",
+          "role": "delayed_check",
+          "review_pointer": "/items/5",
+          "body_pointer": "/items/5/body",
+          "gold_pointer": "/items/5/gold",
+          "body_js_canonical_sha256": "50707c7846e82d15335ce66c62c2a2b26dd674d75f03d30ebb44a358c02d22eb",
+          "gold_js_canonical_sha256": "b18657f72666dcb7d3f1fc9e372b0d84d3cdab6d46f5272955f6d16302685d24",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "td-ind-3",
+          "role": "independent_check",
+          "review_pointer": "/items/6",
+          "body_pointer": "/items/6/body",
+          "gold_pointer": "/items/6/gold",
+          "body_js_canonical_sha256": "93ba5b2e758d058ab4fd90904cf9c41999618ea78440fb0039927302079c7d6f",
+          "gold_js_canonical_sha256": "e8d112bba12c66d23a34edb8231e40005b952d9e948cbfe375602d99d234aec5",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "td-ind-4",
+          "role": "independent_check",
+          "review_pointer": "/items/7",
+          "body_pointer": "/items/7/body",
+          "gold_pointer": "/items/7/gold",
+          "body_js_canonical_sha256": "f41017d8c044cabf245b081ab8f95ebb5c8453eddcd5cdd29d36d5aa22f2472d",
+          "gold_js_canonical_sha256": "55f6067ec19c2e578cae216ffb869293e2f785bb1f5d01e9029bf15c228bc96e",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "td-transfer-2",
+          "role": "transfer",
+          "review_pointer": "/items/8",
+          "body_pointer": "/items/8/body",
+          "gold_pointer": "/items/8/gold",
+          "body_js_canonical_sha256": "b3ce4e26c748ca3c469a1e904b258a7a5b23999ca88cbf3f7e6d2be000a2c3a3",
+          "gold_js_canonical_sha256": "3bacffab3ead9f9df6a13d9dc002acf7c2c83ed2bfb47c6dc524d163c01d898d",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        }
+      ],
+      "origin_main_file_sha256": "8a91033b38d9ee68108a02422aff00790f0c21b5428facb4c56a2fa78c068bda",
+      "same_bytes_as_origin_main": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json",
+      "set_revision": "s-sentence-core.v1",
+      "task": "s.sentence_core",
+      "task_key": "authored-sentence-core",
+      "format": "segment_choice",
+      "file_sha256": "b10859fbc4b7cab9063d306804ee2f2a218deaf9bc861dd47b7ceb7e4843fcc9",
+      "byte_length": 20537,
+      "workspace_templates": [
+        "ws.sentence-core"
+      ],
+      "raw_provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전"
+      },
+      "counts": {
+        "items": 9,
+        "human_gold_required": 7
+      },
+      "items": [
+        {
+          "id": "sc-teach-1",
+          "role": "model_explanation",
+          "review_pointer": "/items/0",
+          "body_pointer": "/items/0/body",
+          "gold_pointer": "/items/0/gold",
+          "body_js_canonical_sha256": "5550fa72f21d8307b1f7993e3c30352bb1d64b9e6753cadee516f44643229ce6",
+          "gold_js_canonical_sha256": "9f90d5e3eff99d3a2ba9ab2d265f347e328bfddc75c94c12ed43924279f3db14",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "sc-guided-1",
+          "role": "guided_practice",
+          "review_pointer": "/items/1",
+          "body_pointer": "/items/1/body",
+          "gold_pointer": "/items/1/gold",
+          "body_js_canonical_sha256": "dfb02966a91913c3085efa01c3ff3dae54785200145dc2da675acc478ccadf65",
+          "gold_js_canonical_sha256": "3cc66c741cef770928625387556920c675de5248f5b2e630aff766c7ed44fb74",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "sc-ind-1",
+          "role": "independent_check",
+          "review_pointer": "/items/2",
+          "body_pointer": "/items/2/body",
+          "gold_pointer": "/items/2/gold",
+          "body_js_canonical_sha256": "0f2f8fcecb8d22070e148a978dbde536d454be4a0dc6a1a5e2d5f13d64f72aff",
+          "gold_js_canonical_sha256": "8c566e4b73405b8f696c981c6dc90b7abefa1a0c5649788f0ee333bc62d3b326",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "sc-ind-2",
+          "role": "independent_check",
+          "review_pointer": "/items/3",
+          "body_pointer": "/items/3/body",
+          "gold_pointer": "/items/3/gold",
+          "body_js_canonical_sha256": "59664e59db4a20515ba79831fbe0204e11ff25c083fcaa52eda80d262e6de758",
+          "gold_js_canonical_sha256": "8d96c007f5a5408588cbad40932f559a63d7d09a0038bc12acaa5bd89a78d9a7",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "sc-transfer-1",
+          "role": "transfer",
+          "review_pointer": "/items/4",
+          "body_pointer": "/items/4/body",
+          "gold_pointer": "/items/4/gold",
+          "body_js_canonical_sha256": "00a01b59dc078ce566d7eefb8893821968dd4556caadbdaa262caa34738c3f16",
+          "gold_js_canonical_sha256": "5c59ea301cc0e706804db2468367b505795a5cdba1146ba962097918a3573041",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "sc-delayed-1",
+          "role": "delayed_check",
+          "review_pointer": "/items/5",
+          "body_pointer": "/items/5/body",
+          "gold_pointer": "/items/5/gold",
+          "body_js_canonical_sha256": "a92462a924d1e5b910cabafd30aef9ac60c7fe18e469d007eced9933750d6cc6",
+          "gold_js_canonical_sha256": "34ea13505a5fe2c51e5fd4fa6ff7a35f20328c7c48cccab19587bf448ff617fe",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "sc-ind-3",
+          "role": "independent_check",
+          "review_pointer": "/items/6",
+          "body_pointer": "/items/6/body",
+          "gold_pointer": "/items/6/gold",
+          "body_js_canonical_sha256": "67aa0eedb96d65c7caf6e5cf40092e6479ccdaf477cead1007b0404d67f4405e",
+          "gold_js_canonical_sha256": "99682787ed0d3973e71f85cb8983bf4a20b7356b6d2e9f1c279260f24e61d612",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "sc-ind-4",
+          "role": "independent_check",
+          "review_pointer": "/items/7",
+          "body_pointer": "/items/7/body",
+          "gold_pointer": "/items/7/gold",
+          "body_js_canonical_sha256": "f1500481d23cf9427056839ea56784b74636f0bf5f9a7b37f28712d4e65ab75e",
+          "gold_js_canonical_sha256": "335be0de59729c775e14c21ed972b9a16f7138f3e219e25710080ab90b688ca2",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "sc-transfer-2",
+          "role": "transfer",
+          "review_pointer": "/items/8",
+          "body_pointer": "/items/8/body",
+          "gold_pointer": "/items/8/gold",
+          "body_js_canonical_sha256": "de56864d08d4ca6be2c8163c5c78f74c30ae0b1dbc0b42e1545777daad2e70d3",
+          "gold_js_canonical_sha256": "5c776e252b0d78f0d527321210105ef3e6c626de84bb1e6fc49fff38897098c2",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        }
+      ],
+      "origin_main_file_sha256": "b10859fbc4b7cab9063d306804ee2f2a218deaf9bc861dd47b7ceb7e4843fcc9",
+      "same_bytes_as_origin_main": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-attachment.v1.json",
+      "set_revision": "s-attachment.v1",
+      "task": "s.attachment",
+      "task_key": "authored-attachment",
+      "format": "segment_choice",
+      "file_sha256": "aed0b88228a2fb9b10182ac2c6fb32f97df05511383c37288b95a01d4d942c40",
+      "byte_length": 12800,
+      "workspace_templates": [],
+      "raw_provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전"
+      },
+      "counts": {
+        "items": 6,
+        "human_gold_required": 4
+      },
+      "items": [
+        {
+          "id": "at-teach-1",
+          "role": "model_explanation",
+          "review_pointer": "/items/0",
+          "body_pointer": "/items/0/body",
+          "gold_pointer": "/items/0/gold",
+          "body_js_canonical_sha256": "dd04a58d20c3556347c85e6c1c6f27592f53bece1b9510bf053fffa018ce845b",
+          "gold_js_canonical_sha256": "d31adb77685d8c4e5c022819acffa52021c2583c97815cba66f0e7f64788590a",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "at-guided-1",
+          "role": "guided_practice",
+          "review_pointer": "/items/1",
+          "body_pointer": "/items/1/body",
+          "gold_pointer": "/items/1/gold",
+          "body_js_canonical_sha256": "3d763c3fa05ef426a19d6c27329ca0a6b6020d5f7dbf5c01c043f16509fa5ec7",
+          "gold_js_canonical_sha256": "4cc64b185e6622f8473f6b770908e7181ed916ec68f27cbcf426455faded6f92",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "at-ind-1",
+          "role": "independent_check",
+          "review_pointer": "/items/2",
+          "body_pointer": "/items/2/body",
+          "gold_pointer": "/items/2/gold",
+          "body_js_canonical_sha256": "9c63f3c82df5d17793ba82ba0459b6b788aa459d7f6cc44bad8d5c1f7abf103d",
+          "gold_js_canonical_sha256": "05c4d747e78b7d091e87453fb3742142ee8fd21cb4438bb5e1a9fa8b92f13252",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "at-ind-2",
+          "role": "independent_check",
+          "review_pointer": "/items/3",
+          "body_pointer": "/items/3/body",
+          "gold_pointer": "/items/3/gold",
+          "body_js_canonical_sha256": "2b913094ccbec1080ee17226cdd2ffc252ad781329f57711847b183db91ffb39",
+          "gold_js_canonical_sha256": "cdc3124f9599a23fe91eb9238ea76591c45ee5800aed7b5405f8e7c79fe31730",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "at-transfer-1",
+          "role": "transfer",
+          "review_pointer": "/items/4",
+          "body_pointer": "/items/4/body",
+          "gold_pointer": "/items/4/gold",
+          "body_js_canonical_sha256": "a93caad52628d558484c88b2d2bd9b33c6c7c0c83139073266efb610d4275913",
+          "gold_js_canonical_sha256": "625e0377bef31693a23ee654f777e67acc312312efeb3d24d6ba110338a38b83",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "at-delayed-1",
+          "role": "delayed_check",
+          "review_pointer": "/items/5",
+          "body_pointer": "/items/5/body",
+          "gold_pointer": "/items/5/gold",
+          "body_js_canonical_sha256": "3acdca9a39312faa46eab4db9582c0af617b8a9bd5c3734debb4968ad8d7ee08",
+          "gold_js_canonical_sha256": "6c4966fb353f714fcd196445aa9c99cd0c4153d2be9994d82c9bf7c85da368d0",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        }
+      ],
+      "origin_main_file_sha256": "aed0b88228a2fb9b10182ac2c6fb32f97df05511383c37288b95a01d4d942c40",
+      "same_bytes_as_origin_main": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json",
+      "set_revision": "s-chunk-boundary.v1",
+      "task": "s.chunk_boundary",
+      "task_key": "authored-chunk-boundary",
+      "format": "segment_choice",
+      "file_sha256": "c7a0526ce33047116682931bc5818e12a05f4f87a2015737783b2e854e02f2de",
+      "byte_length": 18310,
+      "workspace_templates": [
+        "ws.sentence-core"
+      ],
+      "raw_provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전"
+      },
+      "counts": {
+        "items": 9,
+        "human_gold_required": 7
+      },
+      "items": [
+        {
+          "id": "cb-teach-1",
+          "role": "model_explanation",
+          "review_pointer": "/items/0",
+          "body_pointer": "/items/0/body",
+          "gold_pointer": "/items/0/gold",
+          "body_js_canonical_sha256": "78ae6c528e364045d8aac6a59eef85c95cad8d46eb3e7f836c3c2a4426c25a0e",
+          "gold_js_canonical_sha256": "a501288479a699bf5d418485bc31e28564691766b3a0279a5c08fd57ca00ed17",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "cb-guided-1",
+          "role": "guided_practice",
+          "review_pointer": "/items/1",
+          "body_pointer": "/items/1/body",
+          "gold_pointer": "/items/1/gold",
+          "body_js_canonical_sha256": "36d747d8cd12173bf926daaaf6232f233994f262f7cfccc18bc66e59911f73c1",
+          "gold_js_canonical_sha256": "a2ee443546ac5ad583157a880fb23118f11682bd1721b9dec4163782528b0e18",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "cb-ind-1",
+          "role": "independent_check",
+          "review_pointer": "/items/2",
+          "body_pointer": "/items/2/body",
+          "gold_pointer": "/items/2/gold",
+          "body_js_canonical_sha256": "587454ec746227580e2f9d36a5bc8468e8249321982e9b5270d0f64390199877",
+          "gold_js_canonical_sha256": "70082fe076d9681da7f6d42eb1a6b786bb55be3e20449a6a1dd4f6cc857a3772",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "cb-ind-2",
+          "role": "independent_check",
+          "review_pointer": "/items/3",
+          "body_pointer": "/items/3/body",
+          "gold_pointer": "/items/3/gold",
+          "body_js_canonical_sha256": "2f9a9239016bf7dcdeaab92e6a899fb9c9cd6489b79d9e2dad7aa2f3c02696f1",
+          "gold_js_canonical_sha256": "03092abc50889c0df63779e2dd8a27a4f7a523e97e3861abed042697a9cbab1f",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "cb-transfer-1",
+          "role": "transfer",
+          "review_pointer": "/items/4",
+          "body_pointer": "/items/4/body",
+          "gold_pointer": "/items/4/gold",
+          "body_js_canonical_sha256": "9897a07452f99990c417edf0e2b38a79834b3fc65d1df9d9a9cd141da4786661",
+          "gold_js_canonical_sha256": "85e33730e5fb312fdf215823d7291a54ea836314ba4f21cf6c04770c724dc4b3",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "cb-delayed-1",
+          "role": "delayed_check",
+          "review_pointer": "/items/5",
+          "body_pointer": "/items/5/body",
+          "gold_pointer": "/items/5/gold",
+          "body_js_canonical_sha256": "8bdc5391527244c9587260a47c5cda4722bf9724a74649b0119534c669a1d403",
+          "gold_js_canonical_sha256": "1b61f6ee22296084d9d11b61f985e8aa78332cf31520a49e1a27f4809f50aa16",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "cb-ind-3",
+          "role": "independent_check",
+          "review_pointer": "/items/6",
+          "body_pointer": "/items/6/body",
+          "gold_pointer": "/items/6/gold",
+          "body_js_canonical_sha256": "813ebb23f8ed5382d7f1ee1b04253fb3b86d25d14de5df5af4cfb8328bcdec28",
+          "gold_js_canonical_sha256": "3ecc2b37b75e409eba2ca42d668e9875e5432375cc0e5f34fb493fe526442e46",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "cb-ind-4",
+          "role": "independent_check",
+          "review_pointer": "/items/7",
+          "body_pointer": "/items/7/body",
+          "gold_pointer": "/items/7/gold",
+          "body_js_canonical_sha256": "9f4018d7b8a399d61cc5cf40566149dd3aed19ca1fd66b33252301c3185742de",
+          "gold_js_canonical_sha256": "a1bb6dd8b40c302c9c4905439062f533e8492f8cbf8530951d8f983c5f998e04",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "cb-transfer-2",
+          "role": "transfer",
+          "review_pointer": "/items/8",
+          "body_pointer": "/items/8/body",
+          "gold_pointer": "/items/8/gold",
+          "body_js_canonical_sha256": "197f7dd03acfbfe4d5883286b0b47fc2abbe18308775cb50ee87f761448f5601",
+          "gold_js_canonical_sha256": "b9bf30e7b1aedc85a5c256ad34b691f851e6fe86682296ca6b42dffcc632ce39",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        }
+      ],
+      "origin_main_file_sha256": "c7a0526ce33047116682931bc5818e12a05f4f87a2015737783b2e854e02f2de",
+      "same_bytes_as_origin_main": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json",
+      "set_revision": "s-structural-relation.v1",
+      "task": "s.structural_relation",
+      "task_key": "authored-structural-relation",
+      "format": "segment_choice",
+      "file_sha256": "d393dfe4bd475fee2b677f2170e176e291694536b092a71eb7ab8834df34b83c",
+      "byte_length": 17411,
+      "workspace_templates": [
+        "ws.sentence-core"
+      ],
+      "raw_provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전"
+      },
+      "counts": {
+        "items": 9,
+        "human_gold_required": 7
+      },
+      "items": [
+        {
+          "id": "sr-teach-1",
+          "role": "model_explanation",
+          "review_pointer": "/items/0",
+          "body_pointer": "/items/0/body",
+          "gold_pointer": "/items/0/gold",
+          "body_js_canonical_sha256": "34798f389f90432d24647bfdd09a09fb61fb04a6eae895fa13e49653f161e2f4",
+          "gold_js_canonical_sha256": "52e711ed3f31ad2b7e62607e4a3b7bd271a484b4f2b9f62976a4ec973b0c6d4c",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "sr-guided-1",
+          "role": "guided_practice",
+          "review_pointer": "/items/1",
+          "body_pointer": "/items/1/body",
+          "gold_pointer": "/items/1/gold",
+          "body_js_canonical_sha256": "b6c17ea3f7948822c78c8d0c9ad4d3e889444137e93fbab3d59d611eeb513bad",
+          "gold_js_canonical_sha256": "80b2c350ba6f940af481f7e4e14efe4467bdd35649eb9d37170b3a965978e41f",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "sr-ind-1",
+          "role": "independent_check",
+          "review_pointer": "/items/2",
+          "body_pointer": "/items/2/body",
+          "gold_pointer": "/items/2/gold",
+          "body_js_canonical_sha256": "5a63a8eee7820de2454709066e2a7aa835c2e194ba3ee0163e249ce6fa2345d3",
+          "gold_js_canonical_sha256": "89e6e959b30e70ae716182672801b397d3f88611934e44c43795808d504d60ef",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "sr-ind-2",
+          "role": "independent_check",
+          "review_pointer": "/items/3",
+          "body_pointer": "/items/3/body",
+          "gold_pointer": "/items/3/gold",
+          "body_js_canonical_sha256": "b279b8dcd87ba9348d4246c90480e1ea5ce74d6136f60d0fc96a9bbf8f9e0462",
+          "gold_js_canonical_sha256": "595a8f958d658bb77515db9c562a36d227636e08ba835a6f49c620a86d70af64",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "sr-transfer-1",
+          "role": "transfer",
+          "review_pointer": "/items/4",
+          "body_pointer": "/items/4/body",
+          "gold_pointer": "/items/4/gold",
+          "body_js_canonical_sha256": "d185518b74dd615bffc26abce7fa6f56482d51ac2f2fc5b8c249a9ab4f81335c",
+          "gold_js_canonical_sha256": "75eb5345586f42e1cfa5a08393870273cedd18cc1ef926653cb23bad2670eed6",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "sr-delayed-1",
+          "role": "delayed_check",
+          "review_pointer": "/items/5",
+          "body_pointer": "/items/5/body",
+          "gold_pointer": "/items/5/gold",
+          "body_js_canonical_sha256": "78e87e4c33ad0b7fc6bdfc483906081a90512cc56f5de8574b3f3579d4b42d8b",
+          "gold_js_canonical_sha256": "9e8399b8988291d1d1e97afafc023c76087121a6f2714ae37b7176d8c4b80173",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "sr-ind-3",
+          "role": "independent_check",
+          "review_pointer": "/items/6",
+          "body_pointer": "/items/6/body",
+          "gold_pointer": "/items/6/gold",
+          "body_js_canonical_sha256": "f67f45c2fb53da38b7a3921bd18b48b32e6142ecae458605ffa898965a61d58f",
+          "gold_js_canonical_sha256": "02983ad2d097aaa9421e00151bce1ee1e10a3f3568ce9116de48d218ed0b22d8",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "sr-ind-4",
+          "role": "independent_check",
+          "review_pointer": "/items/7",
+          "body_pointer": "/items/7/body",
+          "gold_pointer": "/items/7/gold",
+          "body_js_canonical_sha256": "a5b4ea4adba3195320db3a257fceaa7a9771ee744f9243c622f45d46c8a2087f",
+          "gold_js_canonical_sha256": "07fb53d72d7af71f05cffc9fe388ed0923fdc17dde1ae6ab014f3da93995b41d",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "sr-transfer-2",
+          "role": "transfer",
+          "review_pointer": "/items/8",
+          "body_pointer": "/items/8/body",
+          "gold_pointer": "/items/8/gold",
+          "body_js_canonical_sha256": "6032a8a54aeb2e09f4dae7b78f8b0bff87fc3892cac87a4e0d57aa75c60954b0",
+          "gold_js_canonical_sha256": "8940ab2d8efaeaa1c8503cf859490d106113bc3bbf4a5d7300a1a12e466bb3e2",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        }
+      ],
+      "origin_main_file_sha256": "d393dfe4bd475fee2b677f2170e176e291694536b092a71eb7ab8834df34b83c",
+      "same_bytes_as_origin_main": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json",
+      "set_revision": "v-semantic-relation.v1",
+      "task": "v.semantic_relation",
+      "task_key": "authored-semantic-relation",
+      "format": "equivalence",
+      "file_sha256": "2763dfa3786da48773b54f0f74e3eb8dcf0ceeb710924d478aefe94c59995358",
+      "byte_length": 13648,
+      "workspace_templates": [
+        "ws.option-match"
+      ],
+      "raw_provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전"
+      },
+      "counts": {
+        "items": 9,
+        "human_gold_required": 7
+      },
+      "items": [
+        {
+          "id": "sem-teach-1",
+          "role": "model_explanation",
+          "review_pointer": "/items/0",
+          "body_pointer": "/items/0/body",
+          "gold_pointer": "/items/0/gold",
+          "body_js_canonical_sha256": "d5f3f1627d07d7b2dd8853c05af4f22aa37cea31a86f0957c0ea6ff0529e73dc",
+          "gold_js_canonical_sha256": "5d492467ad48742a485af00167636c16c547ec3f3d4034c283f900d3a744b9db",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "sem-guided-1",
+          "role": "guided_practice",
+          "review_pointer": "/items/1",
+          "body_pointer": "/items/1/body",
+          "gold_pointer": "/items/1/gold",
+          "body_js_canonical_sha256": "079cb36bee313fc167d4bb47b44d3b42a0e8cb6d2f0a9b1449dfb88ce9f10e6f",
+          "gold_js_canonical_sha256": "2467c6fab1d42b10d911402b2ece59448f6abd87443f4e68411d0e1c4fa49240",
+          "human_gold_required": false,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit"
+          ],
+          "release_scopes": [
+            "public"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "sem-ind-1",
+          "role": "independent_check",
+          "review_pointer": "/items/2",
+          "body_pointer": "/items/2/body",
+          "gold_pointer": "/items/2/gold",
+          "body_js_canonical_sha256": "eb3b37f21d5d7d93c02424125e302a7f27b465a1f52159da4b29baf989e5437b",
+          "gold_js_canonical_sha256": "15ad0b6b832b5077a29e5af5d8097462f89b3252cffc354f166eb25e9238cc15",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "sem-ind-2",
+          "role": "independent_check",
+          "review_pointer": "/items/3",
+          "body_pointer": "/items/3/body",
+          "gold_pointer": "/items/3/gold",
+          "body_js_canonical_sha256": "7f79b6b6309a04a59a3c05ab475fa5d053f18a9d8b8ce15f4c4c3248d7562a3e",
+          "gold_js_canonical_sha256": "495ddfbec07311fc1996d5b92e043a043d394421e61c4518e07e222921c15003",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "sem-transfer-1",
+          "role": "transfer",
+          "review_pointer": "/items/4",
+          "body_pointer": "/items/4/body",
+          "gold_pointer": "/items/4/gold",
+          "body_js_canonical_sha256": "0b82ee05fc9bcbeddbd9b32e300710ca119ee763bc162db6130cd8e6dc4bec1a",
+          "gold_js_canonical_sha256": "bbadf0672e9f594b1f60404e60727b7fa1e8c008a3b25809795bc40376c7f0b8",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "sem-delayed-1",
+          "role": "delayed_check",
+          "review_pointer": "/items/5",
+          "body_pointer": "/items/5/body",
+          "gold_pointer": "/items/5/gold",
+          "body_js_canonical_sha256": "c9d9cc015d99f45d9dfa1c24852a09374aae7f9db3185f9d832d240993d4fd8c",
+          "gold_js_canonical_sha256": "252af40e6a420f463f3ffd2b6407302e84e7ed724bf751e351dc693ad1ac22ef",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "sem-ind-3",
+          "role": "independent_check",
+          "review_pointer": "/items/6",
+          "body_pointer": "/items/6/body",
+          "gold_pointer": "/items/6/gold",
+          "body_js_canonical_sha256": "d16ce23d463b3eadbb1ff1833a20107cfabaa3f7882c64e67a7cfd8f9b26dc18",
+          "gold_js_canonical_sha256": "89f9036ad6882d6db795fcdaad2c1f6bb740c317bc0359f6faea8d59aeba062b",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "sem-ind-4",
+          "role": "independent_check",
+          "review_pointer": "/items/7",
+          "body_pointer": "/items/7/body",
+          "gold_pointer": "/items/7/gold",
+          "body_js_canonical_sha256": "43e170911bfb8eb58cfb10db55dbb0e4ee22b30a655dfc5c4c9c35e7600011fb",
+          "gold_js_canonical_sha256": "6a1758b48997dbb8921b777cec4efb8a5bb7432dc0f4f5e9c17f78138ef258aa",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "sem-transfer-2",
+          "role": "transfer",
+          "review_pointer": "/items/8",
+          "body_pointer": "/items/8/body",
+          "gold_pointer": "/items/8/gold",
+          "body_js_canonical_sha256": "43903d3b9a5fbc58646faaef8b3a67aaf50078bd0d99b63f8b11442e3f34cd2e",
+          "gold_js_canonical_sha256": "25ee6ce25f1588f872a6aec4e96a59b3fb28ad8b3a89d4c66f97afba65ff1e01",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        }
+      ],
+      "origin_main_file_sha256": "2763dfa3786da48773b54f0f74e3eb8dcf0ceeb710924d478aefe94c59995358",
+      "same_bytes_as_origin_main": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v2.json",
+      "set_revision": "r5-central-meaning-cycle.v2",
+      "task": "r.central_meaning",
+      "task_key": "authored-central-meaning",
+      "format": "central_meaning",
+      "file_sha256": "408d40fdd5a1e24ec9bf5ce2b5e398e09c86a4dbf9aa16523bb305d41268c08c",
+      "byte_length": 8867,
+      "workspace_templates": [
+        "ws.central-meaning",
+        "ws.option-match"
+      ],
+      "raw_provenance": {
+        "author": "Codex primary agent",
+        "method": "First-party hypothetical scenarios written directly for the canonical check-repair-transfer-recheck cycle; no empirical study or external factual result asserted.",
+        "derivedFrom": [],
+        "createdAt": "2026-10-21",
+        "humanGold": "not_claimed; independent Claude and Codex AI review required",
+        "rights": "first_party_original_declaration_only; no external rights grant",
+        "revisionNote": "Independent diagnostic counter-audits identified reason/example ambiguity in repairclub sentence3. Keep all passages/choices/keys and support annotations unchanged; ask relation of the explicit restated claim in sentence5 instead. Historical v1 is retained and not the active registration set. No shared v1 rows exist."
+      },
+      "counts": {
+        "items": 3,
+        "human_gold_required": 3
+      },
+      "items": [
+        {
+          "id": "r5-cycle-ind-1",
+          "role": "independent_check",
+          "review_pointer": "/items/0",
+          "body_pointer": "/items/0/body",
+          "gold_pointer": "/items/0/gold",
+          "body_js_canonical_sha256": "068ec059ab3af3aeb083d3b3f8d9739674167ea480ecf0989a112d0ca57c18b1",
+          "gold_js_canonical_sha256": "538cfb52e6c9e2d67d596cc86398c81d5495cea783950210445185c79db47f7c",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "r5-cycle-ind-2",
+          "role": "independent_check",
+          "review_pointer": "/items/1",
+          "body_pointer": "/items/1/body",
+          "gold_pointer": "/items/1/gold",
+          "body_js_canonical_sha256": "66c1bcd95ddc2652b28405f90b102cfaea0af755e5b332c6e7a766a55c180ea4",
+          "gold_js_canonical_sha256": "1f73ce43f8462f0a281403ae2a4d1bd0f5b5bff4e5b8ba37415d6f4c2517b07a",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        },
+        {
+          "id": "r5-cycle-transfer-2",
+          "role": "transfer",
+          "review_pointer": "/items/2",
+          "body_pointer": "/items/2/body",
+          "gold_pointer": "/items/2/gold",
+          "body_js_canonical_sha256": "27990bd08724448e757b548e5531d3531da7f1921015f73ca39b3d67774c7960",
+          "gold_js_canonical_sha256": "73830d2234c9ff008504504b268f1979e1a45379bdb6f690ba80f84273037321",
+          "human_gold_required": true,
+          "rights_operations": [
+            "store",
+            "display",
+            "transmit",
+            "assess"
+          ],
+          "release_scopes": [
+            "public",
+            "assessment"
+          ],
+          "db_registration": "NOT_RECORDED",
+          "human_gold_decision": "NOT_RECORDED",
+          "rights_decision": "NOT_RECORDED",
+          "release_decision": "NOT_RECORDED"
+        }
+      ],
+      "origin_main_file_sha256": null,
+      "same_bytes_as_origin_main": false
+    }
+  ],
+  "remote_content_differences": 2
+}

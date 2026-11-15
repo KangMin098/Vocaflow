@@ -1,0 +1,2778 @@
+{
+ "version": "map-data-pilot-1",
+ "input_sha256": "8107ac4cdd71165ec0ac90ef556f4211be1271cd64a78a9f7ec863ea45bc85db",
+ "tasks": 21,
+ "items": 40,
+ "pairs": 840,
+ "agreement": 0.7893,
+ "kappa": 0.5842,
+ "primary_task_agreement": 31,
+ "per_task": {
+  "v.core_meaning": {
+   "display": "V1",
+   "n": 40,
+   "agreement": 0.65,
+   "kappa": 0.2784,
+   "both_direct": 0,
+   "both_indirect": 9,
+   "both_not_applicable": 17,
+   "disputed": 14
+  },
+  "v.contextual_sense": {
+   "display": "V2",
+   "n": 40,
+   "agreement": 0.95,
+   "kappa": 0.7279,
+   "both_direct": 3,
+   "both_indirect": 0,
+   "both_not_applicable": 35,
+   "disputed": 2
+  },
+  "v.multiword": {
+   "display": "V3",
+   "n": 40,
+   "agreement": 0.8,
+   "kappa": 0.2857,
+   "both_direct": 0,
+   "both_indirect": 2,
+   "both_not_applicable": 30,
+   "disputed": 8
+  },
+  "v.semantic_relation": {
+   "display": "V4",
+   "n": 40,
+   "agreement": 0.725,
+   "kappa": 0.5378,
+   "both_direct": 3,
+   "both_indirect": 8,
+   "both_not_applicable": 18,
+   "disputed": 11
+  },
+  "s.sentence_core": {
+   "display": "S1",
+   "n": 40,
+   "agreement": 0.95,
+   "kappa": 0.6491,
+   "both_direct": 1,
+   "both_indirect": 1,
+   "both_not_applicable": 36,
+   "disputed": 2
+  },
+  "s.chunk_boundary": {
+   "display": "S2",
+   "n": 40,
+   "agreement": 0.975,
+   "kappa": 0,
+   "both_direct": 0,
+   "both_indirect": 0,
+   "both_not_applicable": 39,
+   "disputed": 1
+  },
+  "s.attachment": {
+   "display": "S3",
+   "n": 40,
+   "agreement": 0.925,
+   "kappa": 0.5313,
+   "both_direct": 0,
+   "both_indirect": 2,
+   "both_not_applicable": 35,
+   "disputed": 3
+  },
+  "s.structural_relation": {
+   "display": "S4",
+   "n": 40,
+   "agreement": 0.875,
+   "kappa": 0.4737,
+   "both_direct": 0,
+   "both_indirect": 3,
+   "both_not_applicable": 32,
+   "disputed": 5
+  },
+  "s.form_scope": {
+   "display": "S5",
+   "n": 40,
+   "agreement": 0.825,
+   "kappa": 0.4909,
+   "both_direct": 2,
+   "both_indirect": 1,
+   "both_not_applicable": 30,
+   "disputed": 7
+  },
+  "s.o.sentence_meaning_model": {
+   "display": "S-O1",
+   "n": 40,
+   "agreement": 0.75,
+   "kappa": 0,
+   "both_direct": 0,
+   "both_indirect": 0,
+   "both_not_applicable": 30,
+   "disputed": 10
+  },
+  "r.reference": {
+   "display": "R1",
+   "n": 40,
+   "agreement": 0.775,
+   "kappa": 0.5909,
+   "both_direct": 5,
+   "both_indirect": 5,
+   "both_not_applicable": 21,
+   "disputed": 9
+  },
+  "r.relation": {
+   "display": "R2",
+   "n": 40,
+   "agreement": 0.575,
+   "kappa": 0.3555,
+   "both_direct": 7,
+   "both_indirect": 8,
+   "both_not_applicable": 8,
+   "disputed": 17
+  },
+  "r.discourse_function": {
+   "display": "R3",
+   "n": 40,
+   "agreement": 0.8,
+   "kappa": 0.056,
+   "both_direct": 0,
+   "both_indirect": 0,
+   "both_not_applicable": 32,
+   "disputed": 8
+  },
+  "r.discourse_structure": {
+   "display": "R4",
+   "n": 40,
+   "agreement": 0.75,
+   "kappa": 0.5392,
+   "both_direct": 0,
+   "both_indirect": 12,
+   "both_not_applicable": 18,
+   "disputed": 10
+  },
+  "r.central_meaning": {
+   "display": "R5",
+   "n": 40,
+   "agreement": 0.925,
+   "kappa": 0.858,
+   "both_direct": 10,
+   "both_indirect": 3,
+   "both_not_applicable": 24,
+   "disputed": 3
+  },
+  "r.inference": {
+   "display": "R6",
+   "n": 40,
+   "agreement": 0.975,
+   "kappa": 0.94,
+   "both_direct": 11,
+   "both_indirect": 0,
+   "both_not_applicable": 28,
+   "disputed": 1
+  },
+  "r.o.global_meaning_model": {
+   "display": "R-O1",
+   "n": 40,
+   "agreement": 0.675,
+   "kappa": 0.1772,
+   "both_direct": 0,
+   "both_indirect": 4,
+   "both_not_applicable": 23,
+   "disputed": 13
+  },
+  "e.task_demand": {
+   "display": "E1",
+   "n": 40,
+   "agreement": 0.825,
+   "kappa": 0,
+   "both_direct": 0,
+   "both_indirect": 33,
+   "both_not_applicable": 0,
+   "disputed": 7
+  },
+  "e.evidence_location": {
+   "display": "E2",
+   "n": 40,
+   "agreement": 0.65,
+   "kappa": 0.4422,
+   "both_direct": 16,
+   "both_indirect": 5,
+   "both_not_applicable": 4,
+   "disputed": 14
+  },
+  "e.option_correspondence": {
+   "display": "E3",
+   "n": 40,
+   "agreement": 0.825,
+   "kappa": 0.7175,
+   "both_direct": 15,
+   "both_indirect": 3,
+   "both_not_applicable": 15,
+   "disputed": 7
+  },
+  "e.o.final_judgment": {
+   "display": "E-O1",
+   "n": 40,
+   "agreement": 0.375,
+   "kappa": -0.3423,
+   "both_direct": 0,
+   "both_indirect": 14,
+   "both_not_applicable": 0,
+   "disputed": 25
+  }
+ },
+ "human_review": 0,
+ "student_measurement": 0,
+ "note": "두 AI 판정의 일치는 사람 검수 · 학생 성취가 아니다. relevance 는 전부 unknown — 일치한 direct·indirect 만 candidateRelevance(R1).",
+ "items_detail": [
+  {
+   "item_id": "2026#18",
+   "type_id": "R-PURPOSE",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "e158ab696e367d75f3c3177996bd710b15053f6cfeaf00962ae4bba659d2c90d",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.central_meaning",
+    "B": "r.central_meaning",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "e.evidence_location",
+     "e.option_correspondence",
+     "r.discourse_function",
+     "e.task_demand"
+    ],
+    "B": [
+     "v.core_meaning",
+     "r.relation",
+     "r.discourse_structure",
+     "e.task_demand",
+     "e.evidence_location",
+     "e.option_correspondence",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "unmentioned",
+     "B": "unmentioned"
+    },
+    "3": {
+     "A": "surface_word_match",
+     "B": "wrong_target"
+    },
+    "4": {
+     "A": "wrong_target",
+     "B": "wrong_target"
+    },
+    "5": {
+     "A": "scope_expand",
+     "B": "surface_word_match"
+    }
+   },
+   "directly_observable": {
+    "A": [
+     "e.option_correspondence"
+    ],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "단일 결정 문장과 명확한 요청 표지가 있어 처음 보는 학습자의 목적 파악 첫 시도 근거가 될 수 있다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "목적이 한 요청문으로 결정되고 시각 자료 의존이 없다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#19",
+   "type_id": "R-MOOD",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "b966b567a941282f842f006ccc1fefc29d854b4f48ba4d4b5d29f33158fd17bc",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.inference",
+    "B": "r.inference",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "r.discourse_structure",
+     "e.evidence_location",
+     "v.semantic_relation",
+     "e.option_correspondence"
+    ],
+    "B": [
+     "v.core_meaning",
+     "v.semantic_relation",
+     "r.relation",
+     "r.discourse_structure",
+     "e.task_demand",
+     "e.evidence_location",
+     "e.option_correspondence",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "2": {
+     "A": "reversal",
+     "B": "reversal"
+    },
+    "3": {
+     "A": "reversal",
+     "B": "reversal"
+    },
+    "4": {
+     "A": "reversal",
+     "B": "reversal"
+    },
+    "5": {
+     "A": "partial_truth",
+     "B": "partial_truth"
+    }
+   },
+   "directly_observable": {
+    "A": [
+     "r.inference"
+    ],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "단서가 원문에 명확하고 경로가 하나라 처음 보는 학습자의 심경 추론 첫 시도 근거가 될 수 있다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "감정 단서가 본문에 명확하고 시각 자료 의존이 없다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#20",
+   "type_id": "R-CLAIM",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "d1f89d7fbea745fdf997e64db3f9fc142689f0433ca306fb3d94d8377104a100",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.central_meaning",
+    "B": "r.central_meaning",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "r.reference",
+     "e.evidence_location",
+     "e.option_correspondence",
+     "r.relation"
+    ],
+    "B": [
+     "v.core_meaning",
+     "s.o.sentence_meaning_model",
+     "r.relation",
+     "r.discourse_structure",
+     "e.task_demand",
+     "e.evidence_location",
+     "e.option_correspondence",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "surface_word_match",
+     "B": "surface_word_match"
+    },
+    "3": {
+     "A": "wrong_target",
+     "B": "wrong_target"
+    },
+    "4": {
+     "A": "surface_word_match",
+     "B": "surface_word_match"
+    },
+    "5": {
+     "A": "unmentioned",
+     "B": "unmentioned"
+    }
+   },
+   "directly_observable": {
+    "A": [
+     "e.option_correspondence"
+    ],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "단일 당위 문장과 명확한 지시 관계가 있어 처음 보는 학습자의 주장 파악 첫 시도 근거가 될 수 있다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "주장이 한 문장으로 결정되고 시각 자료 의존이 없다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#21",
+   "type_id": "R-IMPLY",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "c6fd8e59e31f61c50a5ed815565ff6fb74a164321b2eb9edadda8dd51e241079",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "r.inference",
+    "B": "r.inference",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "v.contextual_sense",
+     "v.semantic_relation",
+     "e.evidence_location",
+     "r.discourse_function",
+     "e.option_correspondence"
+    ],
+    "B": [
+     "v.contextual_sense",
+     "v.semantic_relation",
+     "s.attachment",
+     "s.o.sentence_meaning_model",
+     "r.reference",
+     "r.relation",
+     "r.o.global_meaning_model",
+     "e.task_demand",
+     "e.evidence_location",
+     "e.option_correspondence",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "unmentioned",
+     "B": "overgeneralization"
+    },
+    "3": {
+     "A": "reversal",
+     "B": "reversal"
+    },
+    "4": {
+     "A": "partial_truth",
+     "B": "scope_expand"
+    },
+    "5": {
+     "A": "scope_shrink",
+     "B": "partial_truth"
+    }
+   },
+   "directly_observable": {
+    "A": [
+     "v.semantic_relation"
+    ],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "풀이 문장이 원문에 있고 정답 경로가 하나라 처음 보는 학습자의 함축 추론 첫 시도 근거가 될 수 있다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "근거가 본문에 있고 시각 자료 의존이 없다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#22",
+   "type_id": "R-GIST",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "97996bc57b7f752d86127c1fd7cf118864aa6ae9c97568b913540c8391380e5d",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "r.central_meaning",
+    "B": "r.central_meaning",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "r.discourse_function",
+     "e.evidence_location",
+     "e.option_correspondence",
+     "r.discourse_structure"
+    ],
+    "B": [
+     "v.core_meaning",
+     "r.reference",
+     "r.relation",
+     "r.discourse_structure",
+     "r.o.global_meaning_model",
+     "e.task_demand",
+     "e.evidence_location",
+     "e.option_correspondence",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "2": {
+     "A": "unmentioned",
+     "B": "unmentioned"
+    },
+    "3": {
+     "A": "partial_truth",
+     "B": "partial_truth"
+    },
+    "4": {
+     "A": "surface_word_match",
+     "B": "scope_shrink"
+    },
+    "5": {
+     "A": "scope_shrink",
+     "B": "scope_shrink"
+    }
+   },
+   "directly_observable": {
+    "A": [
+     "e.option_correspondence"
+    ],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "처방 문장이 명시되어 처음 보는 학습자의 요지 파악 첫 시도 근거가 될 수 있다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "요지가 해결부에서 결정되고 시각 자료 의존이 없다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#23",
+   "type_id": "R-TOPIC",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "e07cba7774ddbb486cbd6fa6d62291f13576364507f32955f60a005ba6e67ff9",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "r.central_meaning",
+    "B": "r.central_meaning",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "r.relation",
+     "e.evidence_location",
+     "e.option_correspondence",
+     "r.discourse_structure"
+    ],
+    "B": [
+     "v.contextual_sense",
+     "v.semantic_relation",
+     "s.form_scope",
+     "r.relation",
+     "r.discourse_function",
+     "r.discourse_structure",
+     "e.task_demand",
+     "e.evidence_location",
+     "e.option_correspondence",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "surface_word_match",
+     "B": "surface_word_match"
+    },
+    "2": {
+     "A": "partial_truth",
+     "B": "scope_shrink"
+    },
+    "4": {
+     "A": "reversal",
+     "B": "reversal"
+    },
+    "5": {
+     "A": "unmentioned",
+     "B": "unmentioned"
+    }
+   },
+   "directly_observable": {
+    "A": [
+     "e.option_correspondence"
+    ],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "결론 문장이 명시되어 처음 보는 학습자의 주제 파악 첫 시도 근거가 될 수 있다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "결론이 본문에 있고 시각 자료 의존이 없다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#24",
+   "type_id": "R-TITLE",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "1c214225a15ea397c50b49c66427389eac98a22f992bd43a831be4d50faed0b1",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.central_meaning",
+    "B": "r.central_meaning",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "r.discourse_structure",
+     "r.inference",
+     "e.option_correspondence",
+     "e.evidence_location"
+    ],
+    "B": [
+     "v.multiword",
+     "v.semantic_relation",
+     "r.relation",
+     "r.discourse_structure",
+     "r.inference",
+     "r.o.global_meaning_model",
+     "e.task_demand",
+     "e.evidence_location",
+     "e.option_correspondence",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "partial_truth",
+     "B": "partial_truth"
+    },
+    "3": {
+     "A": "reversal",
+     "B": "reversal"
+    },
+    "4": {
+     "A": "causal_error",
+     "B": "reversal"
+    },
+    "5": {
+     "A": "surface_word_match",
+     "B": "surface_word_match"
+    }
+   },
+   "directly_observable": {
+    "A": [
+     "e.option_correspondence"
+    ],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "not_suitable",
+     "reason": "비유적 제목 해석에 다중 경로가 있고 단일 결정 문장보다 글 전체 저울질에 의존해 독립 첫 시도 근거로 삼기 어렵다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "근거가 본문에 있고 시각 자료 의존이 없다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#25",
+   "type_id": "R-CHART",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "cabebf765c5e7ac276255327951f9d0a877578802fba29a207dedf1a0d85653c",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "e.option_correspondence",
+    "B": "e.option_correspondence",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "e.task_demand"
+    ],
+    "B": [
+     "s.form_scope",
+     "s.o.sentence_meaning_model",
+     "r.reference",
+     "e.task_demand"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "true_statement",
+     "B": "true_statement"
+    },
+    "2": {
+     "A": "true_statement",
+     "B": "true_statement"
+    },
+    "3": {
+     "A": "true_statement",
+     "B": "true_statement"
+    },
+    "5": {
+     "A": "true_statement",
+     "B": "true_statement"
+    }
+   },
+   "directly_observable": {
+    "A": [],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "not_suitable",
+     "reason": "시각 자료(도표)에 의존하며 입력에 수치가 없어 독립 첫 시도 근거로 삼을 수 없다"
+    },
+    "B": {
+     "eligibility": "not_suitable",
+     "reason": "도표 시각 자료에 의존하며 입력에 도표가 없다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#26",
+   "type_id": "R-FACT",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "a389e1f45d6d12fd1471922c10a1caaccdea8f2c29f81f9ff7ba08c2a7e7b1a8",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "e.option_correspondence",
+    "B": "e.option_correspondence",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "s.form_scope",
+     "e.evidence_location",
+     "s.structural_relation"
+    ],
+    "B": [
+     "v.core_meaning",
+     "v.multiword",
+     "s.structural_relation",
+     "e.task_demand",
+     "e.evidence_location",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "true_statement",
+     "B": "true_statement"
+    },
+    "2": {
+     "A": "true_statement",
+     "B": "true_statement"
+    },
+    "4": {
+     "A": "true_statement",
+     "B": "true_statement"
+    },
+    "5": {
+     "A": "true_statement",
+     "B": "true_statement"
+    }
+   },
+   "directly_observable": {
+    "A": [
+     "e.option_correspondence"
+    ],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "단일 결정 문장과 명확한 시점 단서가 있어 처음 보는 학습자의 대응 판단 첫 시도 근거가 될 수 있다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "근거가 한 문장으로 결정되고 시각 자료 의존이 없다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#27",
+   "type_id": "R-NOTICE",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "fb73f76a641a9e1738989bea0c355ef79518e26cd903fb662ae7dfb60ab62a7d",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "e.option_correspondence",
+    "B": "e.option_correspondence",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "e.evidence_location",
+     "s.form_scope",
+     "e.task_demand"
+    ],
+    "B": [
+     "v.core_meaning",
+     "e.task_demand",
+     "e.evidence_location",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "true_statement",
+     "B": "true_statement"
+    },
+    "2": {
+     "A": "true_statement",
+     "B": "true_statement"
+    },
+    "3": {
+     "A": "true_statement",
+     "B": "true_statement"
+    },
+    "5": {
+     "A": "true_statement",
+     "B": "true_statement"
+    }
+   },
+   "directly_observable": {
+    "A": [
+     "e.option_correspondence"
+    ],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "결정 항목이 명시되어 처음 보는 학습자의 대응 판단 첫 시도 근거가 될 수 있다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "근거가 명시되어 있고 시각 자료 의존이 없다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#28",
+   "type_id": "R-NOTICE",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "ee3eedaf92d47e09c061fafacc55356c4a7f079ce09b8c8c3fab285ff78fdb16",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "e.evidence_location",
+    "B": "e.option_correspondence",
+    "agree": false
+   },
+   "secondary_tasks": {
+    "A": [
+     "v.core_meaning",
+     "s.form_scope",
+     "e.task_demand",
+     "e.option_correspondence",
+     "e.o.final_judgment"
+    ],
+    "B": [
+     "e.evidence_location",
+     "e.task_demand",
+     "v.core_meaning",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "unmentioned",
+     "B": "scope_shrink"
+    },
+    "2": {
+     "A": "mixed_attribution",
+     "B": "reversal"
+    },
+    "3": {
+     "A": "other",
+     "B": "scope_expand"
+    },
+    "5": {
+     "A": "reversal",
+     "B": "reversal"
+    }
+   },
+   "directly_observable": {
+    "A": [],
+    "B": [
+     "e.option_correspondence"
+    ]
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "단일 경로로 근거 줄이 분명해 E2·E3 첫 시도 근거가 될 수 있다(단, 선택만으로 근거 지목은 확인되지 않는다)"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "근거 칸과 선지가 일대일로 대응하고 시각 자료 의존이 없어 E3 첫 시도 근거가 될 수 있다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#29",
+   "type_id": "R-GRAMMAR",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "ff99df328f9b68a7110c5228de95fe79c767ba629cc853a2beeb45d0d07ecce9",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "s.sentence_core",
+    "B": "s.sentence_core",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "s.attachment",
+     "s.structural_relation",
+     "s.form_scope",
+     "e.task_demand",
+     "e.o.final_judgment"
+    ],
+    "B": [
+     "s.form_scope",
+     "s.attachment",
+     "s.structural_relation",
+     "e.task_demand",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "true_statement",
+     "B": "form_error"
+    },
+    "3": {
+     "A": "true_statement",
+     "B": "form_error"
+    },
+    "4": {
+     "A": "true_statement",
+     "B": "form_error"
+    },
+    "5": {
+     "A": "true_statement",
+     "B": "form_error"
+    }
+   },
+   "directly_observable": {
+    "A": [],
+    "B": [
+     "s.form_scope"
+    ]
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "정동사 부재 판단이 단일 경로로 결정되어 S5 첫 시도 근거가 될 수 있다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "정답이 문장 내부 구조 하나로 결정되어 처음 보는 학습자의 S1·S5 수행 근거가 될 수 있다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#30",
+   "type_id": "R-VOCAB",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "eb7fbc2daa90bb1c55a00ea5266f18c6633758a547fff2aa13f0eb505a787eef",
+   "analysis_version": 8,
+   "primary_task": {
+    "A": "v.contextual_sense",
+    "B": "v.contextual_sense",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "v.core_meaning",
+     "v.multiword",
+     "r.relation",
+     "r.discourse_structure",
+     "e.task_demand",
+     "e.evidence_location"
+    ],
+    "B": [
+     "v.semantic_relation",
+     "r.relation",
+     "v.core_meaning",
+     "e.task_demand",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "true_statement",
+     "B": "reversal"
+    },
+    "2": {
+     "A": "true_statement",
+     "B": "causal_error"
+    },
+    "3": {
+     "A": "true_statement",
+     "B": "causal_error"
+    },
+    "4": {
+     "A": "true_statement",
+     "B": "surface_word_match"
+    }
+   },
+   "directly_observable": {
+    "A": [],
+    "B": [
+     "v.contextual_sense"
+    ]
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "단일 결정 지점이 분명해 V2 첫 시도 근거가 될 수 있다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "결론 문장 하나의 목적 논리로 판정되어 V2 독립 첫 시도 근거로 쓸 수 있다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#31",
+   "type_id": "R-BLANK",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "7b130ba33042fbc7de7954304514d40151b8c8f6d38e82643a018635a6f30fa7",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "r.inference",
+    "B": "r.inference",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "v.core_meaning",
+     "r.reference",
+     "r.relation",
+     "e.task_demand",
+     "e.evidence_location",
+     "e.o.final_judgment"
+    ],
+    "B": [
+     "e.evidence_location",
+     "v.core_meaning",
+     "r.relation",
+     "e.task_demand",
+     "e.option_correspondence"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "2": {
+     "A": "surface_word_match",
+     "B": "surface_word_match"
+    },
+    "3": {
+     "A": "unmentioned",
+     "B": "unmentioned"
+    },
+    "4": {
+     "A": "surface_word_match",
+     "B": "wrong_target"
+    },
+    "5": {
+     "A": "unmentioned",
+     "B": "unmentioned"
+    }
+   },
+   "directly_observable": {
+    "A": [],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "근거가 흩어져 있으나 경로가 하나로 수렴해 R6 첫 시도 근거가 될 수 있다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "근거가 본문에 명시되고 선지가 짧아 R6 첫 시도 근거로 쓸 수 있으나 선택형이라 근거 지목은 별도 확인이 필요하다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#32",
+   "type_id": "R-BLANK",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "4f1c3b4c6268b26560208d55f77782379c3c436886da544c05be192074ff685a",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "r.relation",
+    "B": "r.inference",
+    "agree": false
+   },
+   "secondary_tasks": {
+    "A": [
+     "v.semantic_relation",
+     "r.central_meaning",
+     "r.inference",
+     "e.task_demand",
+     "e.evidence_location",
+     "e.o.final_judgment"
+    ],
+    "B": [
+     "e.evidence_location",
+     "r.relation",
+     "v.semantic_relation",
+     "e.task_demand",
+     "e.option_correspondence",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "scope_expand",
+     "B": "partial_truth"
+    },
+    "2": {
+     "A": "surface_word_match",
+     "B": "surface_word_match"
+    },
+    "3": {
+     "A": "reversal",
+     "B": "reversal"
+    },
+    "4": {
+     "A": "wrong_target",
+     "B": "wrong_target"
+    }
+   },
+   "directly_observable": {
+    "A": [],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "재진술 단서가 단일 경로를 주어 R6 첫 시도 근거가 될 수 있다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "재진술 단서가 본문에 있어 R6 첫 시도 근거가 될 수 있다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#33",
+   "type_id": "R-BLANK",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "904de6bb62815e7ffc63cab8f3b0bdb61b17dc8a2fb204d035f3ddf582c617f3",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "r.inference",
+    "B": "r.inference",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "v.semantic_relation",
+     "r.reference",
+     "r.central_meaning",
+     "e.task_demand",
+     "e.evidence_location"
+    ],
+    "B": [
+     "e.evidence_location",
+     "r.central_meaning",
+     "v.semantic_relation",
+     "e.task_demand",
+     "e.option_correspondence",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "surface_word_match",
+     "B": "unmentioned"
+    },
+    "2": {
+     "A": "wrong_target",
+     "B": "scope_expand"
+    },
+    "3": {
+     "A": "unmentioned",
+     "B": "unmentioned"
+    },
+    "5": {
+     "A": "wrong_target",
+     "B": "wrong_target"
+    }
+   },
+   "directly_observable": {
+    "A": [],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "근거가 명시적이고 경로가 하나라 R6 첫 시도 근거가 될 수 있다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "주장이 명시적으로 반복돼 근거가 분명하므로 R6 첫 시도 근거로 쓸 수 있다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#34",
+   "type_id": "R-BLANK",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "2a5148efe40a7aab7abdadedc335b97e6a5455b0bde89faad1745f72876e4d8b",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "s.form_scope",
+    "B": "r.inference",
+    "agree": false
+   },
+   "secondary_tasks": {
+    "A": [
+     "v.contextual_sense",
+     "r.relation",
+     "r.central_meaning",
+     "r.inference",
+     "r.o.global_meaning_model",
+     "e.task_demand",
+     "e.evidence_location",
+     "e.o.final_judgment"
+    ],
+    "B": [
+     "s.form_scope",
+     "e.evidence_location",
+     "r.central_meaning",
+     "e.task_demand",
+     "e.option_correspondence",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "reversal",
+     "B": "partial_truth"
+    },
+    "2": {
+     "A": "surface_word_match",
+     "B": "surface_word_match"
+    },
+    "4": {
+     "A": "off_demand",
+     "B": "surface_word_match"
+    },
+    "5": {
+     "A": "surface_word_match",
+     "B": "off_demand"
+    }
+   },
+   "directly_observable": {
+    "A": [],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "not_suitable",
+     "reason": "추상 논지와 이중 부정 경로가 여럿이라 한 TASK 의 독립 근거로 쓰기 어렵다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "근거 조건문이 명시되어 R6 첫 시도 근거가 될 수 있으나 부정 범위 처리와 섞여 해석 시 S5 와 분리가 필요하다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#35",
+   "type_id": "R-IRRELEVANT",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "791eef82191bc373a93cdca5f0577f78f2e152b560936f5826f1e8bf93b71e5c",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "r.central_meaning",
+    "B": "r.discourse_structure",
+    "agree": false
+   },
+   "secondary_tasks": {
+    "A": [
+     "r.reference",
+     "r.relation",
+     "r.discourse_structure",
+     "e.task_demand",
+     "e.evidence_location",
+     "e.o.final_judgment"
+    ],
+    "B": [
+     "r.central_meaning",
+     "r.relation",
+     "r.reference",
+     "e.task_demand",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "true_statement",
+     "B": "partial_truth"
+    },
+    "2": {
+     "A": "true_statement",
+     "B": "overgeneralization"
+    },
+    "3": {
+     "A": "true_statement",
+     "B": "surface_word_match"
+    },
+    "5": {
+     "A": "true_statement",
+     "B": "reversal"
+    }
+   },
+   "directly_observable": {
+    "A": [],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "중심 판정이 단일 경로라 R5 첫 시도 근거가 될 수 있다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "주제가 명확하고 일탈 문장이 하나라 R4 첫 시도 근거로 쓸 수 있다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#36",
+   "type_id": "R-ORDER",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "7d7cf3ec536fe633e03a5d256fa75a1766fa3c106ed0d5766badded0bf70dfe6",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.reference",
+    "B": "r.reference",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "v.semantic_relation",
+     "r.relation",
+     "r.discourse_function",
+     "r.discourse_structure",
+     "e.task_demand"
+    ],
+    "B": [
+     "r.relation",
+     "r.discourse_structure",
+     "e.task_demand",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "other",
+     "B": "causal_error"
+    },
+    "2": {
+     "A": "other",
+     "B": "wrong_target"
+    },
+    "3": {
+     "A": "other",
+     "B": "wrong_target"
+    },
+    "5": {
+     "A": "other",
+     "B": "mixed_attribution"
+    }
+   },
+   "directly_observable": {
+    "A": [],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "지시 단서가 결정적이라 R1 첫 시도 근거가 될 수 있다(선택만으로 지목은 확인 안 됨)"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "지시어와 연결 표지가 명확해 R1·R2 첫 시도 근거가 될 수 있다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#37",
+   "type_id": "R-ORDER",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "d5b154a203be5d8a1fbfdd4ced8256a6a9c2b4636b29a8bf1b55c84fad76448c",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.reference",
+    "B": "r.relation",
+    "agree": false
+   },
+   "secondary_tasks": {
+    "A": [
+     "v.semantic_relation",
+     "r.relation",
+     "r.discourse_structure",
+     "r.o.global_meaning_model",
+     "e.task_demand"
+    ],
+    "B": [
+     "r.reference",
+     "r.discourse_structure",
+     "v.semantic_relation",
+     "e.task_demand",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "other",
+     "B": "causal_error"
+    },
+    "2": {
+     "A": "other",
+     "B": "causal_error"
+    },
+    "3": {
+     "A": "other",
+     "B": "partial_truth"
+    },
+    "4": {
+     "A": "other",
+     "B": "wrong_target"
+    }
+   },
+   "directly_observable": {
+    "A": [],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "연결 단서가 결정적이라 R1·R2 첫 시도 근거가 될 수 있다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "연결 표지가 명확해 R2 첫 시도 근거로 쓸 수 있으나 ④와의 차이가 미세해 단독 근거는 신중히 다룬다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#38",
+   "type_id": "R-INSERT",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "115210240de5a39a564770629b770dd5879c321c880deea0d1ce642b978105d5",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "r.relation",
+    "B": "r.relation",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "v.semantic_relation",
+     "r.reference",
+     "r.discourse_structure",
+     "e.task_demand",
+     "e.evidence_location"
+    ],
+    "B": [
+     "v.core_meaning",
+     "s.o.sentence_meaning_model",
+     "r.reference",
+     "r.discourse_structure",
+     "r.o.global_meaning_model",
+     "e.task_demand",
+     "e.evidence_location",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "unmentioned",
+     "B": "wrong_target"
+    },
+    "2": {
+     "A": "surface_word_match",
+     "B": "surface_word_match"
+    },
+    "3": {
+     "A": "partial_truth",
+     "B": "wrong_target"
+    },
+    "4": {
+     "A": "wrong_target",
+     "B": "other"
+    }
+   },
+   "directly_observable": {
+    "A": [],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "시각 자료 의존이 없고 단절 지점이 하나로 수렴해 처음 보는 학습자에게 R2 첫 시도 근거가 될 수 있다(번호 선택만으로는 경로 확인 한계가 있음)."
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "시각 자료 없이 원문 단서로 풀리고 경로가 하나로 수렴한다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#39",
+   "type_id": "R-INSERT",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "3766632f732d88ad2bdaa94f2ccbe3225ab487536438af328f07ca1695c98ac4",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "r.relation",
+    "B": "r.relation",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "s.sentence_core",
+     "r.reference",
+     "r.discourse_structure",
+     "e.task_demand",
+     "e.evidence_location"
+    ],
+    "B": [
+     "v.core_meaning",
+     "s.structural_relation",
+     "s.o.sentence_meaning_model",
+     "r.reference",
+     "r.discourse_structure",
+     "r.o.global_meaning_model",
+     "e.task_demand",
+     "e.evidence_location",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "surface_word_match",
+     "B": "wrong_target"
+    },
+    "2": {
+     "A": "partial_truth",
+     "B": "surface_word_match"
+    },
+    "4": {
+     "A": "wrong_target",
+     "B": "other"
+    },
+    "5": {
+     "A": "wrong_target",
+     "B": "causal_error"
+    }
+   },
+   "directly_observable": {
+    "A": [],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "단일 결속 단서로 수렴하고 시각 자료 의존이 없어 처음 보는 학습자의 R2 첫 시도 근거가 될 수 있다."
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "원문 단서만으로 풀리며 경로가 하나다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#40",
+   "type_id": "R-SUMMARY",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "cbaf7263e10a1e24296b78b574201cd4919d43b4d7fe79becc67b92f1003d7aa",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.central_meaning",
+    "B": "r.central_meaning",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "v.core_meaning",
+     "v.semantic_relation",
+     "r.relation",
+     "e.task_demand",
+     "e.evidence_location",
+     "e.option_correspondence"
+    ],
+    "B": [
+     "v.core_meaning",
+     "v.semantic_relation",
+     "s.o.sentence_meaning_model",
+     "r.relation",
+     "r.discourse_structure",
+     "r.o.global_meaning_model",
+     "e.task_demand",
+     "e.evidence_location",
+     "e.option_correspondence",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "reversal",
+     "B": "reversal"
+    },
+    "2": {
+     "A": "unmentioned",
+     "B": "unmentioned"
+    },
+    "4": {
+     "A": "reversal",
+     "B": "reversal"
+    },
+    "5": {
+     "A": "reversal",
+     "B": "reversal"
+    }
+   },
+   "directly_observable": {
+    "A": [],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "근거가 본문에 명시되고 시각 자료가 없어 처음 보는 학습자의 R5·V4 첫 시도 근거가 될 수 있다(선지 소거로 맞힐 여지는 있음)."
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "원문만으로 결정되며 시각 자료 의존이 없다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#41",
+   "type_id": "X-TITLE",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "2d23cd8ee4cd5b95b7d0176cd5d60d3ce7ad43daad5583eb052cbddf863b5179",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.central_meaning",
+    "B": "r.central_meaning",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "v.semantic_relation",
+     "r.discourse_structure",
+     "r.o.global_meaning_model",
+     "e.task_demand",
+     "e.option_correspondence"
+    ],
+    "B": [
+     "v.core_meaning",
+     "v.semantic_relation",
+     "r.relation",
+     "r.discourse_structure",
+     "r.o.global_meaning_model",
+     "e.task_demand",
+     "e.evidence_location",
+     "e.option_correspondence",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "unmentioned",
+     "B": "unmentioned"
+    },
+    "3": {
+     "A": "unmentioned",
+     "B": "wrong_target"
+    },
+    "4": {
+     "A": "wrong_target",
+     "B": "wrong_target"
+    },
+    "5": {
+     "A": "wrong_target",
+     "B": "surface_word_match"
+    }
+   },
+   "directly_observable": {
+    "A": [],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "not_suitable",
+     "reason": "장문 세트(41~42)로 같은 지문이 42번 어휘 문항에 노출되고, 42번 (e) 판단이 중심 이해 단서를 공유해 독립 첫 시도로 보기 어렵다."
+    },
+    "B": {
+     "eligibility": "not_suitable",
+     "reason": "같은 지문의 42번 어휘 문항과 묶여 있어 한 지문 노출로 독립 첫 시도가 되기 어렵다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#42",
+   "type_id": "X-VOCAB",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "cb490ed97388f3ac69d402ff4c978fb284091c413e87eaca763e914071ca0f7a",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "v.contextual_sense",
+    "B": "v.contextual_sense",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "v.core_meaning",
+     "s.form_scope",
+     "r.relation",
+     "r.central_meaning",
+     "e.task_demand"
+    ],
+    "B": [
+     "v.core_meaning",
+     "v.semantic_relation",
+     "s.structural_relation",
+     "s.form_scope",
+     "s.o.sentence_meaning_model",
+     "r.relation",
+     "r.o.global_meaning_model",
+     "e.task_demand",
+     "e.evidence_location",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "true_statement",
+     "B": "true_statement"
+    },
+    "2": {
+     "A": "true_statement",
+     "B": "true_statement"
+    },
+    "3": {
+     "A": "true_statement",
+     "B": "true_statement"
+    },
+    "4": {
+     "A": "true_statement",
+     "B": "true_statement"
+    }
+   },
+   "directly_observable": {
+    "A": [],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "not_suitable",
+     "reason": "41번과 지문을 공유해 중심 이해가 먼저 노출되고, 선택 응답으로는 소거 경로와 구별되지 않아 독립 첫 시도 근거로 부적합하다."
+    },
+    "B": {
+     "eligibility": "not_suitable",
+     "reason": "같은 지문의 41번 제목 문항과 함께 노출되어 독립 첫 시도 근거로 쓰기 어렵다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#43",
+   "type_id": "X-ORDER",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "141890eb8196763c4c36fd78cccf652323355fe565f17015876c4715c4665c76",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "r.discourse_structure",
+    "B": "r.relation",
+    "agree": false
+   },
+   "secondary_tasks": {
+    "A": [
+     "r.reference",
+     "r.relation",
+     "e.evidence_location"
+    ],
+    "B": [
+     "v.core_meaning",
+     "s.o.sentence_meaning_model",
+     "r.reference",
+     "r.discourse_structure",
+     "r.o.global_meaning_model",
+     "e.task_demand",
+     "e.evidence_location",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "other",
+     "B": "causal_error"
+    },
+    "2": {
+     "A": "other",
+     "B": "causal_error"
+    },
+    "3": {
+     "A": "other",
+     "B": "causal_error"
+    },
+    "4": {
+     "A": "other",
+     "B": "causal_error"
+    }
+   },
+   "directly_observable": {
+    "A": [],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "not_suitable",
+     "reason": "43~45 세트로 같은 지문을 공유하며 44·45 를 풀며 줄거리가 노출되어 독립 첫 시도로 보기 어렵다."
+    },
+    "B": {
+     "eligibility": "not_suitable",
+     "reason": "같은 지문 44·45번과 묶여 있어 한 지문 노출로 독립 첫 시도가 되기 어렵다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#44",
+   "type_id": "X-REFER",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "a6f6ea842fc5289c30b19e072865cff4989a4bd18c17dbad48834fb2fdcd91b2",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.reference",
+    "B": "r.reference",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "s.sentence_core",
+     "r.relation",
+     "e.task_demand"
+    ],
+    "B": [
+     "s.sentence_core",
+     "s.o.sentence_meaning_model",
+     "r.o.global_meaning_model",
+     "e.task_demand",
+     "e.evidence_location",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "wrong_target",
+     "B": "mixed_attribution"
+    },
+    "2": {
+     "A": "wrong_target",
+     "B": "wrong_target"
+    },
+    "4": {
+     "A": "wrong_target",
+     "B": "wrong_target"
+    },
+    "5": {
+     "A": "wrong_target",
+     "B": "other"
+    }
+   },
+   "directly_observable": {
+    "A": [
+     "r.reference"
+    ],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "not_suitable",
+     "reason": "세트 지문(43~45)이 공유되어 줄거리가 노출되고 대명사 다섯 개 중 넷이 같아 소거로 맞힐 수 있어 독립 첫 시도로 부적합하다."
+    },
+    "B": {
+     "eligibility": "not_suitable",
+     "reason": "같은 지문 43·45번과 묶여 노출되므로 독립 첫 시도가 되기 어렵다"
+    }
+   }
+  },
+  {
+   "item_id": "2026#45",
+   "type_id": "X-FACT",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "be631782a7b8235644e967dab69cee12c67689a76f0997068df23dfc81fc6cab",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "e.option_correspondence",
+    "B": "e.option_correspondence",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "v.core_meaning",
+     "v.semantic_relation",
+     "e.task_demand",
+     "e.evidence_location"
+    ],
+    "B": [
+     "v.core_meaning",
+     "v.semantic_relation",
+     "e.task_demand",
+     "e.evidence_location",
+     "e.o.final_judgment",
+     "s.o.sentence_meaning_model"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "true_statement",
+     "B": "true_statement"
+    },
+    "2": {
+     "A": "true_statement",
+     "B": "true_statement"
+    },
+    "3": {
+     "A": "true_statement",
+     "B": "true_statement"
+    },
+    "4": {
+     "A": "true_statement",
+     "B": "true_statement"
+    }
+   },
+   "directly_observable": {
+    "A": [
+     "e.option_correspondence"
+    ],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "not_suitable",
+     "reason": "43~45 세트 지문 공유로 내용이 앞 문항에서 노출되어 독립 첫 시도로 부적합하다."
+    },
+    "B": {
+     "eligibility": "not_suitable",
+     "reason": "같은 지문 43·44번과 묶여 노출되므로 독립 첫 시도가 되기 어렵다"
+    }
+   }
+  },
+  {
+   "item_id": "M2706#22",
+   "type_id": "R-GIST",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "545f2c2933bde9567461b95e6e4c1789ea99100d74f6e73d6344fb80e68e1c72",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.central_meaning",
+    "B": "r.central_meaning",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "v.core_meaning",
+     "v.semantic_relation",
+     "r.discourse_structure",
+     "e.task_demand",
+     "e.option_correspondence"
+    ],
+    "B": [
+     "v.core_meaning",
+     "v.semantic_relation",
+     "r.relation",
+     "r.discourse_structure",
+     "r.inference",
+     "r.o.global_meaning_model",
+     "e.task_demand",
+     "e.evidence_location",
+     "e.option_correspondence",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "2": {
+     "A": "partial_truth",
+     "B": "partial_truth"
+    },
+    "3": {
+     "A": "overgeneralization",
+     "B": "overgeneralization"
+    },
+    "4": {
+     "A": "unmentioned",
+     "B": "unmentioned"
+    },
+    "5": {
+     "A": "reversal",
+     "B": "reversal"
+    }
+   },
+   "directly_observable": {
+    "A": [],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "단독 지문이고 시각 자료 의존이 없어 처음 보는 학습자의 R5 첫 시도 근거가 될 수 있다(선지 소거 경로 한계 있음)."
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "원문만으로 결정되며 같은 지문 다른 문항이 없다"
+    }
+   }
+  },
+  {
+   "item_id": "M2706#23",
+   "type_id": "R-TOPIC",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "a1b16426d73bc345faa5ca431f7d4c61c3b11656f804cd107168040826885c99",
+   "analysis_version": 6,
+   "primary_task": {
+    "A": "r.central_meaning",
+    "B": "r.central_meaning",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "v.core_meaning",
+     "v.multiword",
+     "v.semantic_relation",
+     "r.discourse_structure",
+     "e.task_demand",
+     "e.option_correspondence"
+    ],
+    "B": [
+     "v.core_meaning",
+     "v.multiword",
+     "v.semantic_relation",
+     "r.relation",
+     "r.discourse_structure",
+     "r.o.global_meaning_model",
+     "e.task_demand",
+     "e.evidence_location",
+     "e.option_correspondence",
+     "e.o.final_judgment"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "surface_word_match",
+     "B": "surface_word_match"
+    },
+    "3": {
+     "A": "partial_truth",
+     "B": "surface_word_match"
+    },
+    "4": {
+     "A": "scope_shrink",
+     "B": "scope_shrink"
+    },
+    "5": {
+     "A": "scope_shrink",
+     "B": "scope_shrink"
+    }
+   },
+   "directly_observable": {
+    "A": [],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "단독 지문이고 시각 자료 의존이 없어 처음 보는 학습자의 R5 첫 시도 근거가 될 수 있다."
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "원문만으로 결정되며 같은 지문 다른 문항이 없다"
+    }
+   }
+  },
+  {
+   "item_id": "M2706#29",
+   "type_id": "R-GRAMMAR",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "a25cd8c27c3ee8d347ccaa78997692e7e32b4d0b9c3998bf4e81fdbaa46763e2",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "s.form_scope",
+    "B": "s.form_scope",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "s.sentence_core",
+     "s.attachment",
+     "s.structural_relation",
+     "r.reference",
+     "e.task_demand",
+     "e.o.final_judgment"
+    ],
+    "B": [
+     "s.attachment",
+     "s.structural_relation",
+     "r.reference",
+     "e.task_demand"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "form_error",
+     "B": "other"
+    },
+    "3": {
+     "A": "form_error",
+     "B": "other"
+    },
+    "4": {
+     "A": "form_error",
+     "B": "other"
+    },
+    "5": {
+     "A": "form_error",
+     "B": "other"
+    }
+   },
+   "directly_observable": {
+    "A": [
+     "s.form_scope"
+    ],
+    "B": [
+     "s.form_scope"
+    ]
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "단일 형태 포인트(관계사 what/which)가 정답을 가르므로 미노출 학습자에게 S5 첫 시도 근거가 될 수 있다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "단일 어법 포인트로 독립 첫 시도 근거가 될 수 있으나 정답만으로 이유는 확인되지 않는다"
+    }
+   }
+  },
+  {
+   "item_id": "M2706#31",
+   "type_id": "R-BLANK",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "27930be3c022ba7fa5f6e06af301eac38b80862f5db68dc0d7ccf43c5c443bc8",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.inference",
+    "B": "r.inference",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "e.evidence_location",
+     "r.discourse_structure",
+     "r.relation",
+     "v.core_meaning",
+     "e.option_correspondence",
+     "e.task_demand",
+     "e.o.final_judgment"
+    ],
+    "B": [
+     "e.evidence_location",
+     "r.relation",
+     "e.option_correspondence",
+     "e.task_demand"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "2": {
+     "A": "surface_word_match",
+     "B": "reversal"
+    },
+    "3": {
+     "A": "mixed_attribution",
+     "B": "unmentioned"
+    },
+    "4": {
+     "A": "overgeneralization",
+     "B": "mixed_attribution"
+    },
+    "5": {
+     "A": "mixed_attribution",
+     "B": "unmentioned"
+    }
+   },
+   "directly_observable": {
+    "A": [
+     "r.inference"
+    ],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "근거가 지문 안 정의 문장으로 하나이고 시각 자료 의존이 없어 미노출 학습자의 R6·E2 첫 시도 근거 후보가 된다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "원문 근거만으로 판단 가능한 단일 빈칸"
+    }
+   }
+  },
+  {
+   "item_id": "M2706#32",
+   "type_id": "R-BLANK",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "538e7c47de68b2f562d7b997688c2138d85b56ccca0da50c21df3c772421d0a3",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.inference",
+    "B": "r.inference",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "r.relation",
+     "e.evidence_location",
+     "v.multiword",
+     "v.semantic_relation",
+     "e.option_correspondence",
+     "e.task_demand",
+     "e.o.final_judgment"
+    ],
+    "B": [
+     "e.evidence_location",
+     "v.semantic_relation",
+     "r.relation",
+     "e.task_demand"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "unmentioned",
+     "B": "unmentioned"
+    },
+    "3": {
+     "A": "surface_word_match",
+     "B": "surface_word_match"
+    },
+    "4": {
+     "A": "surface_word_match",
+     "B": "surface_word_match"
+    },
+    "5": {
+     "A": "reversal",
+     "B": "unmentioned"
+    }
+   },
+   "directly_observable": {
+    "A": [
+     "r.inference"
+    ],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "근거가 인용문과 결론 표지로 지문 안에 있고 다중 경로가 약해 R6·R2 첫 시도 근거 후보가 된다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "단일 근거 인용에서 추론 가능"
+    }
+   }
+  },
+  {
+   "item_id": "M2706#33",
+   "type_id": "R-BLANK",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "c71da71e6845ef6ac3c9afb65823bc83eb0e25a762687dc8b203bb5879719fff",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.inference",
+    "B": "r.inference",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "s.form_scope",
+     "e.evidence_location",
+     "r.relation",
+     "v.semantic_relation",
+     "e.option_correspondence",
+     "e.task_demand",
+     "e.o.final_judgment"
+    ],
+    "B": [
+     "e.evidence_location",
+     "s.structural_relation",
+     "r.relation",
+     "e.task_demand"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "reversal",
+     "B": "reversal"
+    },
+    "3": {
+     "A": "unmentioned",
+     "B": "unmentioned"
+    },
+    "4": {
+     "A": "reversal",
+     "B": "reversal"
+    },
+    "5": {
+     "A": "unmentioned",
+     "B": "surface_word_match"
+    }
+   },
+   "directly_observable": {
+    "A": [
+     "r.inference"
+    ],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "근거가 지문 안 두 문장으로 분명하고 시각 자료 의존이 없어 R6 첫 시도 근거 후보가 된다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "원문 근거 두 곳으로 독립 판단 가능"
+    }
+   }
+  },
+  {
+   "item_id": "M2706#34",
+   "type_id": "R-BLANK",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "6ea7c28903ac25193438cb860fc34d34b014ed17f7d02b1dbda1957a5585805f",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "r.inference",
+    "B": "r.inference",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "e.evidence_location",
+     "s.structural_relation",
+     "r.reference",
+     "r.relation",
+     "v.semantic_relation",
+     "e.option_correspondence",
+     "e.task_demand",
+     "e.o.final_judgment"
+    ],
+    "B": [
+     "e.evidence_location",
+     "r.central_meaning",
+     "v.semantic_relation",
+     "r.o.global_meaning_model",
+     "e.task_demand"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "2": {
+     "A": "unmentioned",
+     "B": "wrong_target"
+    },
+    "3": {
+     "A": "wrong_target",
+     "B": "wrong_target"
+    },
+    "4": {
+     "A": "surface_word_match",
+     "B": "unmentioned"
+    },
+    "5": {
+     "A": "reversal",
+     "B": "reversal"
+    }
+   },
+   "directly_observable": {
+    "A": [
+     "r.inference"
+    ],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "근거가 지문 안에 있으나 추상도가 높아도 시각 자료·외부 지식 의존은 없어 R6 첫 시도 근거 후보가 된다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "고난도 추상 지문이나 원문 근거로 판단 가능"
+    }
+   }
+  },
+  {
+   "item_id": "M2706#36",
+   "type_id": "R-ORDER",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "4cee7f00f49cfd41420eb755ac9e8e94d084fa33bd5a35ea7c219e97a5dabe83",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.reference",
+    "B": "r.relation",
+    "agree": false
+   },
+   "secondary_tasks": {
+    "A": [
+     "r.relation",
+     "r.discourse_structure",
+     "r.discourse_function",
+     "e.evidence_location",
+     "e.task_demand",
+     "e.o.final_judgment"
+    ],
+    "B": [
+     "r.reference",
+     "r.discourse_structure",
+     "e.evidence_location",
+     "e.task_demand"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "other",
+     "B": "other"
+    },
+    "2": {
+     "A": "surface_word_match",
+     "B": "other"
+    },
+    "3": {
+     "A": "surface_word_match",
+     "B": "other"
+    },
+    "4": {
+     "A": "other",
+     "B": "other"
+    }
+   },
+   "directly_observable": {
+    "A": [
+     "r.reference"
+    ],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "연결 단서가 지문 안에 명시되어 있어 미노출 학습자의 R1·R2 첫 시도 근거 후보가 된다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "원문 연결 단서로 독립 판단 가능"
+    }
+   }
+  },
+  {
+   "item_id": "M2706#37",
+   "type_id": "R-ORDER",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "4dbe7961291e9ae0fe566bd7bcebe5c860b45b459eabd9670682ec14435a4c43",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.reference",
+    "B": "r.relation",
+    "agree": false
+   },
+   "secondary_tasks": {
+    "A": [
+     "r.relation",
+     "r.discourse_structure",
+     "r.discourse_function",
+     "e.evidence_location",
+     "v.multiword",
+     "e.task_demand",
+     "e.o.final_judgment"
+    ],
+    "B": [
+     "r.reference",
+     "r.discourse_structure",
+     "e.evidence_location",
+     "e.task_demand"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "other",
+     "B": "other"
+    },
+    "2": {
+     "A": "other",
+     "B": "other"
+    },
+    "3": {
+     "A": "wrong_target",
+     "B": "other"
+    },
+    "5": {
+     "A": "surface_word_match",
+     "B": "other"
+    }
+   },
+   "directly_observable": {
+    "A": [
+     "r.reference"
+    ],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "명시적 연결 표지가 결정 근거라 R1·R2 첫 시도 근거 후보가 된다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "연결 단서로 독립 판단 가능"
+    }
+   }
+  },
+  {
+   "item_id": "M2706#38",
+   "type_id": "R-INSERT",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "ca7a5ecc9d718d8ed9754a473638c5464ce6568c784b8aae50299c368769b82b",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "r.relation",
+    "B": "r.discourse_function",
+    "agree": false
+   },
+   "secondary_tasks": {
+    "A": [
+     "r.discourse_structure",
+     "r.discourse_function",
+     "r.reference",
+     "e.evidence_location",
+     "e.task_demand",
+     "e.o.final_judgment"
+    ],
+    "B": [
+     "r.relation",
+     "r.discourse_structure",
+     "e.evidence_location",
+     "e.task_demand"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "other",
+     "B": "other"
+    },
+    "2": {
+     "A": "other",
+     "B": "other"
+    },
+    "4": {
+     "A": "other",
+     "B": "other"
+    },
+    "5": {
+     "A": "other",
+     "B": "other"
+    }
+   },
+   "directly_observable": {
+    "A": [
+     "r.relation"
+    ],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "전환 단서가 지문 안에 명시되어 R2 첫 시도 근거 후보가 된다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "원문 흐름으로 독립 판단 가능"
+    }
+   }
+  },
+  {
+   "item_id": "M2706#39",
+   "type_id": "R-INSERT",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "5f04669c8d294dd0c058b2fa697a2d0054eb5c2b5d1301eb3c58b670bf149bf4",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.reference",
+    "B": "r.reference",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "r.relation",
+     "r.discourse_structure",
+     "e.evidence_location",
+     "v.core_meaning",
+     "e.task_demand",
+     "e.o.final_judgment"
+    ],
+    "B": [
+     "r.relation",
+     "e.evidence_location",
+     "e.task_demand"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "other",
+     "B": "other"
+    },
+    "2": {
+     "A": "other",
+     "B": "other"
+    },
+    "4": {
+     "A": "other",
+     "B": "other"
+    },
+    "5": {
+     "A": "other",
+     "B": "other"
+    }
+   },
+   "directly_observable": {
+    "A": [
+     "r.reference"
+    ],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "지시 단서가 지문 안에 있어 R1 첫 시도 근거 후보가 된다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "지시 단서로 독립 판단 가능"
+    }
+   }
+  },
+  {
+   "item_id": "M2706#40",
+   "type_id": "R-SUMMARY",
+   "status": "INDEPENDENTLY_CHECKED_PARTIAL",
+   "source_sha256": "b845233be6c701e7777f295c2fe2158d67049f9e91f4390d36d09ce5d48a8807",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "r.central_meaning",
+    "B": "r.central_meaning",
+    "agree": true
+   },
+   "secondary_tasks": {
+    "A": [
+     "v.semantic_relation",
+     "e.option_correspondence",
+     "r.relation",
+     "e.evidence_location",
+     "v.core_meaning",
+     "e.task_demand",
+     "e.o.final_judgment"
+    ],
+    "B": [
+     "v.semantic_relation",
+     "e.option_correspondence",
+     "e.evidence_location",
+     "e.task_demand"
+    ]
+   },
+   "answer_agree": true,
+   "distortion": {
+    "1": {
+     "A": "partial_truth",
+     "B": "partial_truth"
+    },
+    "2": {
+     "A": "unmentioned",
+     "B": "unmentioned"
+    },
+    "3": {
+     "A": "partial_truth",
+     "B": "partial_truth"
+    },
+    "4": {
+     "A": "reversal",
+     "B": "reversal"
+    }
+   },
+   "directly_observable": {
+    "A": [
+     "v.semantic_relation"
+    ],
+    "B": []
+   },
+   "independent_assessment": {
+    "A": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "근거가 지문 안 재진술로 분명하고 시각 자료 의존이 없어 R5·V4 첫 시도 근거 후보가 된다"
+    },
+    "B": {
+     "eligibility": "candidate_if_unexposed",
+     "reason": "원문 근거로 독립 판단 가능"
+    }
+   }
+  }
+ ]
+}

@@ -5,7 +5,7 @@
 // **기출 찾기 팝업** — 지금 문항 · 장면을 떠나지 않고 다른 기출을 찾아 확인한 뒤 탐구로 간다. (기출 찾기 FND2 · FND3)
 //
 // 참조: 3B Storage 캡처의 구조(중앙 흰 면 · 옅은 막 · 구획선 · 작은 제목/아이콘 · 열별 탐색 · 큰 상세 영역).
-// 네 구획: 조건 176 · 회차 208 · 문항 220 · 선택 문항 요약(남은 폭). 머리 48 · 검색 줄 48 · 바닥 52(구현 목표치 — 캡처 실측 아님).
+// PC: 참조 모달680×760 · 머리/바닥56. 조건/회차/문항 세 열 아래에 선택 요약을 둔다. 작은 화면은 기존 치수 유지.
 //
 // 계약(소유자는 이 컴포넌트 하나):
 //   · 마운트 = 열림. 닫기 · 취소 · Esc · 배경 · 뒤로가기 · 문항 열기 · 서가 이동이 모두 `exit()` 한 길로 닫힌다.
@@ -18,7 +18,7 @@
 //   · 늦은 응답은 버린다(AbortController + 요청 번호). 닫힌 뒤 도착한 응답이 상태를 다시 열지 않는다.
 
 import { useRouter } from 'next/navigation'
-import { AlertTriangle, Check, ChevronDown, Headphones, Map as MapIcon, RotateCcw, Search, X } from 'lucide-react'
+import { AlertTriangle, Check, ChevronDown, Headphones, Info, Map as MapIcon, RotateCcw, Search, X } from 'lucide-react'
 import { useCallback, useEffect, useId, useMemo, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
 import { createPortal } from 'react-dom'
 
@@ -556,7 +556,7 @@ export function ItemFinderDialog({ origin, initial, currentItemId = null, hrefFo
             <div className={f.summary}>
               {!picked ? (
                 <p className={f.muted} id={hintId}>
-                  {catalog ? '문항을 하나 고르면 회차 · 번호 · 유형과 볼 수 있는 기능이 여기에 나와요. 고른 뒤 「탐구 열기」 로 이동해요.' : '목록을 받는 중이에요.'}
+                  {catalog ? '문항을 고르면 요약이 보여요.' : '목록을 받는 중이에요.'}
                 </p>
               ) : (
                 <>
@@ -584,7 +584,7 @@ export function ItemFinderDialog({ origin, initial, currentItemId = null, hrefFo
                       <dd>{picked.map ? '정답 근거 자리 표시 있음' : '없음'}</dd>
                     </div>
                   </dl>
-                  <p className={f.muted}>지문 · 선지는 이 기기의 공개 문제지에서 봐요. 여기서는 원문 · 정답 · 해설을 미리 보여 주지 않고, 여는 것만으로 학습 기록이 생기지 않아요.</p>
+                  <details className={f.help}><summary><Info size={14} aria-hidden="true" />이용 안내</summary><p className={f.muted}>지문 · 선지는 이 기기의 공개 문제지에서 봐요. 여기서는 원문 · 정답 · 해설을 미리 보여 주지 않고, 여는 것만으로 학습 기록이 생기지 않아요.</p></details>
                   {blocked ? (
                     <div className={f.alert} role="alert" data-testid="item-finder-blocked" data-reason={blocked}>
                       <AlertTriangle size={13} aria-hidden />

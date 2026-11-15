@@ -8,7 +8,10 @@
         "--project-ref=jajenrevcbmrpaliomxv"
       ],
       "env": {},
-      "envFromShell": ["SUPABASE_ACCESS_TOKEN"]
+      "envFromShell": [
+        "SUPABASE_ACCESS_TOKEN"
+      ],
+      "$comment_write_approval": "2026-10-25 후속 사용자 지시: Supabase MCP 쓰기 연결 허용. SQL 전문·SHA-256·영향·복구의 대화 승인은 유지. Claude 쓰기는 표준 ask 훅, 실제 연결은 재시작/재연결 후 반영."
     }
   }
 }

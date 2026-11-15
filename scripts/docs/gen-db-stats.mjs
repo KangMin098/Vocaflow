@@ -215,20 +215,30 @@ async function collect() {
   ])
 
   // auth.users 는 PostgREST 로 안 보인다 — service_role 의 admin API 로 센다.
-  let users = null
-  let usersCapped = false
-  // 합성 계정(합성 학습자 집단 cohort-pNN@vocaflow.local · 시험 계정) — 수요 지표에서 뺀다(2026-10-10 · 합성 데이터 격리).
-  //   도메인 목록은 앱의 SYNTHETIC_EMAIL_DOMAINS(lib/knowledge/practice.ts)와 같다 — 그 계정의 학습 기록은 synthetic 으로 저장된다.
-  let synthetic = null
+  // T-0084 — 계정 분류는 앱과 **같은 순수 규칙**(.ts import: Node 24 는 직접, Node 20 은 `pnpm docs:db-stats` 의 tsx 경로 — Node 20 실제 실행은 미검증)(apps/web/src/lib/admin/account-classification.ts)을 그대로 읽는다.
+  //   검증된 외부(VOCAFLOW_EXTERNAL_VERIFIED_ACCOUNT_IDS)만 실사용이고, 운영 역할 · 내부 목록 · 미분류(합성 · 예약 도메인 포함)는 뺀다.
+  //   가입자는 전 페이지를 읽는다. 읽기 실패 · 잘림 · 설정 오류 = 「?」(0 이 아니다).
+  let accounts = null
   try {
-    const { data, error } = await db.auth.admin.listUsers({ page: 1, perPage: 1000 })
-    if (!error && data?.users) {
-      synthetic = data.users.filter((u) => /@(vocaflow\.dev|vocaflow\.local|example\.com)$/i.test(u.email ?? '')).length
-      users = data.users.length - synthetic
-      usersCapped = data.users.length === 1000
+    const cls = await import(new URL('../../apps/web/src/lib/admin/account-classification.ts', import.meta.url).href)
+    const parsed = cls.parseAccountRegistry(process.env.VOCAFLOW_INTERNAL_ACCOUNT_IDS, process.env.VOCAFLOW_EXTERNAL_VERIFIED_ACCOUNT_IDS)
+    if (parsed.status !== 'invalid') {
+      const all = []
+      for (let page = 1; page <= 100; page += 1) {
+        const { data, error } = await db.auth.admin.listUsers({ page, perPage: 1000 })
+        if (error || !data?.users) throw new Error('listUsers 실패')
+        all.push(...data.users)
+        if (data.users.length < 1000) break
+        if (page === 100) throw new Error('가입자 100페이지 초과 — 잘림')
+      }
+      const ops = await db.from('user_profiles').select('user_id').in('role', [...cls.INTERNAL_ROLES]).limit(1000)
+      if (ops.error || !ops.data || ops.data.length >= 1000) throw new Error('운영 역할 조회 실패 · 상한')
+      const opIds = new Set(ops.data.map((r) => r.user_id))
+      const classified = all.map((u) => cls.classifyAccount({ id: u.id, role: opIds.has(u.id) ? 'admin' : null, email: u.email ?? null }, parsed.registry))
+      accounts = cls.summarizeAccounts(classified, parsed.status)
     }
   } catch {
-    users = null
+    accounts = null
   }
 
   const koPct = dictTotal ? Math.round((dictKo / dictTotal) * 1000) / 10 : null
@@ -238,7 +248,7 @@ async function collect() {
     books, bookStatus, articles, articleStatus,
     sets, setsPub, quiz, texts, vocabularies,
     comicIssues, comicSeries, comicBooksPub,
-    users, usersCapped, synthetic, profiles,
+    accounts, profiles,
     records, sessions, daily, scores,
     classes, classMembers, assignments, funnel,
   }
@@ -248,7 +258,6 @@ function render(s) {
   // UTC 로 찍으면 한국 시간 자정~오전 9시에 하루 전 날짜가 박힌다 —
   // "언제 잰 값인가" 가 이 블록의 유일한 신뢰 근거라 로컬 날짜로 쓴다. sv-SE 가 YYYY-MM-DD.
   const today = new Date().toLocaleDateString('sv-SE')
-  const usersStr = s.users === null ? '?' : `${fmt(s.users)}${s.usersCapped ? '+' : ''}`
   const L = []
   L.push(START)
   L.push('')
@@ -258,8 +267,13 @@ function render(s) {
   L.push('')
   L.push('**수요 측** — 이 줄이 이 문서에서 가장 중요하다. 공급이 아무리 늘어도 여기가 안 늘면 진단은 `risk` 다.')
   L.push('')
-  L.push(`- 가입자 **${usersStr}**${s.synthetic ? ` (합성 · 시험 계정 ${fmt(s.synthetic)} 제외)` : ''} (프로필 ${fmt(s.profiles)} — 합성 포함) · 학습기록 **${fmt(s.records)}** · 읽기 세션 ${fmt(s.sessions)} · 일별 활동 ${fmt(s.daily)} · 점수 ${fmt(s.scores)}`)
-  L.push(`- 교사 채널: 학급 **${fmt(s.classes)}** · 학급 구성원 ${fmt(s.classMembers)} · 학급 과제 **${fmt(s.assignments)}** · 퍼널 이벤트 ${fmt(s.funnel)}`)
+  const a = s.accounts
+  const accStr = a === null
+    ? '실사용 학습자 **?** (계정 분류를 못 읽음 — 0 이 아니다)'
+    : `실사용 학습자(검증된 외부) **${fmt(a.externalVerified)}**${a.registry === 'not_configured' ? ' (검증 목록 미설정)' : ''} · 전체 가입 ${fmt(a.total)} = 내부 ${fmt(a.internal)} · 미분류 ${fmt(a.unknown)}(합성 · 예약 도메인 포함)`
+  L.push(`- ${accStr}`)
+  L.push(`- 활동 표(**전 계정** — 내부 · 미분류 · 합성 포함, 실사용 지표 아님): 학습기록 ${fmt(s.records)} · 읽기 세션 ${fmt(s.sessions)} · 일별 활동 ${fmt(s.daily)} · 점수 ${fmt(s.scores)} · 프로필 ${fmt(s.profiles)}`)
+  L.push(`- 교사 채널(전 계정): 학급 **${fmt(s.classes)}** · 학급 구성원 ${fmt(s.classMembers)} · 학급 과제 **${fmt(s.assignments)}** · 퍼널 이벤트 ${fmt(s.funnel)}`)
   L.push('')
   L.push('**공급 측**')
   L.push('')

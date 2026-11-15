@@ -4,14 +4,68 @@
 // 정본 docs/methodology/VNEXT_ARCHITECTURE.md §1–§5.
 import type { ItemStatus, Layer } from './labels'
 import {
-  APP_TRANSITIONS, KIND_ORDER, STRONG_LEVELS, isResearchDesign, kindFitsLayer,
+  APP_TRANSITIONS, KIND_ORDER, STRONG_LEVELS, TRIAL_STATUSES, isResearchDesign, kindFitsLayer,
   type AppStatus, type Applicability, type EvidenceLevel, type InquiryStatus, type Kind, type TrialStatus,
 } from './vnext-labels'
 
 export interface OpsItem { id: string; slug: string; title: string; layer: Layer; kind: Kind | null; status: ItemStatus; efficacy: string }
 export interface OpsEvidence { itemId: string; sourceType: string; evidenceLevel: EvidenceLevel; applicability: Applicability }
 export interface OpsInquiry { id: string; slug: string; question: string; status: InquiryStatus; links: number }
-export interface OpsApplication { id: string; itemId: string; status: AppStatus; surfaceRef: string; statusReason: string | null; trials: { status: TrialStatus; synthetic: boolean }[] }
+export interface OpsApplication { id: string; itemId: string; status: AppStatus; surfaceRef: string; statusReason: string | null; trials: TrialEvidenceInput[] }
+
+// ── trial 근거 상태(T-0085) ───────────────────────────────────────────────────
+/**
+ * 기존 Trial DTO 의 세 필드만 읽는다(재분석 · 결과 기록 · DB 없음).
+ *   current   명시 비합성 · status=analyzed · 현재 reviewRequiredAt=null — **설명적 분석 완료**일 뿐, 효과 지지 · 실제 참가자 확인이 아니다
+ *   stale     reviewRequiredAt 있음 — 표본이 바뀌어 재계산 전까지 결과를 근거로 쓰지 않는다(F7)
+ *   synthetic 명시 합성
+ *   pending   명시 비합성 · 현재 · 아직 analyzed 아님(계획 · 진행)
+ *   unknown   synthetic · reviewRequiredAt 가 명시 값이 아니다(누락 · null 합성 표지 · 잘못된 값) — 합성도 실제 0 도 추정하지 않는다
+ * 「비합성」은 trial 메타 표시일 뿐이다 — 계정 cohort(account-cohort)로 확인된 실제 학습자가 아니다.
+ */
+export interface TrialEvidenceInput { status?: TrialStatus | string | null; synthetic?: boolean | null; reviewRequiredAt?: string | null; result?: string | null }
+export type TrialEvidenceState = 'current' | 'stale' | 'synthetic' | 'pending' | 'unknown'
+
+export function trialEvidenceState(t: TrialEvidenceInput): TrialEvidenceState {
+  if (t.synthetic === true) return 'synthetic'
+  if (t.synthetic !== false) return 'unknown'
+  if (typeof t.reviewRequiredAt === 'string' && t.reviewRequiredAt.length > 0) return 'stale'
+  if (t.reviewRequiredAt !== null) return 'unknown'
+  if (!(TRIAL_STATUSES as readonly unknown[]).includes(t.status)) return 'unknown' // 알 수 없는 상태값을 계획 · 진행으로 보지 않는다
+  return t.status === 'analyzed' ? 'current' : 'pending'
+}
+
+/**
+ * trial 한 줄의 결과 표시(P1-1) — 원시 result 는 **current 일 때만** 일반 결과로 보인다.
+ * 그 밖에는 결과 대신 근거가 아닌 이유를 쓴다(원시 값은 바꾸거나 지우지 않는다). 빈 문자열 = 덧붙일 것 없음.
+ */
+export function trialResultText(t: TrialEvidenceInput, resultLabel: (r: string) => string): string {
+  const state = trialEvidenceState(t)
+  if (state === 'current') return t.result ? resultLabel(t.result) : ''
+  if (state === 'stale') return '재계산 필요(결과를 근거로 쓰지 않음)'
+  if (state === 'synthetic') return t.result ? '합성 결과 — 경로 확인용, 효과 근거 아님' : ''
+  if (state === 'unknown') return '확인 불가(결과를 근거로 쓰지 않음)'
+  return ''
+}
+
+export const TRIAL_EVIDENCE_LABEL: Record<TrialEvidenceState, string> = {
+  current: '현재 분석 완료(비합성 표시) — 효과 입증 · 실제 참가자 확인 아님',
+  stale: '재계산 필요 — 결과를 근거로 쓰지 않음',
+  synthetic: '합성',
+  pending: '분석 전(비합성 표시 계획 · 진행)',
+  unknown: '확인 불가(합성 · 재계산 표지 미확인)',
+}
+
+/** trial 출처 표시 — 메타 그대로(비합성 ≠ 실제 참가자). 화면 3곳(설계 · 적용 목록 · 적용 추적)이 같이 쓴다 */
+export function trialOriginLabel(t: Pick<TrialEvidenceInput, 'synthetic'>): string {
+  return t.synthetic === true ? '합성' : t.synthetic === false ? '비합성 표시' : '합성 여부 미상'
+}
+
+export function trialEvidenceCounts(trials: readonly TrialEvidenceInput[]): Record<TrialEvidenceState, number> {
+  const out: Record<TrialEvidenceState, number> = { current: 0, stale: 0, synthetic: 0, pending: 0, unknown: 0 }
+  for (const t of trials) out[trialEvidenceState(t)] += 1
+  return out
+}
 
 /** 순환의 단계 — 탐구 → 근거 → 채택 → 적용 → 검증 */
 export interface Stage { key: 'inquiry' | 'evidence' | 'adoption' | 'application' | 'verification'; label: string; value: number; of: number | null; href: string; note: string }
@@ -29,7 +83,9 @@ export function opsSummary(input: { items: OpsItem[]; evidence: OpsEvidence[]; i
   const adopted = items.filter((i) => i.status === 'adopted' || i.status === 'applied').length
   const waiting = items.filter((i) => i.status === 'extracted' || i.status === 'in_review').length
   const active = applications.filter((a) => a.status === 'active').length
-  const realAnalyzed = applications.flatMap((a) => a.trials).filter((t) => t.status === 'analyzed' && !t.synthetic).length
+  // 효과 검증 단계 = 현재 분석 완료(명시 비합성 · analyzed · 재계산 필요 아님)만 — 결과 종류와 무관하게 「분석 건수」이지 효과 지지 수가 아니다
+  const tc = trialEvidenceCounts(applications.flatMap((a) => a.trials))
+  const currentAnalyzed = tc.current
   const openInq = inquiries.filter((q) => q.status === 'open' || q.status === 'investigating').length
   const unclassified = items.filter((i) => i.kind === null).length
 
@@ -38,14 +94,16 @@ export function opsSummary(input: { items: OpsItem[]; evidence: OpsEvidence[]; i
     { key: 'evidence', label: '근거', value: research, of: evidence.length, href: '/admin/knowledge/lab/research', note: `연구 근거 / 전체(실무자 주장 ${practitioner} · 효과 판단 가능 ${strong})` },
     { key: 'adoption', label: '채택', value: adopted, of: items.length, href: '/admin/knowledge/review', note: `채택 · 적용 / 전체(검토 대기 ${waiting})` },
     { key: 'application', label: '제품 적용', value: active, of: applications.length, href: '/admin/knowledge/product', note: '학습자에게 나간 적용 / 전체 적용' },
-    { key: 'verification', label: '효과 검증', value: realAnalyzed, of: null, href: '/admin/knowledge/design', note: '실제 학습자 분석 완료(합성 제외)' },
+    { key: 'verification', label: '효과 검증', value: currentAnalyzed, of: null, href: '/admin/knowledge/design', note: `현재 분석 완료(비합성 표시 · 효과 입증 아님) · 재계산 필요 ${tc.stale} · 합성 ${tc.synthetic} · 확인 불가 ${tc.unknown} 제외` },
   ]
 
   const queue: QueueEntry[] = []
   const paused = applications.filter((a) => a.status === 'paused' && (a.statusReason ?? '').includes('자동 중단'))
   for (const a of paused) queue.push({ severity: 1, title: `자동 중단된 적용 — ${a.surfaceRef}`, detail: a.statusReason ?? '', href: '/admin/knowledge/product' })
-  const activeNoReal = applications.filter((a) => a.status === 'active' && !a.trials.some((t) => !t.synthetic))
-  for (const a of activeNoReal) queue.push({ severity: 2, title: `실제 학습자 검증 계획 없는 적용 — ${a.surfaceRef}`, detail: '합성 trial 만 있다 — 효과를 말할 수 없다', href: '/admin/knowledge/design' })
+  const activeNoReal = applications.filter((a) => a.status === 'active' && !a.trials.some((t) => t.synthetic === false))
+  for (const a of activeNoReal) queue.push({ severity: 2, title: `비합성 검증 계획 없는 적용 — ${a.surfaceRef}`, detail: '명시 비합성 trial 이 없다(합성 · 확인 불가만) — 효과를 말할 수 없다', href: '/admin/knowledge/design' })
+  const staleApps = applications.filter((a) => a.trials.some((t) => trialEvidenceState(t) === 'stale'))
+  for (const a of staleApps) queue.push({ severity: 2, title: `재계산 필요한 분석 — ${a.surfaceRef}`, detail: '표본이 바뀌었다 — 재계산 전까지 결과를 근거로 쓰지 않는다', href: '/admin/knowledge/design' })
   if (upper.length > 0 && upperWithEvidence === 0) {
     queue.push({ severity: 1, title: '역량 · 기제 · 방법에 근거가 하나도 없다', detail: `위층 ${upper.length}개 근거 0 — 규칙상 채택할 수 없다. 탐구 질문에서 연구 근거부터`, href: '/admin/knowledge/lab' })
   }
@@ -57,7 +115,7 @@ export function opsSummary(input: { items: OpsItem[]; evidence: OpsEvidence[]; i
   queue.sort((a, b) => a.severity - b.severity)
 
   // 병목 = 앞 단계는 있는데 다음 단계가 0 인 첫 자리
-  const chain: [Stage['key'], number][] = [['inquiry', inquiries.length], ['evidence', research], ['adoption', adopted], ['application', active], ['verification', realAnalyzed]]
+  const chain: [Stage['key'], number][] = [['inquiry', inquiries.length], ['evidence', research], ['adoption', adopted], ['application', active], ['verification', currentAnalyzed]]
   const zero = chain.findIndex(([, v]) => v === 0)
   const bottleneck = zero < 0 ? null : chain[zero][0]
   return { stages, queue, bottleneck }

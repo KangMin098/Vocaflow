@@ -10,6 +10,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
 
+import { composeActivityNote } from '@/lib/learner/report-note'
 import { generateWeeklyReport, type WeeklyReport } from '@/lib/learner/weekly-report'
 
 const MODULE_LABEL: Record<string, string> = {
@@ -148,12 +149,12 @@ function ReportCard({ report }: { report: WeeklyReport }) {
         </div>
       )}
 
-      {report.empathetic_note && (
-        <p className="flex items-start gap-2 border-t border-[var(--bd)] pt-3 font-editorial text-[15px] leading-relaxed text-[var(--t1)] [word-break:keep-all]">
-          <Gwonjeom size={14} className="mt-0.5 flex-shrink-0 text-[var(--p)]" aria-hidden />
-          {report.empathetic_note}
-        </p>
-      )}
+      {/* 저장된 empathetic_note 를 그대로 쓰지 않는다 — 옛 행은 활동량만으로 기억·실력 향상을 단정했다.
+          저장된 합계로 활동만 말하는 문구를 다시 만든다(DB 무변경). */}
+      <p className="flex items-start gap-2 border-t border-[var(--bd)] pt-3 font-editorial text-[15px] leading-relaxed text-[var(--t1)] [word-break:keep-all]">
+        <Gwonjeom size={14} className="mt-0.5 flex-shrink-0 text-[var(--p)]" aria-hidden />
+        {composeActivityNote(report.total_reviews, report.total_minutes, report.total_words)}
+      </p>
     </article>
   )
 }

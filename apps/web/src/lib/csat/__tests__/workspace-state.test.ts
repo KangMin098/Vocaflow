@@ -14,8 +14,8 @@ describe('도크 — 네 요소 ↔ 일곱 장면', () => {
     expect([...all].sort()).toEqual([...SCENE_IDS].sort())
     expect(new Set(all).size).toBe(SCENE_IDS.length)
   })
-  it('대표 장면 — 원문 이해=meaning · 문항 설계=judgment · 비교와 원리=compare · 내 설명=explain', () => {
-    expect(DOCK_GROUPS.map((g) => [g.label, g.lead])).toEqual([['원문 이해', 'meaning'], ['문항 설계', 'judgment'], ['비교와 원리', 'compare'], ['내 설명', 'explain']])
+  it('대표 장면 — 원문 이해=meaning · 문항 설계=judgment · 비교와 원리=compare · 학습 정리=explain', () => {
+    expect(DOCK_GROUPS.map((g) => [g.label, g.lead])).toEqual([['원문 이해', 'meaning'], ['문항 설계', 'judgment'], ['비교와 원리', 'compare'], ['학습 정리', 'explain']])
   })
   it('제목 = 그 요소의 마지막 장면, 기억이 없으면 대표 장면', () => {
     const g = groupOf('task')
