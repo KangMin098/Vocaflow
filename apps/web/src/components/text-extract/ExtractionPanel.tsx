@@ -74,6 +74,12 @@ interface ExtractionPanelProps {
   text: string
   /** 저장 시 vocabularies.text_id 로 연결 — 워크스페이스 스크립트에서 추출 시 provenance */
   textId?: string
+  /**
+   * 이 글을 읽은 주인(`textId` 를 주면 함께 준다). 주면 저장 **시점**의 사용자와 다를 때 담지 않는다 —
+   * 다른 탭에서 계정이 바뀐 뒤 옛 화면의 「담기」가 A 의 글 단어를 B 의 단어장에(A 의 text_id 와 함께) 넣던 경로를 막는다
+   * (vocabularies RLS 는 user_id 만 본다). 권한 증명이 아니다 — 쓰는 주인은 getUser · RLS.
+   */
+  ownerId?: string | null
   /** 기본 레벨 기준 — 미진단 사용자 많은 워크스페이스에선 'text' 권장 (기본 'user') */
   defaultStrategy?: LevelStrategy
   onSaved?: (count: number) => void
@@ -159,7 +165,7 @@ function buildReasons(r: ExtractedWord): Reason[] {
   return reasons
 }
 
-export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSaved, assignmentTitle = '' }: ExtractionPanelProps) {
+export function ExtractionPanel({ text, textId, ownerId, defaultStrategy = 'user', onSaved, assignmentTitle = '' }: ExtractionPanelProps) {
   const [strategy, setStrategy] = useState<LevelStrategy>(defaultStrategy)
   const [displayPct, setDisplayPct] = useState<DisplayPct>(25)
   const [loading, setLoading] = useState(false)
@@ -447,6 +453,11 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
       setSaving(false)
       return
     }
+    if (ownerId !== undefined && userData.user.id !== ownerId) {
+      setError('로그인 상태가 바뀌었어요 — 이 글을 지금 계정으로 다시 열어 주세요')
+      setSaving(false)
+      return
+    }
 
     const rows = (displayedResults ?? results)
       .filter((r) => selected.has(r.word))
@@ -591,7 +602,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
       )}
 
       {savedCount !== null && (
-        <div className="mb-4 inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--success)]/30 bg-[var(--success-light)] p-3 font-body text-[12px] text-[#065f46]">
+        <div className="mb-4 inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--success)_30%,transparent)] bg-[var(--success-light)] p-3 font-body text-[12px] text-[#065f46]">
           <CheckCircle2 size={14} /> {savedCount}개 단어를 내 단어장에 추가했어요
         </div>
       )}
@@ -663,7 +674,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                 }`}
               >
                 {c.label}
-                <span className={`font-mono text-[10px] ${active ? 'text-[var(--p)]/70' : 'text-[var(--t2)]'}`}>
+                <span className={`font-mono text-[10px] ${active ? 'text-[var(--on-p-tint)]' : 'text-[var(--t2)]'}`}>
                   {count}
                 </span>
               </button>
@@ -706,7 +717,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                 결정 앞에서 한 번 알려 준다 (Empathetic Feedback — 비난 없이 맥락만). */}
             {selected.size > CALM_BATCH && (
               <p className="mt-1 flex items-start gap-2 font-body text-[11px] leading-relaxed text-[var(--t2)]">
-                <Gwonjeom size={11} className="mt-0.5 shrink-0 text-[var(--p)]/70" aria-hidden />
+                <Gwonjeom size={11} className="mt-0.5 shrink-0 text-[color-mix(in_srgb,var(--p)_70%,transparent)]" aria-hidden />
                 <span>
                   한 번에 {selected.size}개를 담으면 며칠 뒤 복습이 몰려요.
                   {displayPct > 10 && (
@@ -781,7 +792,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                         <p className="mt-0.5 truncate font-body text-[13px] text-[var(--t2)]">{r.meaning_ko ?? '—'}</p>
                         {inlineReason && (
                           <p className="mt-1 inline-flex max-w-full items-center gap-1 font-body text-[11px] italic text-[var(--t2)]">
-                            <inlineReason.Icon size={11} className="shrink-0 text-[var(--p)]/70" />
+                            <inlineReason.Icon size={11} className="shrink-0 text-[color-mix(in_srgb,var(--p)_70%,transparent)]" />
                             <span className="truncate">{inlineReason.label}</span>
                           </p>
                         )}
@@ -835,7 +846,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                         )}
                         {/* 4단계 근거 카드 — 왜 이 단어를 추천했는지 사람 말투로 (기술 breakdown 위에) */}
                         {reasons.length > 0 && (
-                          <div className="mb-3 rounded-[var(--r-md)] border border-[var(--p)]/20 bg-[var(--p-light)]/40 p-3">
+                          <div className="mb-3 rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--p)_20%,transparent)] bg-[color-mix(in_srgb,var(--p-light)_40%,transparent)] p-3">
                             <h4 className="mb-1.5 inline-flex items-center gap-1 font-display text-[10px] font-[700] uppercase tracking-wide text-[var(--p)]">
                               <Gwonjeom size={11} /> 왜 추천했어요?
                             </h4>

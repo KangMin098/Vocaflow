@@ -18,13 +18,14 @@
 // 셋 다 컴파일이 1초에 잡을 것들이었다. 그래서 잠그는 것은 둘이다:
 //   ① `.mts` 를 보는 설정이 있고, **실제로 돌아가는가**(파일만 있고 안 돌리면 없는 것과 같다)
 //   ② 스크립트의 **상대 경로 임포트가 실재하는 파일을 가리키는가** — 루트 `scripts/` 는 아직
-//      어느 tsconfig 에도 안 잡혀 있어서(부채, 아래 주석) 이 값싼 검사로 대신 막는다.
+//      대부분 tsconfig 에 안 잡혀 있어서(부채, 아래 주석) 이 값싼 검사로 대신 막는다.
 
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs'
 import { dirname, extname, join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import { describe, expect, it } from 'vitest'
+import ts from 'typescript'
 
 const HERE = dirname(fileURLToPath(import.meta.url))
 const WEB = resolve(HERE, '..', '..', '..')
@@ -61,6 +62,15 @@ describe('.mts 가 타입체크 밖으로 새지 않는다', () => {
       scripts: Record<string, string>
     }
     expect(pkg.scripts.typecheck).toContain('tsconfig.scripts.json')
+  })
+
+  it('공장 로컬 제작 CLI를 TypeScript가 실제 입력 파일로 찾는다', () => {
+    const loaded = ts.readConfigFile(scriptsTsconfig, ts.sys.readFile)
+    expect(loaded.error).toBeUndefined()
+    const parsed = ts.parseJsonConfigFileContent(loaded.config, ts.sys, WEB, {}, scriptsTsconfig)
+    expect(parsed.errors).toEqual([])
+    const cli = resolve(REPO, 'scripts/textbook/factory-production-local.mts')
+    expect(parsed.fileNames.map((file) => resolve(file))).toContain(cli)
   })
 
   it('본 설정이 안 보는 자리에 `.mts` 가 놓이지 않는다', () => {

@@ -1,0 +1,141 @@
+{
+  "schema": "vocaflow.ai-authored-review-receipt/1",
+  "set": "r5-central-meaning-cycle.v1",
+  "source_file_sha256": "109c813ef06a2c631586f56b9735cdf148b0970b6cc5e1ddfcb53f1182e39d74",
+  "scope": [
+    "r5-cycle-ind-1",
+    "r5-cycle-ind-2",
+    "r5-cycle-transfer-2"
+  ],
+  "items": [
+    {
+      "id": "r5-cycle-ind-1",
+      "role": "independent_check",
+      "item_canonical_sha256": "aadd4b18874965ba9c3714c2ae7570845425f7ce02cbca4b57fc6c8d77e8e680",
+      "body_canonical_sha256": "068ec059ab3af3aeb083d3b3f8d9739674167ea480ecf0989a112d0ca57c18b1",
+      "gold_canonical_sha256": "300e5996faabaf9c9348df67624889804db1b232eff57371bba86b4c1b776825"
+    },
+    {
+      "id": "r5-cycle-ind-2",
+      "role": "independent_check",
+      "item_canonical_sha256": "3c3d186eb1191cc2bbf898ef1a68e8fd3277c1c88eafc8d0602abe53ee06e1e3",
+      "body_canonical_sha256": "66c1bcd95ddc2652b28405f90b102cfaea0af755e5b332c6e7a766a55c180ea4",
+      "gold_canonical_sha256": "1f73ce43f8462f0a281403ae2a4d1bd0f5b5bff4e5b8ba37415d6f4c2517b07a"
+    },
+    {
+      "id": "r5-cycle-transfer-2",
+      "role": "transfer",
+      "item_canonical_sha256": "3c79c1c9290d11a3f53acdbff4d2b010461e6f892792ec831bf4ee42c51983b2",
+      "body_canonical_sha256": "27990bd08724448e757b548e5531d3531da7f1921015f73ca39b3d67774c7960",
+      "gold_canonical_sha256": "73830d2234c9ff008504504b268f1979e1a45379bdb6f690ba80f84273037321"
+    }
+  ],
+  "reviews": [
+    {
+      "agent": "codex",
+      "session_id": "01a15e16-c544-7b90-b1a0-47cff2a2a26c",
+      "request_id": "82315dd2-5d54-4c6f-b4b9-d27a994d1b1e",
+      "prompt_sha256": "0a1c92ac95e5ccdcec6a0b56a11d387bc6e6ad799ebe7ee73305826122fde962",
+      "response_sha256": "d19cd7251cf23642c25dd775a66a67a04ce16dcbd5479f7a7be33832f1970b9a",
+      "source_file_sha256": "109c813ef06a2c631586f56b9735cdf148b0970b6cc5e1ddfcb53f1182e39d74",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "r5-cycle-ind-1",
+          "verdict": "accept",
+          "choice_0based": 2,
+          "claim_alternatives_0based": [
+            4
+          ],
+          "gold_issues": [],
+          "nonblocking_notes": [],
+          "why": "Choice 2 uniquely captures the club-specific claim about using fault logs to improve work. Sentence 4 is a valid concluding restatement and alternative claim anchor. Sentences 2 and 3 explain the contrasting consequences; the reason probe is sound. Sentence 1 supplies background detail rather than the central claim. Annotation roles are disjoint. All distractor rationales are faithful, including the corrected distinction between missing-tool records and a tool inventory."
+        },
+        {
+          "id": "r5-cycle-ind-2",
+          "verdict": "accept",
+          "choice_0based": 0,
+          "claim_alternatives_0based": [],
+          "gold_issues": [],
+          "nonblocking_notes": [],
+          "why": "Choice 0 uniquely preserves both room improvement and clear access hours without asserting measured outcomes. Sentence 1 explicitly states the claim. Sentences 2–4 explain the access problem, the insufficiency of replacing seats, and a relevant remedy; sentence 3 functions as a reason. Sentence 0 establishes the scenario. Annotation roles are disjoint, and each distractor rationale accurately identifies its unsupported or distorted assertion."
+        },
+        {
+          "id": "r5-cycle-transfer-2",
+          "verdict": "accept",
+          "choice_0based": 3,
+          "claim_alternatives_0based": [],
+          "gold_issues": [],
+          "nonblocking_notes": [
+            "Choice 0 also universalizes one role's needs to all records; its too_narrow label reasonably describes the resulting omission of the analyst's needs."
+          ],
+          "why": "Choice 3 uniquely expresses the team-scoped principle inferred from the final practice: organize records around each job's information needs. Sentence 4 is a valid claim anchor without requiring a hidden literal principle sentence. Sentences 1–3 establish the distinct needs and explain why one format cannot adequately serve both; sentence 3 supports the reason probe. Sentence 0 provides framing. Annotation roles are disjoint, and the distractor rationales accurately explain the alternatives."
+        }
+      ]
+    },
+    {
+      "agent": "claude",
+      "session_id": "d44fe4b7-df92-4767-88c7-2fb8ecf316f9",
+      "request_id": "d44fe4b7-df92-4767-88c7-2fb8ecf316f9",
+      "prompt_sha256": "0a1c92ac95e5ccdcec6a0b56a11d387bc6e6ad799ebe7ee73305826122fde962",
+      "response_sha256": "b87043b10fe189b69525774af8d3af554268fcbd5430627bee8e52540e01461f",
+      "source_file_sha256": "109c813ef06a2c631586f56b9735cdf148b0970b6cc5e1ddfcb53f1182e39d74",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "r5-cycle-ind-1",
+          "verdict": "accept",
+          "choice_0based": 2,
+          "claim_alternatives_0based": [
+            0,
+            4
+          ],
+          "gold_issues": [],
+          "nonblocking_notes": [
+            "1번째 문장이 주장이고, 5번째 문장은 '사용 방식에 따라 갈린다'는 형태로 주장을 다시 말한다. claim=0, claimRestated=[4]는 타당하다.",
+            "relationProbe 대상인 3번째 문장은 조건문 형태로 '개선에 쓰일 때 가치 있다'는 근거를 든다. 'reason'으로 볼 수 있지만, 'example'이나 'condition'으로 분류하는 체계도 가능하다.",
+            "supportDisputed=[1]은 2번째 문장(기록 내용 소개)이 배경인지 근거인지 애매하므로 적절하다.",
+            "선택지 1(도구 목록)의 오답 근거를 확인했다. '찾지 못한 도구에 관한 기록'을 '도구 목록'으로 바꾸고 지침 혼동과 사용 목적을 빠뜨렸다는 서술은 본문과 맞다. 수정된 근거는 정확하다."
+          ],
+          "why": "정답은 선택지 2 하나뿐이다. 선택지 0과 3은 본문의 판단(사용 방식 전환, 순위화 경고)을 반대 방향의 권고로 왜곡한다. 선택지 1은 핵심 요소를 빠뜨렸고, 선택지 4는 본문에 없는 내용이다. 문장 역할(주장 0, 재진술 4, 근거 2·3, 쟁점 1)은 서로 겹치지 않는다. '이 동아리'로 범위를 한정해 가상 상황의 범위를 지킨다."
+        },
+        {
+          "id": "r5-cycle-ind-2",
+          "verdict": "accept",
+          "choice_0based": 0,
+          "claim_alternatives_0based": [
+            1
+          ],
+          "gold_issues": [],
+          "nonblocking_notes": [
+            "선택지 1의 design을 'off_text'로 둔 것은 수용할 수 있다. 다만 3번째 문장(잠긴 방 때문에 새 의자를 써 보지 못하고 떠남)이 '좋은 의자면 반드시 방문 증가'를 약화하므로 'distorted'나 'contradicted'로 분류하는 체계도 가능하다.",
+            "선택지 3의 오답 근거에 영어 단어 'alongside'가 그대로 섞여 있다. 학습자에게 노출된다면 '~와 함께'로 바꾸는 것을 고려할 만하다(선택 사항).",
+            "relationProbe 대상인 4번째 문장(의자를 또 바꿔도 이용 시간을 알려 주지 못함)은 주장의 이유이므로 'reason'이 적절하다."
+          ],
+          "why": "2번째 문장(두 번째 위치)이 주장이고, 정답 선택지 0이 그 범위('이 동아리', '함께')를 그대로 반영한다. 선택지 3은 'alongside'를 '불필요'로 뒤집었고, 선택지 2는 판단을 반대 권고로 바꿨다. 선택지 1과 4는 본문에 근거가 없다. 정답은 하나뿐이며 문장 역할(주장 1, 근거 2·3·4, 쟁점 0)은 서로 겹치지 않는다."
+        },
+        {
+          "id": "r5-cycle-transfer-2",
+          "verdict": "accept",
+          "choice_0based": 3,
+          "claim_alternatives_0based": [
+            4
+          ],
+          "gold_issues": [],
+          "nonblocking_notes": [
+            "주장은 마지막 문장의 실천('두 기록을 함께 둔다')에서 '작업별 필요에 맞춘 기록 구성'이라는 일반 원리를 추론하는 형태다. 정답의 '해야 한다'는 규범 표현은 'therefore'로 정당화된 팀의 실천에서 나온 것이고 '이 팀의'로 범위가 한정되어 있어 허용 범위다.",
+            "선택지 0의 design 'too_narrow'는 수용할 수 있다. 다만 '모든 기록'으로 일반화하는 과잉 일반화 성격도 있어 'distorted' 또는 'overgeneralized'로 분류할 수도 있다.",
+            "선택지 4의 design을 'distorted'로 두었지만 근거는 4번째 문장과 '반대되는 말'이라고 설명한다. 분류 체계에 'opposite' 또는 'contradicted'가 있다면 그쪽이 더 정밀하다.",
+            "supportDisputed=[0]: 1번째 문장은 '두 가지 일'이라는 화제를 제시하는 도입부로서 근거와 배경의 경계에 있으므로 쟁점 처리가 적절하다."
+          ],
+          "why": "정답은 선택지 3 하나뿐이다. 선택지 0은 분석가의 필요를 빠뜨렸고, 선택지 1은 과거 기록 읽기를 모든 작업자에게 확대했다. 선택지 2는 본문에 없는 내용이고, 선택지 4는 4번째 문장과 정면으로 충돌한다. 문장 역할(주장 4, 근거 1·2·3, 쟁점 0)은 서로 겹치지 않는다. relationProbe 대상인 4번째 문장은 두 기록을 함께 두는 이유이므로 'reason'이 맞다. 앞의 두 문항(오류 기록, 이용 시간)과 다른 상황에서 '목적에 맞는 정보 설계'라는 원리를 적용하므로 transfer 역할로 적합하다."
+        }
+      ]
+    }
+  ],
+  "judgment": "accepted_candidate_content_and_gold",
+  "rights_basis": "first_party_original_declaration_only",
+  "rights_grant": false,
+  "human_review_claimed": false,
+  "not_reviewed": []
+}

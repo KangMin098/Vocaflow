@@ -20,9 +20,18 @@ describe('창작 자료 열기 가드', () => {
   it('기록 실패 화면에는 본문 · 문항이 없다(지도 링크만)', () => {
     const block = PAGE.slice(PAGE.indexOf('if (!v.done && !opened2)'), PAGE.indexOf('<AuthoredRunner'))
     expect(block).not.toMatch(/body|sentences|v\.extra|v\.teach/)
-    expect(block).toContain('MAP_HREF')
+    expect(block).toContain('href={returnHref}')
   })
   it('본문으로 넘기는 세션은 기록에 성공한 세션뿐', () => {
     expect(PAGE).toMatch(/sessionId=\{opened2 \? sessionId : undefined\}/)
+  })
+})
+
+describe('창작 자료 출구의 지도 복귀(FI-011 C) — 열 수 없음 · 기록 실패 · 로그인 · 묶음 선택', () => {
+  it('페이지의 안내 링크 · 로그인 · 선택 링크가 같은 복귀 도우미를 쓴다(고정 지도 주소 없음)', () => {
+    expect(PAGE).not.toContain('MAP_HREF')
+    expect(PAGE.match(/href=\{returnHref\}>학습 지도로 가기/g)?.length).toBe(2)
+    expect(PAGE).toContain('loginUrlWithReturn(learnSelfHref(params.id, searchParams, searchParams.d))')
+    expect(PAGE).toContain('href={learnSelfHref(params.id, searchParams, c.deliveryId)}')
   })
 })

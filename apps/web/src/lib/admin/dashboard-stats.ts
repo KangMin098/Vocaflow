@@ -20,6 +20,10 @@ import 'server-only'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { keysetSelect } from '@/lib/supabase/keyset-select'
+
+import { cohortOf, rowsOrError, verifiedOnly } from './account-cohort'
+
 type AdminClient = SupabaseClient
 
 /** 파이프라인 진행 중(=사람이 기다리는 중) 상태. library_books / library_articles 공통. */
@@ -55,7 +59,11 @@ export interface DashboardStats {
   vcb: { pending: Count; exported: Count; enriched: Count; flagged: Count; failed: Count }
   vrl: { openConcerns: Count; classified: Count }
   words: { dict: Count; pending: Count; judgments: Count; chapterQuiz: Count }
-  learners: { total: Count; activeToday: Count }
+  /**
+   * total · activeToday = **모든 계정**(운영 · 개발 · QA · 합성 포함) — 운영 규모 참고용이지 실사용 지표가 아니다.
+   * verified · verifiedActiveToday = 검증된 외부 학습자만(`account-cohort.ts`, T-0084). cohort 를 못 정하면 null.
+   */
+  learners: { total: Count; activeToday: Count; verified: Count; verifiedActiveToday: Count }
   texts: Count
   qualityLastMeasuredAt: string | null
   /** null = reports 테이블 자체가 없음(신고/문의 미구현) */
@@ -375,6 +383,32 @@ async function fetchRecent(client: AdminClient): Promise<RecentFeed> {
 // 진입점
 // ─────────────────────────────────────────────
 
+/**
+ * 검증된 외부 학습자 수 · 그중 오늘(KST) 활동한 수. 판정은 공용 cohort 하나(`cohortOf`).
+ * cohort 를 못 정했거나 오늘 활동을 다 못 읽었으면 null(못 쟀음) — 0 으로 바꾸지 않는다.
+ * 끝까지 읽었고 검증 계정이 0 이면 그게 실제 0 이다.
+ */
+async function verifiedLearners(client: AdminClient, today: string): Promise<{ verified: Count; verifiedActiveToday: Count }> {
+  const cohort = await cohortOf(client)
+  if (cohort.status !== 'ok') return { verified: null, verifiedActiveToday: null }
+  try {
+    if (cohort.verified.size === 0) return { verified: 0, verifiedActiveToday: 0 }
+    // 하루 안에서 user_id 가 고유하다((user_id, date) 키) — 키셋으로 끝까지 읽는다(OFFSET 금지 · offset-paging-budget)
+    const rows = await keysetSelect<{ user_id: string | null }, string>(
+      (after, limit) => {
+        const q = client.from('daily_activity').select('user_id').eq('date', today)
+        return rowsOrError((after === null ? q : q.gt('user_id', after)).order('user_id', { ascending: true }).limit(limit))
+      },
+      (r) => r.user_id as string,
+      'dashboard daily_activity(today)',
+    )
+    const active = new Set((verifiedOnly(cohort, rows, (r) => r.user_id) ?? []).map((r) => r.user_id))
+    return { verified: cohort.verified.size, verifiedActiveToday: active.size }
+  } catch {
+    return { verified: cohort.verified.size, verifiedActiveToday: null }
+  }
+}
+
 export async function getAdminDashboardStats(client: AdminClient): Promise<DashboardStats> {
   const today = kstToday()
 
@@ -415,6 +449,7 @@ export async function getAdminDashboardStats(client: AdminClient): Promise<Dashb
     texts,
     qualityRes,
     recent,
+    verified,
   ] = await Promise.all([
     safeCount(() => head(client, 'library_books').eq('status', 'published')),
     safeCount(() => head(client, 'library_books').eq('status', 'ready')),
@@ -469,6 +504,7 @@ export async function getAdminDashboardStats(client: AdminClient): Promise<Dashb
     ),
 
     fetchRecent(client),
+    verifiedLearners(client, today),
   ])
 
   return {
@@ -503,7 +539,7 @@ export async function getAdminDashboardStats(client: AdminClient): Promise<Dashb
     },
     vrl: { openConcerns: vrlOpen, classified: vrlClassified },
     words: { dict, pending: pendingWords, judgments, chapterQuiz },
-    learners: { total: learnersTotal, activeToday },
+    learners: { total: learnersTotal, activeToday, ...verified },
     texts,
     // ⚠️ 못 읽었으면 "한 번도 안 쟀다" 와 같아진다. 화면은 이 값이 null 이면 "수집 기록
     //   없음" 이라고 말하는데, 질의 실패였다면 그건 거짓이다 — 그래서 실패를 분리해 적는다.

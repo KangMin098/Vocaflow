@@ -1,0 +1,167 @@
+{
+  "source": "csat_items+csat_item_units (published analysis units_version)",
+  "items": [
+    {
+      "id": "H2609G2#27",
+      "examId": "H2609G2",
+      "no": 27,
+      "typeId": "R-NOTICE",
+      "stem": "Ashwood Dunes Reforestation Event에 관한 다음 안내문의 내용과 일치하지 않는 것은?",
+      "choices": [
+        "매년 개최되는 행사이다.",
+        "행사는 3시간 동안 진행된다.",
+        "나무 다섯 그루를 심으면 티셔츠를 받는다.",
+        "당일 현장에서 등록할 수 있다.",
+        "모자와 장갑을 가져와야 한다."
+      ],
+      "units": [
+        {
+          "id": "u1",
+          "n": 1,
+          "kind": "sentence",
+          "text": "Ashwood Dunes Reforestation Event Join us for a meaningful morning at the annual Ashwood Dunes Reforestation."
+        },
+        {
+          "id": "u2",
+          "n": 2,
+          "kind": "sentence",
+          "text": "Volunteers will plant native tree seedlings to help restore the local environment."
+        },
+        {
+          "id": "u3",
+          "n": 3,
+          "kind": "sentence",
+          "text": "No special skills required, feel free to join us."
+        },
+        {
+          "id": "u4",
+          "n": 4,
+          "kind": "sentence",
+          "text": "When and Where"
+        },
+        {
+          "id": "u5",
+          "n": 5,
+          "kind": "line",
+          "text": "• September 5th, 2026, 8 a.m.-11 a.m."
+        },
+        {
+          "id": "u6",
+          "n": 6,
+          "kind": "line",
+          "text": "• Ashwood Dunes Wilderness Participation Fee: Free Rewards: All participants will get a commemorative badge."
+        },
+        {
+          "id": "u7",
+          "n": 7,
+          "kind": "line",
+          "text": "• Plant 5 trees: Receive a reusable water bottle"
+        },
+        {
+          "id": "u8",
+          "n": 8,
+          "kind": "line",
+          "text": "• Plant 10 or more trees: Receive a Tshirt Registration: Online registration is encouraged, but onsite signups will be available on the day of the event."
+        },
+        {
+          "id": "u9",
+          "n": 9,
+          "kind": "sentence",
+          "text": "Event Guidelines"
+        },
+        {
+          "id": "u10",
+          "n": 10,
+          "kind": "line",
+          "text": "• Bring a hat and gloves; shovels and water will be prepared."
+        },
+        {
+          "id": "u11",
+          "n": 11,
+          "kind": "line",
+          "text": "• Follow instructions from the event staff."
+        },
+        {
+          "id": "u12",
+          "n": 12,
+          "kind": "sentence",
+          "text": "For more information, please visit www.ashwooddunes.com."
+        }
+      ],
+      "version": {
+        "unitsVersion": 1,
+        "unitsHash": "fcb8666feea8129149103bd917fa222f15e2af3c74c17aca5cee60961b07794d",
+        "analysisVersion": 1
+      }
+    },
+    {
+      "id": "H2609G2#28",
+      "examId": "H2609G2",
+      "no": 28,
+      "typeId": "R-NOTICE",
+      "stem": "2026 Footnote Dance Program에 관한 다음 안내문의 내용과 일치하는 것은?",
+      "choices": [
+        "참가 대상은 13세 미만이다.",
+        "오전에 진행된다.",
+        "한 개의 워크숍 참가 비용은 120달러이다.",
+        "워크숍 일정 중 친구와 가족을 초대하는 날이 있다.",
+        "셔틀 버스는 유료로 제공된다."
+      ],
+      "units": [
+        {
+          "id": "u1",
+          "n": 1,
+          "kind": "sentence",
+          "text": "2026 Footnote Dance Program The 2026 Footnote Dance Program is a modern dance program created for youth aged 13-18."
+        },
+        {
+          "id": "u2",
+          "n": 2,
+          "kind": "sentence",
+          "text": "When: Wednesday, October 21st-Friday, October 23rd (5 p.m.-8 p.m. each day) Where: Footnote Studio, 70 Elm Street Cost: $50 per workshop, or $120 for all three workshops Workshop Schedule"
+        },
+        {
+          "id": "u3",
+          "n": 3,
+          "kind": "line",
+          "text": "• [Day 1] Dance Lesson: Build creative confidence through guided movement exercises."
+        },
+        {
+          "id": "u4",
+          "n": 4,
+          "kind": "line",
+          "text": "• [Day 2] Performance Practice: Refine your performance skills and learn to connect with your audience."
+        },
+        {
+          "id": "u5",
+          "n": 5,
+          "kind": "line",
+          "text": "• [Day 3] Open Studio: Friends and family are invited to see what participants have created!"
+        },
+        {
+          "id": "u6",
+          "n": 6,
+          "kind": "sentence",
+          "text": "Information"
+        },
+        {
+          "id": "u7",
+          "n": 7,
+          "kind": "line",
+          "text": "• A free shuttle bus service will be provided for all participants and visitors."
+        },
+        {
+          "id": "u8",
+          "n": 8,
+          "kind": "line",
+          "text": "• Preregistration is required."
+        }
+      ],
+      "version": {
+        "unitsVersion": 1,
+        "unitsHash": "31f001b621c37de3efe512ba23ecc820824ce9e5d05e29daf1721dcd75799a7d",
+        "analysisVersion": 1
+      }
+    }
+  ]
+}

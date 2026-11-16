@@ -1,0 +1,538 @@
+{
+ "batch": "r5r6-fix2",
+ "input_sha256": "c852ba5b65442624c7821f564b3302784f017d54deacf5b04683594e0ad58c54",
+ "links": [
+  {
+   "item": "2015#24",
+   "task": "r.central_meaning",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "INDEPENDENTLY_CHECKED",
+   "source": "research_ai_reviewed",
+   "tier": "R1",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "not_applicable"
+   },
+   "anchors": {
+    "A": null,
+    "B": null
+   },
+   "why": {
+    "A": "Ehret 생애 세부 사실 대조만 필요하고 글 전체 요지 압축은 경로 밖",
+    "B": "Ehret의 여행 수단 하나를 확인하는 경로에서 식물 화가의 생애를 중심과 부연으로 압축하지 않는다."
+   },
+   "source_sha256": "aebe391b5dce0853a7b305819bc3b45f78998ffde3261337d268cd5366af07ef"
+  },
+  {
+   "item": "2015#24",
+   "task": "r.inference",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "INDEPENDENTLY_CHECKED",
+   "source": "research_ai_reviewed",
+   "tier": "R1",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "not_applicable"
+   },
+   "anchors": {
+    "A": null,
+    "B": null
+   },
+   "why": {
+    "A": "도보 여행이 본문에 명시되어 있어 쓰이지 않은 의미를 도출할 필요가 없음",
+    "B": "주로 도보로 여행했다는 사실이 명시되어 있어 마차 선지를 배제하는 데 쓰이지 않은 의미를 보탤 필요가 없다."
+   },
+   "source_sha256": "aebe391b5dce0853a7b305819bc3b45f78998ffde3261337d268cd5366af07ef"
+  },
+  {
+   "item": "2018#29",
+   "task": "r.central_meaning",
+   "relevance": "unknown",
+   "candidateRelevance": "indirect",
+   "state": "INDEPENDENTLY_CHECKED",
+   "source": "research_ai_reviewed",
+   "tier": "R1",
+   "judgments": {
+    "A": "indirect",
+    "B": "indirect"
+   },
+   "anchors": {
+    "A": {
+     "field": "passage",
+     "quote_sha256": "e6d893d78016b3364a9f024368a2428cb8c14b72b15edf109ccb946b623c9bc9",
+     "quote_chars": 79
+    },
+    "B": {
+     "field": "passage",
+     "quote_sha256": "2410c9398249ee8fa03441da9ba39c7426aa98eb02c1dd163c24007f5fce7ceb",
+     "quote_chars": 109
+    }
+   },
+   "why": {
+    "A": "상업 발굴은 시간 부족으로 지식 손실을 낳는다는 필자 주장을 잡아야 ② 낱말의 방향이 반대임을 보게 됨",
+    "B": "시간 때문에 이익과 지식이 양립할 수 없다는 중심 주장을 압축하면 여섯 달 주장에 대한 비판의 방향을 잡을 수 있지만 found를 가르는 것은 보존 기간 반례다."
+   },
+   "source_sha256": "67ce7d16c5175e90ac3095412359f00cea4cea7ff94d52a5d17d51161aad9c44"
+  },
+  {
+   "item": "2018#29",
+   "task": "r.inference",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "DISPUTED",
+   "source": "research_ai_candidate",
+   "tier": "R0",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "direct"
+   },
+   "anchors": {
+    "A": null,
+    "B": {
+     "field": "passage",
+     "quote_sha256": "8c45e9112ac753a1ed7ee147c1ea2757b90c00bac4d099f010ff79759a530f6e",
+     "quote_chars": 135
+    }
+   },
+   "why": {
+    "A": "지식 상실 의미가 'cannot coexist'와 INA 십 년 보존 사례로 본문에 재진술됨",
+    "B": "여섯 달 판매 허용을 옹호하는 사람의 발언은 지식이 발견되지 않는다는 뜻이 아니라 손실되지 않는다는 뜻이어야 한다. 십 년 이상 걸린 반례와 발언의 입장을 결합해 생략된 무손실 주장을 도출해야 found를 배제한다."
+   },
+   "source_sha256": "67ce7d16c5175e90ac3095412359f00cea4cea7ff94d52a5d17d51161aad9c44"
+  },
+  {
+   "item": "2019#30",
+   "task": "r.central_meaning",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "INDEPENDENTLY_CHECKED",
+   "source": "research_ai_reviewed",
+   "tier": "R1",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "not_applicable"
+   },
+   "anchors": {
+    "A": null,
+    "B": null
+   },
+   "why": {
+    "A": "인접 문장 vulnerable·advantage와의 국소 대조로 풀리며 글 요지 압축은 불필요",
+    "B": "순록의 수중 취약성과 배의 접근 이점으로 사냥 난도를 판단하며 최초의 배나 운송 발전이라는 전체 중심을 압축할 필요는 없다."
+   },
+   "source_sha256": "fe38fc5893fc4f743b05e017018954b09463fe431f90a794eedcc568b1bf8983"
+  },
+  {
+   "item": "2019#30",
+   "task": "r.inference",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "DISPUTED",
+   "source": "research_ai_candidate",
+   "tier": "R0",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "direct"
+   },
+   "anchors": {
+    "A": null,
+    "B": {
+     "field": "passage",
+     "quote_sha256": "cc43d54172ec23312dac3f0be1fe5508c44c296a1006916043bc88bbadf6e46f",
+     "quote_chars": 94
+    }
+   },
+   "why": {
+    "A": "헤엄 못 치는 순록의 취약함이 'uniquely vulnerable'로 명시되어 추론할 숨은 의미가 없음",
+    "B": "본문은 순록을 쉽게 따라잡아 죽였다고 말하지 않는다. 느린 수중 움직임과 물 위를 미끄러지는 배의 이점을 결합해 포획의 수월함을 도출해야 laboriously를 거른다."
+   },
+   "source_sha256": "fe38fc5893fc4f743b05e017018954b09463fe431f90a794eedcc568b1bf8983"
+  },
+  {
+   "item": "2021#26",
+   "task": "r.central_meaning",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "INDEPENDENTLY_CHECKED",
+   "source": "research_ai_reviewed",
+   "tier": "R1",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "not_applicable"
+   },
+   "anchors": {
+    "A": null,
+    "B": null
+   },
+   "why": {
+    "A": "Knight 경력 세부 사항 하나의 일치 여부만 가르므로 요지 파악이 경로 밖",
+    "B": "Knight의 경력 전체에서 핵심 업적을 고르는 대신 은퇴 후 두 활동의 지속 여부만 확인하면 다섯 번째 선지가 배제된다."
+   },
+   "source_sha256": "b64cb6abf3a74cbb63c16dc26167b5af7b048f4efd4a898a998b9a00e26f5295"
+  },
+  {
+   "item": "2021#26",
+   "task": "r.inference",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "INDEPENDENTLY_CHECKED",
+   "source": "research_ai_reviewed",
+   "tier": "R1",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "not_applicable"
+   },
+   "anchors": {
+    "A": null,
+    "B": null
+   },
+   "why": {
+    "A": "은퇴 후 강의 지속이 본문에 그대로 쓰여 있어 추론 불필요",
+    "B": "은퇴 후 teaching과 writing을 계속했다는 내용이 그대로 있어 교수 활동의 지속을 함의로 도출하지 않는다."
+   },
+   "source_sha256": "b64cb6abf3a74cbb63c16dc26167b5af7b048f4efd4a898a998b9a00e26f5295"
+  },
+  {
+   "item": "2021#30",
+   "task": "r.central_meaning",
+   "relevance": "unknown",
+   "candidateRelevance": "indirect",
+   "state": "INDEPENDENTLY_CHECKED",
+   "source": "research_ai_reviewed",
+   "tier": "R1",
+   "judgments": {
+    "A": "indirect",
+    "B": "indirect"
+   },
+   "anchors": {
+    "A": {
+     "field": "passage",
+     "quote_sha256": "7cdeaa880ebe4a3d5ef0a5260c672eaff285fc6474ce7b57927c7ad95c7c3beb",
+     "quote_chars": 89
+    },
+    "B": {
+     "field": "passage",
+     "quote_sha256": "689d712e4b7012563df76d260592100e29701d049bdfc114320b89a051bbf531",
+     "quote_chars": 101
+    }
+   },
+   "why": {
+    "A": "편승 효과로 측정이 기대 쪽으로 쏠렸다는 글의 중심을 알아야 패턴 변화의 원인이 용기 보유임을 판단 가능",
+    "B": "광속 측정 사례를 기대에 끌려가는 편승 편향으로 압축하면 마지막 변화의 대상을 잡지만 용기의 유무는 보고 행동과 관행의 대조에서 결정된다."
+   },
+   "source_sha256": "7228949de88fc19fa3267b1d893ebead55d645bcece2293475e15d980933d066"
+  },
+  {
+   "item": "2021#30",
+   "task": "r.inference",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "DISPUTED",
+   "source": "research_ai_candidate",
+   "tier": "R0",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "direct"
+   },
+   "anchors": {
+    "A": null,
+    "B": {
+     "field": "passage",
+     "quote_sha256": "19067ca1ed37df4ceb2366470e531197c29dbcc1fab4570ff0d00b175c3723c0",
+     "quote_chars": 42
+    }
+   },
+   "why": {
+    "A": "실측값 보고가 편향을 깬다는 의미가 'what was actually measured instead of what was expected'로 직접 진술됨",
+    "B": "기대와 다른 결과를 버리던 관행이 실제값 보고로 바뀌었다는 조건에서 관행에 맞설 용기를 냈음을 복원한다. 용기가 있었다는 진술은 없으므로 lacked의 부적절성은 이 함의에 달린다."
+   },
+   "source_sha256": "7228949de88fc19fa3267b1d893ebead55d645bcece2293475e15d980933d066"
+  },
+  {
+   "item": "2022#30",
+   "task": "r.central_meaning",
+   "relevance": "unknown",
+   "candidateRelevance": "indirect",
+   "state": "INDEPENDENTLY_CHECKED",
+   "source": "research_ai_reviewed",
+   "tier": "R1",
+   "judgments": {
+    "A": "indirect",
+    "B": "indirect"
+   },
+   "anchors": {
+    "A": {
+     "field": "passage",
+     "quote_sha256": "4f621bffcef8fd4c9155d522febb7bf4b2c2c0209a78fafc85320517442ab7c0",
+     "quote_chars": 111
+    },
+    "B": {
+     "field": "passage",
+     "quote_sha256": "09b3f1599372f56f1d975825f22106bb60ba93c689f137eaebbfb3d217f50342",
+     "quote_chars": 133
+    }
+   },
+   "why": {
+    "A": "유기농 전면 도입은 수확 감소·비용 증가를 낳는다는 필자 논지를 잡아야 단점 나열 흐름 속 ③의 어긋남이 보임",
+    "B": "유기농의 전면 확대에는 문제가 있고 일부 기법에는 장점이 있다는 핵심을 정리하면 benefits 위치를 살피기 쉽지만 해당 어휘의 부적합성은 인접 문제 열거가 정한다."
+   },
+   "source_sha256": "df7805adca3a698a663e2a81515e4c277367a643f26be40c573ff4cb29443364"
+  },
+  {
+   "item": "2022#30",
+   "task": "r.inference",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "INDEPENDENTLY_CHECKED",
+   "source": "research_ai_reviewed",
+   "tier": "R1",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "not_applicable"
+   },
+   "anchors": {
+    "A": null,
+    "B": null
+   },
+   "why": {
+    "A": "유기농 방식의 비용·노동 부담이 본문에 연속 진술되어 추론할 숨은 의미 없음",
+    "B": "수확 감소, 비용 상승, 질소 공급 제약, 제초 어려움이 명시되어 benefits와 반대인 문제 방향을 이미 진술한다. 별도의 미진술 결과를 도출할 필요가 없다."
+   },
+   "source_sha256": "df7805adca3a698a663e2a81515e4c277367a643f26be40c573ff4cb29443364"
+  },
+  {
+   "item": "2024#27",
+   "task": "r.central_meaning",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "INDEPENDENTLY_CHECKED",
+   "source": "research_ai_reviewed",
+   "tier": "R1",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "not_applicable"
+   },
+   "anchors": {
+    "A": null,
+    "B": null
+   },
+   "why": {
+    "A": "안내문 조건 항목 대조 문항이라 중심 의미 압축이 필요 없음",
+    "B": "투어의 기간·연령·활동을 요약하지 않고 예약 기한 항목을 당일 예약 선지와 직접 대조한다."
+   },
+   "source_sha256": "5a6532a3f27bc9c1e5c7b3a54dc4dd4d9545b02428f492da21194ad2f890fdbe"
+  },
+  {
+   "item": "2024#27",
+   "task": "r.inference",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "INDEPENDENTLY_CHECKED",
+   "source": "research_ai_reviewed",
+   "tier": "R1",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "not_applicable"
+   },
+   "anchors": {
+    "A": null,
+    "B": null
+   },
+   "why": {
+    "A": "예약 마감 조건이 명시되어 당일 예약 불가가 직접 읽힘",
+    "B": "예약 마감이 투어 이틀 전이라고 명시되어 당일 가능 선지는 같은 날짜 조건을 위반한다. 투어 운영에 관한 새 함의를 만들지 않는다."
+   },
+   "source_sha256": "5a6532a3f27bc9c1e5c7b3a54dc4dd4d9545b02428f492da21194ad2f890fdbe"
+  },
+  {
+   "item": "M2406#42",
+   "task": "r.central_meaning",
+   "relevance": "unknown",
+   "candidateRelevance": "indirect",
+   "state": "INDEPENDENTLY_CHECKED",
+   "source": "research_ai_reviewed",
+   "tier": "R1",
+   "judgments": {
+    "A": "indirect",
+    "B": "indirect"
+   },
+   "anchors": {
+    "A": {
+     "field": "passage",
+     "quote_sha256": "a614feed0ab87b6490ab19d43860a26943820b8cf8e8291f54d2690350498429",
+     "quote_chars": 94
+    },
+    "B": {
+     "field": "passage",
+     "quote_sha256": "e60043b797b0dce95f5c5f12fc4542cb958534e5d3c4d9de221653564f2134d8",
+     "quote_chars": 178
+    }
+   },
+   "why": {
+    "A": "고정 파이 믿음이 통합적 합의를 막는다는 글의 중심을 알아야 쟁점 확대 발견이 해결을 촉진함을 판단",
+    "B": "고정 파이 믿음이 협력적 교환 탐색을 억제한다는 핵심을 잡으면 채용 사례를 해석할 틀이 생기지만 block의 판정은 추가 협상 항목이 여는 해결 가능성에 달린다."
+   },
+   "source_sha256": "d0d27c7a625f3e30ed7f59dd8d201f8ce46e1bbd33849b2b04215a81d47af563"
+  },
+  {
+   "item": "M2406#42",
+   "task": "r.inference",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "DISPUTED",
+   "source": "research_ai_candidate",
+   "tier": "R0",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "direct"
+   },
+   "anchors": {
+    "A": null,
+    "B": {
+     "field": "passage",
+     "quote_sha256": "28485e70fee9f78209c4a3c657655ff6072676c393e3632c880ffb9241066ef2",
+     "quote_chars": 56
+    }
+   },
+   "why": {
+    "A": "상호 이익 거래 가능성이 'mutually beneficial trade-offs'로 진술되어 숨은 의미 도출 불필요",
+    "B": "이사 비용과 시작일도 협상 가능하다는 사실은 명시되지만 그것이 급여 문제 해결을 돕는다는 결과는 쓰이지 않았다. 상호 이익의 교환 논리로 해결 여지를 도출해야 block이 반대임을 알 수 있다."
+   },
+   "source_sha256": "d0d27c7a625f3e30ed7f59dd8d201f8ce46e1bbd33849b2b04215a81d47af563"
+  },
+  {
+   "item": "M2506#36",
+   "task": "r.central_meaning",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "INDEPENDENTLY_CHECKED",
+   "source": "research_ai_reviewed",
+   "tier": "R1",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "not_applicable"
+   },
+   "anchors": {
+    "A": null,
+    "B": null
+   },
+   "why": {
+    "A": "순서는 However·new plant growth→young shoots 연결 단서로 정해지며 요지 압축은 경로 밖",
+    "B": "새 식물과 어린 싹, 덤불 성장과 목본 재성장의 연결로 A-C-B를 정하며 호주 불 관리의 핵심 주장을 따로 압축하지 않는다."
+   },
+   "source_sha256": "7f1602abe4b8db7871a983468afd18bb8f4d6605013b35f276eaf8289734e93f"
+  },
+  {
+   "item": "M2506#36",
+   "task": "r.inference",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "INDEPENDENTLY_CHECKED",
+   "source": "research_ai_reviewed",
+   "tier": "R1",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "not_applicable"
+   },
+   "anchors": {
+    "A": null,
+    "B": null
+   },
+   "why": {
+    "A": "단락 연결 근거가 'new plant growth'·'scrubby growth' 등 표면에 드러나 추론할 숨은 의미가 없음",
+    "B": "어린 싹의 먹이 효과와 덤불 재성장, 다시 불태워야 하는 결과가 모두 진술되어 있다. 순서 결정에 새로운 산불 관리 함의를 만들 필요가 없다."
+   },
+   "source_sha256": "7f1602abe4b8db7871a983468afd18bb8f4d6605013b35f276eaf8289734e93f"
+  },
+  {
+   "item": "M2506#37",
+   "task": "r.central_meaning",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "INDEPENDENTLY_CHECKED",
+   "source": "research_ai_reviewed",
+   "tier": "R1",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "not_applicable"
+   },
+   "anchors": {
+    "A": null,
+    "B": null
+   },
+   "why": {
+    "A": "For example·Their role 같은 연결 단서로 순서가 정해져 요지 압축이 결정에 쓰이지 않음",
+    "B": "조직 학습이라는 공통 소재만으로 단락을 고르지 않고 For example과 개발 기능 변화, Their role의 선행 대상을 연결하면 순서가 확정된다."
+   },
+   "source_sha256": "09a9fa50679189e94a44c501130bb2f3c09bf1f6e3351dc0d916abc26b59d2fe"
+  },
+  {
+   "item": "M2506#37",
+   "task": "r.inference",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "INDEPENDENTLY_CHECKED",
+   "source": "research_ai_reviewed",
+   "tier": "R1",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "not_applicable"
+   },
+   "anchors": {
+    "A": null,
+    "B": null
+   },
+   "why": {
+    "A": "'Their'가 가리키는 learning facilitators가 (C) 끝에 명시되어 추론 불필요",
+    "B": "개발 전문가가 학습 촉진자가 되어야 한다는 전환과 팀 조언·정보 공유라는 역할이 이미 적혀 있어 숨은 인사 정책을 도출하지 않는다."
+   },
+   "source_sha256": "09a9fa50679189e94a44c501130bb2f3c09bf1f6e3351dc0d916abc26b59d2fe"
+  },
+  {
+   "item": "M2506#25",
+   "task": "r.central_meaning",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "INDEPENDENTLY_CHECKED",
+   "source": "research_ai_reviewed",
+   "tier": "R1",
+   "judgments": {
+    "A": "unknown",
+    "B": "unknown"
+   },
+   "anchors": {
+    "A": null,
+    "B": null
+   },
+   "why": {
+    "A": "도표 이미지가 누락되어 수치 대조 경로를 원문으로 확인할 수 없음",
+    "B": "독서 취미의 국가별 성별 비율 그래프가 없어 실제 시각 자료에서 전체 경향을 요약하는 경로가 쓰이는지 판정할 수 없다."
+   },
+   "source_sha256": "bb814468e94f50adbcbe6afc7b324ea05bd279fa7a2654aa3810b78638589375"
+  },
+  {
+   "item": "M2506#25",
+   "task": "r.inference",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "INDEPENDENTLY_CHECKED",
+   "source": "research_ai_reviewed",
+   "tier": "R1",
+   "judgments": {
+    "A": "unknown",
+    "B": "unknown"
+   },
+   "anchors": {
+    "A": null,
+    "B": null
+   },
+   "why": {
+    "A": "도표 원자료가 없어 어떤 진술이 수치와 어긋나는지 판정 근거 부재",
+    "B": "멕시코와 미국 남성 독서 비율의 실제 막대가 주어지지 않아 명시 수치 대조로 끝나는지 별도 도출이 필요한지 원자료에서 확인할 수 없다."
+   },
+   "source_sha256": "bb814468e94f50adbcbe6afc7b324ea05bd279fa7a2654aa3810b78638589375"
+  }
+ ]
+}

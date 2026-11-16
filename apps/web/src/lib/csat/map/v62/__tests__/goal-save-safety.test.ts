@@ -2,6 +2,7 @@
 import { describe, expect, it } from 'vitest'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { GoalConflictError, MapInputError, setGoal } from '../../server'
+import { GoalVersionConflictError } from '../../v4/plan-store'
 
 const key = '10000000-0000-4000-8000-000000000001'
 const now = new Date('2026-10-16T01:00:00Z')
@@ -36,6 +37,13 @@ function store(barrier = false) {
   return { db, rows }
 }
 describe('goal save safety against installed key-only RPC', () => {
+  it.each(['40001', 'PT409'])('recognizes only the explicit goal_changed business conflict (%s)', async code => {
+    const { db } = store()
+    db.rpc = (async () => ({ data: null, error: { code, message: 'goal_changed' } })) as unknown as typeof db.rpc
+    await expect(setGoal(db, 'owned', { target: 80, clientKey: key }, now)).rejects.toBeInstanceOf(GoalVersionConflictError)
+    db.rpc = (async () => ({ data: null, error: { code, message: 'unrelated failure' } })) as unknown as typeof db.rpc
+    await expect(setGoal(db, 'owned', { target: 80, clientKey: key }, now)).rejects.not.toBeInstanceOf(GoalVersionConflictError)
+  })
   it('same key different bodies cannot both report success after missing prechecks', async () => {
     const { db, rows } = store(true)
     const got = await Promise.allSettled([80, 90].map(target => setGoal(db, 'owned', { target, clientKey: key }, now)))

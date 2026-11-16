@@ -1,0 +1,190 @@
+{
+  "schema": "vocaflow.ai-authored-review-receipt/1",
+  "set": "r5-central-meaning.v3",
+  "source_file_sha256": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846",
+  "source_file": "D:/workspace/Vocaflow-AI-Control/runtime/learning-outcomes-20261021/r5-central-meaning.v3-candidate-r2.json",
+  "scope": [
+    "r5-cm-guided-1",
+    "r5-cm-ind-2",
+    "r5-cm-ind-3",
+    "r5-cm-transfer-1",
+    "r5-cm-delayed-1"
+  ],
+  "items": [
+    {
+      "id": "r5-cm-guided-1",
+      "role": "guided_practice",
+      "item_canonical_sha256": "2bdff1cf30ec55e5cc5bc8c379af7ef74c03903f941b3f02d95dfd837fe050c3",
+      "body_canonical_sha256": "370d823765c1716e937633d3654249795c42255ae5f59bf3390ca333e6178963",
+      "gold_canonical_sha256": "fd779eb465c83a3eb78f2fed06fe708e9e3ea5bb80315921f78acdd28ac92a18"
+    },
+    {
+      "id": "r5-cm-ind-2",
+      "role": "independent_check",
+      "item_canonical_sha256": "7bd92069d3d3f67a1b11341b5e2a1097064f3c0493d8893c5009bec4a307638e",
+      "body_canonical_sha256": "4c0bc5ffcbda9310620faf3049ed3ac0d02081bf466d7ae9777e22e950912227",
+      "gold_canonical_sha256": "548575cb5ad089792b5de6aa3f5a6bc6e4430cdc6f8cab84abbc1b8ed297bb87"
+    },
+    {
+      "id": "r5-cm-transfer-1",
+      "role": "transfer",
+      "item_canonical_sha256": "975f64546227cdfb0bb22536a0353c826e25526b382caa69c811a598f7a6f598",
+      "body_canonical_sha256": "b19885df5942c5a6521754e9d87f8040ff204be84f87f6385ff79075beddb67c",
+      "gold_canonical_sha256": "1a0800018bc69ca3455343b1f7c4351dbd5eb46c8d9fa83569055aecdf2a8662"
+    },
+    {
+      "id": "r5-cm-delayed-1",
+      "role": "delayed_check",
+      "item_canonical_sha256": "1fc0243f3b5685be02c09b28745c60bce83f4279f8d9682a6ad6b344e9eaec77",
+      "body_canonical_sha256": "d32a8abe60ddf231552a50397d054efe2ef768f889e863182d8555c9a120b666",
+      "gold_canonical_sha256": "710d9a7a564e895ea772a844af41714c44199d14885996970e35689011a5d378"
+    },
+    {
+      "id": "r5-cm-ind-3",
+      "role": "independent_check",
+      "item_canonical_sha256": "df805fa19ccca5b145d5a25907c5f96656b201cc950bebb8ce08cdffca9b6db6",
+      "body_canonical_sha256": "c542bcb6cce123783711694baf5bd27f213c6271f87cd484fc6c4df255dca390",
+      "gold_canonical_sha256": "5a313b22ec511ea616e95b2d81152b9e9c94c22e5e9ee11ce84f90e7751cc593"
+    }
+  ],
+  "reviews": [
+    {
+      "agent": "claude",
+      "session_id": "65b8975d-6e23-4d48-beab-697a6ef33186",
+      "request_id": "65b8975d-6e23-4d48-beab-697a6ef33186",
+      "prompt_sha256": "b66e4e304b3efe03ce405554c69db793e0bcba2d3f35f116e75e82a1c84a8d06",
+      "response_sha256": "5b108926f6271b293c42b2d03be34b15907b8973ea7e1c2ddefe5bd13a81d74a",
+      "source_file_sha256": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "r5-cm-guided-1",
+          "verdict": "accept",
+          "choice_0based": 2,
+          "claim_alternatives_0based": [
+            6
+          ],
+          "gold_issues": [],
+          "why": "Sentence 4 (0-based) gives the judgment that trees are useful for cooling. Sentence 6 restates it as the city-level infrastructure stance, and choice 2 captures that. Sentences 2-3 supply the evaporation mechanism, which fits support and the 'reason' probe at sentence 2. Treating sentences 0, 1 and 5 as disputed is defensible: 0 is the opening observation, 1 is a transition, and 5 is a contrastive aside. The distractors are clearly wrong: 0 and 1 are too narrow, 3 jumps to an energy-saving claim the text does not make, and 4 reverses the writer's view. The hints match the gold reasoning. Optional refinement: 'therefore' in sentence 3 is slightly loose as a connective, but it does not affect the answer."
+        },
+        {
+          "id": "r5-cm-ind-2",
+          "verdict": "accept",
+          "choice_0based": 1,
+          "claim_alternatives_0based": [],
+          "gold_issues": [],
+          "why": "Sentence 0 is the claim, and choice 1 paraphrases it without copying the wording. Sentence 3 is the counter-position, so labeling it opposed and probing it as 'opposed' is correct. Sentence 4 rebuts that view and sentence 5 adds a further reason, so both belong in support. The stale GPS explanation is gone: the explanation for choice 3 now correctly targets the map-drawing method and the general-memory goal, neither of which is in the text. Choice 2 is properly marked as one rebuttal point stated as an overgeneralization. Choice 4 is the opposed view."
+        },
+        {
+          "id": "r5-cm-transfer-1",
+          "verdict": "accept",
+          "choice_0based": 1,
+          "claim_alternatives_0based": [],
+          "gold_issues": [],
+          "why": "Sentence 4 is the claim: the label tells buyers far less than they believe. Choice 1 is the best title. Sentence 1 states the mistaken belief, so labeling it opposed is reasonable. Sentence 3 is explicitly a hypothetical example, which fits the 'example' probe. Sentence 5 is a follow-on recommendation, so marking it disputed fits. Choice 3 is the strongest distractor, but its explanation correctly says it narrows the point to the final advice and expands it to healthy eating in general. Optional refinement: 'Empty Promise' slightly overstates 'far less'. This is normal for a title and is not a defect."
+        },
+        {
+          "id": "r5-cm-delayed-1",
+          "verdict": "accept",
+          "choice_0based": 4,
+          "claim_alternatives_0based": [
+            3
+          ],
+          "gold_issues": [],
+          "why": "Sentence 5 is the claim. Sentence 3 is now correctly listed in claimRestated, which fixes the prior issue. The relation probe has moved to sentence 4, which is explicitly a hypothetical case, so the 'example' relation is correct. Choice 4 matches the hedged claim. Choice 2 is a well-built distortion ('완전히' turns a possibility into a guarantee), and choice 0 is the commonsense view the writer overturns. Optional refinement: the explanation for choice 3 says '집중력의 원인', but the choice itself is about '업무 성과'. Aligning the wording would help, but the explanation is not wrong about the defect."
+        },
+        {
+          "id": "r5-cm-ind-3",
+          "verdict": "accept",
+          "choice_0based": 1,
+          "claim_alternatives_0based": [],
+          "gold_issues": [],
+          "why": "Sentence 5 is the claim, and choice 1 matches it with appropriate hedging. The 'no longer' presupposition is removed: sentence 4 says she need not forget the details, only set them aside, so the text no longer implies that detailed memory blocks performance. The probe at sentence 3 is a single 'example' label inside the hypothetical baker case, so the overlapping-label issue is fixed. Sentence 0 is the opposed common belief. Support 2-4 and disputed 1 (the setup of the example) are defensible. Choice 4 is a reasonable distortion of the point, and its explanation is accurate."
+        }
+      ],
+      "limitations": [
+        "No file access: source_file_sha256 is echoed from the supplied text and was not independently recomputed.",
+        "Only the five items in aiReviewScope were reviewed. Other items in the set are outside this judgment.",
+        "This is an AI content/Gold judgment only. It is not human Gold, a rights confirmation, or release approval; provenance.humanGold and provenance.rights remain pending.",
+        "The boundaries of the support and supportDisputed sets involve some interpretive latitude, for example sentence 5 in guided-1 and sentence 1 in ind-3. They are defensible but not uniquely determined."
+      ],
+      "raw_result": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\learning-outcomes-20261021\\ai-roles\\authored-r2-review-65b8975d-6e23-4d48-beab-697a6ef33186/result.txt"
+    },
+    {
+      "agent": "codex",
+      "session_id": "01a15d6a-f950-79f2-b83f-683e98166cfe",
+      "request_id": "f67f4b9a-0233-4e13-b5f6-301d838d705f",
+      "prompt_sha256": "b66e4e304b3efe03ce405554c69db793e0bcba2d3f35f116e75e82a1c84a8d06",
+      "response_sha256": "5f6078b2b85f064f7760a3195089d156f39bf38c256cb19356597c95cce2d903",
+      "source_file_sha256": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "r5-cm-guided-1",
+          "verdict": "accept",
+          "choice_0based": 2,
+          "claim_alternatives_0based": [
+            6
+          ],
+          "gold_issues": [],
+          "why": "Choice 2 captures the cooling rationale and infrastructure conclusion. The other choices isolate supporting details, introduce energy savings, or reverse the conclusion. The claim, support and disputed-support sets are defensible; sentence 2 supplies a reason. All three hints and the explanations match the passage."
+        },
+        {
+          "id": "r5-cm-ind-2",
+          "verdict": "accept",
+          "choice_0based": 1,
+          "claim_alternatives_0based": [],
+          "gold_issues": [],
+          "why": "Choice 1 preserves the qualified warning about spatial understanding. The other choices introduce safety or map-drawing advice, overstate device unreliability, or adopt the opposed view. Sentence 3 voices that opposed view; the support set is defensible, with sentence 4 rebutting the objection. The revised map-drawing explanation accurately addresses the actual distractor."
+        },
+        {
+          "id": "r5-cm-ind-3",
+          "verdict": "accept",
+          "choice_0based": 1,
+          "claim_alternatives_0based": [],
+          "gold_issues": [],
+          "why": "Choice 1 captures task-relevant selection. The baker example neither presupposes that incidental details previously supplied procedural knowledge nor requires forgetting those details. Sentence 3 is appropriately probed as an example; its simultaneous supporting function does not invalidate that label. The support, disputed-support and opposed sets are defensible. All distractor explanations address the supplied choices."
+        },
+        {
+          "id": "r5-cm-transfer-1",
+          "verdict": "accept",
+          "choice_0based": 1,
+          "claim_alternatives_0based": [],
+          "gold_issues": [],
+          "why": "Choice 1 best captures the label's limited informational value. The remaining titles introduce avoidance, an explanatory process, a broader healthy-eating prescription, or a safety comparison. Sentence 4 states the claim, sentence 1 presents the challenged belief, and sentence 3 provides a hypothetical example. The support classifications and explanations are defensible. No universal legal claim or empirical shopper finding is asserted."
+        },
+        {
+          "id": "r5-cm-delayed-1",
+          "verdict": "accept",
+          "choice_0based": 4,
+          "claim_alternatives_0based": [
+            3
+          ],
+          "gold_issues": [],
+          "why": "Choice 4 preserves the conditional benefit of a brief activity change. Sentence 3 is correctly accepted as an alternative claim formulation, and sentence 4 is explicitly illustrative rather than a reported experiment. The remaining choices reverse, exaggerate or leave the passage. The support, disputed-support and opposed sets, example probe and explanations are defensible."
+        }
+      ],
+      "limitations": [
+        "Reviewed only the five supplied items, including every choice, Gold classification, relation probe, explanation and supplied hint.",
+        "The SHA-256 value is reproduced from the submission; no file or hash was independently checked.",
+        "No tools, browsing, files or other sessions were consulted. External factual accuracy and provenance were not independently verified; hypothetical examples were assessed as illustrations.",
+        "Acceptance is a first-party AI content and Gold judgment, not human Gold confirmation, authorship verification, a rights grant or release approval."
+      ],
+      "raw_result": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\learning-outcomes-20261021\\ai-roles\\authored-r2-review-f67f4b9a-0233-4e13-b5f6-301d838d705f/result.txt"
+    }
+  ],
+  "judgment": "accepted_candidate_content_and_gold",
+  "rights_basis": "first_party_original_declaration_only",
+  "rights_grant": false,
+  "human_review_claimed": false,
+  "registered": false,
+  "released": false,
+  "not_reviewed": [
+    "r5-cm-teach-1",
+    "r5-cm-guided-2",
+    "r5-cm-ind-1",
+    "r5-cm-transfer-2",
+    "r5-cm-delayed-2",
+    "r5-cm-ind-4"
+  ]
+}

@@ -13,12 +13,19 @@
 //   - 영단어/뜻/예문 시각 위계 명확화 — 영단어(t1 600 16px) > 뜻(t1 500 13px) > 예문(t3 italic 12.5px)
 //   - hover 시 행 미세 hover-lift bg2/60 + 좌측 엣지 풀 opacity
 //   - 예문 우측 정렬 → 영어 본문 line-end가 시각 흐름 안정 (좌→우→완결)
+//
+// T-0208 — 한 행은 뜻 · 예문을 한 줄로 자른다(truncate). 끝까지 읽을 길이 없었다(실측 pb-t0198-vault-1280.png 의 ground 뜻).
+//   행 끝 「전체 보기」(aria-expanded) 가 그 행 아래에 **이미 있는** 뜻 · 예문 전체를 줄바꿈해 보인다. 행 밀도 · 열 · 선택 · 발음은 그대로.
+//   숨김(Active Recall)이 켜진 칸은 펼쳐도 보이지 않는다 — 숨김을 켜면 열린 칸도 같이 가린다. 예문이 없으면 만들지 않는다. 기록 · 조회 · 이벤트 없음.
 
 'use client'
 
 import { MemoryBadge } from '@/components/ui/MemoryBadge'
 import { cn } from '@/lib/utils/cn'
-import { Play } from 'lucide-react'
+import { ChevronDown, Play } from 'lucide-react'
+import Link from 'next/link'
+import { rememberEvidenceAnchor, type EvidenceAnchor } from '@/lib/scriptquiz/reader-anchor'
+import { useId, useState } from 'react'
 import { getMemoryState, type MemoryState } from '@/lib/srs'
 import type { HideStates, WordItem } from './types'
 
@@ -36,6 +43,10 @@ export interface WordRowProps {
   hideStates: HideStates
   onToggleSelect: (id: number) => void
   onPlayWord: (id: number) => void
+  /** T-0210 — 선택한 기사 단어장에서 본문 확인된 원문 문장(사전 예문과 다르다). 없으면 null */
+  sourceSentence?: string | null
+  /** T-0214 — 그 문장이 본인 글 Reader 표시 단위 하나와 같고 본문에서 1회일 때만 — 「글에서 이 부분 보기」 앵커(경계 결정 Rev1.0). 없으면 null */
+  sourceAnchor?: EvidenceAnchor | null
 }
 
 export function WordRow({
@@ -45,8 +56,16 @@ export function WordRow({
   hideStates,
   onToggleSelect,
   onPlayWord,
+  sourceSentence = null,
+  sourceAnchor = null,
 }: WordRowProps) {
   const stopBubble = (e: React.MouseEvent) => e.stopPropagation()
+  const [open, setOpen] = useState(false)
+  const panelId = useId()
+  const hasMeaning = word.meaning.trim().length > 0
+  const hasExample = !!word.exampleEn && word.exampleEn.trim().length > 0
+  const hasSource = !!sourceSentence && sourceSentence.trim().length > 0
+  const canExpand = hasMeaning || hasExample || hasSource
 
   const memoryState = word.srs ? getMemoryState(word.srs) : 'new'
   const edgeColor = MEMORY_EDGE_COLOR[memoryState]
@@ -85,7 +104,7 @@ export function WordRow({
         className={cn('grid cursor-pointer items-center gap-3 px-4 py-3 md:gap-4')}
         style={{
           gridTemplateColumns:
-            'auto auto minmax(0, 200px) minmax(0, 130px) minmax(0, 1fr) auto auto',
+            'auto auto minmax(0, 200px) minmax(0, 130px) minmax(0, 1fr) auto auto auto',
         }}
       >
         {/* 1. 체크박스 */}
@@ -138,7 +157,8 @@ export function WordRow({
             stopBubble(e)
             onPlayWord(word.id)
           }}
-          aria-label={`${word.word} 발음 듣기`}
+          // 단어 숨김 중에는 이름에 낱말을 넣지 않는다 — 전체 보기와 같은 조건(T-0213 · Codex T-0208 F01 의 같은 결함)
+          aria-label={`${hideStates.word ? '' : `${word.word} `}발음 듣기`}
           // ⚠️ 보이는 크기는 28px 인데 **누르는 영역이 28px 이면 안 된다**(기준 44px).
           //    실측 2026-08-22: `/wordvault/browse` 한 화면에서만 44px 미만 타깃 **278개**가
           //    나왔고 대부분이 이 버튼이다(단어 252개 × 1). 이 화면은 접근성 스윕의
@@ -197,7 +217,12 @@ export function WordRow({
 
         {/* 5. 예문 — 우측 정렬 (Lora italic + ❝❞) */}
         <div className="hidden min-w-0 md:block" onClick={stopBubble}>
-          {word.exampleEn ? (
+          {word.exampleEn && hideStates.word ? (
+            // T-0229 — 예문에는 그 낱말이 들어 있다. 단어 숨김 중에는 본행에서도 펼친 행(WordRowFull)과 같은 안내로 가린다
+            <span data-testid="word-row-example-hidden" className="block truncate text-right font-body text-[12px] text-t3">
+              단어 숨김 중에는 예문 전체를 가려요
+            </span>
+          ) : word.exampleEn ? (
             <p
               className={cn(
                 'truncate text-right font-serif text-[12.5px] font-[500] italic leading-[1.55] tracking-[0.005em] text-t3',
@@ -243,7 +268,80 @@ export function WordRow({
         >
           {word.level}
         </span>
+
+        {/* 8. 전체 보기 — 잘린 뜻 · 예문을 이 행 아래에서 끝까지(보이는 20px · 누르는 자리 44px · 차지하는 자리는 음수 마진으로 20px) */}
+        {canExpand ? (
+          <button
+            type="button"
+            onClick={(e) => {
+              stopBubble(e)
+              setOpen((v) => !v)
+            }}
+            aria-expanded={open}
+            aria-controls={panelId}
+            // 단어 숨김 중에는 이름에 낱말을 넣지 않는다 — 보조기기가 숨긴 낱말을 읽어 버린다(Codex F01)
+            aria-label={`${hideStates.word ? '' : `${word.word} `}뜻 · 예문 ${open ? '접기' : '전체 보기'}`}
+            data-testid="word-row-expand"
+            className="group/expand -m-3 flex h-11 w-11 shrink-0 items-center justify-center focus-visible:outline-none"
+          >
+            <span
+              aria-hidden
+              className={cn(
+                'flex h-5 w-5 items-center justify-center rounded-md text-t3 transition-colors duration-fast',
+                'group-hover/expand:bg-bg2 group-hover/expand:text-t1 group-focus-visible/expand:ring-2 group-focus-visible/expand:ring-learn-fresh'
+              )}
+            >
+              <ChevronDown size={14} className={cn('transition-transform duration-fast', open && 'rotate-180')} />
+            </span>
+          </button>
+        ) : (
+          <span aria-hidden className="w-5" />
+        )}
       </div>
+
+      {open && canExpand && <WordRowFull id={panelId} word={word} hideStates={hideStates} sourceSentence={sourceSentence} sourceAnchor={sourceAnchor} />}
+    </div>
+  )
+}
+
+/** 펼친 행 — 이미 있는 뜻 · 예문 전체(줄바꿈). 숨김 중인 칸은 펼쳐도 가린다. 값이 빈 칸은 그리지 않는다(만들지 않는다). */
+export function WordRowFull({ id, word, hideStates, sourceSentence = null, sourceAnchor = null }: { id: string; word: WordItem; hideStates: HideStates; sourceSentence?: string | null; sourceAnchor?: EvidenceAnchor | null }) {
+  const hasMeaning = word.meaning.trim().length > 0
+  const hasExample = !!word.exampleEn && word.exampleEn.trim().length > 0
+  const hasSource = !!sourceSentence && sourceSentence.trim().length > 0
+  return (
+    <div id={id} data-testid="word-row-full" className="flex flex-col gap-1.5 px-4 pb-3 pl-[76px] md:pl-[84px]">
+      {hasMeaning && (
+        <p className="break-keep font-body text-[13px] leading-relaxed text-t1" data-testid="word-row-full-meaning">
+          {hideStates.meaning ? <span className="text-t3">뜻 숨김 중이에요</span> : word.meaning}
+        </p>
+      )}
+      {hasExample && (
+        <p className="font-serif text-[12.5px] italic leading-[1.6] text-t2" data-testid="word-row-full-example">
+          {/* 예문에는 그 낱말이 들어 있다 — 단어 숨김 중에는 펼쳐도 보이지 않는다 */}
+          {hideStates.word ? <span className="font-body not-italic text-t3">단어 숨김 중에는 예문 전체를 가려요</span> : <>“{word.exampleEn}”</>}
+        </p>
+      )}
+      {hasSource && (
+        // T-0210 — 사전 예문과 다른 줄: 선택한 기사 본문에서 확인된 문장. 낱말이 들어 있고 뜻을 짐작하게 하므로 단어 · 뜻 어느 쪽을 숨겨도 가린다
+        <div className="flex flex-col gap-0.5" data-testid="word-row-full-source">
+          <span className="break-keep font-display text-[11px] font-[700] text-t3">선택한 기사에서 쓰인 문장</span>
+          <p className="font-serif text-[12.5px] leading-[1.6] text-t2">
+            {hideStates.word || hideStates.meaning ? <span className="font-body text-t3">숨김 중에는 기사 문장을 가려요</span> : sourceSentence}
+          </p>
+          {/* T-0214 — 같은 탭 앵커(textId · 본문 해시 · 문장 번호)만 남기고 그 글로. 숨김 중에는 두지 않는다(문장을 가렸으므로) */}
+          {sourceAnchor && !hideStates.word && !hideStates.meaning && (
+            <Link
+              href={`/text/${encodeURIComponent(sourceAnchor.textId)}`}
+              onClick={() => rememberEvidenceAnchor(sourceAnchor)}
+              data-testid="word-row-reader-anchor"
+              className="mt-1 inline-flex min-h-[44px] items-center self-start rounded-md border border-bd bg-bg px-3 font-display text-[12px] font-[700] text-t1 no-underline hover:border-learn-fresh focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-learn-fresh"
+            >
+              글에서 이 부분 보기
+            </Link>
+          )}
+        </div>
+      )}
     </div>
   )
 }

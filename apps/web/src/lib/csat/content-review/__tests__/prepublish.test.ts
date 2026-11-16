@@ -1,0 +1,670 @@
+// apps/web/src/lib/csat/content-review/__tests__/prepublish.test.ts
+//
+// **F6 발행 전 검증기 계약** — 실제 2015#25 강의(공식 복수정답 {4,5})로 c9 · c1 · c4 와 분석 ⑤ 가 걸리는지,
+// 정답 「모름」이 BLOCK 인지, 사람 승인 없는 후보가 발행 게이트를 못 지나는지 본다.
+
+import { describe, expect, it } from 'vitest'
+
+import exam2015 from '../../lecture-data/2015.json'
+import type { Lecture } from '../../lecture/types'
+import { publishAllowed, validatePrepublish } from '../prepublish'
+import { bindingHash, transition } from '../state'
+import type { Evidence, LedgerEntry, ReviewCandidate, Reviewer, RevisionBinding } from '../types'
+
+const lecture = (exam2015 as unknown as { lectures: Record<string, Lecture> }).lectures["2015#25"]!
+
+// 분석 v5(2026-10-11) 선지 판정 — F3_2015_25_MULTI_ANSWER.md §2: ⑤ verdict distractor
+const verdictsV5 = [
+  { choice: 1, verdict: 'distractor' },
+  { choice: 2, verdict: 'distractor' },
+  { choice: 3, verdict: 'distractor' },
+  { choice: 4, verdict: 'answer' },
+  { choice: 5, verdict: 'distractor' },
+]
+
+const codes = (r: ReturnType<typeof validatePrepublish>, where?: string) =>
+  r.findings.filter((f) => !where || f.where === where).map((f) => f.code)
+
+describe('2015#25 복수정답', () => {
+  const r = validatePrepublish({ itemId: '2015#25', officialAnswers: [4, 5], choiceVerdicts: verdictsV5, cues: lecture.cues })
+
+  it('실제 강의 fixture 를 읽었다', () => {
+    expect(lecture.cues.map((c) => c.id)).toContain('c9')
+  })
+  it('분석이 공식 정답 ⑤ 를 오답으로 둔 것을 잡는다', () => {
+    expect(codes(r, 'analysis:choice:5')).toContain('ANALYSIS_REJECTS_OFFICIAL')
+    expect(codes(r)).toContain('ANALYSIS_SINGLE_ANSWER')
+  })
+  it('c9(⑤ 소거)를 잡는다', () => {
+    expect(codes(r, 'cue:c9')).toContain('CUE_ELIMINATES_OFFICIAL')
+  })
+  it('c1 「답이 아닌 네 선지」 · c4 「사 번이 정답」(⑤ 누락)을 잡는다', () => {
+    expect(codes(r, 'cue:c1')).toContain('CUE_ASSUMES_SINGLE_ANSWER')
+    expect(codes(r, 'cue:c4')).toContain('CUE_PARTIAL_ANSWER')
+  })
+  // 17차부터 번호 없는 부정형 소거 문장은 사람 확인(UNPARSED)이다 — 여기서는 「오진단 코드가 없다」만 본다
+  const misdiag = (rr: ReturnType<typeof validatePrepublish>, where: string) => codes(rr, where).filter((c) => c !== 'CUE_ANSWER_UNPARSED')
+  it('정답 아닌 ①②③ 소거 cue 는 오진단하지 않는다', () => {
+    for (const id of ['c6', 'c7', 'c8']) expect(misdiag(r, `cue:${id}`)).toEqual([])
+  })
+  it('BLOCK 이다', () => expect(r.blocked).toBe(true))
+
+  it('단일 정답 {4} 로 줄이면 c9 는 걸리지 않는다 — 집합이 판정을 바꾼다', () => {
+    const single = validatePrepublish({ itemId: '2015#25', officialAnswers: [4], choiceVerdicts: verdictsV5, cues: lecture.cues })
+    expect(misdiag(single, 'cue:c9')).toEqual([])
+  })
+
+  it('문안만 고치고 하이라이트가 reject:5 그대로면 여전히 걸린다 — 대상도 옮겨야 한다', () => {
+    const proposed = '오 번도 정답으로 인정됐어요. 퍼센트와 퍼센트 포인트는 다릅니다.'
+    const textOnly = validatePrepublish({
+      itemId: '2015#25', officialAnswers: [4, 5], choiceVerdicts: verdictsV5, cues: lecture.cues,
+      changes: [{ target: 'cue:c9', current: '', proposed, draftRef: null }],
+    })
+    expect(codes(textOnly, 'cue:c9')).toContain('CUE_ELIMINATES_OFFICIAL')
+    const moved = lecture.cues.map((c) => (c.id === 'c9' ? { ...c, target: { kind: 'analysis' as const, id: 'answer' } } : c))
+    const fixed = validatePrepublish({
+      itemId: '2015#25', officialAnswers: [4, 5], choiceVerdicts: verdictsV5, cues: moved,
+      changes: [{ target: 'cue:c9', current: '', proposed, draftRef: null }],
+    })
+    expect(codes(fixed, 'cue:c9')).toEqual([])
+  })
+})
+
+describe('정답 근거 · 의도', () => {
+  it('공식 정답 「모름」(null)은 BLOCK — 빈 배열과 다른 코드', () => {
+    expect(codes(validatePrepublish({ itemId: 'x', officialAnswers: null, choiceVerdicts: [], cues: [] }))).toEqual(['OFFICIAL_ANSWER_UNKNOWN'])
+    expect(codes(validatePrepublish({ itemId: 'x', officialAnswers: [], choiceVerdicts: [], cues: [] }))).toEqual(['OFFICIAL_ANSWER_EMPTY'])
+  })
+  it('근거 없는 출제 의도 단정은 HYPOTHESIS, 공식 근거가 있으면 없다', () => {
+    const cue = { ...lecture.cues[0]!, id: 'z', segments: [{ lang: 'ko-KR' as const, text: '출제자는 단위 혼동을 노렸어요.' }] }
+    const a = validatePrepublish({ itemId: 'x', officialAnswers: [1], choiceVerdicts: [], cues: [cue] })
+    expect(a.findings.map((f) => f.severity)).toEqual(['HYPOTHESIS'])
+    expect(a.blocked).toBe(false)
+    const b = validatePrepublish({ itemId: 'x', officialAnswers: [1], choiceVerdicts: [], cues: [cue], intentOfficiallySourced: true })
+    expect(b.findings).toEqual([])
+  })
+})
+
+describe('발행 게이트', () => {
+  const binding: RevisionBinding = { itemId: '2015#25', itemMd5: 'a', analysisVersion: 5, analysisMd5: 'b', lectureVersion: 3, lectureHash: 'c' }
+  const cand: ReviewCandidate = {
+    id: 'cr_test', itemId: '2015#25', source: 'DRAIN_MULTI_ANSWER', sourceRef: 'F3', defect: 'official_answer_conflict',
+    tracks: ['official_answer', 'explanation'], binding, changes: [], officialText: { verdict: 'NOT_CHECKED', note: null },
+    officialAnswers: [4, 5], officialAnswerBasis: 'press_verified', aiEvidence: [], note: null,
+  }
+  const human: Reviewer = { id: 'h1', kind: 'human', roles: ['content_reviewer', 'answer_authority'] }
+  const ai: Reviewer = { id: 'claude', kind: 'ai', roles: [] }
+  const clean = { itemId: '2015#25', findings: [], blocked: false }
+  const entry = (seq: number, track: LedgerEntry['track'], by: Reviewer): LedgerEntry => ({
+    seq, candidateId: cand.id, track, from: 'in_review', to: 'content_approved', by, binding, evidence: [], reason: 'r', at: '2026-10-24T00:00:00Z',
+  })
+
+  it('승인 0건이면 막힌다', () => {
+    const g = publishAllowed([], cand, clean)
+    expect(g.allowed).toBe(false)
+    expect(g.reasons).toHaveLength(2)
+  })
+  it('한 트랙만 승인이면 막힌다(정답 승인 ≠ 해설 승인)', () => {
+    expect(publishAllowed([entry(1, 'official_answer', human)], cand, clean).allowed).toBe(false)
+  })
+  it('AI 가 쓴 승인 줄은 승인으로 치지 않는다', () => {
+    const g = publishAllowed([entry(1, 'official_answer', ai), entry(2, 'explanation', human)], cand, clean)
+    expect(g.allowed).toBe(false)
+  })
+  it('두 트랙 사람 승인이어도 검증 BLOCK 이 있으면 막힌다', () => {
+    const blocked = validatePrepublish({ itemId: '2015#25', officialAnswers: [4, 5], choiceVerdicts: verdictsV5, cues: lecture.cues })
+    // 전이 함수로 만든 정상 승인 원장(판본에 묶인 필수 증거 포함) — 수제 원장은 무결성 검사가 막는다
+    const h = bindingHash(binding)
+    const ev = (kinds: Evidence['kind'][]): Evidence[] => kinds.map((kind) => ({ kind, ref: kind, boundHash: h }))
+    const led: LedgerEntry[] = []
+    const step = (track: LedgerEntry['track'], to: LedgerEntry['to'], evidence: Evidence[] = []) => {
+      const r = transition(led, { candidate: cand, track, to, by: human, currentBinding: binding, evidence, reason: 'r', at: '2026-10-24T00:00:00Z' })
+      if (!r.ok) throw new Error(r.message)
+      led.push(r.entry)
+    }
+    step('official_answer', 'in_review')
+    step('official_answer', 'content_approved', ev(['official_answer_sheet']))
+    step('explanation', 'in_review')
+    step('explanation', 'content_approved', ev(['official_pdf_text', 'analysis_revision']))
+    expect(publishAllowed(led, cand, blocked).allowed).toBe(false)
+    expect(publishAllowed(led, cand, null).allowed).toBe(false)
+    expect(publishAllowed(led, cand, clean).allowed).toBe(true)
+  })
+})
+
+// ── T-0158 Codex 독립 검증 반례(P1-4) 회귀 ───────────────────────────
+describe('T-0158 반례 — 일반적인 정답·오답 표현', () => {
+  const cue = (text: string, target = 'answer') => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: target },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it('「정답은 ⑤입니다」 — 공식 정답 {4} 와 충돌', () => {
+    expect(run([4], '정답은 ⑤입니다.').blocked).toBe(true)
+  })
+  it('「⑤는 오답입니다」 — 공식 복수정답 {4,5} 의 소거', () => {
+    expect(run([4, 5], '⑤는 오답입니다.').findings.map((f) => f.code)).toContain('CUE_ELIMINATES_OFFICIAL')
+  })
+  it('「오 번은 … 답이 아닙니다」 — 문장 중간 번호도 잡는다', () => {
+    expect(run([4, 5], '그래서 오 번은 맞는 진술이고, 답이 아닙니다.').blocked).toBe(true)
+  })
+  it('「⑤가 정답」 · 「정답은 사 번」 — 맞는 번호는 통과', () => {
+    expect(run([4, 5], '④와 ⑤가 정답입니다. 정답은 사 번과 오 번이에요.').blocked).toBe(false)
+  })
+  it('「다섯 번째 문장」 같은 서수는 선지로 읽지 않는다 — 오진단 없음(17차부터 번호 없는 부정형은 사람 확인)', () => {
+    const r = validatePrepublish({ itemId: 'X#1', officialAnswers: [4], choiceVerdicts: [], cues: [cue('다섯 번째 문장을 짚어 보세요. 이 문장은 답이 아닙니다.', 'reject:2')] })
+    expect(r.findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
+  })
+})
+
+describe('T-0158 2차 반례', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it('P1 「①도 정답입니다」 — 공식 정답 {4} 밖', () => {
+    expect(run([4], '①도 정답입니다.').findings.map((f) => f.code)).toContain('CUE_WRONG_ANSWER')
+  })
+  it('P2 「④가 정답이고 ⑤는 오답입니다」 — 정상 대조 설명은 통과', () => {
+    expect(run([4], '④가 정답이고 ⑤는 오답입니다.').findings).toEqual([])
+  })
+  it('같은 문장이라도 공식 정답을 오답이라 하면 잡는다', () => {
+    expect(run([4, 5], '④가 정답이고 ⑤는 오답입니다.').blocked).toBe(true)
+  })
+})
+
+describe('T-0158 3차 반례', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it('P1 「④만 정답입니다」 — 복수정답 {4,5} 축소', () => {
+    expect(run([4, 5], '④만 정답입니다.').findings.map((f) => f.code)).toContain('CUE_PARTIAL_ANSWER')
+    expect(run([4, 5], '사 번만이 정답이에요.').blocked).toBe(true)
+  })
+  it('단일 정답 {4} 에서 「④만 정답」은 통과', () => {
+    expect(run([4], '④만 정답입니다.').findings).toEqual([])
+  })
+})
+
+describe('T-0158 4차 반례 — 선지 집합 읽기', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  const CASES: [number[], string, boolean][] = [
+    [[4], '정답은 ④와 ①입니다.', true], // 잘못 추가한 ①
+    [[4], '④와 ⑤는 오답입니다.', true], // 공식 정답 ④ 소거
+    [[4, 5], '정답은 오직 ④입니다.', true], // 복수정답 축소
+    [[4, 5], '정답은 ④와 ⑤입니다.', false], // 옳은 나열
+    [[4, 5], '사 번과 오 번이 정답이에요.', false],
+    [[4, 5], '④와 ⑤ 모두 정답입니다.', false],
+    [[4], '④가 정답이고 ⑤는 오답입니다.', false],
+    [[4], '정답은 ④ 하나뿐입니다.', false],
+    [[4, 5], '④가 정답이고 ⑤도 정답으로 인정됐어요.', false],
+  ]
+  it.each(CASES)('%j · %s → blocked=%s', (answers, text, blocked) => {
+    expect(run(answers, text).blocked).toBe(blocked)
+  })
+  it('해석 못 하는 꼴(「④는 물론 정답인데」)은 오진단 없이 사람 확인으로만 막는다', () => {
+    const codes = run([4, 5], '④는 물론 정답인데 ⑤도 정답으로 인정됐어요.').findings.map((f) => f.code)
+    expect(codes).toEqual(['CUE_ANSWER_UNPARSED'])
+  })
+})
+
+describe('T-0158 5차 반례 — 부분 해석 금지(fail-closed) · 부정 범위 · cue 합집합', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  // P1: 일부만 해석된 문장 — 모두 차단(통과 금지)
+  it.each([
+    '정답은 ④가 아니라 ①입니다.',
+    '④가 정답이며 ① 역시 정답입니다.',
+    '④는 정답이고 정답에 ①도 포함됩니다.',
+    '① 또는 ④가 정답입니다.',
+    '①도 ④도 정답입니다.',
+    '④가 정답이고, 정답으로 ①을 고릅니다.',
+  ])('{4} · %s → 차단', (text) => {
+    expect(run([4], text).blocked).toBe(true)
+  })
+  // P2: 부정·연결 — 오진단하지 않는다(해석 못 하면 「사람 확인」으로만)
+  it('「④는 오답이 아닙니다」 — 공식 정답 소거로 오진단하지 않는다', () => {
+    const codes = run([4], '④는 오답이 아닙니다.').findings.map((f) => f.code)
+    expect(codes).not.toContain('CUE_ELIMINATES_OFFICIAL')
+  })
+  it('「정답은 ①이 아닙니다」 — ①을 정답 주장으로 읽지 않는다', () => {
+    const codes = run([4], '정답은 ①이 아닙니다.').findings.map((f) => f.code)
+    expect(codes).not.toContain('CUE_WRONG_ANSWER')
+  })
+  it('{4,5} · 「④가 정답이고 ⑤도 정답입니다」 — 통과', () => {
+    expect(run([4, 5], '④가 정답이고 ⑤도 정답입니다.').findings).toEqual([])
+  })
+  it('{4,5} · 문장을 나눠도 cue 합집합으로 본다', () => {
+    expect(run([4, 5], '사 번이 정답입니다. 오 번도 정답이에요.').findings).toEqual([])
+  })
+})
+
+describe('T-0158 6차 반례 — 진술 뒤 뒤집기', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each([
+    [[4], '④가 정답이 될 수 없습니다.'],
+    [[4], '④가 정답일 리 없습니다.'],
+    [[4], '④가 정답이라는 말은 틀렸습니다.'],
+    [[4], '④가 정답은커녕 오답입니다.'],
+    [[4, 5], '④가 정답이고 ⑤가 정답은커녕 오답입니다.'],
+    [[4], '④가 정답이고 그 반대로 읽으면 안 됩니다.'],
+    [[4], '정답은 ④, 하지만 틀린 설명입니다.'],
+  ] as [number[], string][])('%j · %s → 차단', (answers, text) => {
+    expect(run(answers, text).blocked).toBe(true)
+  })
+  it('정상 연결은 그대로 통과', () => {
+    expect(run([4], '④가 정답이고, ⑤는 오답입니다.').findings).toEqual([])
+    expect(run([4], '정답은 사 번입니다.').findings).toEqual([])
+  })
+})
+
+describe('T-0158 6차 자체 반례 — 물음·문장 밖 부정 응답', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each([
+    '④가 정답이죠? 아니요, ①입니다.',
+    '④가 정답이죠? 아뇨.',
+    '사 번이 정답일까요?',
+  ])('{4} · %s → 차단(사람 확인)', (text) => {
+    expect(run([4], text).blocked).toBe(true)
+  })
+})
+
+describe('T-0158 7차 반례 — 나머지 화이트리스트', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string, choices?: string[]) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], choices, cues: [cue(text)] })
+  it.each([
+    '④가 정답이고 이는 오류입니다.',
+    '④가 정답입니다만 이 설명은 허위입니다.',
+    '④가 정답이며 이 판단은 오류입니다.',
+    '④가 정답이고 그 주장은 철회합니다.',
+    '④가 정답이고 무엇이든 덧붙인 서술입니다.',
+  ])('{4} · %s → 차단(사람 확인)', (text) => {
+    expect(run([4], text).blocked).toBe(true)
+  })
+  const choices = ['a', 'b', 'c', '역할과 관행을 세워 생산적 활동을 돕는다', 'e']
+  it('동격이 그 선지 본문이면 통과, 아니면 사람 확인', () => {
+    expect(run([4], '정답은 사 번, 역할과 관행을 세워 생산적 활동을 돕는다.', choices).findings).toEqual([])
+    expect(run([4], '정답은 사 번, 이는 오류입니다.', choices).blocked).toBe(true)
+    expect(run([4], '정답은 사 번, 역할과 관행을 세워 생산적 활동을 돕는다.').blocked).toBe(true) // 선지 모르면 사람 확인
+  })
+  it('위치 설명 동격·담화 표지는 통과', () => {
+    expect(run([4], '여기 다섯 번째 문장, 사 번이 정답입니다.').findings).toEqual([])
+    expect(run([2], '정답은 이 번, 비 밑줄입니다.').findings).toEqual([])
+  })
+})
+
+describe('T-0158 8차 반례 — 오답 진술 사이 자유 서술 금지', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each(['①을 배제하면 오답입니다.', '①을 소거하면 오답입니다.', '①을 빠뜨리면 오답입니다.', '오 번은 맞는 진술이고, 답이 아닙니다.'])(
+    '{4} · %s → 오답 진술로 읽지 않고 사람 확인', (text) => {
+      const r = run([4], text)
+      expect(r.blocked).toBe(true)
+      expect(r.findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
+    })
+  it('조사만 낀 오답 진술은 그대로 읽는다', () => {
+    expect(run([4], '⑤는 오답입니다.').findings).toEqual([])
+    expect(run([4, 5], '⑤는 오답입니다.').findings.map((f) => f.code)).toContain('CUE_ELIMINATES_OFFICIAL')
+    expect(run([4], '오 번은 답이 아닙니다.').findings).toEqual([])
+  })
+})
+
+describe('T-0158 9차 반례 — 동격은 선지 본문과 정확히 같을 때만', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const choices = ['a', 'b', 'c', '역할과 관행을 세워 생산적 활동을 돕는다', 'e']
+  const run = (text: string) => validatePrepublish({ itemId: 'X#1', officialAnswers: [4], choiceVerdicts: [], choices, cues: [cue(text)] })
+  it.each([
+    '정답은 ④, ‘역할과 관행을 세워 생산적 활동을 돕는다’는 오답입니다.',
+    '정답은 ④, ‘역할과 관행을 세워 생산적 활동을 돕는다’가 정답이라는 판단은 오류입니다.',
+    '정답은 ④, 역할과 관행을 세워 생산적 활동을 돕는다 — 이 주장은 허위입니다.',
+  ])('%s → 차단', (text) => {
+    expect(run(text).blocked).toBe(true)
+  })
+  it('본문 그대로의 동격은 통과', () => {
+    expect(run('정답은 ④, 역할과 관행을 세워 생산적 활동을 돕는다.').findings).toEqual([])
+  })
+})
+
+describe('T-0158 10차 반례 — 진입 조건 확대', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each([
+    [[5], '①은 답입니다.'],
+    [[5], '정답은 1입니다.'],
+    [[4, 5], '④만이 답입니다.'],
+  ] as [number[], string][])('%j · %s → 차단', (answers, text) => {
+    expect(run(answers, text).blocked).toBe(true)
+  })
+  // 13차부터: 「답」 문장의 숫자는 번호인지 가리지 않는다 — 오진단 없이 사람 확인으로만 막는다
+  it('연도·소수가 든 「답」 문장은 오진단 없이 사람 확인', () => {
+    expect(run([4], '2015년 값은 1.8배라 답을 구하기 쉽습니다.').findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
+  })
+})
+
+describe('T-0158 11차 반례 — 문장 끝 숫자', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each([
+    [[5], '정답은 1.'],
+    [[5], '정답은 1'],
+    [[4, 5], '정답은 4.'],
+    [[5], '답은 1!'],
+    [[5], '정답: 1.'],
+  ] as [number[], string][])('%j · %s → 차단', (answers, text) => {
+    expect(run(answers, text).blocked).toBe(true)
+  })
+  it('소수가 든 「답」 문장은 오진단 없이 사람 확인', () => {
+    expect(run([4], '값이 1.8배라서 답을 쉽게 찾습니다.').findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
+  })
+  // 14차부터: 부정형·UI 이름이 아닌 「답」 문장은 숫자가 없어도 기본 검사 → 아는 꼴이 아니면 사람 확인
+  it('숫자가 없는 일반 「답」 문장도 사람 확인', () => {
+    expect(run([4], '값이 두 배라서 답을 쉽게 찾습니다.').findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
+  })
+})
+
+describe('T-0158 12차 반례 — 번호 표기 변형', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each([
+    [[5], '❶은 정답입니다.'], [[5], '⑴은 정답입니다.'], [[5], '１은 정답입니다.'],
+    [[4, 5], '❹만 정답입니다.'], [[4, 5], '⑸는 오답입니다.'],
+    [[5], 'Ⅰ이 정답입니다.'], [[5], '⑹이 정답입니다.'], [[5], '❻은 답입니다.'],
+  ] as [number[], string][])('%j · %s → 차단', (answers, text) => {
+    expect(run(answers, text).blocked).toBe(true)
+  })
+  it('변형 표기도 옳은 진술이면 통과', () => {
+    expect(run([5], '❺가 정답입니다.').findings).toEqual([])
+    expect(run([4, 5], '정답은 ④와 ⑸입니다.').findings).toEqual([])
+  })
+})
+
+describe('T-0158 13차 반례 — 쉼표 나열 숫자', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each(['정답은 1,2입니다.', '정답: 1,2.', '정답은 1,2,3.', '정답은 1/2.', '답 = 12'])('{5} · %s → 차단', (text) => {
+    expect(run([5], text).blocked).toBe(true)
+  })
+})
+
+describe('T-0158 13차 자체 반례 — 번호를 말로 쓴 긍정 정답 진술', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each(['정답은 오.', '마지막 선지가 정답입니다.', '정답은 five.', '첫째 선지가 답이에요.', '답: 다섯째'])('{4} · %s → 사람 확인', (text) => {
+    expect(run([4], text).findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
+  })
+  it('「정답 블록을 확인하세요」(UI 이름)는 진술이 아니다', () => {
+    expect(run([4], '정답 블록을 확인하세요.').findings).toEqual([])
+  })
+})
+
+describe('T-0158 14차 반례 — 「답」 문장은 기본 검사(건너뜀은 번호 없는 부정형·UI 이름만)', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each(['첫 번째 선지가 답 맞습니다.', '답으로 첫 번째를 고르세요.', '첫 번째 선지가 답.', '답은 첫 번째 선지입니다.', '맨 앞 선지를 답으로 칩니다.'])(
+    '{5} · %s → 사람 확인', (text) => {
+      expect(run([5], text).findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
+    })
+  it('번호 없는 정상 소거(소거 cue 안)는 target 으로 자동 판정, UI 이름·무관한 낱말은 진술 아님', () => {
+    const reject1 = { ...cue('맞는 진술이고, 답이 아닙니다.'), target: { kind: 'analysis' as const, id: 'reject:1' } }
+    expect(validatePrepublish({ itemId: 'X#1', officialAnswers: [5], choiceVerdicts: [], cues: [reject1] }).findings).toEqual([])
+    expect(run([5], '정답 블록을 확인하세요.').findings).toEqual([])
+    expect(run([5], '캐시가 좋다고 대답해요.').findings).toEqual([])
+  })
+})
+
+describe('T-0158 15차 반례 — 부정형 건너뜀은 정확한 꼴만', () => {
+  const cue = (text: string, target = 'answer') => ({
+    id: 'cx', order: 0, role: 'eliminate' as const, target: { kind: 'analysis' as const, id: target },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string, target?: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text, target)] })
+  it.each([
+    '첫 번째 선지가 정답이 아니라는 말은 틀렸습니다.',
+    '첫 번째 선지가 정답이 아닌 것은 아닙니다.',
+    '첫 번째 선지가 정답이 아니라고 할 수 없습니다.',
+  ])('{5} · %s → 차단(소거 cue 안에서도)', (text) => {
+    expect(run([5], text).blocked).toBe(true)
+    expect(run([5], text, 'reject:1').findings.map((f) => f.code)).toContain('CUE_ANSWER_UNPARSED')
+  })
+  it('번호 없는 부정형: 소거 cue 안은 target 으로 자동 판정, 밖은 주어를 몰라 사람 확인', () => {
+    expect(run([5], '맞는 진술이고, 답이 아닙니다.', 'reject:1').findings).toEqual([])
+    // target 이 공식 정답이면 자동 차단
+    expect(run([5], '맞는 진술이고, 답이 아닙니다.', 'reject:5').findings.map((f) => f.code)).toContain('CUE_ELIMINATES_OFFICIAL')
+    expect(run([5], '맞는 진술이고, 답이 아닙니다.').findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
+    // 앞부분이 다른 선지를 말로 가리키면 사람 확인
+    expect(run([5], '첫 번째 선지는 답이 아닙니다.', 'reject:3').findings.map((f) => f.code)).toContain('CUE_ANSWER_UNPARSED')
+  })
+})
+
+describe('T-0158 16차 반례 — 「오답이 아닙니다」는 소거가 아니다', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'eliminate' as const, target: { kind: 'analysis' as const, id: 'reject:1' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (text: string) => validatePrepublish({ itemId: 'X#1', officialAnswers: [5], choiceVerdicts: [], cues: [cue(text)] })
+  // 재설계: 「오답이 아닙니다」 = 정답 긍정 → 공식 정답 {5} 와 대조해 자동 차단
+  it('reject:1 · 「오답이 아닙니다」 → ①을 정답으로 주장 → 자동 차단', () => {
+    expect(run('오답이 아닙니다.').findings.map((f) => f.code)).toContain('CUE_WRONG_ANSWER')
+  })
+  it.each(['이것은 오답이 아닙니다.', '보면 오답이 아니죠.'])('reject:1 · %s → 차단(주어 불명확·사람 확인)', (text) => {
+    expect(run(text).blocked).toBe(true)
+  })
+  it('정상 소거 문장은 target 으로 자동 통과', () => {
+    expect(run('정답이 아닙니다.').findings).toEqual([])
+    expect(run('맞는 진술이고, 답이 아닙니다.').findings).toEqual([])
+  })
+})
+
+describe('T-0158 17차 반례 — 부정형 건너뜀 예외 삭제', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'eliminate' as const, target: { kind: 'analysis' as const, id: 'reject:1' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (text: string) => validatePrepublish({ itemId: 'X#1', officialAnswers: [5], choiceVerdicts: [], cues: [cue(text)] })
+  it.each(['다섯 번째 선택지는 정답이 아닙니다.', '마지막 선택지는 정답이 아닙니다.', '맨 끝 것은 정답이 아닙니다.'])('reject:1 · %s → 사람 확인', (text) => {
+    expect(run(text).findings.map((f) => f.code)).toContain('CUE_ANSWER_UNPARSED')
+  })
+})
+
+// ── 재설계 매트릭스(사용자 지시 2026-10-24): 7 문장 × 공식 정답 집합 — 옳은 문장은 통과, 틀린 문장은 자동 차단 ──
+describe('의미 구조 판정 매트릭스', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const codesOf = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] }).findings.map((f) => f.code)
+  // [문장, 공식 정답, 기대 코드(빈 배열 = 통과)]
+  const M: [string, number[], string[]][] = [
+    ['④는 오답입니다.', [3], []],
+    ['④는 오답입니다.', [4], ['CUE_ELIMINATES_OFFICIAL']],
+    ['④는 오답이 아닙니다.', [4], []],
+    ['④는 오답이 아닙니다.', [3], ['CUE_WRONG_ANSWER']],
+    ['④는 답이 아닙니다.', [3], []],
+    ['④는 답이 아닙니다.', [4], ['CUE_ELIMINATES_OFFICIAL']],
+    ['정답은 ④와 ⑤입니다.', [4, 5], []],
+    ['정답은 ④와 ⑤입니다.', [4], ['CUE_WRONG_ANSWER']],
+    ['정답은 오직 ④입니다.', [4], []],
+    ['정답은 오직 ④입니다.', [4, 5], ['CUE_PARTIAL_ANSWER']],
+    ['④도 정답입니다.', [4, 5], []],
+    ['④도 정답입니다.', [5], ['CUE_WRONG_ANSWER']],
+    ['④와 ⑤는 오답입니다.', [3], []],
+    ['④와 ⑤는 오답입니다.', [5], ['CUE_ELIMINATES_OFFICIAL']],
+    ['④와 ⑤는 오답입니다.', [4, 5], ['CUE_ELIMINATES_OFFICIAL']],
+  ]
+  it.each(M)('%s · 공식 %j → %j', (text, answers, expected) => {
+    const got = codesOf(answers, text)
+    if (expected.length === 0) expect(got).toEqual([])
+    else for (const c of expected) expect(got).toContain(c)
+  })
+})
+
+describe('T-0158 18차 반례 — 「정답 블록」 예외는 UI 안내 꼴만', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'eliminate' as const, target: { kind: 'analysis' as const, id: 'reject:1' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (text: string) => validatePrepublish({ itemId: 'X#1', officialAnswers: [5], choiceVerdicts: [], cues: [cue(text)] })
+  it.each([
+    '정답 블록에는 첫 번째 선택지만 들어갑니다.',
+    '정답 블록: 첫 번째 선택지.',
+    '마지막 선택지는 정답 블록에서 제외합니다.',
+    '다섯 번째 선택지는 정답 블록에 들어갈 수 없습니다.',
+    '⑤는 정답 블록에서 제외합니다.',
+  ])('%s → 차단', (text) => {
+    expect(run(text).blocked).toBe(true)
+  })
+  it.each(['정답 블록을 확인하세요.', '정답 블록을 보세요.', '여기서 정답 블록을 확인해 보세요.'])('%s → UI 안내(진술 아님)', (text) => {
+    expect(run(text).findings).toEqual([])
+  })
+})
+
+describe('T-0158 19차 반례 — 생략 주어는 앞 절 주어를 이어받는다 · 문장 안 모순', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'eliminate' as const, target: { kind: 'analysis' as const, id: 'reject:1' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) => validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each(['⑤는 정답이고 답이 아닙니다.', '⑤는 정답이고 오답입니다.', '⑤는 오답이 아니고 정답이 아닙니다.', '정답은 ⑤이고 답이 아닙니다.'])('reject:1 · {5} · %s → 차단', (text) => {
+    expect(run([5], text).blocked).toBe(true)
+  })
+  it('앞 절 주어를 이어받은 일관된 진술은 그대로 판정', () => {
+    // ②는 오답이고, (②는) 답이 아닙니다 — 공식 {5} 와 충돌 없음
+    expect(run([5], '②는 오답이고 답이 아닙니다.').findings).toEqual([])
+    // ⑤는 정답이고, (⑤는) 오답이 아닙니다 — 공식 {5} 와 일치
+    expect(run([5], '⑤는 정답이고 오답이 아닙니다.').findings).toEqual([])
+  })
+})
+
+describe('T-0158 20차 반례 — 생략 주어는 문장 경계를 넘어 이어진다', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'eliminate' as const, target: { kind: 'analysis' as const, id: 'reject:1' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) => validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each([
+    '⑤는 정답입니다. 오답입니다.',
+    '⑤는 정답입니다. 답이 아닙니다.',
+    '정답은 ⑤입니다. 오답입니다.',
+    '오 번을 보세요. 답이 아닙니다.',
+  ])('reject:1 · {5} · %s → 차단', (text) => {
+    expect(run([5], text).blocked).toBe(true)
+  })
+  it('target 만 가리키는 실제 소거 cue 는 그대로 자동 판정', () => {
+    expect(run([5], '일 번은 두 번째 문장을 짚어 보세요. 맞는 진술이고, 답이 아닙니다.').findings).toEqual([])
+  })
+})
+
+describe('T-0158 21차 반례 — 생략 주어의 선행어는 가장 최근에 언급된 선지', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'eliminate' as const, target: { kind: 'analysis' as const, id: 'reject:1' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) => validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each([
+    '②는 오답입니다. ⑤를 보세요. 답이 아닙니다.',
+    '②는 오답입니다. 오 번을 보세요. 답이 아닙니다.',
+    '①은 오답입니다. ⑤에 주목하세요. 오답입니다.',
+    '②는 오답입니다. ①과 ⑤를 비교하세요. 답이 아닙니다.',
+  ])('reject:1 · {5} · %s → 차단', (text) => {
+    expect(run([5], text).blocked).toBe(true)
+  })
+  it('최근 언급이 공식 정답이 아니면 그 선지의 소거로 자동 판정', () => {
+    expect(run([5], '②는 오답입니다. ③을 보세요. 답이 아닙니다.').findings).toEqual([])
+  })
+})
+
+describe('T-0158 22차 반례 — 모르는 지칭(숫자·지칭어)이 낀 전환은 선행어 불명', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'eliminate' as const, target: { kind: 'analysis' as const, id: 'reject:1' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) => validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each([
+    '②는 오답입니다. 5를 보세요. 답이 아닙니다.',
+    '②는 오답입니다. 5에 주목하세요. 오답입니다.',
+    '②는 오답입니다. 마지막 선택지를 보세요. 답이 아닙니다.',
+    '5를 보세요. 답이 아닙니다.',
+  ])('reject:1 · {5} · %s → 차단', (text) => {
+    expect(run([5], text).blocked).toBe(true)
+  })
+  it('위치 설명(「두 번째 문장」)은 지칭이 아니다 — 실제 소거 cue 자동 판정 유지', () => {
+    expect(run([5], '일 번은 두 번째 문장을 짚어 보세요. 맞는 진술이고, 답이 아닙니다.').findings).toEqual([])
+  })
+})
+
+describe('T-0158 23차 반례 — 부정 진술의 배타 한정(②만 오답 = 나머지 모두 정답)', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'eliminate' as const, target: { kind: 'analysis' as const, id: 'reject:1' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) => validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each(['②만 오답입니다.', '오직 ②는 오답입니다.', '②만 정답이 아닙니다.'])('{5} · %s → 차단', (text) => {
+    expect(run([5], text).findings.map((f) => f.code)).toContain('CUE_WRONG_ANSWER')
+  })
+  it('한정 없는 부정은 그대로 통과', () => {
+    expect(run([5], '정답은 ②가 아닙니다.').findings).toEqual([])
+    expect(run([5], '②는 오답입니다.').findings).toEqual([])
+  })
+})

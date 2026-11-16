@@ -419,7 +419,7 @@ export function MyLibraryCarousel({
               onClick={prev}
               disabled={active === 0}
               aria-label="이전"
-              className="absolute left-2 top-1/2 z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--bd)] bg-[var(--bg)]/80 text-[var(--t1)] shadow-[var(--sh-md)] backdrop-blur-md transition-all hover:scale-110 hover:bg-[var(--bg)] disabled:cursor-not-allowed disabled:opacity-30 md:left-6"
+              className="absolute left-2 top-1/2 z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--bd)] bg-[color-mix(in_srgb,var(--bg)_80%,transparent)] text-[var(--t1)] shadow-[var(--sh-md)] backdrop-blur-md transition-all hover:scale-110 hover:bg-[var(--bg)] disabled:cursor-not-allowed disabled:opacity-30 md:left-6"
             >
               <ChevronLeft size={20} aria-hidden />
             </button>
@@ -428,7 +428,7 @@ export function MyLibraryCarousel({
               onClick={next}
               disabled={active === last}
               aria-label="다음"
-              className="absolute right-2 top-1/2 z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--bd)] bg-[var(--bg)]/80 text-[var(--t1)] shadow-[var(--sh-md)] backdrop-blur-md transition-all hover:scale-110 hover:bg-[var(--bg)] disabled:cursor-not-allowed disabled:opacity-30 md:right-6"
+              className="absolute right-2 top-1/2 z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--bd)] bg-[color-mix(in_srgb,var(--bg)_80%,transparent)] text-[var(--t1)] shadow-[var(--sh-md)] backdrop-blur-md transition-all hover:scale-110 hover:bg-[var(--bg)] disabled:cursor-not-allowed disabled:opacity-30 md:right-6"
             >
               <ChevronRight size={20} aria-hidden />
             </button>
@@ -742,7 +742,7 @@ function CardWrap({
     <button
       type="button"
       onClick={onClick}
-      className="block rounded-[var(--r-2xl)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--p)]/40 focus-visible:ring-offset-4"
+      className="block rounded-[var(--r-2xl)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[color-mix(in_srgb,var(--p)_40%,transparent)] focus-visible:ring-offset-4"
       aria-label={ariaLabel}
     >
       {children}

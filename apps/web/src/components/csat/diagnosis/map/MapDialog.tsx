@@ -13,11 +13,13 @@ import { useModalFocus } from '../useModalFocus'
 import p from './popup.module.css'
 import u from './unified.module.css'
 
-export function MapDialog({ kind = 'modal', labelledBy, head, foot, onClose, testId, dataWs, children }: {
+export function MapDialog({ kind = 'modal', labelledBy, head, foot, navigation, wide = false, onClose, testId, dataWs, children }: {
   kind?: 'modal' | 'drawer'
   labelledBy: string
   head: ReactNode
   foot?: ReactNode
+  navigation?: ReactNode
+  wide?: boolean
   onClose: () => void
   testId: string
   dataWs?: string
@@ -41,13 +43,14 @@ export function MapDialog({ kind = 'modal', labelledBy, head, foot, onClose, tes
   }, [onClose])
   return (
     <div className={`${p.overlay} ${kind === 'drawer' ? u.drawerOverlay : ''}`} onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
-      <div ref={ref} className={`${p.modal} ${kind === 'drawer' ? u.drawer : ''}`} role="dialog" aria-modal="true" aria-labelledby={labelledBy} data-testid={testId} data-ws={dataWs}>
+      <div ref={ref} className={`${p.modal} ${wide ? p.detailModal : ''} ${kind === 'drawer' ? u.drawer : ''}`} role="dialog" aria-modal="true" aria-labelledby={labelledBy} data-testid={testId} data-ws={dataWs}>
         <div className={p.head}>
           <div className={p.who}>{head}</div>
           <button type="button" className={p.close} onClick={onClose} aria-label="닫기" data-testid={`${testId}-close`}>
             <X size={16} aria-hidden="true" />
           </button>
         </div>
+        {navigation}
         <div className={p.body}>{children}</div>
         {foot && <div className={p.foot}>{foot}</div>}
       </div>

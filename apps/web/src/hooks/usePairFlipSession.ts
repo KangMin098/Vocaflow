@@ -31,9 +31,11 @@ interface UsePairFlipSessionOptions {
    */
   pairs?: PairFlipMockWord[]
   onComplete?: (result: PairFlipResultData) => void
+  /** true 면 남은 시간이 줄지 않는다 — 계정 재확인 중(checking)처럼 판을 보여 주지 않는 동안 판을 소모하지 않게 */
+  paused?: boolean
 }
 
-export function usePairFlipSession({ level, mode, pairs, onComplete }: UsePairFlipSessionOptions) {
+export function usePairFlipSession({ level, mode, pairs, onComplete, paused = false }: UsePairFlipSessionOptions) {
   const config = useMemo(
     () => PAIRFLIP_LEVELS.find((l) => l.id === level) ?? PAIRFLIP_LEVELS[1],
     [level],
@@ -68,6 +70,7 @@ export function usePairFlipSession({ level, mode, pairs, onComplete }: UsePairFl
   // ── 타이머 ───────────────────────────────────────────────────
   useEffect(() => {
     if (session.phase === 'won' || session.phase === 'lost') return
+    if (paused) return
     const interval = setInterval(() => {
       setRemainingTime((t) => {
         if (t <= 1) {
@@ -83,7 +86,7 @@ export function usePairFlipSession({ level, mode, pairs, onComplete }: UsePairFl
       })
     }, 1000)
     return () => clearInterval(interval)
-  }, [session.phase])
+  }, [session.phase, paused])
 
   // ── 종료 시 onComplete 호출 ───────────────────────────────────
   useEffect(() => {

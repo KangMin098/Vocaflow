@@ -12,8 +12,15 @@ import { transferPolicy, transferPolicySnapshots } from './plan-commit'
 import { TRANSFER_PASSAGES } from './workspace'
 import type { PlanPayload, PlanReason, PriorCommit, SavedPlanVersion } from './plan-commit'
 import type { GoalExam, GoalInput, GoalVersion } from '../v62/target-goal'
+import { parseGoalBudget, type GoalBudget } from '../v62/goal-budget'
 
 type Db = SupabaseClient
+export class GoalBudgetUnavailableError extends Error {}
+export class GoalVersionConflictError extends Error { readonly code = 'goal_changed' }
+/** Next development reloads can leave an earlier module's Error instance in flight. Match its explicit semantic code, never its message. */
+export function isGoalVersionConflictError(error: unknown): error is GoalVersionConflictError {
+  return error instanceof GoalVersionConflictError || (error instanceof Error && (error as Error & { code?: unknown }).code === 'goal_changed')
+}
 const MISSING = new Set(['42P01', 'PGRST205', '42883', 'PGRST202'])
 
 export type StoreStatus = 'installed' | 'not_installed'
@@ -54,8 +61,23 @@ export async function storeStatus(db: Db): Promise<StoreStatus> {
 interface PlanRow { workspace_id: string; plan_version: number; plan: PlanPayload; reason: PlanReason; note: string | null; restored_from: number | null; canon_version: string; as_of: string; created_at: string; goal_version_id: number | null }
 
 const GOAL_COLS = 'id, target_score, target_grade, target_exam, target_date, created_at'
-type GoalRow = { id: number; target_score: number; target_grade: number | null; target_exam: string | null; target_date: string | null; created_at: string }
-const goalOf = (r: GoalRow): GoalVersion => ({ id: Number(r.id), score: r.target_score, grade: r.target_grade, exam: (r.target_exam as GoalExam | null) ?? null, date: r.target_date, createdAt: r.created_at })
+type GoalRow = { id: number; target_score: number; target_grade: number | null; target_exam: string | null; target_date: string | null; created_at: string; planning_budget?: GoalBudget | null }
+const goalOf = (r: GoalRow): GoalVersion => {
+  const budget = parseGoalBudget(r.planning_budget)
+  if (!budget.ok) throw new Error('저장된 시간 예산 형식을 확인하지 못했어요')
+  return { id: Number(r.id), score: r.target_score, grade: r.target_grade, exam: (r.target_exam as GoalExam | null) ?? null, date: r.target_date, createdAt: r.created_at, ...(budget.budget ? { budget: budget.budget } : {}) }
+}
+
+/** The approved legacy schema stays readable until the budget migration is approved. Other errors must propagate. */
+async function goalRows(db: Db, userId: string, limit: number, key?: string) {
+  const read = (cols: string) => {
+    const q = db.from('csat_map_goal_version').select(cols).eq('user_id', userId)
+    if (key) return q.eq('client_key', key).limit(limit)
+    return q.order('id', { ascending: false }).limit(limit)
+  }
+  const r = await read(`${GOAL_COLS}, planning_budget`)
+  return r.error && ['42703', 'PGRST204'].includes(r.error.code) ? read(GOAL_COLS) : r
+}
 
 /**
  * LM-G1.3a — 본인의 최신 목표 이력 한 줄(점수 · 등급 · 시험 · 목표일). 저장 구조가 없으면 null(점수-only 최신 표만 있는 옛 상태).
@@ -63,12 +85,12 @@ const goalOf = (r: GoalRow): GoalVersion => ({ id: Number(r.id), score: r.target
  */
 export async function loadLatestGoal(db: Db, userId: string): Promise<GoalVersion | null> {
   // The user lock serializes inserts, not transaction start timestamps (now()).
-  const { data, error } = await db.from('csat_map_goal_version').select(GOAL_COLS).eq('user_id', userId).order('id', { ascending: false }).limit(1)
+  const { data, error } = await goalRows(db, userId, 1)
   if (error) {
     if (error.code && MISSING.has(error.code)) return null
     throw new Error(`목표 이력 조회 실패: ${error.message}`)
   }
-  const r = (data ?? [])[0] as GoalRow | undefined
+  const r = (data ?? [])[0] as unknown as GoalRow | undefined
   return r ? goalOf(r) : null
 }
 
@@ -78,7 +100,7 @@ export async function loadSavedPlans(db: Db, userId: string): Promise<SavedPlans
   if (status === 'not_installed') return { status, byTemplate: {}, goalVersionId: null, goal: null, goalHistory: [] }
   const [ws, goal] = await Promise.all([
     db.from('learner_workspace').select('id, template_id').eq('user_id', userId).neq('status', 'closed'),
-    db.from('csat_map_goal_version').select(GOAL_COLS).eq('user_id', userId).order('id', { ascending: false }).limit(20),
+    goalRows(db, userId, 20),
   ])
   if (ws.error) throw new Error(`Workspace 조회 실패: ${ws.error.message}`)
   if (goal.error) throw new Error(`목표 이력 조회 실패: ${goal.error.message}`)
@@ -112,7 +134,7 @@ export async function loadSavedPlans(db: Db, userId: string): Promise<SavedPlans
     const transferPolicies = Object.fromEntries(Object.entries(snapshots).map(([version, p]) => [version, Object.fromEntries(known.map(id => [id, p[id] ?? TRANSFER_PASSAGES]))]))
     byTemplate[w.template_id as string] = { workspaceId: w.id as string, template: w.template_id as string, latest: history[0], history: history.slice(0, 20), transferPolicies, transferPlanned: transferPolicy(w.template_id as string, history) }
   }
-  const goals = ((goal.data ?? []) as GoalRow[]).map(goalOf)
+  const goals = ((goal.data ?? []) as unknown as GoalRow[]).map(goalOf)
   return { status, byTemplate, goalVersionId: goals[0]?.id ?? null, goal: goals[0] ?? null, goalHistory: goals }
 }
 
@@ -148,12 +170,12 @@ export async function commitPlan(db: Db, args: {
 /** 목표 저장 — 저장 구조가 있으면 RPC(최신 값 + 이력 원자적), 없으면 기존 방식(최신 값만). 어느 쪽인지 돌려준다 */
 /** LM-G1.3a — 같은 요청키로 이미 저장된 본인 목표(재전송 판단). 본인 행만 · 읽기 실패는 던진다(없음으로 삼키면 다른 본문이 저장됨이 된다) */
 export async function findGoalByKey(db: Db, userId: string, clientKey: string): Promise<GoalVersion | null> {
-  const { data, error } = await db.from('csat_map_goal_version').select(GOAL_COLS).eq('user_id', userId).eq('client_key', clientKey).limit(1)
+  const { data, error } = await goalRows(db, userId, 1, clientKey)
   if (error) {
     if (error.code && MISSING.has(error.code)) return null
     throw new Error(`목표 재시도 확인 실패: ${error.message}`)
   }
-  const r = (data ?? [])[0] as GoalRow | undefined
+  const r = (data ?? [])[0] as unknown as GoalRow | undefined
   return r ? goalOf(r) : null
 }
 
@@ -164,7 +186,17 @@ export async function findGoalByKey(db: Db, userId: string, clientKey: string): 
 export async function setGoal(db: Db, userId: string, goalIn: number | GoalInput, clientKey: string): Promise<{ mode: 'versioned' | 'latest_only'; goalVersionId: number | null }> {
   const g: GoalInput = typeof goalIn === 'number' ? { score: goalIn, grade: null, exam: null, date: null } : goalIn
   const score = g.score
-  const { data, error } = await db.rpc('csat_map_goal_set', { p_user: userId, p_score: g.score, p_grade: g.grade, p_exam: g.exam, p_date: g.date, p_client_key: clientKey })
+  const prior = g.expectedGoalVersion === undefined ? await loadLatestGoal(db, userId) : null
+  const args = { p_user: userId, p_score: g.score, p_grade: g.grade, p_exam: g.exam, p_date: g.date, p_client_key: clientKey }
+  let { data, error } = await db.rpc('csat_map_goal_budget_set', { ...args, p_budget: g.budget ?? null, p_expected_goal: g.expectedGoalVersion === undefined ? prior?.id ?? null : g.expectedGoalVersion })
+  if (!error) return { mode: 'versioned', goalVersionId: Number(data) }
+  if (['PT409', '40001'].includes(error.code ?? '') && error.message === 'goal_changed') throw new GoalVersionConflictError('목표가 다른 화면에서 바뀌었어요 — 새로고침한 뒤 다시 확인해 주세요')
+  if (!(error.code && MISSING.has(error.code))) throw new Error(`목표 저장 실패: ${error.message}`)
+  if (g.budget || (prior ?? await loadLatestGoal(db, userId))?.budget) throw new GoalBudgetUnavailableError('시간 예산 저장 구조가 아직 적용되지 않았어요 — 목표와 시간 예산을 저장하지 않았어요')
+  // Before installation, existing unbudgeted goals retain their original writer. A budget-bearing goal can never take this fallback.
+  const legacy = await db.rpc('csat_map_goal_set', args)
+  data = legacy.data
+  error = legacy.error
   if (!error) return { mode: 'versioned', goalVersionId: Number(data) }
   if (!(error.code && MISSING.has(error.code))) throw new Error(`목표 저장 실패: ${error.message}`)
   if (g.grade !== null || g.exam !== null || g.date !== null) throw new Error('목표 저장 실패: 목표 이력 구조가 없어 점수 외 목표를 저장할 수 없어요')

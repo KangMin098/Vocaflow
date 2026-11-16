@@ -33,7 +33,13 @@ class Query implements PromiseLike<Res> {
   async run(): Promise<Res> {
     const vals: unknown[] = []
     const w = this.where.map((x) => { let s = x.sql; for (const v of x.vals) { vals.push(v); s = s.replace('$?', `$${vals.length}`) } return s })
-    const cols = this.cols === '*' ? '*' : this.cols.split(',').map((x) => ident(x.trim())).join(', ')
+    const cols = this.cols === '*' ? '*' : this.cols.split(',').map((x) => {
+      // Actual plan route uses this PostgREST FK projection; retain real SQL reads and owner filters.
+      if (x.trim() === 'learner_workspace!inner(template_id)' && this.table === 'learner_workspace_plan') {
+        return "(select jsonb_build_object('template_id', w.template_id) from public.learner_workspace w where w.id = learner_workspace_plan.workspace_id) as learner_workspace"
+      }
+      return ident(x.trim())
+    }).join(', ')
     const base = `from public.${ident(this.table)}${w.length ? ` where ${w.join(' and ')}` : ''}`
     try {
       await this.c.auth()

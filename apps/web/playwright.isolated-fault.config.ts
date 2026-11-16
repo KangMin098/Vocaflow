@@ -7,7 +7,7 @@ export default defineConfig({
   timeout: 180_000,
   retries: 0,
   workers: 1,
-  reporter: [['list'], ['html', { open: 'never', outputFolder: 'playwright-report-isolated-fault' }]],
+  reporter: [['./tests/e2e/utils/secret-redact-reporter.ts'], ['list'], ['html', { open: 'never', outputFolder: 'playwright-report-isolated-fault' }]],
   use: {
     baseURL: process.env.PLAYWRIGHT_BASE_URL ?? 'http://localhost:3000',
     viewport: { width: 1440, height: 1000 },

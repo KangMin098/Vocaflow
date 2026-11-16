@@ -22,6 +22,7 @@ export const SKILL_LABEL: Record<SkillStatus, string> = {
   verified: '직접 확인됨 · 이 원리 연습 필요',
   still_needed: '다시 확인 · 아직 연습 필요',
   resolved: '다시 확인 통과',
+  pending_delayed: '다른 날 다시 확인할 차례',
   expired: '다시 확인 필요(기한 지남)',
 }
 

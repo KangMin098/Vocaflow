@@ -6,7 +6,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import {
   ChevronLeft,
   ChevronRight,
@@ -46,7 +46,6 @@ import {
   isSpeechRecognitionSupported,
   type Recognizer,
 } from '@/lib/workspace/speech-recognition'
-import { computeShadowMatch } from '@/lib/workspace/shadow-match'
 // 청각 면(F3) 신호 — 따라 말하기를 어휘 단위 인출 기록으로 잇는다(설계안 §8 빈칸).
 // 적재 실패는 따라 말하기를 막지 않는다: 학습이 본체이고 기록은 부수 효과다.
 import { loadSoundLemmas, recordEchoSound } from '@/lib/echo/record-sound'
@@ -57,6 +56,19 @@ import { SentenceCarousel } from './SentenceCarousel'
 import { PitchVisualizer } from './PitchVisualizer'
 import { ScoreCard } from './ScoreCard'
 import { MicPermissionGate } from './MicPermissionGate'
+import { ReplayPanel } from './ReplayPanel'
+import { HEARD_REASON_TEXT, gateAfterStop, isLiveRecog, measureTranscript, scoredOutcome, visibleHeard, type HeardSnapshot } from './heard-reference'
+import {
+  EchoReplay,
+  IDLE_REPLAY,
+  replayBufferAt,
+  sentenceMaterialKey,
+  type ReplayState,
+  type ReplayTake,
+  type ReplayTarget,
+} from '@/lib/echo/replay-controller'
+import { useStoryAuthGuard } from '@/components/library/story/use-story-auth-guard'
+import { useTextContentSafe } from '@/app/(main)/text/[id]/text-content-context'
 
 type Phase = 'idle' | 'listening' | 'recording' | 'comparing' | 'scored'
 
@@ -94,10 +106,36 @@ export function EchoMatchPlayer({
   const [wordRatio, setWordRatio] = useState<number | null>(null)
   const recognizerRef = useRef<Recognizer | null>(null)
   const transcriptRef = useRef('')
+  // T-0227 — 인식 콜백이 묶인 시도 세대(멈추면 null) · 인식 시작 실패 여부. 늦은 콜백이 새 시도의 문자열을 덮지 않게.
+  const recogGenRef = useRef<number | null>(null)
+  const recogStartFailedRef = useRef(false)
+  // 이 세대의 인식 오류(onError)가 왔는가 — 다른 세대의 오류는 넣지 않는다
+  const recogErroredRef = useRef(false)
+  // T-0227 — 이번 비율 계산에 실제로 쓴 인식 문자열(또는 확인 못 한 사유) · 시도 · 자료 · 계정 결속
+  const [heard, setHeard] = useState<HeardSnapshot | null>(null)
   const stopRecRef = useRef<(() => Promise<{ audioBuffer: AudioBuffer; durationMs: number }>) | null>(
     null,
   )
-  const userBufferRef = useRef<AudioBuffer | null>(null)
+  // 이번 녹음 — 결과 화면의 「내 발화 다시 듣기」 용. 이 문장 · 이 화면에서만 잠시 붙잡고(새 녹음 · 문장 이동 · 재시도 · 이탈에서 버린다)
+  //   파일 · 저장소 · 서버로 보내지 않는다. 문장 id 를 함께 둬 다른 문장의 발화로 대신 재생하지 않는다.
+  const userTakeRef = useRef<ReplayTake | null>(null)
+  // 시도 세대 — 재시도 · 문장 이동 · 이탈마다 올린다. 그 전에 출발한 합성 · 재생 · 녹음 · 비교 결과는 늦게 와도 버린다
+  //   (계정이 바뀌어 화면이 내려간 뒤 끝난 비교가 새 계정 이름으로 기록되지 않게).
+  const runGenRef = useRef(0)
+  const listenAbortRef = useRef<AbortController | null>(null)
+  const replayRef = useRef<EchoReplay | null>(null)
+  const [replay, setReplay] = useState<ReplayState>(IDLE_REPLAY)
+  // 계정 경계 — 부모 ReaderViewerGate 가 화면을 내리기 전(정리 effect 전)에 불린 다시 듣기도 호출 시점에 막도록
+  //   같은 주인(서버가 읽은 ownerId)으로 기존 StoryAuthGuard 를 읽는다. 화면 게이트는 부모 몫이다.
+  const ownerId = useTextContentSafe()?.ownerId ?? null
+  const { guard: authGuard, status: authStatus } = useStoryAuthGuard(ownerId)
+  // 이미 잡힌 콜백이 늦게 불려도 **지금** 값을 읽게 한다
+  const phaseRef = useRef<Phase>('idle')
+  const materialKeyRef = useRef<string | null>(null)
+  const pageHiddenRef = useRef(false)
+  // 이 시도를 시작할 때의 계정 경계 세대 — 녹음 · 비교가 끝난 뒤(await 뒤)에 새로 잡지 않는다.
+  //   그 사이 계정이 바뀌면(부모가 화면을 내리기 전이라도) 결과를 받지도 기록하지도 않는다.
+  const attemptAuthRef = useRef<number | null>(null)
   // 각 sentence 의 시도 횟수 (점수 적재 시 attempt_number)
   const attemptCountRef = useRef<Map<string, number>>(new Map())
   // 이 텍스트에서 담아 둔 내 단어 — 청각 면(F3) 신호의 대상. 없으면 빈 배열로 무해하게 논다.
@@ -106,14 +144,20 @@ export function EchoMatchPlayer({
   const [modelProgress, setModelProgress] = useState<{ loaded: number; total: number } | null>(null)
   const [piperReady, setPiperReady] = useState(false)
   // 현재 sentence 의 reference audio + contour 캐시 (재시도 시 재합성 X)
+  // 키 = 문장 자료(sentenceMaterialKey) — 같은 id 라도 내용이 바뀌면 예시를 다시 만든다
   const refCacheRef = useRef<Map<string, { buffer: AudioBuffer; contour: PitchContour }>>(
     new Map(),
   )
 
   const current = sentences[currentIdx]
   const last = sentences.length - 1
+  const materialKey = current ? sentenceMaterialKey(current) : null
+  phaseRef.current = phase
+  materialKeyRef.current = materialKey
   // 단어 정확도가 확연히 낮으면(측정됨 && <0.4) 프로소디 점수는 오해 소지 → 재읽기로 부드럽게 유도(게이트).
   //   비난 아님(Calm) + 인식 불완전을 감안한 겸손한 문구("잘 안 들렸어요"). 미측정(null)은 게이트 안 함.
+  // T-0227 — 렌더 때도 시도 · 자료 · 계정 경계가 지금과 같은지 본다
+  const heardView = visibleHeard(heard, { scored: phase === 'scored', gen: runGenRef.current, materialKey, authCurrent: (t) => authGuard.isCurrent(t) })
   const WORD_GATE = 0.4
   const lowWords = wordRatio != null && wordRatio < WORD_GATE
   const fb = !score
@@ -152,6 +196,9 @@ export function EchoMatchPlayer({
 
   // Piper 모델 lazy preload — 마이크 권한 후 백그라운드 다운로드
   const [piperLoading, setPiperLoading] = useState(false)
+  /** 명시적 「음성 모델 다시 받기」 세대 — 실패 뒤 piperReady 는 이미 false 라 그 값만 다시 세우면 다운로드 효과가 다시 돌지 않는다.
+   *  학습자가 누를 때만 올린다(자동 반복 없음). 받는 중에는 단추가 없으므로 중복 요청도 없다. */
+  const [modelTry, setModelTry] = useState(0)
   useEffect(() => {
     if (!micGranted || piperReady) return
     if (!isPiperSupported()) {
@@ -185,122 +232,196 @@ export function EchoMatchPlayer({
     return () => {
       cancelled = true
     }
-  }, [micGranted, piperReady])
+  }, [micGranted, piperReady, modelTry])
 
   // Phase 1 — Listen (Piper TTS + AudioBuffer 직접 분석)
   const startListen = useCallback(async () => {
     if (!current) return
+    const gen = runGenRef.current
+    attemptAuthRef.current = authGuard.token()
+    const stale = () => gen !== runGenRef.current
+    listenAbortRef.current?.abort()
+    const listenAbort = new AbortController()
+    listenAbortRef.current = listenAbort
     setPhase('listening')
     setError(null)
     setScore(null)
     setWordRatio(null)
+    setHeard(null)
     setRefContour(null)
     setUserContour(null)
     try {
       // Reference audio + contour cache 우선
-      let cached = refCacheRef.current.get(current.id)
+      const key = sentenceMaterialKey(current)
+      let cached = refCacheRef.current.get(key)
       if (!cached) {
         const { audioBuffer } = await piperSynthesize(current.text)
         const contour = extractPitchContour(audioBuffer)
         cached = { buffer: audioBuffer, contour }
-        refCacheRef.current.set(current.id, cached)
+        refCacheRef.current.set(key, cached)
       }
+      if (stale()) return
       setRefContour(cached.contour)
-      // 재생 (분석은 이미 됨)
-      await playAudioBuffer(cached.buffer)
+      // 재생 (분석은 이미 됨) — 재시도 · 이동 · 이탈이면 여기서 끊긴다
+      await playAudioBuffer(cached.buffer, { signal: listenAbort.signal })
+      if (stale()) return
       // Phase 2 자동 진입
       setPhase('recording')
       const { stop } = await recordUntilStop()
+      if (stale()) {
+        void stop().catch(() => {})
+        return
+      }
       stopRecRef.current = stop
       // 병렬 단어 인식 시작 (완전 additive — 실패/미지원이어도 녹음·채점 무영향)
+      recogStartFailedRef.current = false
+      recogErroredRef.current = false
       try {
         if (isSpeechRecognitionSupported()) {
           if (!recognizerRef.current) recognizerRef.current = createRecognizer('en-US')
           transcriptRef.current = ''
-          recognizerRef.current.start({
+          recogGenRef.current = gen
+          const startedKey = sentenceMaterialKey(current)
+          const startedAuth = attemptAuthRef.current ?? authGuard.token()
+          const live = () =>
+            isLiveRecog(gen, recogGenRef.current, runGenRef.current, {
+              startedKey,
+              currentKey: materialKeyRef.current,
+              authCurrent: authGuard.isCurrent(startedAuth),
+            })
+          const started = recognizerRef.current.start({
             onInterim: (t) => {
+              // 이 시도의 인식이 아직 열려 있을 때만 — 멈춘 뒤 · 다른 시도의 늦은 콜백은 버린다
+              if (!live()) return
               transcriptRef.current = t
             },
+            onError: () => {
+              // 마이크 거부 · 네트워크 등 — 이 시도의 것만 「인식 실패」로 남긴다(이전 시도의 오류는 무시)
+              if (!live()) return
+              recogErroredRef.current = true
+            },
           })
+          if (!started) recogStartFailedRef.current = true
         }
       } catch {
         /* 인식 시작 실패 — 프로소디만 채점 */
+        recogStartFailedRef.current = true
       }
     } catch (e) {
+      if (stale()) return
       setError(playbackError(e))
       setPhase('idle')
     }
-  }, [current])
+  }, [current, authGuard])
 
   // Phase 2 → Phase 3 — Stop recording
   async function stopRecording() {
-    if (!stopRecRef.current) return
+    if (!stopRecRef.current || !current) return
+    const gen = runGenRef.current
+    const sentence = current
+    // 시작 때 잡은 세대(없으면 지금 — 아직 await 전이다). 기록의 주인은 서버가 읽은 글의 주인(ownerId)으로 묶는다.
+    const authToken = attemptAuthRef.current ?? authGuard.token()
+    const expectedUserId = ownerId
     setPhase('comparing')
     // 병렬 인식 종료 + transcript 회수 (guard — 실패해도 프로소디 채점 진행)
-    let wr: number | null = null
-    // 어떤 단어가 실제로 들렸는지 — 청각 면 판정의 **단어 단위 근거**(비율보다 강하다)
-    let heardKeys: Set<string> | null = null
+    // T-0227 — 비율 계산에 넘긴 문자열을 그대로 붙잡는다(이 뒤 늦게 온 인식은 반영하지 않는다). 판정은 heard-reference.ts.
+    const supported = isSpeechRecognitionSupported()
+    let stopThrew = false
     try {
+      recogGenRef.current = null
       recognizerRef.current?.stop()
-      const transcript = transcriptRef.current.trim()
-      if (transcript && current) {
-        const m = computeShadowMatch(current.text, transcript)
-        wr = m.ratio
-        heardKeys = m.matchedKeys
-      }
     } catch {
       /* 인식 실패 — 단어 정확도 미측정(null) → 프로소디 보조 근거로 판정 */
+      stopThrew = true
     }
+    const measured = measureTranscript(sentence.text, {
+      supported,
+      startFailed: recogStartFailedRef.current,
+      errored: recogErroredRef.current,
+      stopThrew,
+      transcript: transcriptRef.current,
+    })
+    const wr = measured.ratio
+    // 어떤 단어가 실제로 들렸는지 — 청각 면 판정의 **단어 단위 근거**(비율보다 강하다)
+    const heardKeys = measured.matchedKeys
     setWordRatio(wr)
     try {
-      const { audioBuffer } = await stopRecRef.current()
+      const stop = stopRecRef.current
       stopRecRef.current = null
-      userBufferRef.current = audioBuffer
+      const { audioBuffer } = await stop()
+      // 비교 중에 문장을 옮겼거나 화면이 내려갔다 — 이 발화는 버린다(점수 · 기록 · 다시 듣기 모두)
+      const gate = gateAfterStop({ startedGen: gen, currentGen: runGenRef.current, authCurrent: authGuard.isCurrent(authToken), expectedUserId })
+      if (gate === 'stale') return
+      // 시작 세대가 더는 같은 사람으로 확인되지 않는다 — 실패로 닫는다(점수 · 저장 · 청각 신호 · 다시 듣기 모두 없음)
+      if (gate === 'denied' || !expectedUserId) {
+        userTakeRef.current = null
+        setPhase('idle')
+        return
+      }
+      userTakeRef.current = { materialKey: sentenceMaterialKey(sentence), buffer: audioBuffer, authToken }
 
       // 사용자 음성 분석
       const userC = extractPitchContour(audioBuffer)
       setUserContour(userC)
 
       // Piper reference contour — Phase 1 에서 캐시됨 (synthetic 제거)
-      const cached = refCacheRef.current.get(current!.id)
+      const cached = refCacheRef.current.get(sentenceMaterialKey(sentence))
       const refC = cached?.contour ?? userC // fallback (이론적으로 unreachable)
       setRefContour(refC)
 
       const result = compareContours(refC, userC)
+      const sentenceId = sentence.id
+      const outcome = scoredOutcome({
+        measured,
+        supported,
+        bind: { gen, materialKey: sentenceMaterialKey(sentence), authToken },
+        textId,
+        libraryBookId,
+        sentenceId,
+        prevAttempts: attemptCountRef.current.get(sentenceId) ?? 0,
+        score: result,
+        durationMs: userC.durationMs,
+        expectedUserId,
+      })
       setScore(result)
+      setHeard(outcome.heard)
       setPhase('scored')
 
       // 점수 DB 적재 (비로그인 silent skip)
-      const sentenceId = current!.id
-      const prevAttempts = attemptCountRef.current.get(sentenceId) ?? 0
-      const attemptNumber = prevAttempts + 1
-      attemptCountRef.current.set(sentenceId, attemptNumber)
-      void saveEchoAttempt({
-        textId,
-        libraryBookId: libraryBookId ?? null,
-        sentenceId,
-        attemptNumber,
-        score: result,
-        durationMs: userC.durationMs,
-      })
+      attemptCountRef.current.set(sentenceId, outcome.attemptNumber)
+      void saveEchoAttempt(outcome.save)
 
       // 청각 면(F3) 신호 — 이 발화가 실어 나른 내 단어를 인출 기록으로 남긴다.
       // 판정 규칙(측정 실패 무기록 · 인식 신뢰 하한 · 근거 등급)은 word-signal.ts 가 갖는다.
       const soundRecs = soundRecords({
-        sentence: current!.text,
+        sentence: sentence.text,
         score: result,
         lemmas: soundLemmasRef.current,
         transcriptRatio: wr,
         matchedKeys: heardKeys,
       })
-      void recordEchoSound(soundRecs, { sentenceId, overall: result.overall })
+      void recordEchoSound(soundRecs, { sentenceId, overall: result.overall, expectedUserId })
     } catch (e) {
+      if (gen !== runGenRef.current) return
       setError(compareError(e))
       setPhase('idle')
     }
   }
 
+  /** 이 시도에 묶인 것을 모두 끊는다 — 예시 재생 · 다시 듣기 · 이번 녹음 · 인식 문자열. */
+  function dropAttempt() {
+    runGenRef.current += 1
+    listenAbortRef.current?.abort()
+    listenAbortRef.current = null
+    replayRef.current?.stop()
+    userTakeRef.current = null
+    transcriptRef.current = ''
+    recogGenRef.current = null
+    setHeard(null)
+  }
+
   function handleRetry() {
+    dropAttempt()
     try {
       recognizerRef.current?.abort()
     } catch {
@@ -313,6 +434,21 @@ export function EchoMatchPlayer({
     setRefContour(null)
     setUserContour(null)
   }
+
+  // 학습자가 「한 번 더」 · 「다시」 · 「이 문장 다시 하기」를 눌렀을 때만 — 새 시도의 「시작」으로 초점을 한 번 넘긴다.
+  //   자료 변경 · 이전/다음 문장 · 부모 갱신도 handleRetry 를 쓰므로 공통 함수에는 초점을 넣지 않는다.
+  //   초점만 옮긴다(클릭 없음) — 재생 · 녹음은 학습자가 「시작」을 눌러야 시작된다.
+  const focusStartOnce = useRef(false)
+  const startBtnRef = useRef<HTMLButtonElement | null>(null)
+  function handleUserRetry() {
+    focusStartOnce.current = true
+    handleRetry()
+  }
+  useLayoutEffect(() => {
+    if (!focusStartOnce.current || phase !== 'idle' || error) return
+    focusStartOnce.current = false
+    startBtnRef.current?.focus()
+  }, [phase, error])
 
   function handleNext() {
     if (currentIdx < last) {
@@ -328,6 +464,70 @@ export function EchoMatchPlayer({
     }
   }
 
+  // 다시 듣기 — 이 화면이 소유한 재생 하나. 효과 안에서 만들어야 개발 모드 이중 마운트에도 살아 있다.
+  useEffect(() => {
+    const r = new EchoReplay((buffer, opts) => playAudioBuffer(buffer, opts), setReplay)
+    replayRef.current = r
+    // 탭을 숨기거나 떠나면 다시 듣기를 멈춘다(다른 화면의 소리는 건드리지 않는다)
+    const onHidden = () => {
+      if (document.visibilityState === 'hidden') r.stop()
+    }
+    const onPageHide = () => {
+      pageHiddenRef.current = true
+      r.stop()
+    }
+    const onPageShow = () => {
+      pageHiddenRef.current = false
+    }
+    document.addEventListener('visibilitychange', onHidden)
+    window.addEventListener('pagehide', onPageHide)
+    window.addEventListener('pageshow', onPageShow)
+    return () => {
+      document.removeEventListener('visibilitychange', onHidden)
+      window.removeEventListener('pagehide', onPageHide)
+      window.removeEventListener('pageshow', onPageShow)
+      r.dispose()
+      if (replayRef.current === r) replayRef.current = null
+    }
+  }, [])
+
+  // 계정이 같은 사람이 아니게 되면(checking · changed) 다시 듣기를 끊고 이번 녹음 · 예시 캐시를 놓는다
+  useEffect(() => {
+    if (authStatus === 'same') return
+    replayRef.current?.stop()
+    userTakeRef.current = null
+    refCacheRef.current.clear()
+    setHeard(null)
+  }, [authStatus])
+
+  // 같은 자리 문장의 내용이 바뀌면(같은 id 재사용 포함) 이전 시도 · 점수 · 녹음을 넘기지 않는다
+  const prevMaterialRef = useRef(materialKey)
+  useEffect(() => {
+    if (prevMaterialRef.current === materialKey) return
+    prevMaterialRef.current = materialKey
+    handleRetry()
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- 자료가 바뀔 때만
+  }, [materialKey])
+
+  /** 다시 듣기 — 판정은 호출 시점의 ref · 경계 값으로(잡힌 옛 콜백도 같은 판정을 거친다). */
+  function handleReplay(target: ReplayTarget) {
+    const key = materialKeyRef.current
+    const buffer = replayBufferAt({
+      target,
+      scored: phaseRef.current === 'scored',
+      hidden: pageHiddenRef.current || document.visibilityState === 'hidden',
+      materialKey: key,
+      reference: (() => {
+        const c = key ? refCacheRef.current.get(key) : undefined
+        return c && key ? { materialKey: key, buffer: c.buffer } : undefined
+      })(),
+      take: userTakeRef.current,
+      guard: authGuard,
+    })
+    if (!buffer) return
+    replayRef.current?.start(target, buffer)
+  }
+
   // unmount 시 stop + 마이크 해제 + 세션 finalize
   //   M8 — releaseMic() 은 만들어져 있었지만 저장소 어디에서도 불리지 않았다. 그래서 화면을
   //   떠나도 탭의 녹음 표시등과 기기 마이크 LED 가 켜진 채 남았고, 이 화면이 학습자에게 한
@@ -335,6 +535,12 @@ export function EchoMatchPlayer({
   //   requestMicAccess 가 스트림을 새로 만들므로 지장이 없다(audio-recorder.ts:26 active 검사).
   useEffect(() => {
     return () => {
+      // 계정 경계(ReaderViewerGate)가 checking · changed 로 내려도 이 정리가 돈다 — 진행 중 결과 · 버퍼를 버린다
+      runGenRef.current += 1
+      listenAbortRef.current?.abort()
+      userTakeRef.current = null
+      transcriptRef.current = ''
+      recogGenRef.current = null
       if (stopRecRef.current) {
         void stopRecRef.current().catch(() => {})
       }
@@ -384,7 +590,7 @@ export function EchoMatchPlayer({
           className={`rounded-[var(--r-md)] border p-3 ${
             error
               ? 'border-[var(--bde)] bg-[var(--error-light)]'
-              : 'border-[var(--p)]/30 bg-[var(--p-light)]'
+              : 'border-[color-mix(in_srgb,var(--p)_30%,transparent)] bg-[var(--p-light)]'
           }`}
         >
           {error ? (
@@ -402,10 +608,12 @@ export function EchoMatchPlayer({
                 <button
                   type="button"
                   onClick={() => {
+                    if (piperLoading) return
                     setError(null)
                     setPiperReady(false)
+                    setModelTry((n) => n + 1)
                   }}
-                  className="mt-2 inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-4 font-display text-[11px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:scale-[0.99]"
+                  className="mt-2 inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[color-mix(in_srgb,var(--error)_30%,transparent)] bg-[var(--bg)] px-4 font-display text-[11px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:scale-[0.99]"
                 >
                   음성 모델 다시 받기
                 </button>
@@ -413,8 +621,8 @@ export function EchoMatchPlayer({
               {(error.kind === 'playback' || error.kind === 'compare') && (
                 <button
                   type="button"
-                  onClick={handleRetry}
-                  className="mt-2 inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-4 font-display text-[11px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:scale-[0.99]"
+                  onClick={handleUserRetry}
+                  className="mt-2 inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[color-mix(in_srgb,var(--error)_30%,transparent)] bg-[var(--bg)] px-4 font-display text-[11px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:scale-[0.99]"
                 >
                   이 문장 다시 하기
                 </button>
@@ -422,7 +630,7 @@ export function EchoMatchPlayer({
               {error.kind === 'unsupported' && (
                 <Link
                   href="/dictate"
-                  className="mt-2 inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-4 font-display text-[11px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+                  className="mt-2 inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] border border-[color-mix(in_srgb,var(--error)_30%,transparent)] bg-[var(--bg)] px-4 font-display text-[11px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
                 >
                   받아쓰기로 연습하기
                 </Link>
@@ -480,7 +688,8 @@ export function EchoMatchPlayer({
         piperReady={piperReady}
         onStart={() => void startListen()}
         onStopRecording={() => void stopRecording()}
-        onRetry={handleRetry}
+        onRetry={handleUserRetry}
+        startRef={startBtnRef}
       />
 
       {/* 시각화 + 점수 */}
@@ -488,6 +697,16 @@ export function EchoMatchPlayer({
         <PitchVisualizer reference={refContour} user={userContour} />
       )}
       {score && fb && <ScoreCard score={score} feedback={fb.label} tone={fb.tone} />}
+
+      {phase === 'scored' && current && (
+        <ReplayPanel
+          referenceReady={materialKey !== null && refCacheRef.current.has(materialKey)}
+          selfReady={!!materialKey && userTakeRef.current?.materialKey === materialKey}
+          state={replay}
+          onPlay={handleReplay}
+          onStop={() => replayRef.current?.stop()}
+        />
+      )}
 
       {/* #2 단어 정확도 — 측정된 경우만(미지원/실패는 숨김). 낮으면 억양 점수 참고 안내. */}
       {phase === 'scored' && wordRatio != null && (
@@ -497,6 +716,27 @@ export function EchoMatchPlayer({
           이번 발화에서 문장 단어의 <span className="font-mono font-[700] tabular-nums">{Math.round(wordRatio * 100)}%</span>가 인식됐어요
           {lowWords ? ' — 억양 점수는 참고만 하고, 단어부터 또박또박 읽어봐요.' : '.'}
         </p>
+      )}
+
+      {/* T-0227 — 위 비율을 계산할 때 쓴 기기 인식 문자열(참고) · 확인 못 했으면 사유만. 발음 판정이 아니다. */}
+      {heardView && (
+        <section aria-label="기기가 인식한 참고문장" className="flex flex-col gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2" data-testid="echo-heard" data-heard={heardView.kind}>
+          <p className="font-display text-[11.5px] font-[700] text-[var(--t2)]">기기가 인식한 참고문장</p>
+          {heardView.kind === 'text' ? (
+            <>
+              <p lang="en" className="break-words font-english text-[14px] leading-relaxed text-[var(--t1)]" data-testid="echo-heard-text">
+                {heardView.text}
+              </p>
+              <p className="break-keep font-body text-[11.5px] leading-relaxed text-[var(--t2)]">
+                기기 음성 인식 결과라 실제로 말한 것과 다를 수 있어요. 위 비율은 이 문장으로 계산했어요 — 목표 문장과 견주어 보세요.
+              </p>
+            </>
+          ) : (
+            <p className="break-keep font-body text-[12px] leading-relaxed text-[var(--t2)]" data-testid="echo-heard-unconfirmed">
+              {HEARD_REASON_TEXT[heardView.reason]}
+            </p>
+          )}
+        </section>
       )}
 
       {/* 에러는 상단 Piper 영역에서 통합 표시 */}
@@ -515,7 +755,7 @@ export function EchoMatchPlayer({
         {phase === 'scored' && (
           <button
             type="button"
-            onClick={handleRetry}
+            onClick={handleUserRetry}
             className="inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)]"
           >
             <RotateCcw size={13} aria-hidden /> 다시
@@ -542,12 +782,15 @@ function PhaseController({
   onStart,
   onStopRecording,
   onRetry,
+  startRef,
 }: {
   phase: Phase
   piperReady: boolean
   onStart: () => void
   onStopRecording: () => void
   onRetry: () => void
+  /** 명시적 재시도 뒤 초점을 받을 「시작」 */
+  startRef?: React.Ref<HTMLButtonElement>
 }) {
   if (phase === 'idle') {
     return (
@@ -556,6 +799,7 @@ function PhaseController({
           ① Listen → ② Repeat → ③ Compare → ④ Score
         </p>
         <button
+          ref={startRef}
           type="button"
           onClick={onStart}
           disabled={!piperReady}
@@ -568,7 +812,7 @@ function PhaseController({
   }
   if (phase === 'listening') {
     return (
-      <div className="flex flex-col items-center gap-2 rounded-[var(--r-lg)] border border-[var(--p)]/30 bg-[var(--p-light)] p-5">
+      <div className="flex flex-col items-center gap-2 rounded-[var(--r-lg)] border border-[color-mix(in_srgb,var(--p)_30%,transparent)] bg-[var(--p-light)] p-5">
         <p className="font-display text-[11px] font-[700] uppercase tracking-wider text-[var(--p)]">
           ① Listen — 잘 들어보세요
         </p>
@@ -581,7 +825,7 @@ function PhaseController({
   }
   if (phase === 'recording') {
     return (
-      <div className="flex flex-col items-center gap-3 rounded-[var(--r-lg)] border border-[var(--error)]/30 bg-[var(--error-light)] p-5">
+      <div className="flex flex-col items-center gap-3 rounded-[var(--r-lg)] border border-[color-mix(in_srgb,var(--error)_30%,transparent)] bg-[var(--error-light)] p-5">
         <p className="font-display text-[11px] font-[700] uppercase tracking-wider text-[var(--error-ink)]">
           ② Repeat — 따라 말하세요
         </p>
@@ -601,7 +845,7 @@ function PhaseController({
   }
   if (phase === 'comparing') {
     return (
-      <div className="flex flex-col items-center gap-2 rounded-[var(--r-lg)] border border-[var(--warning)]/30 bg-[var(--warning-light)] p-5">
+      <div className="flex flex-col items-center gap-2 rounded-[var(--r-lg)] border border-[color-mix(in_srgb,var(--warning)_30%,transparent)] bg-[var(--warning-light)] p-5">
         <p className="font-display text-[11px] font-[700] uppercase tracking-wider text-[var(--warning)]">
           ③ Compare — 비교 중
         </p>
@@ -611,7 +855,7 @@ function PhaseController({
   }
   // scored
   return (
-    <div className="flex flex-col items-center gap-2 rounded-[var(--r-lg)] border border-[var(--success)]/30 bg-[var(--success-light)] p-5">
+    <div className="flex flex-col items-center gap-2 rounded-[var(--r-lg)] border border-[color-mix(in_srgb,var(--success)_30%,transparent)] bg-[var(--success-light)] p-5">
       <p className="font-display text-[11px] font-[700] uppercase tracking-wider text-[var(--success)]">
         ④ Score — 결과
       </p>

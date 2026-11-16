@@ -16,19 +16,13 @@ import { pagedSelect } from '@/lib/supabase/paged-select'
 
 import { createAdminClient } from '@/lib/supabase/admin'
 
-import { classifyAccount, INTERNAL_ROLES, parseAccountRegistry, summarizeAccounts } from './account-classification'
+import { parseAccountRegistry } from './account-classification'
+import { EXTERNAL_IDS_ENV, fetchAccountCohort, INTERNAL_IDS_ENV } from './account-cohort'
 import { computeRetention, type LearnerActivity, type RetentionResult } from './retention-math'
 
 export type { RetentionReport, RetentionResult } from './retention-math'
 
-/**
- * 계정 분류 목록의 서버 전용 설정(쉼표·공백 구분 계정 UUID). 값은 서버에만 있고 화면에는 **수만** 올라간다.
- *   VOCAFLOW_INTERNAL_ACCOUNT_IDS          운영·개발·QA 계정
- *   VOCAFLOW_EXTERNAL_VERIFIED_ACCOUNT_IDS 사람이 실사용 학습자로 확인한 계정
- * 둘 다 없으면 「미설정」 — 운영 역할만 내부로 빠지고 나머지는 미분류(실사용 지표에서 제외)다.
- */
-export const INTERNAL_IDS_ENV = 'VOCAFLOW_INTERNAL_ACCOUNT_IDS'
-export const EXTERNAL_IDS_ENV = 'VOCAFLOW_EXTERNAL_VERIFIED_ACCOUNT_IDS'
+export { EXTERNAL_IDS_ENV, INTERNAL_IDS_ENV, OPERATOR_FETCH_CAP } from './account-cohort'
 export { rateOrNull, MIN_DENOMINATOR_FOR_RATE } from './retention-math'
 
 const KST_MS = 9 * 3_600_000
@@ -49,71 +43,28 @@ function kstToday(): string {
  * 같은 폴더의 `dashboard-stats.ts` 도 `server-only` 만 쓰고 cache 는 쓰지 않는다 — 그 관례를 따른다.
  */
 export async function fetchRetention(env: Record<string, string | undefined> = process.env): Promise<RetentionResult | null> {
-  // 분류 설정이 잘못됐으면 DB 를 읽기 전에 멈춘다 — 「계산 불가 + 사유」(0 이 아니다)
-  const parsed = parseAccountRegistry(env[INTERNAL_IDS_ENV], env[EXTERNAL_IDS_ENV])
-  if (parsed.status === 'invalid') return { status: 'unavailable', reason: 'registry_invalid', errors: parsed.errors }
   try {
-    return await computeFromDb(parsed)
+    return await computeFromDb(env)
   } catch {
     // ⚠️ **부가 지표 하나가 콘솔 전체를 죽이지 않게 한다.**
-    //    `createAdminClient()` 는 env 누락 시 throw 하고, `auth.admin.listUsers` 는
-    //    권한·네트워크로 실패할 수 있다. 감싸지 않으면 `/admin` 이 통째로 500 이 된다.
-    //    다만 실패를 **0 으로 바꾸지는 않는다** — `null` 로 올려 보내면 화면이
-    //    "못 쟀음" 이라고 말한다(0 과 구별 불가한 폴백은 이 리포의 지배적 결함 유형이다).
+    //    `createAdminClient()` 는 env 누락 시 throw 하고, 활동 표 조회는 권한·네트워크로 실패할 수 있다.
+    //    다만 실패를 **0 으로 바꾸지는 않는다** — `null` 로 올려 보내면 화면이 "못 쟀음" 이라고 말한다.
     return null
   }
 }
 
-/**
- * 운영 역할(admin·curator) 계정 ID. 역할 판정에 필요한 것은 이 집합뿐이라 **그 역할만 필터해 읽는다** —
- * 전체 프로필을 페이지로 훑지 않는다(OFFSET 페이징 예산 · `offset-paging-budget.test.ts`, T-0007).
- * 운영 계정이 상한에 닿으면 잘렸을 수 있으므로 집계를 포기한다(throw → 상위 catch → null = 못 쟀음).
- * 역할을 못 읽은 채 계속하면 운영자가 미분류로 남아 수는 맞아 보여도 근거가 틀린다.
- */
-export const OPERATOR_FETCH_CAP = 1000
-
-async function fetchOperatorIds(admin: ReturnType<typeof createAdminClient>): Promise<Set<string>> {
-  const { data, error } = await admin
-    .from('user_profiles')
-    .select('user_id')
-    .in('role', [...INTERNAL_ROLES])
-    .limit(OPERATOR_FETCH_CAP)
-  if (error || !data) throw new Error(`retention 운영 역할 조회 실패: ${error?.message ?? 'no data'}`)
-  if (data.length >= OPERATOR_FETCH_CAP) throw new Error('retention 운영 역할 계정이 조회 상한에 닿았다 — 잘렸을 수 있어 집계 포기')
-  return new Set((data as Array<{ user_id: string }>).map((p) => p.user_id))
-}
-
-async function computeFromDb(parsed: Exclude<ReturnType<typeof parseAccountRegistry>, { status: 'invalid' }>): Promise<RetentionResult | null> {
+async function computeFromDb(env: Record<string, string | undefined>): Promise<RetentionResult | null> {
+  // 분류 설정 오류는 DB 를 읽기 전에 멈춘다 — 「계산 불가 + 사유」(0 이 아니다)
+  const parsed = parseAccountRegistry(env[INTERNAL_IDS_ENV], env[EXTERNAL_IDS_ENV])
+  if (parsed.status === 'invalid') return { status: 'unavailable', reason: 'registry_invalid', errors: parsed.errors }
   const admin = createAdminClient()
-
-  // ⚠️ 여기도 `perPage: 1000` 한 장만 받고 있었다 — 아래 `pagedSelect` 가 고친 것과
-  //    **똑같은 결함**이 가입자 목록에만 남아 있었다. 가입자가 1,000을 넘는 순간
-  //    리텐션의 **분모**가 조용히 잘린다(코호트가 작아 보이고 재방문율은 부풀어 오른다).
-  //    지금 가입자가 3명이라 잠복해 있을 뿐이고, 이 수치는 분기 진단이 근거로 쓴다.
-  //    `listUsers` 는 PostgREST 가 아니라 Auth API 라 `pagedSelect` 를 못 쓴다 — 직접 넘긴다.
-  const AUTH_PAGE = 1000
-  // email 은 **서버 안에서 도메인 힌트로만** 쓴다 — 결과에는 수만 남는다.
-  const users: { id: string; created_at: string; email?: string | null }[] = []
-  for (let page = 1; ; page += 1) {
-    const { data, error } = await admin.auth.admin.listUsers({ page, perPage: AUTH_PAGE })
-    if (error || !data) return null
-    users.push(...(data.users as { id: string; created_at: string; email?: string | null }[]))
-    if (data.users.length < AUTH_PAGE) break
-    // 방어적 상한 — 무한 루프로 admin 화면을 세우지 않는다. 넘으면 못 쟀다고 말한다.
-    if (page >= 100) {
-      console.warn('[retention] 가입자 목록이 100페이지를 넘는다 — 집계를 포기한다')
-      return null
-    }
-  }
-  const userList = { users }
+  // 계정 cohort(가입자 전 페이지 · 운영 역할 · 분류)는 공용 조회부가 정한다 — 지표마다 다른 판정을 두지 않는다(T-0084)
+  const cohort = await fetchAccountCohort(admin, env)
+  if (cohort.status !== 'ok') return null
 
   // ⚠️ 여기 있던 `.limit(100_000)` 은 **1,000행에서 잘렸다** — PostgREST 가 그 위를
-  //    안 준다(실측 2026-08-30). 리텐션은 "며칠에 걸쳐 돌아왔나" 를 세는 지표라,
-  //    잘리면 **최근 1,000건만 보고** 재방문을 계산한다 — 학습이 쌓일수록 더 크게 틀린다.
-  //    (이 화면은 분기 진단이 근거로 쓰는 수치다 — 틀린 채로 결정에 들어간다.)
-  //    페이지는 기본키 `id` 오름차순으로 고정한다 — PostgREST 는 order 없이 순서를 보장하지 않아
-  //    1,000행을 넘기면 페이지 사이에 행이 빠지거나 겹친다(T-0008).
-  const [lr, sc, operators] = await Promise.all([
+  //    안 준다(실측 2026-08-30). 페이지는 기본키 `id` 오름차순으로 고정한다(T-0008).
+  const [lr, sc] = await Promise.all([
     pagedSelect<{ user_id: string | null; attempted_at: string | null }>(
       (lo, hi) => admin.from('learning_records').select('user_id, attempted_at').order('id', { ascending: true }).range(lo, hi),
       'retention learning_records',
@@ -122,9 +73,7 @@ async function computeFromDb(parsed: Exclude<ReturnType<typeof parseAccountRegis
       (lo, hi) => admin.from('scores').select('user_id, created_at').order('id', { ascending: true }).range(lo, hi),
       'retention scores',
     ),
-    fetchOperatorIds(admin),
   ])
-  const roleOf = new Map([...operators].map((id) => [id, 'admin' as const]))
 
   // 두 출처를 합친다 — 한쪽만 보면 조용히 틀린다(받아쓰기·게임은 scores,
   // 플래시카드류는 learning_records 에 남는다).
@@ -135,26 +84,15 @@ async function computeFromDb(parsed: Exclude<ReturnType<typeof parseAccountRegis
     set.add(kstDay(iso))
     byUser.set(userId, set)
   }
-  for (const r of (lr ?? []) as Array<{ user_id: string | null; attempted_at: string | null }>) {
-    add(r.user_id, r.attempted_at)
-  }
-  for (const r of (sc ?? []) as Array<{ user_id: string | null; created_at: string | null }>) {
-    add(r.user_id, r.created_at)
-  }
+  for (const r of (lr ?? []) as Array<{ user_id: string | null; attempted_at: string | null }>) add(r.user_id, r.attempted_at)
+  for (const r of (sc ?? []) as Array<{ user_id: string | null; created_at: string | null }>) add(r.user_id, r.created_at)
 
-  // 계정 분류 → **검증된 외부 계정만** 리텐션 계산에 넣는다. 내부·미분류의 학습은 분모·분자 모두에서 빠진다.
-  const classified = userList.users.map((u) => ({ u, c: classifyAccount({ id: u.id, role: roleOf.get(u.id) ?? null, email: u.email ?? null }, parsed.registry) }))
-  const learners: LearnerActivity[] = classified
-    .filter(({ c }) => c.cls === 'external_verified')
-    .map(({ u }) => ({
-      userId: u.id,
-      signupDay: kstDay(u.created_at),
-      activeDays: [...(byUser.get(u.id) ?? [])].sort(),
-    }))
+  // **검증된 외부 계정만** 리텐션 계산에 넣는다. 내부·미분류의 학습은 분모·분자 모두에서 빠진다.
+  const learners: LearnerActivity[] = cohort.verifiedUsers.map((u) => ({
+    userId: u.id,
+    signupDay: kstDay(u.created_at),
+    activeDays: [...(byUser.get(u.id) ?? [])].sort(),
+  }))
 
-  return {
-    status: 'ok',
-    accounts: summarizeAccounts(classified.map(({ c }) => c), parsed.status),
-    report: computeRetention(learners, kstToday()),
-  }
+  return { status: 'ok', accounts: cohort.accounts, report: computeRetention(learners, kstToday()) }
 }

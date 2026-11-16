@@ -1,0 +1,37 @@
+{
+ "batch": "r5r6-fix",
+ "input_sha256": "e76ad48f011400ba8bc67b9ee33f0cb0cbf426e8f1c92e1d0ac896b50a16c5f2",
+ "items": 8,
+ "items_missing": 0,
+ "pairs": 16,
+ "agreement": 0.375,
+ "kappa": -0.2308,
+ "source_defect_items": [],
+ "per_task": {
+  "r.central_meaning": {
+   "n": 8,
+   "direct_binary_kappa": null,
+   "agreement": 0.5,
+   "kappa": 0,
+   "not_applicable": 4,
+   "disputed": 4
+  },
+  "r.inference": {
+   "n": 8,
+   "direct_binary_kappa": 0,
+   "agreement": 0.25,
+   "kappa": -0.0435,
+   "disputed": 6,
+   "indirect": 1,
+   "not_applicable": 1
+  }
+ },
+ "review_T0089": {
+  "sampled": 0,
+  "note": "R1 direct 표본 30 중 관련성 confirmed 29 · unclear 1(후보 내림). 계약 위반(인접 TASK 오정의 · 유형 지름길)은 관련성 값이 아니라 설명 문장의 결함 — 이 배치의 task_distinction 은 근거로 쓰지 않는다(청크에 인접 정의가 없었다)."
+ },
+ "task_distinction_reliable": true,
+ "human_review": 0,
+ "student_measurement": 0,
+ "note": "두 AI 판정의 일치는 사람 검수 · 학생 성취가 아니다. relevance 는 전부 unknown — 일치한 direct·indirect 만 candidateRelevance(R1)."
+}

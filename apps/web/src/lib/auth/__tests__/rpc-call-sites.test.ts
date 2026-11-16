@@ -35,6 +35,42 @@ const ALLOWED_DYNAMIC = new Set([
   'app/api/lcp/dev-process/route.ts',
 ])
 
+/** Story 어댑터의 전달부 한 줄 — 예외는 이 줄에만 걸린다(같은 파일의 helper 변수 호출은 위반으로 남는다). */
+const FORWARD = 'res = await client.r' + 'pc(fn, args)'
+
+/**
+ * 전달(pass-through) 어댑터 · 테스트 대역 — 함수 이름을 정하지 않고 받은 (fn, args) 를 그대로 넘기기만 한다.
+ * 실제 이름은 호출부(예: factory-bridge/dcp-supply.ts 의 call(client, '<리터럴>', …))에 있다. 이유 필수.
+ */
+const PASS_THROUGH: ReadonlyArray<{ file: string; why: string; forward?: string }> = [
+  { file: 'lib/admin/dcp-admission.ts', why: '관리자 세션을 SupplyClient 로 감싸는 어댑터 — 이름은 dcp-supply.ts 의 리터럴 호출부가 정한다(미설치 PGRST202 표시만 더함)' },
+  { file: 'app/api/csat/factory/__tests__/factory-routes.test.ts', why: '테스트 대역 — 세션 클라이언트 rpc 를 테스트 상태로 넘긴다' },
+  { file: 'lib/csat/map/v62/factory-bridge/__tests__/reassess-plan.pglite.test.ts', why: '테스트 대역 — 계획 저장 RPC 외 호출을 PGlite 가짜 클라이언트로 넘긴다' },
+  { file: 'lib/library/story/admin.ts', why: 'callStoryRpc 오류·형식 처리 어댑터 — 이름은 admin.ts·witness.ts 의 callStoryRpc(client, \'<리터럴>\', …) 호출부가 정한다', forward: FORWARD },
+  { file: 'lib/library/story/learner.ts', why: 'callRpc 오류·형식 처리 어댑터 — 이름은 learner.ts·activity.ts 의 callRpc(client, \'<리터럴>\', …) 호출부가 정한다', forward: FORWARD },
+  { file: 'lib/library/story/save-word.ts', why: '파일 내부 rpc 오류·형식 처리 어댑터 — 이름은 같은 파일의 rpc(client, \'<리터럴>\', …) 호출부가 정한다', forward: FORWARD },
+]
+/** 변수 이름 호출 중 예외에 해당하지 않는 것. forward 가 있는 전달 예외는 그 정확한 줄만 면제한다. */
+function offendersOf(sites: ReadonlyArray<CallSite>): CallSite[] {
+  return sites.filter((s) => {
+    if (s.name !== null || ALLOWED_DYNAMIC.has(s.file)) return false
+    const pass = PASS_THROUGH.find((p) => p.file === s.file)
+    if (!pass) return true
+    return pass.forward !== undefined && s.raw !== pass.forward
+  })
+}
+
+/**
+ * 전달 어댑터의 호출부 — `helper(client, '<리터럴>', …)` 의 둘째 인자를 RPC 이름으로 수집한다.
+ * 범위는 helper 를 정의·사용하는 Story 파일로 좁힌다(다른 곳의 같은 함수 이름을 RPC 로 추정하지 않는다).
+ * 둘째 인자가 변수면 이름 null — `.rpc(변수)` 와 똑같이 위반이다.
+ */
+const STORY_HELPERS: ReadonlyArray<{ helper: string; files: ReadonlyArray<string> }> = [
+  { helper: 'callStoryRpc', files: ['lib/library/story/admin.ts', 'lib/library/story/witness.ts'] },
+  { helper: 'callRpc', files: ['lib/library/story/learner.ts', 'lib/library/story/activity.ts'] },
+  { helper: 'rpc', files: ['lib/library/story/save-word.ts'] },
+]
+
 function walk(dir: string, out: string[] = []): string[] {
   for (const entry of readdirSync(dir)) {
     if (entry === 'node_modules' || entry === '.next') continue
@@ -59,24 +95,102 @@ interface CallSite {
   raw: string
 }
 
-function collectRpcCallSites(): CallSite[] {
+/** 한 파일의 호출부 — `.rpc(이름…)` 과, 그 파일이 STORY_HELPERS 범위면 `helper(client, 이름…)`. */
+function collectFileSites(rel: string, source: string): CallSite[] {
   const sites: CallSite[] = []
-  for (const file of walk(SRC_ROOT)) {
-    const rel = relative(SRC_ROOT, file).replace(/\\/g, '/')
-    const lines = readFileSync(file, 'utf8').split('\n')
-    lines.forEach((line, i) => {
-      if (isCommentLine(line)) return
-      // `.rpc(` 뒤의 첫 인자만 본다
-      const re = /\.rpc\(\s*(['"`]?)([A-Za-z0-9_$]+)\1/g
-      let m: RegExpExecArray | null
-      while ((m = re.exec(line)) !== null) {
-        const quoted = m[1] === "'" || m[1] === '"'
-        sites.push({ file: rel, line: i + 1, name: quoted ? m[2] : null, raw: line.trim() })
-      }
-    })
+  const helpers = STORY_HELPERS.filter((h) => h.files.includes(rel)).map((h) => h.helper)
+  source.split('\n').forEach((line, i) => {
+    if (isCommentLine(line)) return
+    const push = (q: string, id: string) =>
+      sites.push({ file: rel, line: i + 1, name: q === "'" || q === '"' ? id : null, raw: line.trim() })
+    // `.rpc(` 뒤의 첫 인자만 본다
+    const re = /\.rpc\(\s*(['"`]?)([A-Za-z0-9_$]+)\1/g
+    let m: RegExpExecArray | null
+    while ((m = re.exec(line)) !== null) push(m[1], m[2])
+  })
+  // helper 호출은 파일 전체 텍스트에서 본다 — 여러 줄에 걸친 `helper(\n client,\n 이름,` 도 잡는다.
+  // 정의(`helper(client: …`)·메서드(`.helper(`)는 걸리지 않는다. 둘째 인자 **전체**가 문자열 리터럴 하나이고
+  // 바로 뒤가 `,`/`)` 일 때만 이름이다 — `'story_' + suffix` 같은 결합·변수는 null(위반).
+  const lines = source.split('\n')
+  const lineAt = (index: number) => source.slice(0, index).split('\n').length
+  for (const helper of helpers) {
+    const hre = new RegExp(`(?<![.\\w$])${helper}\\(\\s*[A-Za-z0-9_$.]+\\s*,\\s*`, 'g')
+    let m: RegExpExecArray | null
+    while ((m = hre.exec(source)) !== null) {
+      const line = lineAt(m.index)
+      if (isCommentLine(lines[line - 1])) continue
+      const lit = /^(['"])([A-Za-z0-9_$]+)\1\s*[,)]/.exec(source.slice(hre.lastIndex))
+      sites.push({ file: rel, line, name: lit ? lit[2] : null, raw: lines[line - 1].trim() })
+    }
   }
-  return sites
+  return sites.sort((a, b) => a.line - b.line)
 }
+
+function collectRpcCallSites(): CallSite[] {
+  return walk(SRC_ROOT).flatMap((file) =>
+    collectFileSites(relative(SRC_ROOT, file).replace(/\\/g, '/'), readFileSync(file, 'utf8')),
+  )
+}
+
+describe('Story 전달 어댑터 호출부 수집 (fixture)', () => {
+  it('세 어댑터 파일에서도 helper 변수 호출은 위반으로 남고 전달부 한 줄만 면제된다', () => {
+    const cases: ReadonlyArray<[string, string]> = [
+      ['lib/library/story/admin.ts', 'callStoryRpc'],
+      ['lib/library/story/learner.ts', 'callRpc'],
+      ['lib/library/story/save-word.ts', 'rpc'],
+    ]
+    for (const [file, helper] of cases) {
+      const src = ['    ' + FORWARD, `  const x = await ${helper}(client, fnName, {})`, '  const y = await client.r' + 'pc(other, {})'].join('\n')
+      expect(offendersOf(collectFileSites(file, src)).map((s) => s.line), file).toEqual([2, 3])
+    }
+  })
+
+  it('helper 리터럴은 이름으로, 변수는 null 로 잡는다', () => {
+    const src = [
+      "const a = await callRpc(deps.client, 'story_catalog', {})",
+      'const b = await callRpc(client, fnName, {})',
+      'export async function callRpc(',
+      '  res = await client.r' + 'pc(fn, args)',
+    ].join('\n')
+    expect(collectFileSites('lib/library/story/learner.ts', src).map((s) => s.name)).toEqual(['story_catalog', null, null])
+  })
+
+  it('여러 줄에 걸친 helper 호출도 수집한다 (리터럴은 이름, 변수는 위반)', () => {
+    const src = [
+      'const a = await callRpc(',
+      '  deps.client,',
+      "  'story_catalog',",
+      '  {},',
+      ')',
+      'const b = await callRpc(',
+      '  client,',
+      '  fnName,',
+      '  {})',
+    ].join('\r\n')
+    const sites = collectFileSites('lib/library/story/learner.ts', src)
+    expect(sites.map((s) => [s.line, s.name])).toEqual([[1, 'story_catalog'], [6, null]])
+    expect(offendersOf(sites).map((s) => s.line)).toEqual([6])
+  })
+
+  it('둘째 인자가 리터럴 하나가 아니면(결합·템플릿) 이름으로 읽지 않는다', () => {
+    const src = [
+      "callRpc(client, 'story_' + suffix, {})",
+      'callRpc(client, `story_${x}`, {})',
+      "callRpc(client, 'story_catalog')",
+    ].join('\n')
+    expect(collectFileSites('lib/library/story/learner.ts', src).map((s) => s.name)).toEqual([null, null, 'story_catalog'])
+  })
+
+  it('범위 밖 파일의 같은 함수 이름은 RPC 로 추정하지 않는다', () => {
+    expect(collectFileSites('lib/other/x.ts', "callRpc(client, 'not_rpc', {})")).toEqual([])
+    expect(collectFileSites('lib/library/story/admin.ts', "callRpc(client, 'x', {})")).toEqual([])
+  })
+
+  it('가짜 응답 handler(h.respond)·메서드 호출은 잡지 않는다', () => {
+    expect(collectFileSites('lib/library/story/save-word.ts', 'return h.respond(args)\nfoo.rpc2(x)')).toEqual([])
+    expect(collectFileSites('lib/library/story/save-word.ts', "await rpc(client, 'lookup_word_meaning', {})").map((s) => s.name)).toEqual(['lookup_word_meaning'])
+  })
+})
 
 describe('RPC 호출 이름은 정적으로 수집 가능해야 한다', () => {
   const sites = collectRpcCallSites()
@@ -87,14 +201,25 @@ describe('RPC 호출 이름은 정적으로 수집 가능해야 한다', () => {
   })
 
   it('rpc() 에 변수를 넘기지 않는다 (예외는 리터럴 배열 순회뿐)', () => {
-    const offenders = sites
-      .filter((s) => s.name === null && !ALLOWED_DYNAMIC.has(s.file))
+    const offenders = offendersOf(sites)
       .map((s) => `${s.file}:${s.line}  ${s.raw}`)
 
     expect(
       offenders,
       `rpc() 에 변수를 넘긴 곳이 있다. 리터럴로 펴야 권한 감사가 이 함수를 "사용 중" 으로 인식한다:\n${offenders.join('\n')}`,
     ).toEqual([])
+  })
+
+  it('전달 예외는 실제 파일 · 실제 (fn, args) 전달만 가리키고 이유가 있다', () => {
+    for (const { file, why, forward } of PASS_THROUGH) {
+      expect(why.trim().length, `${file} 예외에 이유가 없다`).toBeGreaterThan(10)
+      const src = readFileSync(join(SRC_ROOT, file), 'utf8')
+      expect(src, `${file} 에 (fn, args) 전달이 없다 — 낡은 예외는 지울 것`).toContain(['.rpc', '(fn, args)'].join(''))
+      if (forward !== undefined) {
+        const hits = src.split('\n').filter((l) => l.trim() === forward).length
+        expect(hits, `${file} 의 전달부 「${forward}」 는 정확히 한 줄이어야 한다`).toBe(1)
+      }
+    }
   })
 
   it('예외로 허용한 파일은 실제로 리터럴 as const 배열을 순회한다', () => {
@@ -121,6 +246,19 @@ describe('RPC 호출 이름은 정적으로 수집 가능해야 한다', () => {
     const names = new Set(sites.map((s) => s.name).filter(Boolean))
     expect(names).toContain('admin_requeue_article')
     expect(names).toContain('admin_archive_article')
+  })
+
+  it('Story 실제 RPC 가 전달 어댑터 호출부에서 수집된다', () => {
+    const names = new Set(sites.map((s) => s.name).filter(Boolean))
+    for (const fn of [
+      'story_catalog', // learner callRpc
+      'story_admin_publish', // admin callStoryRpc
+      'story_service_attest_validation', // witness callStoryRpc
+      'lookup_word_meaning', // save-word rpc
+      'story_unit_activity', // activity callRpc
+    ]) {
+      expect(names, `${fn} 이 Story 호출부에서 수집되지 않는다`).toContain(fn)
+    }
   })
 
   it('수집된 이름은 RPC 이름 형태다 (오탐 방지)', () => {

@@ -7,6 +7,7 @@
 // 분석이 새 버전이 되면 그 문항의 탐구 데이터는 stale 로 빠지고, 화면은 기존 분석 블록만 보인다(옛 설명을 최신처럼 보이지 않는다).
 // 계약: docs/csat-learner/ITEM_INQUIRY_V2_CONTRACT.md
 
+import { createHash } from 'node:crypto'
 import data from '../inquiry-data.json'
 
 import type { InquiryRecord } from './labels'
@@ -15,6 +16,25 @@ export type { InquiryDistractor, InquiryPrinciple, InquiryRecord, Truth } from '
 
 const RECORDS = (data as { items: Record<string, InquiryRecord> }).items
 
+// T-0137 DATA_STATUS.json의 기존 공개 분석 스냅샷. 새 내용·승인으로 승격하지 않는다.
+const TRANSFER_34_SHA = 'fbe006f6d7a9d9fb976bc4e279b5d60fad8df762b1442b61d5629c3a0e0bb5e4'
+function canonical(value: unknown): string {
+  if (Array.isArray(value)) return `[${value.map(canonical).join(',')}]`
+  if (value && typeof value === 'object') {
+    const o = value as Record<string, unknown>
+    return `{${Object.keys(o).sort().map((k) => `${JSON.stringify(k)}:${canonical(o[k])}`).join(',')}}`
+  }
+  return JSON.stringify(value)
+}
+
+/** 34 전용 표시의 결속 검사. 원본은 불변이고 다른 문항에는 아무 표시도 추가하지 않는다. */
+export function projectInteraction34(itemId: string, record: InquiryRecord): InquiryRecord {
+  if (itemId !== '2026#34' || !record.v3) return record
+  const matches = record.review === 'verified' && record.analysis_version === 5
+    && createHash('sha256').update(canonical(record), 'utf8').digest('hex') === TRANSFER_34_SHA
+  return { ...record, v3: { ...record.v3, interaction34: { state: matches ? 'ready' : 'VERIFICATION_FAILED', analysisVersion: record.analysis_version } } }
+}
+
 export type InquiryLookup = { state: 'ready'; record: InquiryRecord } | { state: 'stale' } | { state: 'missing' }
 
 /** 문항 · 분석 버전 → 탐구 데이터. 버전이 다르면 stale(보이지 않는다), 없으면 missing. */
@@ -22,7 +42,7 @@ export function lookupInquiry(itemId: string, analysisVersion: number | null): I
   const r = RECORDS[itemId]
   if (!r) return { state: 'missing' }
   if (analysisVersion == null || r.analysis_version !== analysisVersion) return { state: 'stale' }
-  return { state: 'ready', record: r }
+  return { state: 'ready', record: projectInteraction34(itemId, r) }
 }
 
 /** 문항의 공개 v3 결속(문장 분할 · 분석 버전) — 비교 쌍이 쓸 때와 지금이 같은지 볼 때. 공개 탐구가 없으면 null */

@@ -1,0 +1,1037 @@
+{
+ "handoff": {
+  "R5_direct": {
+   "status": "handoff_lower_bound",
+   "xmodel_r1_direct_kept": "23/23",
+   "codex_only_direct": 13,
+   "note": "두 Claude 가 일치한 direct 는 Codex 도 direct — 정밀. Claude 는 R5 direct 를 덜 잡아(빈칸 · 무관 문장) 배점은 하한이다"
+  },
+  "R6_direct": {
+   "status": "hold_cross_model",
+   "xmodel_r1_direct_kept": "13/19",
+   "note": "빈칸 문항에서 정답이 본문에 재진술되면 Codex 는 R5 · R6 무관, Claude 는 R6 — RULES_V2 §8-7 경계 결정 전 인계 금지"
+  },
+  "R5_indirect": {
+   "status": "hold",
+   "note": "indirect 경계는 모델 간 체계적 반대(README §9)"
+  }
+ },
+ "note": "R1(두 독립 AI 일치) 후보 — 사람 검수 0 · relevance=unknown. 문항 수 · 배점은 독해 범위(18–45)만. 한 문항이 R5 · R6 에 함께 걸리면 각 TASK 에 센다(문항 배점을 TASK 간 합산하지 않는다).",
+ "exams": {
+  "2015": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 8,
+    "points": 16,
+    "ids": [
+     "2015#18",
+     "2015#20",
+     "2015#21",
+     "2015#22",
+     "2015#23",
+     "2015#35",
+     "2015#40",
+     "2015#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 4,
+    "points": 12
+   },
+   "R6_direct": {
+    "items": 4,
+    "points": 12,
+    "ids": [
+     "2015#31",
+     "2015#32",
+     "2015#33",
+     "2015#42"
+    ]
+   },
+   "disputed_pairs": 9,
+   "source_defect_pairs": 2
+  },
+  "2016": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 8,
+    "points": 16,
+    "ids": [
+     "2016#18",
+     "2016#20",
+     "2016#21",
+     "2016#22",
+     "2016#23",
+     "2016#39",
+     "2016#40",
+     "2016#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 5,
+    "points": 15
+   },
+   "R6_direct": {
+    "items": 6,
+    "points": 17,
+    "ids": [
+     "2016#19",
+     "2016#31",
+     "2016#32",
+     "2016#33",
+     "2016#34",
+     "2016#42"
+    ]
+   },
+   "disputed_pairs": 9,
+   "source_defect_pairs": 0
+  },
+  "2017": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 7,
+    "points": 14,
+    "ids": [
+     "2017#18",
+     "2017#20",
+     "2017#21",
+     "2017#22",
+     "2017#23",
+     "2017#40",
+     "2017#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 6,
+    "points": 17
+   },
+   "R6_direct": {
+    "items": 6,
+    "points": 17,
+    "ids": [
+     "2017#19",
+     "2017#31",
+     "2017#32",
+     "2017#33",
+     "2017#34",
+     "2017#42"
+    ]
+   },
+   "disputed_pairs": 6,
+   "source_defect_pairs": 0
+  },
+  "2018": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 7,
+    "points": 14,
+    "ids": [
+     "2018#18",
+     "2018#20",
+     "2018#21",
+     "2018#22",
+     "2018#23",
+     "2018#40",
+     "2018#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 6,
+    "points": 17
+   },
+   "R6_direct": {
+    "items": 5,
+    "points": 15,
+    "ids": [
+     "2018#31",
+     "2018#32",
+     "2018#33",
+     "2018#34",
+     "2018#42"
+    ]
+   },
+   "disputed_pairs": 9,
+   "source_defect_pairs": 2
+  },
+  "2019": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 7,
+    "points": 15,
+    "ids": [
+     "2019#18",
+     "2019#20",
+     "2019#22",
+     "2019#23",
+     "2019#24",
+     "2019#40",
+     "2019#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 5,
+    "points": 12
+   },
+   "R6_direct": {
+    "items": 5,
+    "points": 12,
+    "ids": [
+     "2019#21",
+     "2019#31",
+     "2019#32",
+     "2019#33",
+     "2019#34"
+    ]
+   },
+   "disputed_pairs": 9,
+   "source_defect_pairs": 2
+  },
+  "2020": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 8,
+    "points": 16,
+    "ids": [
+     "2020#18",
+     "2020#20",
+     "2020#22",
+     "2020#23",
+     "2020#24",
+     "2020#35",
+     "2020#40",
+     "2020#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 5,
+    "points": 14
+   },
+   "R6_direct": {
+    "items": 5,
+    "points": 13,
+    "ids": [
+     "2020#21",
+     "2020#31",
+     "2020#32",
+     "2020#33",
+     "2020#34"
+    ]
+   },
+   "disputed_pairs": 9,
+   "source_defect_pairs": 0
+  },
+  "2021": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 8,
+    "points": 17,
+    "ids": [
+     "2021#18",
+     "2021#20",
+     "2021#22",
+     "2021#23",
+     "2021#24",
+     "2021#35",
+     "2021#40",
+     "2021#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 5,
+    "points": 12
+   },
+   "R6_direct": {
+    "items": 5,
+    "points": 12,
+    "ids": [
+     "2021#21",
+     "2021#31",
+     "2021#32",
+     "2021#33",
+     "2021#34"
+    ]
+   },
+   "disputed_pairs": 9,
+   "source_defect_pairs": 4
+  },
+  "2022": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 7,
+    "points": 15,
+    "ids": [
+     "2022#18",
+     "2022#20",
+     "2022#22",
+     "2022#23",
+     "2022#24",
+     "2022#40",
+     "2022#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 7,
+    "points": 17
+   },
+   "R6_direct": {
+    "items": 5,
+    "points": 13,
+    "ids": [
+     "2022#21",
+     "2022#31",
+     "2022#32",
+     "2022#33",
+     "2022#34"
+    ]
+   },
+   "disputed_pairs": 5,
+   "source_defect_pairs": 2
+  },
+  "2023": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 7,
+    "points": 15,
+    "ids": [
+     "2023#18",
+     "2023#20",
+     "2023#22",
+     "2023#23",
+     "2023#24",
+     "2023#40",
+     "2023#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 6,
+    "points": 16
+   },
+   "R6_direct": {
+    "items": 5,
+    "points": 13,
+    "ids": [
+     "2023#21",
+     "2023#31",
+     "2023#32",
+     "2023#33",
+     "2023#34"
+    ]
+   },
+   "disputed_pairs": 9,
+   "source_defect_pairs": 0
+  },
+  "2024": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 7,
+    "points": 15,
+    "ids": [
+     "2024#18",
+     "2024#20",
+     "2024#22",
+     "2024#23",
+     "2024#24",
+     "2024#40",
+     "2024#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 5,
+    "points": 13
+   },
+   "R6_direct": {
+    "items": 5,
+    "points": 13,
+    "ids": [
+     "2024#21",
+     "2024#31",
+     "2024#32",
+     "2024#33",
+     "2024#34"
+    ]
+   },
+   "disputed_pairs": 6,
+   "source_defect_pairs": 2
+  },
+  "2025": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 7,
+    "points": 14,
+    "ids": [
+     "2025#18",
+     "2025#20",
+     "2025#22",
+     "2025#23",
+     "2025#24",
+     "2025#40",
+     "2025#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 4,
+    "points": 11
+   },
+   "R6_direct": {
+    "items": 5,
+    "points": 12,
+    "ids": [
+     "2025#19",
+     "2025#21",
+     "2025#31",
+     "2025#32",
+     "2025#33"
+    ]
+   },
+   "disputed_pairs": 14,
+   "source_defect_pairs": 0
+  },
+  "2026": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 7,
+    "points": 16,
+    "ids": [
+     "2026#18",
+     "2026#20",
+     "2026#22",
+     "2026#23",
+     "2026#24",
+     "2026#40",
+     "2026#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 3,
+    "points": 8
+   },
+   "R6_direct": {
+    "items": 7,
+    "points": 17,
+    "ids": [
+     "2026#19",
+     "2026#21",
+     "2026#24",
+     "2026#31",
+     "2026#32",
+     "2026#33",
+     "2026#34"
+    ]
+   },
+   "disputed_pairs": 2,
+   "source_defect_pairs": 0
+  },
+  "2014A": {
+   "reading_items": 23,
+   "reading_points": 53,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 5,
+    "points": 10,
+    "ids": [
+     "2014A#23",
+     "2014A#24",
+     "2014A#25",
+     "2014A#26",
+     "2014A#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 5,
+    "points": 14
+   },
+   "R6_direct": {
+    "items": 4,
+    "points": 12,
+    "ids": [
+     "2014A#33",
+     "2014A#34",
+     "2014A#35",
+     "2014A#42"
+    ]
+   },
+   "disputed_pairs": 2,
+   "source_defect_pairs": 0
+  },
+  "2014B": {
+   "reading_items": 23,
+   "reading_points": 53,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 5,
+    "points": 10,
+    "ids": [
+     "2014B#23",
+     "2014B#24",
+     "2014B#25",
+     "2014B#40",
+     "2014B#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 7,
+    "points": 19
+   },
+   "R6_direct": {
+    "items": 7,
+    "points": 19,
+    "ids": [
+     "2014B#31",
+     "2014B#32",
+     "2014B#33",
+     "2014B#34",
+     "2014B#35",
+     "2014B#36",
+     "2014B#42"
+    ]
+   },
+   "disputed_pairs": 3,
+   "source_defect_pairs": 0
+  },
+  "M1809": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 6,
+    "points": 12,
+    "ids": [
+     "M1809#20",
+     "M1809#21",
+     "M1809#22",
+     "M1809#23",
+     "M1809#40",
+     "M1809#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 6,
+    "points": 17
+   },
+   "R6_direct": {
+    "items": 5,
+    "points": 14,
+    "ids": [
+     "M1809#31",
+     "M1809#32",
+     "M1809#33",
+     "M1809#34",
+     "M1809#42"
+    ]
+   },
+   "disputed_pairs": 8,
+   "source_defect_pairs": 0
+  },
+  "M2006": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 6,
+    "points": 13,
+    "ids": [
+     "M2006#20",
+     "M2006#22",
+     "M2006#23",
+     "M2006#24",
+     "M2006#40",
+     "M2006#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 6,
+    "points": 14
+   },
+   "R6_direct": {
+    "items": 5,
+    "points": 12,
+    "ids": [
+     "M2006#21",
+     "M2006#31",
+     "M2006#32",
+     "M2006#33",
+     "M2006#34"
+    ]
+   },
+   "disputed_pairs": 7,
+   "source_defect_pairs": 0
+  },
+  "M2106": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 7,
+    "points": 14,
+    "ids": [
+     "M2106#18",
+     "M2106#20",
+     "M2106#22",
+     "M2106#23",
+     "M2106#24",
+     "M2106#40",
+     "M2106#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 7,
+    "points": 19
+   },
+   "R6_direct": {
+    "items": 5,
+    "points": 14,
+    "ids": [
+     "M2106#21",
+     "M2106#31",
+     "M2106#32",
+     "M2106#33",
+     "M2106#34"
+    ]
+   },
+   "disputed_pairs": 4,
+   "source_defect_pairs": 0
+  },
+  "M2109": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 7,
+    "points": 15,
+    "ids": [
+     "M2109#18",
+     "M2109#20",
+     "M2109#22",
+     "M2109#23",
+     "M2109#24",
+     "M2109#40",
+     "M2109#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 5,
+    "points": 12
+   },
+   "R6_direct": {
+    "items": 5,
+    "points": 12,
+    "ids": [
+     "M2109#21",
+     "M2109#31",
+     "M2109#32",
+     "M2109#33",
+     "M2109#34"
+    ]
+   },
+   "disputed_pairs": 5,
+   "source_defect_pairs": 0
+  },
+  "M2206": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 7,
+    "points": 15,
+    "ids": [
+     "M2206#18",
+     "M2206#20",
+     "M2206#22",
+     "M2206#23",
+     "M2206#24",
+     "M2206#40",
+     "M2206#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 5,
+    "points": 12
+   },
+   "R6_direct": {
+    "items": 5,
+    "points": 13,
+    "ids": [
+     "M2206#21",
+     "M2206#31",
+     "M2206#32",
+     "M2206#33",
+     "M2206#34"
+    ]
+   },
+   "disputed_pairs": 9,
+   "source_defect_pairs": 2
+  },
+  "M2209": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 6,
+    "points": 13,
+    "ids": [
+     "M2209#20",
+     "M2209#22",
+     "M2209#23",
+     "M2209#24",
+     "M2209#40",
+     "M2209#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 6,
+    "points": 15
+   },
+   "R6_direct": {
+    "items": 5,
+    "points": 13,
+    "ids": [
+     "M2209#21",
+     "M2209#31",
+     "M2209#32",
+     "M2209#33",
+     "M2209#34"
+    ]
+   },
+   "disputed_pairs": 11,
+   "source_defect_pairs": 0
+  },
+  "M2306": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 7,
+    "points": 15,
+    "ids": [
+     "M2306#20",
+     "M2306#22",
+     "M2306#23",
+     "M2306#24",
+     "M2306#35",
+     "M2306#40",
+     "M2306#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 7,
+    "points": 17
+   },
+   "R6_direct": {
+    "items": 5,
+    "points": 13,
+    "ids": [
+     "M2306#21",
+     "M2306#31",
+     "M2306#32",
+     "M2306#33",
+     "M2306#34"
+    ]
+   },
+   "disputed_pairs": 12,
+   "source_defect_pairs": 4
+  },
+  "M2309": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 8,
+    "points": 17,
+    "ids": [
+     "M2309#18",
+     "M2309#20",
+     "M2309#22",
+     "M2309#23",
+     "M2309#24",
+     "M2309#35",
+     "M2309#40",
+     "M2309#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 7,
+    "points": 18
+   },
+   "R6_direct": {
+    "items": 5,
+    "points": 13,
+    "ids": [
+     "M2309#21",
+     "M2309#31",
+     "M2309#32",
+     "M2309#33",
+     "M2309#34"
+    ]
+   },
+   "disputed_pairs": 4,
+   "source_defect_pairs": 0
+  },
+  "M2406": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 7,
+    "points": 15,
+    "ids": [
+     "M2406#18",
+     "M2406#20",
+     "M2406#22",
+     "M2406#23",
+     "M2406#24",
+     "M2406#40",
+     "M2406#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 8,
+    "points": 20
+   },
+   "R6_direct": {
+    "items": 5,
+    "points": 13,
+    "ids": [
+     "M2406#21",
+     "M2406#31",
+     "M2406#32",
+     "M2406#33",
+     "M2406#34"
+    ]
+   },
+   "disputed_pairs": 10,
+   "source_defect_pairs": 12
+  },
+  "M2409": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 7,
+    "points": 15,
+    "ids": [
+     "M2409#18",
+     "M2409#20",
+     "M2409#22",
+     "M2409#23",
+     "M2409#24",
+     "M2409#40",
+     "M2409#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 7,
+    "points": 17
+   },
+   "R6_direct": {
+    "items": 5,
+    "points": 13,
+    "ids": [
+     "M2409#21",
+     "M2409#31",
+     "M2409#32",
+     "M2409#33",
+     "M2409#34"
+    ]
+   },
+   "disputed_pairs": 4,
+   "source_defect_pairs": 0
+  },
+  "M2506": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 6,
+    "points": 13,
+    "ids": [
+     "M2506#20",
+     "M2506#22",
+     "M2506#23",
+     "M2506#24",
+     "M2506#40",
+     "M2506#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 8,
+    "points": 20
+   },
+   "R6_direct": {
+    "items": 5,
+    "points": 12,
+    "ids": [
+     "M2506#21",
+     "M2506#31",
+     "M2506#32",
+     "M2506#33",
+     "M2506#34"
+    ]
+   },
+   "disputed_pairs": 5,
+   "source_defect_pairs": 10
+  },
+  "M2509": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 6,
+    "points": 13,
+    "ids": [
+     "M2509#20",
+     "M2509#22",
+     "M2509#23",
+     "M2509#24",
+     "M2509#40",
+     "M2509#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 7,
+    "points": 17
+   },
+   "R6_direct": {
+    "items": 5,
+    "points": 12,
+    "ids": [
+     "M2509#21",
+     "M2509#31",
+     "M2509#32",
+     "M2509#33",
+     "M2509#34"
+    ]
+   },
+   "disputed_pairs": 7,
+   "source_defect_pairs": 0
+  },
+  "M2606": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 7,
+    "points": 14,
+    "ids": [
+     "M2606#18",
+     "M2606#20",
+     "M2606#22",
+     "M2606#23",
+     "M2606#24",
+     "M2606#40",
+     "M2606#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 7,
+    "points": 19
+   },
+   "R6_direct": {
+    "items": 5,
+    "points": 13,
+    "ids": [
+     "M2606#21",
+     "M2606#31",
+     "M2606#32",
+     "M2606#33",
+     "M2606#34"
+    ]
+   },
+   "disputed_pairs": 7,
+   "source_defect_pairs": 0
+  },
+  "M2609": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 8,
+    "points": 17,
+    "ids": [
+     "M2609#18",
+     "M2609#20",
+     "M2609#22",
+     "M2609#23",
+     "M2609#24",
+     "M2609#35",
+     "M2609#40",
+     "M2609#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 5,
+    "points": 13
+   },
+   "R6_direct": {
+    "items": 4,
+    "points": 10,
+    "ids": [
+     "M2609#21",
+     "M2609#31",
+     "M2609#33",
+     "M2609#34"
+    ]
+   },
+   "disputed_pairs": 9,
+   "source_defect_pairs": 0
+  },
+  "M2706": {
+   "reading_items": 28,
+   "reading_points": 63,
+   "points_unknown_items": 0,
+   "R5_direct": {
+    "items": 7,
+    "points": 14,
+    "ids": [
+     "M2706#20",
+     "M2706#22",
+     "M2706#23",
+     "M2706#24",
+     "M2706#35",
+     "M2706#40",
+     "M2706#41"
+    ]
+   },
+   "R5_indirect": {
+    "items": 1,
+    "points": 3
+   },
+   "R6_direct": {
+    "items": 5,
+    "points": 13,
+    "ids": [
+     "M2706#21",
+     "M2706#31",
+     "M2706#32",
+     "M2706#33",
+     "M2706#34"
+    ]
+   },
+   "disputed_pairs": 8,
+   "source_defect_pairs": 0
+  }
+ }
+}

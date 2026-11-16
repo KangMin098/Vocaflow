@@ -26,7 +26,7 @@ export function useSpeechSynthesis({ lang = 'en-US', rate = 0.9 }: UseSpeechSynt
         return
       }
 
-      if (window.speechSynthesis.speaking) {
+      if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
         window.speechSynthesis.cancel()
       }
 
@@ -43,8 +43,10 @@ export function useSpeechSynthesis({ lang = 'en-US', rate = 0.9 }: UseSpeechSynt
     [supported, lang, rate]
   )
 
+  // 취소는 재생 중(speaking)뿐 아니라 대기 중(pending — speak 뒤 onstart 전)인 문장도 포함한다.
+  // speaking 만 보면 대기 중이던 이전 문장이 단계·카드가 바뀐 뒤에 뒤늦게 시작된다.
   const cancel = useCallback(() => {
-    if (supported && window.speechSynthesis.speaking) {
+    if (supported && (window.speechSynthesis.speaking || window.speechSynthesis.pending)) {
       window.speechSynthesis.cancel()
     }
     setIsPlaying(false)
@@ -53,7 +55,7 @@ export function useSpeechSynthesis({ lang = 'en-US', rate = 0.9 }: UseSpeechSynt
   // Cleanup on unmount
   useEffect(() => {
     return () => {
-      if (supported && window.speechSynthesis.speaking) {
+      if (supported && (window.speechSynthesis.speaking || window.speechSynthesis.pending)) {
         window.speechSynthesis.cancel()
       }
     }

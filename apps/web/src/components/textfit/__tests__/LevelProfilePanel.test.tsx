@@ -51,7 +51,7 @@ describe('LevelProfilePanel — 렌더', () => {
     const p = buildLevelProfile([lv('a', 6, 7)], 100)
     const html = renderToString(<LevelProfilePanel profile={p} loading={false} />)
     expect(html).toContain('고2 · 수능 기본')
-    expect(html).toContain('편하게 읽혀요')
+    expect(html).toContain('검토해 볼 만한')
   })
 
   it('여덟 학년을 모두 글자로 낸다 — 색만으로 전달하지 않는다', () => {
@@ -142,10 +142,11 @@ describe('LevelProfilePanel — 렌더', () => {
     )
   })
 
-  it('교육과정을 넘는 지문은 그렇게 말한다 — 억지로 학년을 붙이지 않는다', () => {
+  it('기준에 닿는 학년이 없으면 확인 못 했다고 말한다 — 억지로 학년·난이도를 붙이지 않는다', () => {
     const p = buildLevelProfile([lv('a', 30, 11)], 100)
     const html = renderToString(<LevelProfilePanel profile={p} loading={false} />)
-    expect(html).toContain('학술 원서 수준')
+    expect(html).toContain('확인하지 못했어요')
+    expect(html).not.toContain('학술 원서 수준')
     expect(html).not.toContain('적정</span>')
   })
 })

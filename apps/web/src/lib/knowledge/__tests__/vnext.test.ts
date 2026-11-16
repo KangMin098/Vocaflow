@@ -65,7 +65,8 @@ describe('운영실 요약', () => {
       { id: 'b', itemId: 'e', status: 'active', surfaceRef: 'y', statusReason: null, trials: [{ status: 'planned', synthetic: true }] },
     ] })
     expect(s.queue[0].title).toContain('자동 중단된 적용 — x')
-    expect(s.queue.some((q) => q.title.includes('실제 학습자 검증 계획 없는 적용 — y'))).toBe(true)
+    expect(s.queue.some((q) => q.title.includes('비합성 검증 계획 없는 적용 — y'))).toBe(true)
+    expect(s.queue.some((q) => q.title.includes('실제 학습자'))).toBe(false) // 비합성 메타 ≠ 실제 참가자(T-0085)
   })
 })
 
