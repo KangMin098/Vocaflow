@@ -8,23 +8,47 @@
 //   DB 도 같은 이유로 `opened_at` · `collected_at` 을 따로 둔다.
 //
 // 규약: 진행 막대는 색만이 아니라 **숫자로도** 읽힌다(색맹 대응).
+//
+// 조회 실패는 0 과 다르다: 목록 실패(`failed`)는 빈 목록처럼 숨기지 않고, 집계 실패
+// (`progress: null`)는 과제는 그대로 보이되 인원·열람·담기 수·막대·학생 행동 문장을 그리지 않는다.
+//
+// 보낸 단어 확인(TEACHER-WORDS-01): 교사가 「보낸 단어 N개 확인」을 눌러야만 실제 저장된 `{w,m}` 목록 **전체**를 펼친다.
+//   createAssignment 의 정제로 처음 입력과 저장본이 다를 수 있어, 학생이 받은 그대로를 대조하게 한다.
+//   자르지 않는다(최대 200 — 목록 안 스크롤) · 뜻이 없으면 「함께 보내지지 않음」(사전 조회 · 보충 없음) ·
+//   행 하나라도 형식이 어긋나면 일부를 버려 "전체" 라 부르지 않고 목록 전체를 확인 불가로 닫는다.
+//   여닫기는 카드마다 로컬 상태뿐이다(네트워크 · Action · 기록 0). 목록은 늘 지금 props 에서 읽는다(캐시 없음).
 
 'use client'
 
-import { Send, Users } from 'lucide-react'
+import { ChevronDown, Send, Users } from 'lucide-react'
+import { useId, useState } from 'react'
 
 import type { AssignmentProgress, ClassAssignment } from '@/lib/teacher/assignment-actions'
 
 export interface SentAssignmentRow {
   assignment: ClassAssignment
-  progress: AssignmentProgress
+  /** `null` = 인원 또는 진도 조회 실패 — 0명으로 읽으면 안 된다. */
+  progress: AssignmentProgress | null
 }
 
 interface Props {
   rows: SentAssignmentRow[]
+  /** 목록 조회 실패 — 빈 목록이 "보낸 게 없다" 로 읽히지 않게 한다. */
+  failed?: boolean
 }
 
-export function SentAssignments({ rows }: Props) {
+export function SentAssignments({ rows, failed = false }: Props) {
+  if (failed) {
+    return (
+      <p
+        role="status"
+        className="break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 font-body text-[13.5px] text-[var(--t2)]"
+      >
+        보낸 과제를 불러오지 못했어요. 잠시 뒤 새로고침해 주세요.
+      </p>
+    )
+  }
+
   if (rows.length === 0) return null
 
   return (
@@ -33,6 +57,24 @@ export function SentAssignments({ rows }: Props) {
 
       <ul className="flex flex-col gap-3">
         {rows.map(({ assignment: a, progress: p }) => {
+          if (!p) {
+            return (
+              <li
+                key={a.id}
+                className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4"
+              >
+                <AssignmentHeading a={a} />
+                <SentWords key={a.id} a={a} />
+                <p
+                  role="status"
+                  className="m-0 break-keep font-body text-[12.5px] leading-[1.6] text-[var(--t2)]"
+                >
+                  지금은 수행 현황을 확인할 수 없어요. 잠시 뒤 새로고침해 주세요.
+                </p>
+              </li>
+            )
+          }
+
           const denom = Math.max(1, p.memberCount)
           const collectedPct = Math.min(100, (p.collectedCount / denom) * 100)
           const openedPct = Math.min(100, (p.openedCount / denom) * 100)
@@ -45,15 +87,7 @@ export function SentAssignments({ rows }: Props) {
               className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4"
             >
               <div className="flex flex-wrap items-start justify-between gap-2">
-                <div className="flex flex-col gap-1">
-                  <p className="m-0 flex items-center gap-2 font-display text-[14px] font-[700] text-[var(--t1)]">
-                    <Send size={13} aria-hidden className="text-[var(--t3)]" />
-                    {a.title}
-                  </p>
-                  <p className="m-0 font-body text-[12px] text-[var(--t3)]">
-                    {a.className} · 단어 {a.words.length}개
-                  </p>
-                </div>
+                <AssignmentHeading a={a} />
                 <p className="m-0 flex items-center gap-2 font-display text-[13px] font-[700] tabular-nums text-[var(--t1)]">
                   <Users size={13} aria-hidden className="text-[var(--t3)]" />
                   {p.collectedCount} / {p.memberCount}
@@ -92,10 +126,113 @@ export function SentAssignments({ rows }: Props) {
                   <>열어 본 학생은 모두 담았어요.</>
                 )}
               </p>
+
+              <SentWords key={a.id} a={a} />
             </li>
           )
         })}
       </ul>
     </section>
+  )
+}
+
+function AssignmentHeading({ a }: { a: ClassAssignment }) {
+  return (
+    <div className="flex min-w-0 flex-col gap-1">
+      <p className="m-0 flex min-w-0 items-center gap-2 break-keep font-display text-[14px] font-[700] text-[var(--t1)] [overflow-wrap:anywhere]">
+        <Send size={13} aria-hidden className="shrink-0 text-[var(--t3)]" />
+        {a.title}
+      </p>
+      <p className="m-0 break-keep font-body text-[12px] text-[var(--t3)] [overflow-wrap:anywhere]">
+        {a.className} · {(() => {
+          const r = readSentWords(a.words)
+          return r.ok ? `단어 ${r.words.length}개` : '단어 목록 확인 불가'
+        })()}
+      </p>
+    </div>
+  )
+}
+
+/** 보낸 단어 한 행 — 화면에 그리는 형태. 뜻이 없으면 null(함께 보내지지 않음). */
+export interface SentWord {
+  w: string
+  m: string | null
+}
+
+/**
+ * 저장된 과제 단어 목록을 읽는다. 배열이 아니거나 행 하나라도 형식이 어긋나면 `ok:false` —
+ * 일부만 골라 "전체 목록" 이라 부르지 않는다. 빈 배열은 형식이 맞는 0개(`ok:true`)다.
+ */
+export function readSentWords(words: unknown): { ok: true; words: SentWord[] } | { ok: false } {
+  if (!Array.isArray(words)) return { ok: false }
+  const out: SentWord[] = []
+  for (const r of words as unknown[]) {
+    if (typeof r !== 'object' || r === null) return { ok: false }
+    const { w, m } = r as { w?: unknown; m?: unknown }
+    if (typeof w !== 'string' || w.trim().length === 0) return { ok: false }
+    if (m != null && typeof m !== 'string') return { ok: false }
+    const meaning = typeof m === 'string' && m.trim().length > 0 ? m : null
+    out.push({ w, m: meaning })
+  }
+  return { ok: true, words: out }
+}
+
+function SentWords({ a }: { a: ClassAssignment }) {
+  const [open, setOpen] = useState(false)
+  const listId = useId()
+  const read = readSentWords(a.words)
+
+  if (!read.ok) {
+    return (
+      <p role="status" className="m-0 break-keep font-body text-[12.5px] leading-[1.6] text-[var(--t2)]" data-testid="sent-words-invalid">
+        보낸 단어 목록을 확인할 수 없어요 — 저장된 목록의 형식이 맞지 않아요.
+      </p>
+    )
+  }
+  if (read.words.length === 0) {
+    return (
+      <p className="m-0 break-keep font-body text-[12.5px] leading-[1.6] text-[var(--t2)]" data-testid="sent-words-empty">
+        저장된 단어가 없어요.
+      </p>
+    )
+  }
+
+  return (
+    <div className="flex flex-col gap-2">
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-controls={listId}
+        onClick={() => setOpen((o) => !o)}
+        data-testid="sent-words-toggle"
+        className="inline-flex min-h-11 items-center gap-1.5 self-start rounded-[var(--r-md)] px-2 font-display text-[12.5px] font-[700] text-[var(--t1)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1"
+      >
+        <ChevronDown size={14} aria-hidden className={open ? 'rotate-180' : ''} />
+        {open ? '보낸 단어 접기' : `보낸 단어 ${read.words.length}개 확인`}
+      </button>
+      {open ? (
+        <ol
+          id={listId}
+          tabIndex={0}
+          aria-label={`${a.title} — 보낸 단어 ${read.words.length}개`}
+          data-testid="sent-words-list"
+          className="m-0 flex max-h-[320px] list-none flex-col overflow-y-auto rounded-[var(--r-md)] border border-[var(--bd)] p-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        >
+          {read.words.map((x, i) => (
+            <li
+              key={i}
+              className="flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-0.5 border-b border-[var(--bd)] px-3 py-2 last:border-b-0"
+            >
+              <span className="min-w-0 font-display text-[13px] font-[700] text-[var(--t1)] [overflow-wrap:anywhere]">{x.w}</span>
+              {x.m ? (
+                <span className="min-w-0 break-keep font-body text-[12.5px] text-[var(--t2)] [overflow-wrap:anywhere]">{x.m}</span>
+              ) : (
+                <span className="break-keep font-body text-[12px] text-[var(--t3)]">뜻은 함께 보내지지 않음</span>
+              )}
+            </li>
+          ))}
+        </ol>
+      ) : null}
+    </div>
   )
 }

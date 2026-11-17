@@ -8,6 +8,8 @@
 import { redirect } from 'next/navigation'
 
 import { WordVaultStudyClient } from '@/components/wordvault/WordVaultStudyClient'
+import { WordVaultViewerGate } from '@/components/wordvault/WordVaultBrowseClient'
+import { vocabMapLink } from '@/lib/csat/map-return'
 import { vocabMapReturnHref } from '@/lib/csat/map-return'
 import { createClient } from '@/lib/supabase/server'
 import { vocabRowToWord, type BrowseWord } from '@/lib/wordvault/browse-queries'
@@ -41,5 +43,10 @@ export default async function WordVaultReviewPage({ searchParams = {} }: { searc
   }
   const words: BrowseWord[] = rows.map((r, i) => vocabRowToWord(r, i))
 
-  return <WordVaultStudyClient words={words} mode="review" {...(mapBack ? { mapBack, backHref: mapBack } : {})} />
+  // 개인 복습 단어 · 평가는 서버가 읽은 사람(user.id)의 것 — 브라우저 신원이 그 사람으로 긍정 확인될 때만 그린다(지도 문맥은 다시 열기에도 남긴다)
+  return (
+    <WordVaultViewerGate viewerId={user.id} reopenHref={mapBack ? vocabMapLink('/wordvault/review', mapBack) : '/wordvault/review'}>
+      <WordVaultStudyClient words={words} mode="review" viewerId={user.id} {...(mapBack ? { mapBack, backHref: mapBack } : {})} />
+    </WordVaultViewerGate>
+  )
 }

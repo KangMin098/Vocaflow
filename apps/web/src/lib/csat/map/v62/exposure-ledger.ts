@@ -1,7 +1,8 @@
 // apps/web/src/lib/csat/map/v62/exposure-ledger.ts
 //
 // 학습자 노출 원장 reader(읽기 전용 · 서버). assessment-exposure.ts 의 판정 입력을 만든다.
-// 원장 6개를 모두 읽는다 — G2 시도 · G2 세션(삭제 포함) · 함정 훈련 · 문제지 풀이 · 복습 큐 · 진단 응답(#281 E01: 앞의 둘만 세면 trap 노출이 빠진다).
+// 원장 7개를 모두 읽는다 — G2 시도 · G2 세션(삭제 포함) · 함정 훈련 · 문제지 풀이 · 복습 큐 · 진단 응답(#281 E01: 앞의 둘만 세면 trap 노출이 빠진다)
+//   · P6 learning_exposures(정답 직접 · 결정적 단서 — K6-b: 이것을 안 읽으면 판단 장면에서 정답을 연 문항이 unseen 으로 남는다). 표가 없거나 못 읽으면 error(정상 0건과 구별).
 // 원장 하나라도 실패하거나 창(LIMIT)을 채우면 status=error — 일부만 읽은 결과를 「미노출」 근거로 쓰지 않는다.
 // 지문 식별은 정규화(소문자 · 공백 하나) 해시 — 같은 지문을 공유한 다른 문항도 노출로 본다.
 import 'server-only'
@@ -33,39 +34,58 @@ export function normalizedPassageKey(passage: unknown): string | null {
   return createHash('sha256').update(value).digest('hex')
 }
 
-export async function loadExposureLedger(db: SupabaseClient, userId: string, candidates: readonly string[]): Promise<ExposureLedger> {
-  const [att, sess, trap, paper, queue, dx, dxs] = await Promise.all([
-    db.from('learning_task_attempts').select('item_ref, task_key, activity, phase, help_level, session_id, content_hash', { count: 'exact' }).eq('user_id', userId).not('item_ref', 'is', null).limit(LIMIT),
-    db.from('learning_sessions').select('id, item_ref, activity, phase, task_key, deleted_at', { count: 'exact' }).eq('user_id', userId).not('item_ref', 'is', null).limit(LIMIT),
-    db.from('csat_trap_attempts').select('item_id', { count: 'exact' }).eq('user_id', userId).limit(LIMIT),
-    db.from('csat_session_attempts').select('item_id', { count: 'exact' }).eq('user_id', userId).limit(LIMIT),
+export async function loadExposureLedger(db: SupabaseClient, userId: string, candidates: readonly string[], historical?: { sessionId: string; takenAt: string }): Promise<ExposureLedger> {
+  const [att, sess, trap, paper, queue, dx, dxs, p6] = await Promise.all([
+    db.from('learning_task_attempts').select('item_ref, task_key, activity, phase, help_level, session_id, content_hash' + (historical ? ', answered_at' : ''), { count: 'exact' }).eq('user_id', userId).not('item_ref', 'is', null).limit(LIMIT),
+    db.from('learning_sessions').select('id, item_ref, activity, phase, task_key, deleted_at' + (historical ? ', started_at, created_at' : ''), { count: 'exact' }).eq('user_id', userId).not('item_ref', 'is', null).limit(LIMIT),
+    db.from('csat_trap_attempts').select('item_id' + (historical ? ', answered_at' : ''), { count: 'exact' }).eq('user_id', userId).limit(LIMIT),
+    db.from('csat_session_attempts').select('item_id' + (historical ? ', answered_at' : ''), { count: 'exact' }).eq('user_id', userId).limit(LIMIT),
     db.from('csat_review_queue').select('item_id', { count: 'exact' }).eq('user_id', userId).limit(LIMIT),
-    db.from('csat_dx_response').select('item_id, csat_dx_session!inner(user_id)', { count: 'exact' }).eq('csat_dx_session.user_id', userId).not('item_id', 'is', null).limit(LIMIT),
+    db.from('csat_dx_response').select(historical ? 'item_id, session_id, csat_dx_session!inner(user_id, taken_at)' : 'item_id, csat_dx_session!inner(user_id)', { count: 'exact' }).eq('csat_dx_session.user_id', userId).not('item_id', 'is', null).limit(LIMIT),
     // 응시 회차 — 응답 item_id 가 NULL 이어도 그 시험을 본 것(시험 전체 노출). 후보 중 그 시험 문항을 노출로 넣는다
-    db.from('csat_dx_session').select('exam_id', { count: 'exact' }).eq('user_id', userId).limit(LIMIT),
+    db.from('csat_dx_session').select(historical ? 'id, exam_id, taken_at' : 'exam_id', { count: 'exact' }).eq('user_id', userId).limit(LIMIT),
+    // K6-b — P6 노출 원장(본인 행). 순서 판정은 서버 수신 시각(received_at)
+    db.from('learning_exposures').select('item_ref' + (historical ? ', received_at' : ''), { count: 'exact' }).eq('user_id', userId).limit(LIMIT),
   ])
-  const results: [ExposureSource, { data: unknown; error: unknown; count: number | null }][] = [['g2_attempt', att], ['g2_session', sess], ['trap', trap], ['paper', paper], ['review_queue', queue], ['dx_response', dx], ['dx_response', dxs]]
+  const results: [ExposureSource, { data: unknown; error: unknown; count: number | null }][] = [['g2_attempt', att], ['g2_session', sess], ['trap', trap], ['paper', paper], ['review_queue', queue], ['dx_response', dx], ['dx_response', dxs], ['p6', p6]]
   // PostgREST can cap rows below LIMIT. A missing count is not zero.
   const failed = results.filter(([, r]) => r.error || !Array.isArray(r.data) || r.count !== r.data.length || r.data.length >= LIMIT).map(([s]) => s)
   if (failed.length) return { status: 'error', failed }
   const events: ExposureEvent[] = []
-  for (const r of att.data as Row[]) {
-    const item = str(r.item_ref)
-    if (item) events.push(ev(item, 'g2_attempt', { taskKey: str(r.task_key), activity: str(r.activity), phase: str(r.phase), helpLevel: str(r.help_level), sessionId: str(r.session_id), contentHash: str(r.content_hash) }))
+  const uncertain: string[] = []
+  const add = (e: ExposureEvent, at: unknown, dateOnly = false) => {
+    if (!historical) { events.push(e); return }
+    if (typeof at !== 'string' || !Number.isFinite(Date.parse(at))) { uncertain.push(e.itemRef); return }
+    const start = Date.parse(`${historical.takenAt}T00:00:00+09:00`), end = start + 86400000
+    const t = dateOnly ? Date.parse(`${at}T00:00:00+09:00`) : Date.parse(at)
+    if (t < start) events.push(e)
+    else if (t < end) uncertain.push(e.itemRef) // The exam itself has only a calendar date, not an ordered start time.
   }
-  for (const r of sess.data as Row[]) {
+  for (const r of att.data as unknown as Row[]) {
     const item = str(r.item_ref)
-    if (item) events.push(ev(item, 'g2_session', { taskKey: str(r.task_key), activity: str(r.activity), phase: str(r.phase), sessionId: str(r.id), deleted: r.deleted_at !== null && r.deleted_at !== undefined }))
+    if (item) add(ev(item, 'g2_attempt', { taskKey: str(r.task_key), activity: str(r.activity), phase: str(r.phase), helpLevel: str(r.help_level), sessionId: str(r.session_id), contentHash: str(r.content_hash) }), r.answered_at)
+  }
+  for (const r of sess.data as unknown as Row[]) {
+    const item = str(r.item_ref)
+    if (item) add(ev(item, 'g2_session', { taskKey: str(r.task_key), activity: str(r.activity), phase: str(r.phase), sessionId: str(r.id), deleted: r.deleted_at !== null && r.deleted_at !== undefined }), r.started_at ?? r.created_at)
   }
   for (const [source, res] of [['trap', trap], ['paper', paper], ['review_queue', queue], ['dx_response', dx]] as const) {
     for (const r of res.data as Row[]) {
+      if (historical && source === 'dx_response' && r.session_id === historical.sessionId) continue
       const item = str(r.item_id)
-      if (item) events.push(ev(item, source))
+      const parent = Array.isArray(r.csat_dx_session) ? r.csat_dx_session[0] : r.csat_dx_session
+      if (item) add(ev(item, source), source === 'dx_response' ? (parent as Row | null)?.taken_at : r.answered_at, source === 'dx_response')
     }
   }
-  const takenExams = new Set((dxs.data as Row[]).map((r) => str(r.exam_id)).filter((x): x is string => !!x))
-  for (const c of candidates) if (takenExams.has(c.split('#')[0])) events.push(ev(c, 'dx_response'))
-  const refs = [...new Set([...candidates, ...events.map((e) => e.itemRef)])]
+  for (const r of p6.data as unknown as Row[]) {
+    const item = str(r.item_ref)
+    if (item) add(ev(item, 'p6'), r.received_at)
+  }
+  for (const r of dxs.data as unknown as Row[]) {
+    if (historical && r.id === historical.sessionId) continue
+    for (const c of candidates) if (r.exam_id === c.split('#')[0]) add(ev(c, 'dx_response'), r.taken_at, true)
+  }
+  const refs = [...new Set([...candidates, ...events.map((e) => e.itemRef), ...uncertain])]
   const exams = [...new Set(refs.map((x) => x.split('#')[0]).filter(Boolean))]
   const passageKeys: Record<string, string> = {}
   for (let i = 0; i < exams.length; i += 10) {
@@ -76,7 +96,9 @@ export async function loadExposureLedger(db: SupabaseClient, userId: string, can
       if (k) passageKeys[`${row.exam_id}#${row.no}`] = k
     }
   }
-  return { status: 'ok', events, passageKeys }
+  const candidatePassages = new Set(candidates.map(c => passageKeys[c]).filter(Boolean))
+  const timingUnknown = uncertain.some(ref => candidates.includes(ref) || !passageKeys[ref] || candidatePassages.has(passageKeys[ref]))
+  return { status: 'ok', events, passageKeys, ...(timingUnknown ? { passageUnknown: true as const } : {}) }
 }
 
 /** 원장 한 행(필요한 칸만) — DB-1 content_qualification */

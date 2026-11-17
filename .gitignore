@@ -286,3 +286,15 @@ scripts/csat/compare-drain/chunk-v3p-*.json
 
 # v3.1 원문 이해 교수 작성 입력 — 원문 포함. manifest · 작성 결과 · 검수만 커밋
 scripts/csat/meaning-support-drain/input-*.json
+
+# Generated isolated browser verification output
+apps/web/playwright-report-isolated/
+apps/web/tests/fixtures/factory-dcp-harness.html
+apps/web/tests/fixtures/factory-card-harness.html
+apps/web/tests/fixtures/fast-worksheet-harness.html
+apps/web/tests/fixtures/fast-harness-bundle.json
+apps/web/output/goal-schedule-*
+apps/web/output/goal-outcome-*
+
+# 학습 지도 데이터 확대 — 원문 · 정답이 든 로컬 입력(커밋 금지)
+scripts/csat/map/v62/data/local/

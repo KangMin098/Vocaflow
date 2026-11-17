@@ -55,6 +55,18 @@ async function readBound(learner: SupabaseClient, userId: string, id: string): P
   return row ? { status: 'bound', id: row.id, deliveryId: row.delivery_id, evidence: row.evidence, reason: row.non_evidence_reason } : { status: 'bound', id }
 }
 
+/** 결속 행이 가리키는 수행 id — 학습자 세션(RLS) + user_id + 결속 id 로만 읽는다. 조회 실패 · 없음 = null(특정 불가 · 추정하지 않는다) */
+export async function boundAttemptId(learner: SupabaseClient, userId: string, binding: BindingResult): Promise<string | null> {
+  if (binding.status !== 'bound' || !binding.id) return null
+  try {
+    const r = await learner.from('workspace_delivery_attempt').select('attempt_id').eq('user_id', userId).eq('id', binding.id).maybeSingle()
+    const v = (r.data as { attempt_id?: unknown } | null)?.attempt_id
+    return !r.error && v != null && /^[1-9][0-9]{0,18}$/.test(String(v)) ? String(v) : null
+  } catch {
+    return null
+  }
+}
+
 export async function bindDeliveryAttempt(
   learner: SupabaseClient,
   input: { userId: string; itemRef: string; clientMutationId: string; artifactKind?: 'csat_item' | 'authored_item'; deliveryId?: string | null },

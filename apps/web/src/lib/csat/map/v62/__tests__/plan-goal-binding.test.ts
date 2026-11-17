@@ -22,7 +22,7 @@ const request = () => new Request('http://owned.invalid/plan', { method: 'POST',
 }) })
 beforeEach(() => {
   vi.clearAllMocks()
-  h.data.mockResolvedValue({ model: { goal: 80, goalSet: true }, v4: { saved: { goalVersionId: 10 } } })
+  h.data.mockResolvedValue({ model: { goal: 80, goalSet: true }, v4: { saved: { goalVersionId: 10 } }, findAttempts: [], lifecycleActivity: [] }) // T-0078 — 정상 로드 = 읽힌 빈 원장
   h.saved.mockResolvedValue({ goalVersionId: 10 })
   h.build.mockReturnValue({ ok: true, templateTasks: [], canon: 'v6.2', plan: { order: [], tasks: [] }, asOf: '2026-10-16T00:00:00Z' })
   h.commit.mockResolvedValue({ ok: true, workspaceId: 'owned', version: 1, reused: false })

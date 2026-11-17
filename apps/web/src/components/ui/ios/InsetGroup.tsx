@@ -30,7 +30,7 @@ export function InsetGroup({
         </span>
       )}
       <div className="overflow-hidden rounded-ios-lg bg-[var(--bg2)]">
-        <div className="divide-y divide-[var(--bd)]/60 bg-[var(--bg)]">
+        <div className="divide-y divide-[color-mix(in_srgb,var(--bd)_60%,transparent)] bg-[var(--bg)]">
           {children}
         </div>
       </div>

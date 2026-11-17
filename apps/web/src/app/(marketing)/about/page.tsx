@@ -187,7 +187,7 @@ export default function AboutPage() {
         <ul className="mt-10 divide-y divide-[var(--bd)] border-y border-[var(--bd)]">
           {PROMISES.map((p) => (
             <li key={p.not} className="grid gap-2 py-6 md:grid-cols-[1fr_1.4fr] md:gap-10">
-              <p className="break-keep font-body text-[16px] text-[var(--ju)] line-through decoration-[var(--ju)]/50">{p.not}</p>
+              <p className="break-keep font-body text-[16px] text-[var(--ju)] line-through decoration-[color-mix(in_srgb,var(--ju)_50%,transparent)]">{p.not}</p>
               <p className="break-keep font-serif text-[20px] leading-[1.45] text-[var(--ju)]">{p.instead}</p>
             </li>
           ))}

@@ -82,3 +82,17 @@ export const MOCK_SESSION: QuizSession = {
     },
   ],
 }
+
+/**
+ * 데모 세션의 본문 — 채점 뒤 근거 문장 짚기(T-0193)용. 정답·근거 위치는 들어 있지 않다(근거는 여전히
+ * 채점 뒤 server action 이 문항 하나에 대해서만 준다). F. Scott Fitzgerald(1896–1940), 1925 — 국내 보호기간 만료.
+ * q5 의 근거 문장은 이 단락에 없다 — 본문에서 근거를 못 찾는 문항은 피커 없이 근거만 보여 준다.
+ */
+export const MOCK_PASSAGE = [
+  'In my younger and more vulnerable years my father gave me some advice that I’ve been turning over in my mind ever since.',
+  '“Whenever you feel like criticizing any one,” he told me, “just remember that all the people in this world haven’t had the advantages that you’ve had.”',
+  'He didn’t say any more, but we’ve always been unusually communicative in a reserved way, and I understood that he meant a great deal more than that.',
+  'In consequence, I’m inclined to reserve all judgments, a habit that has opened up many curious natures to me and also made me the victim of not a few veteran bores.',
+  'The abnormal mind is quick to detect and attach itself to this quality when it appears in a normal person, and so it came about that in college I was unjustly accused of being a politician, because I was privy to the secret griefs of wild, unknown men.',
+  'Most of the confidences were unsought—frequently I have feigned sleep, preoccupation, or a hostile levity when I realized by some unmistakable sign that an intimate revelation was quivering on the horizon.',
+].join(' ')

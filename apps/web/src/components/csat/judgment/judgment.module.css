@@ -1,0 +1,55 @@
+/* apps/web/src/components/csat/judgment/judgment.module.css */
+/* 공통 판단면 — PC 1280/1440 기준. 증거면(원문)과 판단면은 각자 스크롤하고, 연결은 표시 + 위치 칩으로만 한다 */
+.shell { display: grid; grid-template-columns: minmax(600px, 1.15fr) minmax(480px, 1fr); gap: 24px; height: calc(100vh - 32px); padding: 16px 32px; color: var(--t1); background: var(--bg); box-sizing: border-box; }
+.pane { position: relative; overflow-y: auto; min-height: 0; padding: 4px 8px 32px; }
+/* 공개 · 오류 뒤 포커스를 받는 영역(useReveal) — 다른 조작과 같은 초점 표시, 글자에 붙지 않게 띄운다 */
+.shell [tabindex='-1']:focus { outline: 2px solid var(--t1); outline-offset: 4px; border-radius: 4px; }
+.pane > h2 { margin: 0 0 4px; font-size: 13px; font-weight: 500; letter-spacing: .04em; color: var(--t2); }
+.stem { margin: 0 0 16px; font-size: 16px; line-height: 1.6; word-break: keep-all; }
+
+.passage { font-size: 17px; line-height: 1.85; }
+.unit { display: inline; padding: 2px 1px; border-radius: 3px; cursor: pointer; transition: background-color var(--dur-fast) var(--ease); }
+.unit:hover { background: var(--bg2); }
+.unit:focus-visible { outline: 2px solid var(--t1); outline-offset: 2px; }
+.unit[data-state='focus'] { background: color-mix(in srgb, var(--info) 18%, transparent); box-shadow: inset 0 -2px 0 var(--info); }
+.unit[data-state='pinned'] { background: color-mix(in srgb, var(--info) 10%, transparent); }
+.unit[data-state='dim'] { opacity: .45; }
+.unit[data-role='line'] { display: block; }
+.unitNo { margin-right: 2px; font-size: 11px; color: var(--t2); vertical-align: super; }
+.unitMark { margin-left: 4px; font-size: 12px; color: var(--info-ink, var(--info)); font-weight: 600; }
+
+.locate { position: sticky; z-index: 2; display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; pointer-events: none; }
+.locate[data-edge='top'] { top: 0; }
+.locate[data-edge='bottom'] { bottom: 0; }
+.locate button { pointer-events: auto; min-height: 44px; padding: 8px 16px; border: 1px solid var(--bd); border-radius: 999px; background: var(--bg); color: var(--t1); font-size: 14px; box-shadow: 0 2px 8px rgb(0 0 0 / .08); }
+.locate button:focus-visible { outline: 2px solid var(--t1); outline-offset: 2px; }
+
+/* 근거 링크는 주요 조작이라 44px 를 지킨다(T-0151 P2-01) — 글줄 사이에 놓이므로 줄 간격이 그만큼 넓어진다 */
+.ref { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; justify-content: center; padding: 0 6px; margin: 0 1px; vertical-align: middle; border: 0; border-bottom: 1px solid var(--info); background: none; color: var(--info-ink, var(--info)); font: inherit; cursor: pointer; }
+.ref:hover, .ref[aria-pressed='true'] { background: color-mix(in srgb, var(--info) 14%, transparent); }
+.ref:focus-visible { outline: 2px solid var(--t1); outline-offset: 2px; }
+.refDead { color: var(--t2); text-decoration: line-through; }
+
+.button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; min-width: 44px; padding: 8px 16px; border: 1px solid var(--bd); border-radius: var(--r-md, 10px); background: var(--bg); color: var(--t1); font-size: 15px; cursor: pointer; }
+.button:hover { background: var(--bg2); }
+.button[aria-pressed='true'] { border-color: var(--t1); background: var(--bg2); font-weight: 600; }
+.button:focus-visible { outline: 2px solid var(--t1); outline-offset: 2px; }
+.button:disabled { opacity: .45; cursor: not-allowed; }
+/* 로딩 중 해설 버튼 — disabled 는 포커스를 body 로 떨어뜨리므로 aria-disabled 로 막고 포커스는 남긴다 */
+.button[aria-disabled='true'] { opacity: .6; cursor: progress; }
+.primary { background: var(--t1); color: var(--bg); border-color: var(--t1); }
+.primary:hover { background: var(--t1); opacity: .88; }
+
+.section { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--bd); }
+.section > h3 { margin: 0 0 8px; font-size: 15px; font-weight: 600; }
+.note { font-size: 14px; line-height: 1.65; color: var(--t2); word-break: keep-all; }
+.hypothesis { font-size: 14px; line-height: 1.65; word-break: keep-all; padding: 10px 12px; border-left: 3px solid var(--bd); background: var(--bg2); }
+.hypothesis::before { content: '출제 의도(근거에 따른 재구성 · 가설) — '; color: var(--t2); }
+.status { font-size: 14px; color: var(--t2); }
+.error { font-size: 14px; color: var(--error-ink, var(--error)); }
+.empty { padding: 24px; border: 1px dashed var(--bd); border-radius: 10px; color: var(--t2); font-size: 15px; line-height: 1.6; word-break: keep-all; }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+/* 글줄 안 접근성 텍스트 — absolute 를 쓰면 인라인 문장의 클릭 영역 계산이 원문 밖으로 벗어난다 */
+.srInline { display: inline-block; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; vertical-align: baseline; }
+
+@media (prefers-reduced-motion: reduce) { .unit { transition: none; } }

@@ -14,6 +14,7 @@ import { applyArticleCatalogGate } from '@/lib/library/publish-gate'
 import { pagedSelect } from '@/lib/supabase/paged-select'
 import type { PublishedArticle } from '@/lib/articles/types'
 import { MATERIAL_LABEL } from '@/lib/learner/plan-activities'
+import { loadArticlePracticeAvailability } from '@/lib/learner/article-practice-availability'
 
 /** 수치 알약 — 1.1만처럼 한국어 단위로 접는다(도서 화면과 같은 규칙). */
 const COUNT = new Intl.NumberFormat('ko-KR', { notation: 'compact', maximumFractionDigits: 1 })
@@ -68,6 +69,9 @@ export default async function LibraryScriptsPage({
     articles = [];
   }
 
+  // T-0215 — 「연습 있음」: 목록 요청당 한 번(로그인 확인 · RPC 1회). 실패 · 로그아웃이면 카드에 표시하지 않는다.
+  const practice = await loadArticlePracticeAvailability(client)
+
   const totalWords = articles.reduce((s, a) => s + (a.word_count ?? 0), 0)
 
   return (
@@ -92,7 +96,7 @@ export default async function LibraryScriptsPage({
           }
         />
 
-        <ScriptsBrowser articles={articles} series={searchParams.series ?? null} loadError={loadError} />
+        <ScriptsBrowser articles={articles} series={searchParams.series ?? null} loadError={loadError} practice={practice} />
       </div>
     </LibraryBrowseFrame>
   )

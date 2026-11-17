@@ -8,7 +8,7 @@
 
 'use client'
 
-import { ArrowRight, ClipboardList, LayoutList, PlayCircle } from 'lucide-react'
+import { ArrowRight, ClipboardList, LayoutList, PlayCircle, Target, Network, Route, FolderOpen, Search, Wrench, Repeat2, CircleCheck, Info } from 'lucide-react'
 import Link from 'next/link'
 
 import type { MapPageData } from '@/lib/csat/map/load'
@@ -22,15 +22,19 @@ import type { WsRow } from '@/lib/csat/map/v62/workspace-list'
 import { AUTHORED_TASKS } from '@/lib/knowledge/authored/tasks'
 
 import { AuthoredSupplyCard } from './AuthoredSupplyCard'
+import { FactoryDcpCard } from './FactoryDcpCard'
+import { supplementsOfTemplate } from '@/lib/csat/map/v62/instructional-supplement'
 import { EvidenceChips } from './EvidenceClaims'
 import { MapDialog } from './MapDialog'
 import { PlanSection } from './PlanSection'
 import { VocabLearningCard } from './VocabLearningCard'
 import p from './popup.module.css'
 import u from './unified.module.css'
+import d from './detail.module.css'
 import { Amount, READINESS_LABEL, STAGES, taskLabel, wsIcon, WS_STATE_LABEL } from './WorkspaceList'
 
 export type WsTab = 'overview' | 'plan'
+const STAGE_ICON = { check: Search, repair: Wrench, transfer: Repeat2, recheck: CircleCheck }
 
 export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab, onClose, onPickTask, returned = null }: {
   row: WsRow
@@ -48,8 +52,6 @@ export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab
 }) {
   const Icon = wsIcon(row.id)
   const plan = view.plans[row.id] ?? null
-  const tp = (id: TaskId) => plan?.tasks.find((t) => t.task === id) ?? null
-  const coreTp = row.core[0] ? tp(row.core[0]) : null
   const tabBtn = (k: WsTab, label: string, I: typeof LayoutList, disabled = false) => (
     <button type="button" role="tab" aria-selected={tab === k} className={p.tab} onClick={() => onTab(k)} disabled={disabled} data-testid={k === 'plan' ? 'ws-tab-plan' : 'ws-tab-overview'}>
       <span className={`${p.tabIn} ${tab === k ? p.tabOn : ''}`}><I size={14} strokeWidth={1.9} aria-hidden="true" />{label}</span>
@@ -93,6 +95,18 @@ export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab
         </>
       }
     >
+      <WorkspaceContent row={row} view={view} data={data} past={past} goal={goal} reason={reason} tab={tab} onPickTask={onPickTask} returned={returned} />
+    </MapDialog>
+  )
+}
+
+/** Embedded content: its parent owns the only dialog, tabs and focus boundary. */
+export function WorkspaceContent({ row, view, data, past, goal, reason, tab, onPickTask, returned = null }: {
+  row: WsRow; view: V4View; data: MapPageData; past: boolean; goal: number; reason: string | null; tab: WsTab; onPickTask: (id: TaskId) => void; returned?: { task: TaskId; lines: string[] } | null
+}) {
+  const plan = view.plans[row.id] ?? null
+  const coreTp = row.core[0] ? plan?.tasks.find(t => t.task === row.core[0]) ?? null : null
+  return <>
       {returned && returned.lines.length > 0 && (
         <section className={p.card} aria-labelledby="ws-return-h" data-testid="ws-return-summary" data-task={returned.task} role="status">
           <h3 id="ws-return-h" className={p.cardTitle}>돌아온 뒤 — {taskLabel(returned.task).name} 에 무엇이 기록됐나</h3>
@@ -107,19 +121,18 @@ export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab
       ) : (
         <>
           <section className={p.card} aria-labelledby="ws-purpose">
-            <h3 id="ws-purpose" className={p.cardTitle}>학습 목적</h3>
+            <h3 id="ws-purpose" className={`${p.cardTitle} ${d.sectionTitle}`}><Target size={17} aria-hidden="true" />학습 목표</h3>
             <p className={p.cardDesc}>{row.goal ?? READINESS_LABEL[row.readiness ?? ''] ?? '자료를 준비하고 있어요.'}</p>
-            {reason && <p className={p.cardDesc}>{reason}</p>}
+            {reason && <details className={d.fold}><summary><Info size={14} aria-hidden="true" />현재 준비 상태</summary><p className="break-keep">{reason}</p></details>}
             {row.core[0] && view.evidence?.[row.core[0]] && <EvidenceChips e={view.evidence[row.core[0]]!} testId="ws-evidence-claims" />}
           </section>
 
           <section className={p.card} aria-labelledby="ws-rel">
-            <h3 id="ws-rel" className={p.cardTitle}>관련 TASK</h3>
-            <p className={p.cardDesc}>중심 TASK 의 수행으로 계획을 세고, 지원 TASK 는 함께 쓰는 힘이에요. 누르면 지도에서 그 TASK 를 열어요.</p>
+            <h3 id="ws-rel" className={`${p.cardTitle} ${d.sectionTitle}`}><Network size={17} aria-hidden="true" />연결된 학습</h3>
             {row.core.length + row.support.length > 0 ? (
               <div className={u.relMap} data-testid="ws-rel">
                 <ul className={u.relCol} aria-label="중심 TASK">
-                  {row.core.map((t) => (
+                  <li className={d.caption}>중심</li>{row.core.map((t) => (
                     <li key={t}><button type="button" className={u.relNode} data-role="core" onClick={() => onPickTask(t)}><span className={u.nodeCode}>{taskLabel(t).code}</span> {taskLabel(t).name}</button></li>
                   ))}
                 </ul>
@@ -127,7 +140,7 @@ export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab
                   <>
                     <span className={u.relEdge} aria-hidden="true" />
                     <ul className={u.relCol} aria-label="지원 TASK">
-                      {row.support.map((t) => (
+                      <li className={d.caption}>함께 쓰는 힘</li>{row.support.map((t) => (
                         <li key={t}><button type="button" className={u.relNode} data-role="support" onClick={() => onPickTask(t)}><span className={u.nodeCode}>{taskLabel(t).code}</span> {taskLabel(t).name}</button></li>
                       ))}
                     </ul>
@@ -142,8 +155,7 @@ export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab
           <section className={p.card} aria-labelledby="ws-stages">
             <div className={p.cardHead}>
               <div>
-                <h3 id="ws-stages" className={p.cardTitle}>학습 단계</h3>
-                <p className={p.cardDesc}>모든 단계를 꼭 거치지는 않아요 — 확인 결과에 따라 열려요.</p>
+                <h3 id="ws-stages" className={`${p.cardTitle} ${d.sectionTitle}`}><Route size={17} aria-hidden="true" />학습 흐름</h3>
               </div>
               <Amount row={row} />
             </div>
@@ -152,8 +164,10 @@ export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab
                 const s = row.stages?.[k] ?? null
                 const now = row.stage === k
                 const done = !!s && !s.ready && s.blocked === null
+                const StageIcon = STAGE_ICON[k]
                 return (
                   <li key={k} className={u.flowStep} data-testid="ws-stage" data-stage={k} data-now={now} data-ready={s?.ready ?? false} data-done={done}>
+                    <span className={d.stageIcon}><StageIcon size={17} aria-hidden="true" /></span>
                     <span className={u.flowName}>{STAGE_LABEL[k]}</span>
                     <span className={u.flowNote}>
                       {!s ? '준비 중' : now && coreTp?.quantity.planned != null ? `지금 · 수행 ${coreTp.quantity.done} / ${coreTp.quantity.planned}` : s.ready ? (s.count !== null ? `할 수 있어요 · ${s.count}문항` : '할 수 있어요') : done ? '마쳤어요' : STAGE_BLOCKED_LABEL[s.blocked!]}
@@ -162,28 +176,37 @@ export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab
                 )
               })}
             </ol>
+            <details className={d.fold}><summary><Info size={14} aria-hidden="true" />단계가 열리는 기준</summary><p className="break-keep">확인 결과에 따라 다음 단계가 열려요. 모든 단계를 꼭 거치지는 않아요.</p></details>
           </section>
 
           <section className={p.card} aria-labelledby="ws-need">
-            <h3 id="ws-need" className={p.cardTitle}>필요한 자료</h3>
+            <h3 id="ws-need" className={`${p.cardTitle} ${d.sectionTitle}`}><FolderOpen size={17} aria-hidden="true" />준비된 문항</h3>
             {row.stages ? (
-              <ul className={u.needList}>
-                <li><span>확인 문항(안 본 것)</span><span className={u.ledgerVal}>{row.stages.check.count ?? '—'}</span></li>
-                <li><span>바로잡기 문항</span><span className={u.ledgerVal}>{row.stages.repair.count ?? '—'}</span></li>
-                <li><span>다른 글 적용 문항</span><span className={u.ledgerVal}>{row.stages.transfer.count ?? '—'}</span></li>
+              <ul className={d.resources}>
+                <li><Search size={17} aria-hidden="true" /><span>확인</span><strong>{row.stages.check.count ?? '—'}</strong><small>안 본 문항</small></li>
+                <li><Wrench size={17} aria-hidden="true" /><span>바로잡기</span><strong>{row.stages.repair.count ?? '—'}</strong><small>문항</small></li>
+                <li><Repeat2 size={17} aria-hidden="true" /><span>다른 글 적용</span><strong>{row.stages.transfer.count ?? '—'}</strong><small>문항</small></li>
               </ul>
             ) : (
               <p className={p.cardDesc}>{READINESS_LABEL[row.readiness ?? ''] ?? '자료를 준비하고 있어요'} — 준비 전에는 학습 가능으로 보이지 않아요.</p>
             )}
-            <p className={p.cardDesc}>문항 수는 실력 점수가 아니에요. TASK 마다의 자료 준비 상태는 TASK 의 「자세한 근거 보기」에서 봐요.</p>
+            <details className={d.fold}><summary><Info size={14} aria-hidden="true" />문항 수의 의미</summary><p className="break-keep">문항 수는 자료 준비 상태이며 실력 점수가 아니에요. TASK별 상태는 「근거 · 학습 경로」 탭에서 볼 수 있어요.</p></details>
           </section>
 
           {row.core[0] && AUTHORED_TASKS.includes(row.core[0]) && (
             <AuthoredSupplyCard viewer={data.v4?.viewer ?? null} task={row.core[0]} template={row.id} planSaved={!!data.v4?.saved?.byTemplate[row.id]} past={past} ctx={outgoingCtx(data.v4?.saved, row.core[0], row.id)} />
           )}
+          {/* 1D — 공장 DCP 지도 연습(r.central_meaning)은 창작 자료와 별개 카드 · 납품이 없거나 미설치면 그리지 않는다 */}
+          {row.core.includes('r.central_meaning') && !past && (
+            <FactoryDcpCard template={row.id} ctx={outgoingCtx(data.v4?.saved, 'r.central_meaning', row.id)} />
+          )}
           {/* T-0056 — 이 Workspace 의 보조 TASK 자료(창작 세트가 있는 것만). 핵심/보조 표기 그대로 · 서버가 TASK 소속을 다시 확인한다 */}
           {row.support.filter((t) => AUTHORED_TASKS.includes(t)).map((t) => (
             <AuthoredSupplyCard viewer={data.v4?.viewer ?? null} key={t} kind="support" task={t} taskName={taskLabel(t).name} template={row.id} planSaved={!!data.v4?.saved?.byTemplate[row.id]} past={past} ctx={outgoingCtx(data.v4?.saved, t, row.id)} />
+          ))}
+          {/* T-0083 — 학습 전용 보조 진입(정본 core/support 밖 · 닫힌 표) — 교수 자료만 · 같은 묶음 복귀 문맥 */}
+          {supplementsOfTemplate(row.id).filter((s) => AUTHORED_TASKS.includes(s.task)).map((s) => (
+            <AuthoredSupplyCard viewer={data.v4?.viewer ?? null} key={`learn-${s.task}`} kind="instructional" task={s.task} taskName={taskLabel(s.task).name} template={row.id} planSaved={!!data.v4?.saved?.byTemplate[row.id]} past={past} ctx={outgoingCtx(data.v4?.saved, row.core[0] ?? s.task, row.id)} />
           ))}
           {/* T-0069 — V1 기본 의미는 창작 세트가 아니라 기존 WordVault 복습이 정본 자산이다 · 같은 지도 복귀 문맥(outgoingCtx)을 싣는다 */}
           {(['core', 'support'] as const).flatMap((k) => (k === 'core' ? row.core.slice(0, 1) : row.support).filter((t) => t === 'v.core_meaning').map((t) => (
@@ -191,6 +214,5 @@ export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab
           )))}
         </>
       )}
-    </MapDialog>
-  )
+  </>
 }

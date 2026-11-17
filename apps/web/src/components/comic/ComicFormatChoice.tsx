@@ -167,7 +167,7 @@ export function ComicFormatChoice({
               </>
             )
 
-            const cls = `flex h-full min-h-[150px] flex-col gap-2 rounded-[var(--r-lg)] border-2 bg-[var(--bg)] p-4 text-left shadow-[var(--sh-sm)] transition-[transform,box-shadow,border-color] duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:shadow-[var(--sh-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]/40 disabled:cursor-not-allowed disabled:opacity-60 motion-reduce:transition-none motion-reduce:hover:translate-y-0 ${
+            const cls = `flex h-full min-h-[150px] flex-col gap-2 rounded-[var(--r-lg)] border-2 bg-[var(--bg)] p-4 text-left shadow-[var(--sh-sm)] transition-[transform,box-shadow,border-color] duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:shadow-[var(--sh-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--p)_40%,transparent)] disabled:cursor-not-allowed disabled:opacity-60 motion-reduce:transition-none motion-reduce:hover:translate-y-0 ${
               recommended ? 'border-[var(--active)]' : 'border-[var(--bd)] hover:border-[var(--t3)]'
             }`
 

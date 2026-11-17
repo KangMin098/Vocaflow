@@ -30,6 +30,7 @@ import {
 
 import { GAME_CATALOG } from '@/lib/game/catalog'
 import { isFullScreenRoute } from '@/lib/layout/full-screen-routes'
+import { sanitizeInternalPath } from '@/lib/layout/session-return'
 import { consumeSessionEscape, useSessionEscapeClaimed } from '@/components/layout/session-escape'
 
 // ── Session metadata ─────────────────────────────────────────────
@@ -166,8 +167,8 @@ export function SessionFrame({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (typeof window === 'undefined') return
     const f = new URLSearchParams(window.location.search).get('from')
-    // 내부 절대경로만 허용 (open-redirect 차단)
-    setFromHref(f && f.startsWith('/') && !f.startsWith('//') ? f : null)
+    // 내부 절대경로만 허용 (open-redirect 차단 — `/\evil` 등은 공용 검사가 거부)
+    setFromHref(sanitizeInternalPath(f))
   }, [pathname])
 
   // 닫기 목적지 — 출처가 있으면 그곳, 없으면 모듈 hub.
@@ -231,7 +232,7 @@ export function SessionFrame({ children }: { children: ReactNode }) {
           //    ⚠️ <main> 을 이 프레임 밖으로 빼는 방법도 해 봤다. ARIA 는 맞아지지만 세션 화면의
           //       h1 이 본문 밖으로 나가 화면 정체 검사가 5건 깨졌다(28-screen-identity 100% → 97.3%).
           //       구조를 옮기는 대신 **거짓 선언만 지운다**.
-          className={`sticky top-0 z-40 shrink-0 border-b border-[var(--bd)] bg-[var(--bg)]/95 backdrop-blur ${
+          className={`sticky top-0 z-40 shrink-0 border-b border-[var(--bd)] bg-[color-mix(in_srgb,var(--bg)_95%,transparent)] backdrop-blur ${
             hasResource ? 'px-3 py-2 md:px-5 md:py-3' : 'px-3 md:px-5'
           }`}
         >

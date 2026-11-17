@@ -1,0 +1,51 @@
+{
+  "kind": "READ_ONLY_EXISTING_SOURCE_ITEMS_FOR_REUSE_REVIEW",
+  "source_id": "003946dd-f5e6-4efe-9254-b7a69ca39e61",
+  "rows": [
+    {
+      "id": "4dbcca67-2e17-4e96-a2d1-9d513b4b87b6",
+      "type": "title",
+      "payload": {
+        "choices": [
+          "How a Title Guides What We See",
+          "Why Paintings Should Have No Names",
+          "The Artist’s Right to Name a Work",
+          "Choosing Colours That Draw the Eye",
+          "Why Two Groups Rarely Agree on Art"
+        ],
+        "passage": "Show one painting to two groups, give each group a different title for it, and they will describe two different scenes. One group notices the sky; the other notices the small figure in the corner. This happens because a title tells the eye where to begin. A viewer facing a new image has no order to follow, so the first words attached to it become a kind of route through the frame. Once that route is set, the details along it feel important and the rest fades into background. The same is true of a song or a story, since a name at the top decides what counts as the subject.",
+        "stem_ko": "글의 제목으로 가장 알맞은 것은?",
+        "underline": null,
+        "choice_language": "en",
+        "summary_sentence": null
+      },
+      "answer_key": {
+        "answer": 1,
+        "rationale_ko": "글은 \"a title tells the eye where to begin\" 이라고 하고, 그 길이 정해지면 \"the details along it feel important and the rest fades into background\" 라고 마무리한다. 제목이 시선을 이끈다는 것이 요지다. 나머지는 소재만 같고 결론이 다르다 — ②는 이름을 붙이지 말자는 주장이라 글과 반대고, ③는 누가 이름을 정하느냐는 권리 문제로 글에 없다. ④는 색을 다루지만 글은 색이 아니라 말을 다루고, ⑤는 두 무리가 다르게 본 것을 근거로 쓰지만 그것은 예시일 뿐 주장이 아니다."
+      }
+    },
+    {
+      "id": "33ee70d0-d812-49b1-9098-d97f7aaee5af",
+      "type": "topic",
+      "payload": {
+        "choices": [
+          "why songs and stories are harder to name than paintings are",
+          "the way a title sets a route for the eye and shapes the work",
+          "why gallery visitors tend to notice the sky in a painting first",
+          "the need to attach a title only after the work is fully finished",
+          "the modern habit of leaving a finished piece without any name"
+        ],
+        "passage": "Show one painting to two groups, give each group a different title for it, and they will describe two different scenes. One group notices the sky; the other notices the small figure in the corner. This happens because a title tells the eye where to begin. A viewer facing a new image has no order to follow, so the first words attached to it become a kind of route through the frame. Once that route is set, the details along it feel important and the rest fades into background. The same is true of a song or a story, since a name at the top decides what counts as the subject. For this reason a title is not a label stuck on after the work is done. It belongs to the work, and choosing it is a real decision. Some artists refuse to name a piece at all, and that refusal is a choice too, because it hands the route back to the viewer.",
+        "stem_ko": "다음 글의 주제로 가장 적절한 것은?",
+        "underline": null,
+        "choice_language": "en",
+        "summary_sentence": null
+      },
+      "answer_key": {
+        "answer": 2,
+        "rationale_ko": "같은 그림에 다른 제목을 주면 다른 장면을 보게 되는데, \"a title tells the eye where to begin\" 이기 때문이다. 나머지는 하늘이나 구석의 인물처럼 그 현상을 보여주려고 든 예시다."
+      }
+    }
+  ],
+  "database_writes": 0
+}

@@ -1,0 +1,269 @@
+{
+  "schema_version": "1.0",
+  "task_id": "T-0089",
+  "owner_id": "map-data-independent",
+  "run_seq": 6,
+  "review_kind": "independent_ai_remediation_recheck_not_human_gold",
+  "observed_at": "2026-10-23T13:05:39.658+09:00",
+  "input": {
+    "head": "00fa43d3bb70e7a4806ee01fa3a0f0ee8715be42",
+    "remediation_commit": "a73a408bdb75c828d3b11b181d3defa186c67c1b",
+    "initial_status": "IN_PROGRESS",
+    "poll_attempts": 1,
+    "manifest": [
+      {
+        "path": "docs/csat-learner/v62/data-expansion/r5r6-links.json",
+        "sha256": "e44bbc2f5a7e2690f8d6284110641d4a646989d561dd10a58cdcae7c273d6181"
+      },
+      {
+        "path": "docs/csat-learner/v62/data-expansion/r5r6-agreement.json",
+        "sha256": "e50841a7ec1ba0c50ea1e8d9e8b1e0f9bec49141a358b28e2f667ed84db1ca1a"
+      },
+      {
+        "path": "docs/csat-learner/v62/data-expansion/rules-v2-links.json",
+        "sha256": "e6771d9a0e4d35d59fb1380add75a540e82d55097cb629dcb36888e0dcae1ef8"
+      },
+      {
+        "path": "docs/csat-learner/v62/data-expansion/pilot-links.json",
+        "sha256": "0ac5a1171940816fcd052ff2ace72a560d99a1691b9a5712f6774359045e4423"
+      },
+      {
+        "path": "scripts/csat/map/v62/data/batch-run.mjs",
+        "sha256": "bbedba6d65ce5ba3a04216483e4ec32817218a979af419ea59c44e1bcd89f128"
+      },
+      {
+        "path": "docs/csat-learner/v62/data-expansion/review/verdict.json",
+        "sha256": "d0ef1f7dbde68dd0d319fd485d169692f64323035c4a3a4c9a2306535f5621e1"
+      }
+    ]
+  },
+  "verdict": "resolved",
+  "result": "pass",
+  "results": [
+    {
+      "id": "AC2",
+      "verdict": "resolved",
+      "evidence": [
+        "scripts/csat/map/v62/data/batch-run.mjs:30",
+        "scripts/csat/map/v62/data/batch-run.mjs:49",
+        "scripts/csat/map/v62/data/batch-run.mjs:113",
+        "docs/csat-learner/v62/data-expansion/r5r6-agreement.json:46"
+      ],
+      "observed": {
+        "reference_tasks": 21,
+        "sample_rows": 60,
+        "review_T0089_bound": 60,
+        "binding_mismatches": 0,
+        "item": "M2609#32",
+        "task": "r.inference",
+        "candidateRelevance": null,
+        "state": "REVIEW_UNCLEAR",
+        "tier": "R0",
+        "task_distinction_reliable": false
+      },
+      "note": "?? ??? ???? ??? 21 ??? ????(R4=? ?? ??). ?? ??? ???? ??? ?? task_distinction? ?? ????? ?? ???. ?? 60?? ??? relevance/contract/flags? ?? ????. unreliable ??? r5r6-links.json ??? ??? r5r6-agreement.json ? README ?8? ??. ?? ?? ??? ??? ???? unclear ??? ?? ??? ????."
+    },
+    {
+      "id": "AC3",
+      "verdict": "resolved",
+      "evidence": [
+        "scripts/csat/map/v62/data/batch-run.mjs:114",
+        "scripts/csat/map/v62/data/batch-run.mjs:115",
+        "docs/csat-learner/v62/data-expansion/r5r6-links.json"
+      ],
+      "observed": {
+        "scanned_links": 2724,
+        "source_defect_links": 14,
+        "source_defect_items": 7,
+        "tier_not_R0": 0,
+        "non_null_candidates": 0,
+        "per_file": {
+          "pilot-links.json": 0,
+          "rules-v2-links.json": 0,
+          "r5r6-links.json": 14
+        }
+      },
+      "note": "? ?? ???? ?? ????. SOURCE_DEFECT 14? ?? R0?? ?? null. DB ?? ?? ??? ?? ? ?? ??? ???? ???."
+    },
+    {
+      "id": "AC4",
+      "verdict": "resolved",
+      "evidence": [
+        "vfc.mjs task show T-0089 (run 6)",
+        "vfc.mjs status",
+        "D:/workspace/Vocaflow-AI-Control/verification/reviews/T-0089-20261023.md",
+        "D:/workspace/Vocaflow-AI-Control/state/DECISION_LOG.json#DL-0199",
+        "docs/csat-learner/v62/data-expansion/review/verdict.json#cross_work"
+      ],
+      "observed": {
+        "decision": {
+          "status": "OPEN_QUESTION",
+          "kind": "data_contract",
+          "summary": "문항↔TASK 데이터 두 벌(goal-batches 계약 v2 @80fa44540 · map-data-expansion v2.1 @a73a408bd)의 정합: (1) E2 기준이 같은 이름 아래 다름(거리 vs 경쟁 후보 특정) (2) goal-batches 「삽입 262 주어진 문장 결손」은 T-0089 에서 refuted(8문항 반례) (3) 겹치는 80문항·160쌍 중 결과 불일치 5쌍 — 목표 달성 엔진에 넘길 정본 계약과 링크 출처를 정해야 한다",
+          "source": "verification T-0089 review.md (review/map-data-20261023 @a4b23968a)",
+          "by": "map-data-expansion",
+          "affects_goal_ids": [
+            "VG-L3-A1-01"
+          ],
+          "decision_id": "DL-0199",
+          "recorded_at": "2026-10-23T03:56:45.537Z"
+        }
+      },
+      "note": "T-0089? ?? ??? ?? ????? ???? impact.out_of_scope ? forbidden_paths? goal-batches ??? ?? ??? ????. ?? owner? reject ??? ??? ???? DL-0199? E2 ???262 ?? ???80??/160??5??? ????. ??? ? TASK??? ?? ??? ????. ?? ?? ? ?? ?? ?? ??? ?? ????? ?? ??? ?????? ???? ???."
+    }
+  ],
+  "verification": {
+    "syntax_check": "node --check scripts/csat/map/v62/data/batch-run.mjs: exit 0",
+    "json_full_scan": "2724 links; 60 sample bindings; no mismatches",
+    "git": "initial clean; git diff --name-only a73a408bd HEAD empty",
+    "db": "no queries or writes in this recheck; prior DB findings retained without re-certification",
+    "not_run": [
+      "batch-run chunks/agree (would write outside review/)",
+      "new A/B adjudication",
+      "application unit/E2E tests (no application changes)"
+    ],
+    "exploratory_checks": [
+      "PowerShell default-encoding JSON read failed; corrected with explicit UTF8",
+      "Node inline import quoting failed; rerun successfully through stdin",
+      "goal-batches files absent in this HEAD; inspected external source paths instead"
+    ]
+  },
+  "external_goal_data_observation": {
+    "checked": 24,
+    "changed_since_previous_review": 11,
+    "files": [
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D1-source-audit/exam-coverage.json",
+        "previous_sha256": "6419ac15789fe3ce9306b9a49c6e55b27d8c0f9107cad5bf350620b26b2a6b6e",
+        "current_sha256": "6419ac15789fe3ce9306b9a49c6e55b27d8c0f9107cad5bf350620b26b2a6b6e"
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D1-source-audit/missing-sources.json",
+        "previous_sha256": "5ced8dbcc3900d0ab884d516af7e813cfac1cd94d11da874555936753adafcc8",
+        "current_sha256": "5ced8dbcc3900d0ab884d516af7e813cfac1cd94d11da874555936753adafcc8"
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D1-source-audit/source-inventory.json",
+        "previous_sha256": "6a844452da6f8bd0be30d87e5b24ebf1fbe85905d9833692d4560c22e0b87470",
+        "current_sha256": "6a844452da6f8bd0be30d87e5b24ebf1fbe85905d9833692d4560c22e0b87470"
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D1-source-audit/source-quality-report.md",
+        "previous_sha256": "16f1d4d91f6606abb7f5b64e80645feca5225d617bd2d5fba785cd7ff9f120fe",
+        "current_sha256": "4bad01b74a0d6e82c61a661a4a7632110af6d4d15c9a744b07b64c1c9ded1340"
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/b2-v2-agreement.json",
+        "previous_sha256": "a4c3557f642a6c1cb217487441a5d7739535316a750b5343f57191182b1436d9",
+        "current_sha256": "a4c3557f642a6c1cb217487441a5d7739535316a750b5343f57191182b1436d9"
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl",
+        "previous_sha256": "46d6acce777ad3ef03a92dc0e2434027f812898425254d6be668b2b7e6b1bd35",
+        "current_sha256": "46d6acce777ad3ef03a92dc0e2434027f812898425254d6be668b2b7e6b1bd35"
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl",
+        "previous_sha256": "8d7fcfc389eb70b733778eac2db03b6a85744034b65e4d96e536e1a6815d71db",
+        "current_sha256": "8d7fcfc389eb70b733778eac2db03b6a85744034b65e4d96e536e1a6815d71db"
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/b2-v2-selection.json",
+        "previous_sha256": "106d66363944beedfb17f148d9a31361a8f9d73e289a2247c21fc06f97782371",
+        "current_sha256": "106d66363944beedfb17f148d9a31361a8f9d73e289a2247c21fc06f97782371"
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2.md",
+        "previous_sha256": "586e814bc9629885cf2d8a4f146121bf1afd8efbc3eef363fea763c72e1ed949",
+        "current_sha256": "586e814bc9629885cf2d8a4f146121bf1afd8efbc3eef363fea763c72e1ed949"
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/disputed-links.jsonl",
+        "previous_sha256": "5dc6d8f79f39cb564ed8b427908da92cc9a4e5d7bb41830ecd1435d12c2258a2",
+        "current_sha256": "5dc6d8f79f39cb564ed8b427908da92cc9a4e5d7bb41830ecd1435d12c2258a2"
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/item-task-links.jsonl",
+        "previous_sha256": "7d68f6a873621286f165b33880402fed14f007e908fd59d0a060a4f91d91fc84",
+        "current_sha256": "7d68f6a873621286f165b33880402fed14f007e908fd59d0a060a4f91d91fc84"
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/mapping-coverage.json",
+        "previous_sha256": "998b730f596c48a7e41f6ced10dfaa6c7cf9627336df9d39a577f8c5e639e90e",
+        "current_sha256": "998b730f596c48a7e41f6ced10dfaa6c7cf9627336df9d39a577f8c5e639e90e"
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/mapping-review.md",
+        "previous_sha256": "161b7378cf4da20169cfbc3a19addadc8d6442c56643b0e448ce970ac05490b4",
+        "current_sha256": "ae3e97fc6bdbf39fa25d7de6abe177ff0e7ab72c8853d435c64efc65a219cffe"
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl",
+        "previous_sha256": "00c737d36b036e35b624c77a1ad43a93a9e3777f6cdc09073eef44f91507ae80",
+        "current_sha256": "ba9bce27739e65ee7af3c04f224c8564c06e851744846d4a4791c7e031dd4b79"
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D3-principles/item-reasoning.jsonl",
+        "previous_sha256": "19cc77f2a480277b19a5780da70c33c787359ca353049f7c525e404225e82758",
+        "current_sha256": "9a759cbe0edfac7b8883b9ad14d4770a20bb41ac3abbeaf3ca77660da6f3a8b0"
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D3-principles/principle-groups.json",
+        "previous_sha256": "51248345ba4a017ce58403d2fd2dbae768e6af62ba5628e2fa98c8689348abba",
+        "current_sha256": "885ddb6a8cf39cdb45322c6c5f6fafeb7acc3391c4ec442109f28d92ca4f58e4"
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D3-principles/reasoning-review.md",
+        "previous_sha256": "c07e544fe0c947d4cc443852b5136ad2686e7a0e4b8749345e4bb4d55768a31e",
+        "current_sha256": "95154434d95cabb383de143cbff45ef9b35092110ec6b9e1363e4d275a9413a6"
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D4-assessment/assessment-review.md",
+        "previous_sha256": "ec13bb06effbc8173eea5445ed648360f2a10a63a0593ab445a6bc85881ae6b1",
+        "current_sha256": "8910f49a7fdd158504c5c55718e715f224f9b3ac94640ee18fd512ae9ddd9285"
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D4-assessment/codex-handoff.md",
+        "previous_sha256": "adb17df7fc0bc53d5eb288170077e1598dd12c5db2c1ffa1ddde5bf480a11ac1",
+        "current_sha256": "adb17df7fc0bc53d5eb288170077e1598dd12c5db2c1ffa1ddde5bf480a11ac1"
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D4-assessment/content-inventory.json",
+        "previous_sha256": "e97268fa3cdaab2a4c51bdeed25322d72d34943d700b8d81f7d7f4f71c922b9e",
+        "current_sha256": "76efdefda086baaaf2d3aecd71bc1db715c9e39eb491ddc309c4e9f3621fe7fb"
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D4-assessment/instrument-gap.json",
+        "previous_sha256": "7152e1d446b8cb8b2a67842222289fb6c392ced7ed55469f42aaa1483ad01384",
+        "current_sha256": "ba8bfc9655a7201948683e342b97139370d0fcba84fa948149ed6f7afd987a56"
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D4-assessment/task-assessment-matrix.json",
+        "previous_sha256": "7e35ab4a4a5c6645db83a63b444e4ee407ed0764c08e74ee7ada49a51584eabe",
+        "current_sha256": "6895d216188cb52aeb9e509e32f4ab5d7dbbbc71c7017bfe8314fe4781345dbf"
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D4-assessment/_classify.mjs",
+        "previous_sha256": "8f61bad953cd4f4ad18e4b301debe06c39c803835bf87c958a3705ed9e6022d8",
+        "current_sha256": "7c12ca4c3a4fc80ef6cc087b0206485bac0b4f02bf5ca0ab4ef082f3bdef63a2"
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D4-assessment/_compute.mjs",
+        "previous_sha256": "a94d679850a6d83ca6c9bc30b9e2c5dbe83b1adbb152d4da06245546bb2405d5",
+        "current_sha256": "a94d679850a6d83ca6c9bc30b9e2c5dbe83b1adbb152d4da06245546bb2405d5"
+      }
+    ],
+    "note": "?? ???? ?? ?? ??? ????. ?? ???? ?? ????? ? HEAD ??? ????? ???. ?? review ??? DL-0199? ?? ???? ??? ????."
+  },
+  "limitations": [
+    "AC1 ?? ??? pass ? ?? unclear? ????.",
+    "AC2 ?? ?? ?? ????? ?? ???? ???? ???.",
+    "AC3 DB ?? ? ?? ? ?? ??? ???? ???.",
+    "AC4 ?? ??? DL-0199?? ?? ???.",
+    "covers 0..4? ?? verdict? ??? ?? ??? ???? ?? unclear? confirmed? ??? ???."
+  ],
+  "scope": {
+    "writes": "review/ only",
+    "db_writes": 0
+  }
+}

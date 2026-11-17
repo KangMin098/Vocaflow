@@ -29,12 +29,14 @@ import { isDeepStrictEqual } from 'node:util'
 import path from 'node:path'
 import { createClient } from '@supabase/supabase-js'
 import { examMetaOf, isKiceExam, listeningEndOf, parseExamId } from './lib-exam-id.mjs'
+import { sourceOverwrites } from './lib-source-repair.mjs'
 
 const HAKPYEONG_ID_PREFIX = 'H' // apps/web/src/lib/csat/exam-id.ts 와 같다(학평 id 문법 H{YY}{MM}G{학년})
 
 const COMMIT = process.argv.includes('--commit')
 const PRUNE_LISTENING = process.argv.includes('--prune-listening')
 const PRUNE_STALE = process.argv.includes('--prune-stale')
+const ALLOW_SOURCE_OVERWRITE = process.argv.includes('--allow-source-overwrite')
 const DIR = path.resolve('scripts/csat/data')
 
 /**
@@ -187,6 +189,26 @@ if (ONLY) {
   }
   console.log(`  지정 원문 ${changed}건 갱신 · ${items.length - changed}건 동일 — 정답·선지·raw_block 보존, 해시가 바뀐 분석은 DB 게이트가 자동 보류한다`)
   process.exit(0)
+}
+// 전체 동기화는 원장 값으로 문항을 통째로 덮는다. DB 의 지문·선지는 원장 뒤에 따로 정정된다
+// (공식 문제지 대조 수리 · 띄어쓰기 정리) — 재생성 원장과 다르면 **아무것도 쓰지 않고 멈춘다.**
+// 2026-10-24 평가원 표본 40 중 33 이 달랐다: 그대로 올렸다면 각주 복원 · 선지 잔여물 정정이 조용히 되돌아간다.
+// 다른 문항을 의도적으로 되돌릴 때만 --allow-source-overwrite. 수리는 source-repair 로 기록해 원장에 남긴다.
+{
+  const current = []
+  for (let from = 0; ; from += 1000) {
+    const { data, error } = await db.from('csat_items').select('id, passage, choices').order('id').range(from, from + 999)
+    if (error) throw new Error(`원문 대조 읽기 실패: ${error.message}`)
+    current.push(...data)
+    if (data.length < 1000) break
+  }
+  const overwritten = sourceOverwrites(current, items)
+  if (overwritten.length && !ALLOW_SOURCE_OVERWRITE) {
+    console.error(`  ✋ DB 원문과 다른 문항 ${overwritten.length}개 — 덮어쓰지 않고 멈춘다(쓰기 없음). 예: ${overwritten.slice(0, 10).join(' ')}`)
+    console.error('     원장을 DB 에 맞추려면 source-repair 로 공식 문제지 수리를 기록한 뒤 원장을 다시 만든다.')
+    process.exit(1)
+  }
+  if (overwritten.length) console.log(`  ⚠️ --allow-source-overwrite: DB 원문 ${overwritten.length}개를 원장 값으로 덮는다`)
 }
 if (SET === 'kice') {
   await upsert('csat_types', types)

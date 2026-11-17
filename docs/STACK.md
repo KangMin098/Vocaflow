@@ -173,6 +173,7 @@ export const tokens = {
 ### `@vocaflow/library-pipeline`
 
 LCP 파이프라인 코어 — `ingestFromGutenberg` / `ingestFromStandardEbooks` / `ingestFromWikibooks` / `ingestFromWikisource` / `ingestFromLibriVox` / `ingestFromOpenStax` / `ingestFromSimpleWikipedia` / `normalizeBook` / `segmentBook` / `analyzeBook`.
+서브패스 `@vocaflow/library-pipeline/story`(= `src/story/server.ts`) — LCP Story S2 검증기 · plan · 검증 증명 어댑터를 관리자 서버 코드(서버 전용)가 쓴다. 작업 폴더 · CLI(`node:fs`)는 싣지 않으며 `canonical.ts` 가 `node:crypto` 를 써서 브라우저 번들 금지([LCP_STORY](./LCP_STORY.md)).
 
 ### `@vocaflow/vcb-core` + `vcb-curate-core`
 

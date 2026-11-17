@@ -32,7 +32,7 @@ const ORDER: Role[] = ['model_explanation', 'guided_practice', 'independent_chec
 /** 서버가 확인한 거절 이유(닫힌 코드 · server.ts RejectReason)만 학습자 말로 — 모르는 코드는 「확인하지 못했어요」 */
 const REJECT: Record<string, string> = {
   exposure: '이미 본 자료라 다시 드리지 않아요',
-  human_decision: '사람 검수 결정(권리 · 정답)이 없어 드릴 수 없어요',
+  human_decision: '권리·정답 검수 결정을 확인하지 못해 드릴 수 없어요',
   approval: '출시 승인이 없어 드릴 수 없어요',
   quantity: '이번 계획 수량을 이미 채웠어요',
 }
@@ -74,9 +74,10 @@ export function supplyOutcome(raw: unknown): SupplyOutcome {
 }
 
 /** kind=support — 이 Workspace 의 보조 TASK 자료(T-0056). 시험 id · 제목이 중심 카드와 겹치지 않게 접미사 · TASK 이름을 붙인다 */
-export function AuthoredSupplyCard({ task, template, planSaved, past, ctx, kind = 'core', taskName, viewer = null }: { task: string; template: string; planSaved: boolean; past: boolean; ctx?: MapReturnCtx; kind?: 'core' | 'support'; taskName?: string; viewer?: string | null }) {
-  const tid = (x: string) => (kind === 'support' ? x.replace('ws-authored', 'ws-authored-support') : x)
-  const hid = kind === 'support' ? 'ws-authored-' + task.replace(/[^a-z0-9]/gi, '-') : 'ws-authored'
+export function AuthoredSupplyCard({ task, template, planSaved, past, ctx, kind = 'core', taskName, viewer = null }: { task: string; template: string; planSaved: boolean; past: boolean; ctx?: MapReturnCtx; kind?: 'core' | 'support' | 'instructional'; taskName?: string; viewer?: string | null }) {
+  // T-0083 — instructional = 학습 전용 보조 진입(원리 설명 · 안내 연습만 · 서버가 교수 2역할만 수요로 만든다)
+  const tid = (x: string) => (kind === 'support' ? x.replace('ws-authored', 'ws-authored-support') : kind === 'instructional' ? x.replace('ws-authored', 'ws-authored-learn') : x)
+  const hid = kind === 'core' ? 'ws-authored' : `ws-authored-${kind === 'instructional' ? 'learn-' : ''}` + task.replace(/[^a-z0-9]/gi, '-')
   const [listed, setListed] = useState<Listed>({ status: 'loading' })
   const [busy, setBusy] = useState(false)
   const [msg, setMsg] = useState<string | null>(null)
@@ -99,6 +100,8 @@ export function AuthoredSupplyCard({ task, template, planSaved, past, ctx, kind 
       const r = await fetch('/api/csat/authored/supply', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ task, template }) })
       const j = await r.json().catch(() => ({}))
       if (r.status === 409) setMsg('학습계획을 먼저 확정하면 자료를 받을 수 있어요.')
+      // T-0078 — 수행 기록 조회 실패는 공급 미준비 · 자료 0 · 권리 대기가 아니다(같은 503 이라도 닫힌 코드로 가른다)
+      else if (r.status === 503 && j.code === 'evidence_unavailable') setMsg('수행 기록을 지금 읽지 못해 자료를 받지 않았어요 — 기록은 그대로예요. 잠시 뒤 다시 확인해 주세요.')
       else if (r.status === 503) setMsg('자료 공급을 아직 준비하고 있어요 — 잠시 뒤 다시 확인해 주세요.')
       else if (!r.ok) setMsg(typeof j.error === 'string' ? j.error : '자료를 받지 못했어요 — 잠시 뒤 다시 눌러 주세요.')
       else if (j.status === 'no_lines') setMsg('지금 단계에서 새로 받을 자료가 없어요.')
@@ -109,13 +112,17 @@ export function AuthoredSupplyCard({ task, template, planSaved, past, ctx, kind 
     finally { setBusy(false) }
   }
 
-  const rows = listed.status === 'installed' ? [...listed.rows].sort((a, b) => ORDER.indexOf(a.role) - ORDER.indexOf(b.role)) : []
+  // T-0083(P1-1) — 학습 전용 진입은 교수 2역할만 보인다(목록은 TASK 단위라 같은 TASK 의 평가 · 미지 역할 납품도 온다 — 원장은 그대로 두고 이 카드 · 노트 투영에서만 뺀다)
+  const shownRow = (r: Row) => kind !== 'instructional' || r.role === 'model_explanation' || r.role === 'guided_practice'
+  const rows = listed.status === 'installed' ? [...listed.rows].filter(shownRow).sort((a, b) => ORDER.indexOf(a.role) - ORDER.indexOf(b.role)) : []
   return (
     <section className={p.card} aria-labelledby={hid} data-testid={tid('ws-authored')} data-task={task}>
       <div className={p.cardHead}>
         <div>
-          <h3 id={hid} className={p.cardTitle}>{kind === 'support' ? <>받은 자료 · 보조 TASK {taskName ?? task}</> : '받은 자료'}</h3>
-          <p className={p.cardDesc}>지금 계획에 맞춰 검수 · 승인된 자료만 받아요. 혼자 확인 · 다른 글 적용 자료는 처음 보는 글이에요.</p>
+          <h3 id={hid} className={p.cardTitle}>{kind === 'support' ? <>받은 자료 · 보조 TASK {taskName ?? task}</> : kind === 'instructional' ? <>학습 자료 · {taskName ?? task}</> : '받은 자료'}</h3>
+          {kind === 'instructional'
+            ? <p className={p.cardDesc} data-testid={tid('ws-authored-scope')}>원리 설명 · 안내 연습으로 배우는 자료예요. 이 힘의 혼자 확인은 아직 준비 중이라 여기서 받은 풀이는 연습 기록으로만 남고, 이 묶음의 계획 · 확인 결과는 바뀌지 않아요.</p>
+            : <p className={p.cardDesc}>지금 계획에 맞춰 검수 · 승인된 자료만 받아요. 혼자 확인 · 다른 글 적용 자료는 처음 보는 글이에요.</p>}
         </div>
         {listed.status === 'installed' && !past && (
           <button type="button" className={p.whitePill} onClick={request} disabled={busy || !planSaved} data-testid={tid('ws-authored-request')}

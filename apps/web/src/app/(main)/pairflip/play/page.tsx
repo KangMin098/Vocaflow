@@ -29,6 +29,8 @@ export default function PairFlipPlayPage() {
   // 무엇으로 학습했나 — scores.content_ref 로 적재된다. 스코프는 이미 이 라우트가
   // 읽고 있었지만 점수 적재에는 전달되지 않아 PairFlip 기록만 자료 미상으로 남았다.
   const [content, setContent] = useState<ContentRef | null>(null)
+  // 짝 단어를 읽은 사용자 — 판의 주인(PairFlipGameScreen 의 화면 · 기록 경계). undefined = 아직 모름
+  const [viewerId, setViewerId] = useState<string | null | undefined>(undefined)
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -49,8 +51,11 @@ export default function PairFlipPlayPage() {
           const {
             data: { user },
           } = await client.auth.getUser()
-          setPairs(await fetchScopedPairs(client, { set, text, chapter, userId: user?.id ?? null }))
+          const got = await fetchScopedPairs(client, { set, text, chapter, userId: user?.id ?? null })
+          setViewerId(user?.id ?? null)
+          setPairs(got)
         } catch {
+          setViewerId(null)
           setPairs([]) // 실패 시 mock 폴백
         }
       })()
@@ -79,18 +84,22 @@ export default function PairFlipPlayPage() {
           data: { user },
         } = await client.auth.getUser()
         if (!user) {
+          setViewerId(null)
           setPairs([])
           return
         }
-        setPairs(await fetchDuePairs(client, user.id, PAIRFLIP_MAX_PAIRS))
+        const got = await fetchDuePairs(client, user.id, PAIRFLIP_MAX_PAIRS)
+        setViewerId(user.id)
+        setPairs(got)
       } catch {
+        setViewerId(null)
         setPairs([]) // 실패 시 mock 폴백
       }
     })()
   }, [router])
 
   // config + pairs 둘 다 준비될 때까지 게임(=hook) 마운트 보류 — 실 페어를 mount 시점에 주입.
-  if (!config || pairs === undefined) {
+  if (!config || pairs === undefined || viewerId === undefined) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center gap-2 text-[var(--t2)]">
         <Loader2 size={16} className="animate-spin" aria-hidden />
@@ -99,5 +108,5 @@ export default function PairFlipPlayPage() {
     )
   }
 
-  return <PairFlipGameScreen config={config} pairs={pairs} content={content ?? undefined} />
+  return <PairFlipGameScreen config={config} pairs={pairs} content={content ?? undefined} viewerId={viewerId} />
 }

@@ -21,6 +21,12 @@ if (process.argv.includes('--admin')) {
   process.exit(0)
 }
 
+// Synthetic real-component comparison avoids account/DB reads and writes.
+if (process.argv.includes('--isolated')) {
+  await import('./csat-map-dialog-check.mjs')
+  process.exit(0)
+}
+
 const argv = process.argv.slice(2)
 const arg = (k, d) => {
   const i = argv.indexOf(k)

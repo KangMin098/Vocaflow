@@ -4,10 +4,12 @@
 // DB 계약(2026-10-16 읽기 전용 감사): target_score NOT NULL(0–100) · target_grade 1–9 · target_exam ∈ {suneung, kice6, kice9, hakpyeong} · target_date date
 //   · csat_map_goal_set(p_user, p_score, p_grade, p_exam, p_date, p_client_key) 가 최신 표 + 이력을 한 트랜잭션에(사용자 잠금 · 요청키 멱등).
 //   RPC 는 같은 요청키의 **다른 본문**을 막지 않는다 → 사전 및 저장 후 불변 행 비교로 라우트가 409 를 낸다(SQL 변경 없음).
-// 계산에 쓰는 필드: 점수(기존 toBeMap) · 시험(기준 시험 후보 범위). 등급 · 목표일은 저장 · 표시만 — 등급 규칙 · 날짜 기반 학습량을 만들지 않는다.
+// 계산에 쓰는 필드: 점수(기존 toBeMap) · 시험(기준 시험 후보 범위). 목표일 · budget은 현재 PLAN의 기간 배분에만 쓴다.
+// budget 저장 확장 SQL은 20261023043453_csat_goal_budget.sql(공유 DB 적용 승인 필요). 등급을 점수나 학습량으로 환산하지 않는다.
 // 점수 ↔ 등급을 서로 바꿔 채우지 않는다. 점수에서 계산한 등급은 「참고 구간」으로만 따로 말한다.
 
 import type { ExamCandidate } from '../target'
+import { parseGoalBudget, sameBudget, type GoalBudget } from './goal-budget'
 
 export type GoalExam = 'suneung' | 'kice6' | 'kice9' | 'hakpyeong'
 export const GOAL_EXAMS: readonly GoalExam[] = ['suneung', 'kice6', 'kice9', 'hakpyeong']
@@ -21,6 +23,7 @@ export interface GoalVersion {
   exam: GoalExam | null
   date: string | null
   createdAt: string
+  budget?: GoalBudget | null
 }
 
 export interface GoalInput {
@@ -28,6 +31,8 @@ export interface GoalInput {
   grade: number | null
   exam: GoalExam | null
   date: string | null
+  budget?: GoalBudget | null
+  expectedGoalVersion?: number | null
 }
 
 /** 요청 본문 → 목표(검증). 점수는 필수(DB NOT NULL — 등급만인 목표는 LM-G1.3b). 모르는 값은 거절(조용히 null 로 바꾸지 않는다) */
@@ -42,7 +47,13 @@ export function parseGoalInput(body: unknown, today: string, allowPastReplay = f
   const date = b.date === undefined || b.date === null || b.date === '' ? null : b.date
   if (date !== null && !(typeof date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(date) && !Number.isNaN(Date.parse(`${date}T00:00:00Z`)) && new Date(`${date}T00:00:00Z`).toISOString().slice(0, 10) === date)) return { ok: false, error: '목표일 형식이 맞지 않아요' }
   if (!allowPastReplay && date !== null && date < today) return { ok: false, error: '목표일은 오늘이나 그 뒤여야 해요' }
-  return { ok: true, goal: { score: b.target as number, grade: grade as number | null, exam: exam as GoalExam | null, date: date as string | null } }
+  const budget = parseGoalBudget(b.budget)
+  if (!budget.ok) return budget
+  if (budget.budget && (!exam || !date)) return { ok: false, error: '기간 계획에는 목표 시험과 목표일이 필요해요' }
+  const expected = b.expectedGoalVersion
+  if ((budget.budget || expected !== undefined) && !(expected === null || (Number.isSafeInteger(expected) && (expected as number) > 0))) return { ok: false, error: '현재 목표 버전을 확인한 뒤 다시 저장해 주세요' }
+  if (budget.budget && date && Date.parse(`${date}T00:00:00Z`) - Date.parse(`${today}T00:00:00Z`) > 3660 * 86400000) return { ok: false, error: '기간 계획의 목표일은 10년 이내로 정해 주세요' }
+  return { ok: true, goal: { score: b.target as number, grade: grade as number | null, exam: exam as GoalExam | null, date: date as string | null, ...(budget.budget ? { budget: budget.budget } : {}), ...(expected !== undefined ? { expectedGoalVersion: expected as number | null } : {}) } }
 }
 
 /** Calendar date policy is Asia/Seoul, independent of server/browser timezone. */
@@ -51,8 +62,8 @@ export function seoulToday(now: Date): string {
 }
 
 /** 같은 요청키로 다시 온 본문이 처음 저장과 같은가(멱등 재전송) — 다르면 409 */
-export function sameGoal(a: GoalInput, b: Pick<GoalVersion, 'score' | 'grade' | 'exam' | 'date'>): boolean {
-  return a.score === b.score && a.grade === b.grade && a.exam === b.exam && a.date === b.date
+export function sameGoal(a: GoalInput, b: Pick<GoalVersion, 'score' | 'grade' | 'exam' | 'date' | 'budget'>): boolean {
+  return a.score === b.score && a.grade === b.grade && a.exam === b.exam && a.date === b.date && sameBudget(a.budget, b.budget)
 }
 
 /**

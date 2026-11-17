@@ -72,7 +72,7 @@ const ITEM = 'SYNTHETIC#1'
 const binding = { analysisVersion: 1, contentHash: 'aaaaaaaaaaaaaaaa' }
 const base = (id: string) => withView({ version: 1, seed: 1, onboarded: true, predictions: [], formulas: [], queue: [], completed: [],
   meaningNotes: [writeMeaningNote(null, { item: ITEM, unitId: id, text: `Synthetic own-language note ${id}`, binding }, NOW)!], updatedAt: NOW } as never, ITEM, NOW)
-const put = (record: unknown) => PUT(new Request('http://isolated.test/api/csat/state', { method: 'PUT', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ record }) }))
+const put = (record: unknown) => PUT(new Request('http://isolated.test/api/csat/state', { method: 'PUT', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ owner: USER, record }) }))
 const stored = async () => ((await db.query<{ record: { meaningNotes?: { unitId: string }[] } }>('select record from csat_learner_state where user_id = $1', [USER])).rows[0]?.record?.meaningNotes ?? []).map((x) => x.unitId).sort()
 
 beforeAll(async () => { db = new PGlite(); await db.exec('create table csat_learner_state(user_id text primary key, record jsonb, updated_at timestamptz)') })

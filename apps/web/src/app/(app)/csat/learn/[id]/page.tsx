@@ -22,21 +22,20 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { createClient } from '@/lib/supabase/server'
 
 import styles from '@/components/knowledge/practice.module.css'
-import { mapReturnQuery, parseMapReturn, returnQueryOf } from '@/lib/csat/map-return'
+import { learnReturnHref, learnSelfHref } from '@/lib/csat/authored/learn-return'
 
 export const metadata: Metadata = { title: '글의 중심 잡기 — 기출' }
 export const dynamic = 'force-dynamic'
 
-const MAP_HREF = '/csat/diagnosis?tab=map&view=full'
 
 export default async function LearnPage({ params, searchParams }: { params: { id: string }; searchParams: { d?: string } & Record<string, string | string[] | undefined> }) {
   // 지도 복귀(FI-011 C) — 지도 CTA 가 실은 문맥(형식만 검증 · lib/csat/map-return)을 그대로 돌려준다. 조회 권한으로 쓰지 않는다(지도가 현재 본인 계획과 비교)
   //   돌아가는 곳은 원래 링크와 같은 전체 지도(Workspace 행 · 받은 자료 카드가 있는 화면) — 지도 홈(/csat)에는 Workspace 행이 없다(fbc5667f5 CI 실측)
-  const returnHref = searchParams.from === 'map' ? `${MAP_HREF}${mapReturnQuery(parseMapReturn({ ...returnQueryOf(searchParams), map_item: params.id, map_attempt: undefined }))}` : MAP_HREF
+  const returnHref = learnReturnHref(params.id, searchParams)
   if (!/^[a-z0-9][a-z0-9.-]{2,80}$/.test(params.id)) notFound()
   const db = (await createClient()) as unknown as SupabaseClient
   const { data: { user } } = await db.auth.getUser()
-  if (!user) redirect(loginUrlWithReturn(`/csat/learn/${params.id}${searchParams.d && /^[0-9a-f-]{36}$/i.test(searchParams.d) ? `?d=${searchParams.d}` : ''}`))
+  if (!user) redirect(loginUrlWithReturn(learnSelfHref(params.id, searchParams, searchParams.d)))
   // 출처 = 지도 · Workspace 링크의 납품 id(?d=). 같은 자료가 여러 묶음 · 역할로 납품됐으면 고르게 한다(최신 추측 금지 · FI-001)
   const opened = await openDelivered(createAdminClient() as unknown as SupabaseClient, db, user.id, `authored:${params.id}`, searchParams.d ?? null)
     .catch((e: unknown) => { console.error('[csat-learn] 자료 열기 실패', params.id, e instanceof Error ? e.message : e); throw e })
@@ -52,7 +51,7 @@ export default async function LearnPage({ params, searchParams }: { params: { id
           <ul className={styles.steps}>
             {opened.choices.map((c) => (
               <li key={c.deliveryId}>
-                <Link className={styles.link} href={`/csat/learn/${params.id}?d=${c.deliveryId}`}>{ROLE_LABEL[c.role as keyof typeof ROLE_LABEL] ?? c.role} · {c.deliveredAt.slice(0, 10)} 받음</Link>
+                <Link className={styles.link} href={learnSelfHref(params.id, searchParams, c.deliveryId)}>{ROLE_LABEL[c.role as keyof typeof ROLE_LABEL] ?? c.role} · {c.deliveredAt.slice(0, 10)} 받음</Link>
               </li>
             ))}
           </ul>
@@ -74,7 +73,7 @@ export default async function LearnPage({ params, searchParams }: { params: { id
                 : '학습 지도의 학습 묶음에서 「자료 받기」를 누르면, 나에게 맞는 자료가 이곳에 열려요.'}
             </p>
           </header>
-          <Link className={styles.link} href={MAP_HREF}>학습 지도로 가기</Link>
+          <Link className={styles.link} href={returnHref}>학습 지도로 가기</Link>
         </div>
       </CsatShell>
     )
@@ -95,7 +94,7 @@ export default async function LearnPage({ params, searchParams }: { params: { id
             <h1>자료를 열지 못했어요</h1>
             <p className={styles.why}>열기 기록을 남기지 못해 본문을 보여 드리지 않았어요. 잠시 뒤 학습 지도에서 다시 열어 주세요 — 다시 열면 처음 보는 것으로 기록돼요.</p>
           </header>
-          <Link className={styles.link} href={MAP_HREF}>학습 지도로 가기</Link>
+          <Link className={styles.link} href={returnHref}>학습 지도로 가기</Link>
         </div>
       </CsatShell>
     )

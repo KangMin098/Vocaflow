@@ -18,7 +18,7 @@ import { buildDemand, type MaterialRole } from '@/lib/csat/map/v62/demand'
 import { canonicalDemand } from '@/lib/csat/map/v62/persist-contract'
 import type { V4View } from '@/lib/csat/map/v4/compose'
 import type { TaskId } from '@/lib/csat/map/v4/definition'
-import { bindDeliveryAttempt, type BindingResult } from '@/lib/csat/map/v62/delivery-binding'
+import { bindDeliveryAttempt, boundAttemptId, type BindingResult } from '@/lib/csat/map/v62/delivery-binding'
 import { selectWriter, type AttemptWrite, type AttemptWriter } from '@/lib/knowledge/practice-writer'
 import { isSyntheticEmail, parseClientMeta } from '@/lib/knowledge/practice'
 import { formatOf, type FormatId } from '@/lib/knowledge/authored/formats'
@@ -118,7 +118,21 @@ async function authoredStock(admin: SupabaseClient, task: string, role: Material
     const pick = ok.find((x) => x.scope === want)
     if (pick && ok.some((x) => x.scope === 'public')) out.push({ qualificationId: r.id, ref: r.artifact_ref, approvalId: pick.id })
   }
-  return out
+  return decidedStock(admin, out)
+}
+
+/**
+ * 2A — 지금 유효한 결정(사람 이력 · 두 AI 검토)이 있는 재고만 후보로 둔다. AI 검토가 요구되면 영수증 범위 문항만 남는다.
+ * 판정 함수가 없으면(AI 검토 SQL 미적용) 거르지 않는다 — 공급 함수가 그대로 다시 판정한다. 다른 오류는 숨기지 않는다.
+ */
+async function decidedStock(admin: SupabaseClient, stock: Stock[]): Promise<Stock[]> {
+  const kept: Stock[] = []
+  for (const s of stock) {
+    const r = await admin.rpc('authored_supply_decision_state', { p_qualification: s.qualificationId })
+    if (r.error) { if (isMissing(r.error)) return stock; throw new Error(`결정 상태 조회 실패: ${r.error.message}`) }
+    if (r.data === 'human' || r.data === 'ai') kept.push(s)
+  }
+  return kept
 }
 
 /**
@@ -349,10 +363,7 @@ export async function recordAuthoredAttempt(
   const binding: BindingResult = await bindDeliveryAttempt(learner, { userId: user.id, itemRef: ref, clientMutationId: meta.value.clientMutationId, artifactKind: 'authored_item', deliveryId: opened.view.deliveryId })
     .catch((e) => { console.error('[authored delivery binding]', e); return { status: 'error' as const } })
   // 이번 수행 식별자 — 학습자 세션으로 본인 결속 행에서만(RLS) 읽는다. 클라이언트 값을 쓰지 않는다
-  const attemptId = binding.status === 'bound' && binding.id
-    ? await learner.from('workspace_delivery_attempt').select('attempt_id').eq('user_id', user.id).eq('id', binding.id).maybeSingle()
-      .then((r: { data: { attempt_id?: unknown } | null }) => (r.data?.attempt_id != null ? String(r.data.attempt_id) : null), () => null)
-    : null
+  const attemptId = await boundAttemptId(learner, user.id, binding)
   return { grade: graded.grade as unknown as AuthoredAttemptResult['grade'], reveal: revealAfterAnswer(item), binding, attemptId }
 }
 

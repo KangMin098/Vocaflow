@@ -104,7 +104,7 @@ export function ChapterBottomNav({ chapters, currentChapterIdx }: ChapterBottomN
               aria-current={isCurrent ? 'page' : undefined}
               aria-label={it.chapterTitle ? `Chapter ${it.chapterIdx} — ${it.chapterTitle}` : `Chapter ${it.chapterIdx}`}
               title={it.chapterTitle ?? `Chapter ${it.chapterIdx}`}
-              className={`inline-flex h-8 min-w-[32px] items-center justify-center rounded-[var(--r-md)] px-2 font-display text-[13px] font-[600] tabular-nums transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+              className={`inline-flex h-11 min-w-[44px] items-center justify-center rounded-[var(--r-md)] px-2 font-display text-[13px] font-[600] tabular-nums transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                 isCurrent
                   ? 'bg-[var(--p)] text-white shadow-[var(--sh-sm)] hover:bg-[var(--p-hover)]'
                   : 'text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]'

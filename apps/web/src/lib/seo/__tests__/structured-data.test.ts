@@ -35,10 +35,15 @@ describe('Book 구조화 데이터', () => {
     expect(o.author).toEqual({ '@type': 'Person', name: 'Lewis Carroll' })
   })
 
-  it('무료·퍼블릭 도메인을 명시한다 — 검색하는 사람이 알고 싶어 하는 것', () => {
+  it('무료는 명시하되 라이선스는 지어내지 않는다 — copyright_safe_in_kr 는 퍼블릭 도메인이 아니다(CC BY 도서가 있다)', () => {
     const o = JSON.parse(full)
     expect(o.isAccessibleForFree).toBe(true)
-    expect(o.license).toContain('publicdomain')
+    expect(o.license).toBeUndefined()
+    expect(full).not.toContain('publicdomain')
+    // 권리 입력이 없는 최소 도서도 같다
+    const bare = JSON.parse(bookJsonLd({ id: 'x', title: 'Tell Me, What is a Drone?' }))
+    expect(bare.license).toBeUndefined()
+    expect(bare.isAccessibleForFree).toBe(true)
   })
 
   it('평점·리뷰를 지어내지 않는다', () => {
@@ -91,6 +96,20 @@ describe('ComicIssue 구조화 데이터', () => {
     for (const key of FORBIDDEN) {
       expect(full).not.toContain(key)
     }
+  })
+
+  it('퍼블릭 도메인 표기는 그 호의 확인된 근거(pdBasis)가 있을 때만 — 근거 없는 호에 지어내지 않는다', () => {
+    expect(JSON.parse(full).license).toBeUndefined()
+    expect(full).not.toContain('publicdomain')
+    for (const pdBasis of ['term-expired', 'pre-1929', 'no-renewal']) {
+      expect(JSON.parse(comicIssueJsonLd({ slug: 's', title: 'T', pdBasis })).license).toBe('https://creativecommons.org/publicdomain/mark/1.0/')
+    }
+    // 다른 라이선스 · 모르는 값은 PD 가 아니다
+    for (const pdBasis of ['explicit-license', 'Published 1940 without notice']) {
+      expect(JSON.parse(comicIssueJsonLd({ slug: 's', title: 'T', pdBasis })).license).toBeUndefined()
+    }
+    const blank = JSON.parse(comicIssueJsonLd({ slug: 's', title: 'T', pdBasis: '  ' }))
+    expect(blank.license).toBeUndefined()
   })
 
   it('시리즈명이 호 제목과 같으면 넣지 않는다 — 자기 자신에 속한다는 말은 정보가 아니다', () => {

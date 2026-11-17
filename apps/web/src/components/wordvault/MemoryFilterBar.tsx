@@ -35,9 +35,11 @@ interface MemoryFilterBarProps {
   count: number
   /** 전체로 돌아가기 */
   onClear: () => void
+  /** 학습 진입 주소 — Browse 가 지금 검색 · 난이도와 돌아올 목록을 실어 준다(없으면 상태만) */
+  studyHref?: string
 }
 
-export function MemoryFilterBar({ filterKey, count, onClear }: MemoryFilterBarProps) {
+export function MemoryFilterBar({ filterKey, count, onClear, studyHref }: MemoryFilterBarProps) {
   const label = stateFilterLabel(filterKey)
   const token = stateFilterToken(filterKey)
 
@@ -75,7 +77,8 @@ export function MemoryFilterBar({ filterKey, count, onClear }: MemoryFilterBarPr
         */}
         {count > 0 && (
           <Link
-            href={`/wordvault/study?filter=${encodeURIComponent(toStateFilterValue(filterKey))}`}
+            href={studyHref ?? `/wordvault/study?filter=${encodeURIComponent(toStateFilterValue(filterKey))}`}
+            data-testid="vocab-state-study-start"
             className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-4 font-display text-[13px] font-[700] text-[var(--on-ju)] transition-[filter,transform] duration-[var(--dur-normal)] ease-[var(--ease)] hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] focus-visible:ring-offset-2 active:scale-[0.98]"
           >
             <Play size={13} aria-hidden />이 단어로 학습 시작

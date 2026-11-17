@@ -1,0 +1,37 @@
+{
+  "scenario": "loadMapPage at12:10 projects completed lesson; composeV4 replay at12:03 before final reflection12:05",
+  "expected_repair_success": false,
+  "actual_repair_success": true,
+  "repairAt": "2026-10-21T12:01:00.000Z",
+  "visible_activities": [
+    {
+      "attemptId": "factory_dcp:55555555-5555-4555-8555-555555555550",
+      "sessionId": null,
+      "itemRef": "dcp:44444444-4444-4444-8444-444444444440",
+      "taskKey": "authored-central-meaning",
+      "phase": "practice",
+      "isCorrect": true,
+      "answeredAt": "2026-10-21T12:01:00.000Z",
+      "receivedAt": "2026-10-21T12:01:00.000Z",
+      "activity": "source_lesson",
+      "helpLevel": "guided",
+      "synthetic": false,
+      "repairRole": "guided_practice"
+    },
+    {
+      "attemptId": "factory_dcp:55555555-5555-4555-8555-555555555551",
+      "sessionId": null,
+      "itemRef": "dcp:44444444-4444-4444-8444-444444444441",
+      "taskKey": "authored-central-meaning",
+      "phase": "practice",
+      "isCorrect": true,
+      "answeredAt": "2026-10-21T12:02:00.000Z",
+      "receivedAt": "2026-10-21T12:02:00.000Z",
+      "activity": "source_lesson",
+      "helpLevel": "guided",
+      "synthetic": false,
+      "repairRole": "guided_practice"
+    }
+  ],
+  "full_lesson_completion": "2026-10-21T12:05:00.000Z"
+}

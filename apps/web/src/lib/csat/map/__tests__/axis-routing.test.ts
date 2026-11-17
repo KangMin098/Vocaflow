@@ -99,7 +99,7 @@ describe('불변식', () => {
   // v6.2 단일 지도(2026-10-14): 학생 메인 = UnifiedLearningMap · TaskInspector · GoalRecordBar. 다음 행동은 Inspector 상단 하나
   it('학생 화면 다음 행동은 하나 — Inspector 상단 고정 링크(단일 지도 정적 검사)', () => {
     const dir = path.resolve(__dirname, '../../../../components/csat/diagnosis/map')
-    const src = ['UnifiedLearningMap.tsx', 'TaskInspector.tsx', 'GoalRecordBar.tsx', 'WorkspaceList.tsx', 'TaskPopup.tsx', 'WorkspaceModal.tsx'].map((f) => fs.readFileSync(path.join(dir, f), 'utf8')).join('\n')
+    const src = ['UnifiedLearningMap.tsx', 'TaskInspector.tsx', 'GoalRecordBar.tsx', 'WorkspaceList.tsx', 'LearningDetailDialog.tsx', 'WorkspaceModal.tsx'].map((f) => fs.readFileSync(path.join(dir, f), 'utf8')).join('\n')
     expect((src.match(/data-testid="inspector-next"/g) ?? []).length).toBe(1)
     // 내부 용어가 학생 화면에 없다
     expect(src).not.toMatch(/exam_observable|exam_assisted|direct_diagnostic|confounded/)
