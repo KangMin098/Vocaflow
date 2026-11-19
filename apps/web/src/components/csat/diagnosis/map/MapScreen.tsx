@@ -17,7 +17,7 @@ import u from './unified.module.css'
 export type MapView = 'core' | 'full'
 export const parseMapView = (v?: string): MapView => (v === 'full' ? 'full' : 'core')
 
-export function MapScreen({ data, view, base, asOf, restore = null }: { data: MapPageData; view: MapView; base: string; asOf?: string; restore?: MapReturnCtx | null }) {
+export function MapScreen({ data, view, base, asOf, restore = null, workspaceFirst = false }: { data: MapPageData; view: MapView; base: string; asOf?: string; restore?: MapReturnCtx | null; workspaceFirst?: boolean }) {
   // 정규 전체 주소는 진단 화면의 ?tab=map&view=full — 홈(/csat)에서 펼쳐도 그 주소로 간다
   const diag = base === '/csat' ? '/csat/diagnosis' : base
   const asofQ = asOf ? `&asof=${asOf.slice(0, 10)}` : ''
@@ -29,6 +29,7 @@ export function MapScreen({ data, view, base, asOf, restore = null }: { data: Ma
         recordHref={`${diag}?tab=records&modal=new`}
         asOf={asOf}
         restore={restore}
+        workspaceFirst={workspaceFirst}
         viewToggle={
           view === 'full' ? (
             <Link href={`${diag}?tab=map${asofQ}`} className={u.ghost} data-testid="map-core-link">

@@ -1,0 +1,78 @@
+{
+  "kind": "REVIEW_PREVIEW_NOT_APPLIED",
+  "generated_at": "2026-10-21T13:13:07.548Z",
+  "database_writes": 0,
+  "baseline_observed_at": "2026-10-21T13:11:38.657305+00:00",
+  "sql_file": "learning-outcomes-review.sql",
+  "sql_sha256": "e84a960723766efc6c798ae09307d8a9e776e46b4d3e7d6f937966a54b312d8d",
+  "stages": [
+    {
+      "name": "authored_supply",
+      "file": "supabase/migrations/_pending_authored_supply.sql",
+      "bytes": 46182,
+      "sha256": "dfb29f2dc3c3c0ecf516bdf47efa1d50f2f203ef7d399a60f3072d57c93ac229"
+    },
+    {
+      "name": "authored_ai_review",
+      "file": "supabase/migrations/_pending_authored_ai_review.sql",
+      "bytes": 28717,
+      "sha256": "050a6fa2508744c1ba69b82d1652c83ed24a5fab39a8e9c20641a410ceb883bb"
+    },
+    {
+      "name": "factory_dcp_admission",
+      "file": "supabase/migrations/_pending_factory_dcp_admission.sql",
+      "bytes": 23835,
+      "sha256": "e081cfac2ef5e6127a739cfc3af63f5b276ca6b4f25cecb9015f36d44e549ac1"
+    },
+    {
+      "name": "factory_dcp_learning",
+      "file": "supabase/migrations/_pending_factory_dcp_learning.sql",
+      "bytes": 19847,
+      "sha256": "a0177e78b80258549192297013845a162293d04991fb076f0ac9170d2a23e49f"
+    },
+    {
+      "name": "source_lesson_reflection",
+      "file": "supabase/migrations/_pending_source_lesson_reflection.sql",
+      "bytes": 18183,
+      "sha256": "2dac4416f17e2a8ecd679c15ec49d87b4d4c70ab6ec09627e7d6caaaf27dbdf1"
+    },
+    {
+      "name": "source_lesson_repair_receipt",
+      "file": "supabase/migrations/_pending_source_lesson_repair_receipt.sql",
+      "bytes": 9336,
+      "sha256": "9951a0ae30f626dd20f5c60b0c64dbd7c996b2350e07034e2de5fce4e14ab011"
+    },
+    {
+      "name": "two_existing_rationale_DATA_correction",
+      "file": "supabase/deploy/learning-outcomes-20261021/rationale-correction.sql",
+      "bytes": 6213,
+      "sha256": "9aa6b0caf2d2734597eb9bcd04c2b93b1733aaba50cff91494f05f5f5798b34d"
+    }
+  ],
+  "preserved_existing_counts_observation": {
+    "factory_order": 1,
+    "content_qualification": 0,
+    "factory_product_order": 3,
+    "content_release_approval": 0,
+    "workspace_content_demand": 1,
+    "factory_order_product_link": 3,
+    "workspace_content_delivery": 0,
+    "workspace_delivery_attempt": 0
+  },
+  "registration": {
+    "items": 8,
+    "action": "not_in_this_payload; separate authenticated admin API request and production-order rebinding after approval",
+    "human_decisions": 0
+  },
+  "data_correction": {
+    "rows": 2,
+    "field": "answer_key.rationale_ko",
+    "ids": [
+      "33ee70d0-d812-49b1-9098-d97f7aaee5af",
+      "4dbcca67-2e17-4e96-a2d1-9d513b4b87b6"
+    ],
+    "payload_choices_primary_keys_attempts_preserved": true
+  },
+  "recovery": "Transaction failure rolls back all seven stages. After commit preserve ledgers; disable new entry points. Two-rationale rollback SQL is valid only before qualification/admission and requires separate approval. Never DROP populated tables.",
+  "execution": "No BEGIN/COMMIT in payload; one atomic apply_migration transaction. Select a unique version immediately before approved apply."
+}

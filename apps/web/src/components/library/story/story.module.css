@@ -1,0 +1,1023 @@
+/* apps/web/src/components/library/story/story.module.css
+ *
+ * LCP Story 학습자 화면(서가 · 독서) — Tines 공개 지면(DESIGN.md): 크림 지면 · 열린 행 · 얇은 중립선 · 보라 조작/focus.
+ * 색 · 서체는 스킨 토큰만 쓴다(새 글꼴 · 새 색 값 없음). 책 계열 자료라 식별 단서만 옅은 초록(--tint-green)을 쓴다.
+ * 한글은 break-keep · 조작부 44px · 보이는 focus · 1280/1440 가로 넘침 없음 · 모션 감소 시 이동 없이 페이드만.
+ */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-block: 8px 72px;
+  color: var(--t1);
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+}
+.skip:focus-visible {
+  position: static;
+  align-self: flex-start;
+}
+
+.focusable:focus-visible,
+.page a:focus-visible,
+.page button:focus-visible,
+.page summary:focus-visible,
+.page [tabindex='-1']:focus-visible {
+  outline: 2px solid var(--p);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ── 머리 ─────────────────────────────────────────── */
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 760px;
+}
+
+.crumb {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  align-self: flex-start;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ju);
+  text-decoration: none;
+}
+.crumb:hover {
+  text-decoration: underline;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 44px;
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+}
+
+.lede {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--t2);
+}
+
+.meta {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--t2);
+}
+
+.metaStrong {
+  color: var(--t1);
+  font-weight: 700;
+}
+
+/* ── 서가: 작품 행 ─────────────────────────────────── */
+
+.works {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--bd);
+}
+
+.work {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 400px);
+  gap: 32px;
+  padding-block: 32px;
+  border-bottom: 1px solid var(--bd);
+}
+
+.workTitle {
+  margin: 0 0 14px;
+  font-family: var(--font-serif);
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+.hook {
+  margin: 0;
+  padding: 4px 0 4px 18px;
+  border-left: 3px solid var(--tint-green);
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--t1);
+  white-space: pre-line;
+}
+
+.editions {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.editionGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.groupHead {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.groupTarget {
+  font-weight: 500;
+  color: var(--t2);
+}
+
+.editionList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.edition {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px 16px;
+  padding-block: 10px;
+  border-top: 1px solid color-mix(in srgb, var(--bd) 70%, transparent);
+}
+
+.editionInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--t2);
+}
+
+.editionName {
+  color: var(--t1);
+  font-weight: 600;
+}
+
+.progressLine {
+  color: var(--t1);
+}
+
+.doneMark {
+  color: var(--t1);
+  font-weight: 700;
+}
+
+.history {
+  margin-top: 6px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--bd);
+  font-family: var(--font-display);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--t2);
+}
+
+.history ul {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+}
+
+/* ── 버튼 · 링크 ───────────────────────────────────── */
+
+.cta,
+.ctaSecondary,
+.ctaQuiet {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding-inline: 20px;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--dur-quick) var(--ease), color var(--dur-quick) var(--ease);
+}
+
+.cta {
+  border: 1px solid var(--p);
+  background: var(--p);
+  color: var(--on-p);
+}
+.cta:hover {
+  background: var(--ju);
+  border-color: var(--ju);
+}
+
+.ctaSecondary {
+  border: 1px solid var(--p);
+  background: var(--bg);
+  color: var(--p);
+}
+.ctaSecondary:hover {
+  background: var(--p-light);
+}
+
+.ctaQuiet {
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ju);
+  padding-inline: 4px;
+}
+.ctaQuiet:hover {
+  text-decoration: underline;
+}
+
+.cta[aria-disabled='true'],
+.ctaSecondary[aria-disabled='true'],
+.ctaQuiet[aria-disabled='true'],
+.cta:disabled,
+.ctaSecondary:disabled,
+.ctaQuiet:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.marked {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--t1);
+}
+
+/* ── 알림 줄(aria-live) ────────────────────────────── */
+
+.notice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  padding: 12px 16px;
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  background: var(--bg);
+  font-family: var(--font-display);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.noticeError {
+  border-color: var(--bd-strong);
+}
+
+.statusDock {
+  position: sticky;
+  bottom: 16px;
+  z-index: 2;
+  min-height: 0;
+}
+
+.statusText {
+  margin: 0;
+  flex: 1 1 240px;
+}
+
+.statusDetail {
+  display: block;
+  color: var(--t2);
+  font-size: 13px;
+}
+
+/* ── 독서 화면 ─────────────────────────────────────── */
+
+.reader {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 48px;
+  align-items: start;
+}
+
+.readerMain {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.aside {
+  position: sticky;
+  top: 88px;
+  max-height: calc(100dvh - 104px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 8px;
+  min-width: 0;
+}
+
+.asideBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--bd);
+  font-family: var(--font-display);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.asideTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--t2);
+}
+
+.unitHeading {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.2;
+  scroll-margin-top: 96px;
+}
+
+.unitBody {
+  max-width: 68ch;
+  padding-left: 0;
+  border-left: 3px solid transparent;
+  transition: border-color var(--dur-quick) var(--ease), padding-left var(--dur-quick) var(--ease);
+}
+
+.unitBody[data-tracing='true'] {
+  border-left-color: var(--tint-green);
+  padding-left: 18px;
+}
+
+.unitBody p {
+  margin: 0 0 1.1em;
+  font-family: var(--font-serif);
+  font-size: 19px;
+  line-height: 1.75;
+  white-space: pre-line;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+.entryPublic {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 68ch;
+}
+
+/* ── 시작 전 선택 안내(U1) — 본문 흐름 안의 작은 정보 · 접힌 주의 ─────────────── */
+
+.guidance {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.cautions {
+  font-family: var(--font-display);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--t1);
+}
+
+/* 네이티브 펼침 표시를 지킨다(list-item) · 조작 높이는 여백 계산(14px × 1.55 + 22px ≈ 43.7px)에 기대지 않고 min-height 로 44px 를 보장한다. */
+.cautions summary {
+  display: list-item;
+  box-sizing: border-box;
+  min-height: 44px;
+  padding-block: 11px;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--t1);
+}
+
+/* 단위 본문 뒤 시대적 맥락 설명(W2) — 본문 폭에 맞춘다. 요약 · 목록 모양은 .cautions 를 함께 쓴다. */
+.contextNotes {
+  max-width: 68ch;
+  min-width: 0;
+  /* 도구 줄 진입으로 이동할 때 고정 머리에 가리지 않게(D4-UX02). */
+  scroll-margin-top: 96px;
+}
+
+/* 위 여백 = 요약의 초점 테두리(오프셋 3px + 두께 2px)가 첫 문장을 가리지 않게. */
+.cautions ul {
+  margin: 8px 0 4px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--t1);
+}
+
+.wordTools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+}
+
+/* 읽기 도구(D4-UX02/03) — 단어 뜻 켜기 · 고른 낱말 뜻 보기(44px 대체 조작) · 이 단위 맥락 설명 진입. 한 줄 · 조작 높이 44px. */
+.toolButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding-inline: 16px;
+  border: 1px solid var(--bd-strong, var(--bd));
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--ju);
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.toolButton:hover {
+  background: var(--p-light);
+}
+.toolButton[aria-pressed='true'],
+.toolButton[aria-expanded='true'] {
+  border-color: var(--p);
+  color: var(--t1);
+}
+.toolButton span[lang='en'] {
+  font-family: var(--font-serif);
+  font-weight: 500;
+}
+
+/* ── D4-UX02 단위 화면 머리: 작품은 작은 복귀 맥락, 단위 제목이 주 제목 ─────────────── */
+
+.pageUnit {
+  gap: 20px;
+}
+
+.headCompact {
+  gap: 2px;
+  max-width: none;
+}
+
+.contextLine {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 12px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--t2);
+}
+
+.workContext {
+  min-width: 0;
+}
+.workContext span[lang='en'] {
+  font-family: var(--font-serif);
+  color: var(--t1);
+}
+
+/* ── D4-UX01 시작 화면: 첫 장면 첫 문장 · 선택해서 펼치는 상세 ──────────────────── */
+
+.hookPreview {
+  margin: 0;
+  padding: 2px 0 2px 18px;
+  border-left: 3px solid var(--tint-green);
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--t1);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.entryDetails {
+  max-width: 68ch;
+}
+
+.entryDetailsBody {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 8px 0 4px;
+}
+
+.afterCompletion {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wordButton {
+  display: inline;
+  margin: -6px 0;
+  padding: 6px 0;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  cursor: pointer;
+  text-decoration: underline dotted color-mix(in srgb, var(--t2) 60%, transparent);
+  text-underline-offset: 4px;
+}
+.wordButton:hover,
+.wordButton[aria-expanded='true'] {
+  background: var(--p-light);
+}
+
+.actionZone {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 20px;
+  border-top: 1px solid var(--bd);
+}
+
+.actionRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+}
+
+.navRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.toc {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.tocLink {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: var(--t1);
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-size: 14px;
+  line-height: 1.35;
+}
+.tocLink:hover {
+  background: var(--p-light);
+}
+.tocLink[aria-current='page'] {
+  box-shadow: inset 3px 0 0 var(--p);
+  font-weight: 700;
+}
+.tocLink[aria-disabled='true'] {
+  cursor: progress;
+  opacity: 0.6;
+}
+
+.tocMark {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--t2);
+  white-space: nowrap;
+}
+
+.sourceToggle {
+  align-self: flex-start;
+}
+
+.anchorList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.anchorItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px 12px 12px;
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  background: var(--bg);
+}
+.anchorItem[data-selected='true'] {
+  border-color: var(--p);
+  box-shadow: inset 3px 0 0 var(--p);
+}
+
+.anchorButton {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  min-height: 44px;
+  padding: 0 4px;
+  border: 0;
+  background: transparent;
+  color: var(--ju);
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+}
+.anchorButton[aria-pressed='true'] {
+  color: var(--t1);
+}
+
+.quote {
+  margin: 0;
+  padding-inline: 4px;
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--t1);
+  white-space: pre-line;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+.traceNote {
+  margin: 0;
+  color: var(--t1);
+}
+
+.sourceMeta {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 4px 12px;
+  font-size: 13px;
+}
+.sourceMeta dt {
+  color: var(--t2);
+}
+.sourceMeta dd {
+  margin: 0;
+  min-width: 0;
+}
+
+.siblingList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.siblingLink {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 44px;
+  padding: 6px 0;
+  color: var(--ju);
+  text-decoration: none;
+  font-weight: 600;
+}
+.siblingLink:hover {
+  text-decoration: underline;
+}
+.siblingLink span {
+  color: var(--t2);
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.state {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 640px;
+  padding-block: 24px;
+}
+
+.stateTitle {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+@media (max-width: 1100px) {
+  .work {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+  .reader {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .aside {
+    position: static;
+    max-height: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta,
+  .ctaSecondary,
+  .ctaQuiet,
+  .unitBody {
+    transition: opacity var(--dur-quick) linear;
+  }
+}
+
+/* ── D5-I01 뜻 창의 「내 단어장에 담기」 — 창 폭(288px) 안 · 조작 44px · 상태는 같은 자리 aria-live ─────────── */
+
+.wordSave {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--t1);
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.saveTarget {
+  margin: 0;
+}
+.saveTarget strong {
+  font-family: var(--font-serif);
+  font-weight: 600;
+}
+
+.saveSurface {
+  color: var(--t2);
+}
+
+.saveStatus {
+  margin: 0;
+  min-height: 0;
+  color: var(--t2);
+}
+.saveStatus:empty {
+  display: none;
+}
+
+.saveNote {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--t2);
+  word-break: keep-all;
+}
+
+.saveVaultLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 4px;
+  color: var(--ju);
+  font-weight: 700;
+  text-decoration: none;
+}
+.saveVaultLink:hover {
+  text-decoration: underline;
+}
+
+.wordSave .toolButton[aria-disabled='true'] {
+  cursor: default;
+  opacity: 0.85;
+}
+.wordSave :focus-visible {
+  outline: 2px solid var(--p);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* U03 — 단어장에서 돌아온 문장(조용한 강조 · 초점 표시). */
+.returnSentence {
+  border-radius: 3px;
+  background: var(--p-light);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.returnSentence:focus-visible {
+  outline: 2px solid var(--p);
+  outline-offset: 2px;
+}
+
+/* T-0224 — 읽음 표시 뒤 초점이 옮겨 오는 안내(tabIndex -1) — 보이는 초점 */
+.marked:focus-visible {
+  outline: 2px solid var(--p);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* T-0228 근거 선택 활동(after_unit) — 본문 폭 · 선택지 · 결과 두 근거 나란히. 조작 높이 44px · 정오는 문구로(색만으로 구분하지 않는다). */
+.activity {
+  max-width: 68ch;
+  min-width: 0;
+  margin-top: 24px;
+  padding: 16px 18px;
+  border: 1px solid var(--bd);
+  border-radius: var(--r-md, 10px);
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.activityTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--t1);
+}
+
+.activityClaim,
+.activityPrompt {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--t1);
+}
+
+.activityPrompt {
+  padding: 0;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.activityOptions {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.activityOption {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  box-sizing: border-box;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--bd);
+  border-radius: 8px;
+  font-family: var(--font-serif);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--t1);
+  cursor: pointer;
+}
+
+.activityOption[data-selected='true'] {
+  border-color: var(--p);
+}
+
+.activityOption input {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin: 2px 0 0;
+  accent-color: var(--p);
+}
+
+.activityOption:has(input:focus-visible) {
+  outline: 2px solid var(--p);
+  outline-offset: 2px;
+}
+
+.activityActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.activityResult {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.activityHead {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--t1);
+}
+
+.activityAssisted {
+  font-weight: 600;
+  color: var(--t2);
+}
+
+.activityPair {
+  align-self: stretch;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.activityEvidence {
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--bd);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.activityLabel {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--t2);
+}
+
+.activityQuote {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--t1);
+  overflow-wrap: anywhere;
+}

@@ -29,6 +29,9 @@ export default async function TeacherPage() {
   // "화면은 봤는데 만들지 않았다" 를 드러낸다. 지금은 그 구간이 통째로 안 보인다.
   void recordFunnel(await createClient(), 'teacher_hub_view', { surface: '/teacher' })
 
+  const {
+    data: { user },
+  } = await (await createClient()).auth.getUser()
   const [taught, joined, received, sent, collectedIds] = await Promise.all([
     fetchTeacherClasses(),
     fetchMyMemberships(),
@@ -51,6 +54,8 @@ export default async function TeacherPage() {
           // 받은 것이 없으면 참여 중인 학급 아래에 무엇을 기다리는지 적는다 —
           // `ReceivedAssignments` 는 빈 목록에서 아무것도 그리지 않아 학생이 막다른 골목에 선다.
           hasReceived={receivedOnly.length > 0}
+          // 받은 과제 조회 실패 중에는 「아직 오지 않음」 대기 안내를 그리지 않는다 — 실패가 빈 상태를 흉내 내지 않게(T-0235)
+          receivedFailed={received.failed}
           // 조회 실패와 "정말 클래스가 없음" 은 화면에서 구별되어야 한다 —
           // 빈 목록만 보여주면 교사는 자기 클래스가 사라졌다고 읽는다.
           unavailable={taught.unavailable || joined.unavailable}
@@ -60,9 +65,12 @@ export default async function TeacherPage() {
           assignments={receivedOnly}
           failed={received.failed}
           collectedIds={collectedIds}
+          // 받은 낱말의 단어장 검색 링크는 브라우저 세션이 이 viewer 와 같을 때만(T-0273)
+          viewerId={user?.id ?? null}
         />
 
-        <SentAssignments rows={sent.rows} />
+        {/* 목록 조회 실패를 버리면 "보낸 과제 없음" 과 똑같이 아무것도 안 보인다. */}
+        <SentAssignments rows={sent.rows} failed={sent.failed} />
       </div>
     </Screen>
   )

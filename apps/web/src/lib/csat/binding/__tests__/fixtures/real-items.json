@@ -1,0 +1,2847 @@
+{
+ "exported_by": "scripts/csat-binding-audit.mts --fixtures",
+ "note": "DB 읽기 전용 export — 손으로 고치지 않는다",
+ "rows": [
+  {
+   "item": {
+    "id": "2015#25",
+    "exam_id": "2015",
+    "no": 25,
+    "type_id": "R-CHART",
+    "stem": "다음 도표의 내용과 일치하지 않는 것은?",
+    "passage": "The above graph shows the percentages of Americans aged 12-17 who posted certain types of personal information on social media sites in 2006 and in 2012. ① The year 2012 saw an overall percentage increase in each category of posted personal information. ② In both years, the percentage of the young Americans who posted photos of themselves was the highest of all the categories. ③ In 2006, the percentage of those who posted city or town names was higher than that of those who posted school names. ④ Regarding posted email addresses, the percentage of 2012 was three times higher than that of 2006. ⑤ Compared to 2006, 2012 recorded an eighteen percent increase in the category of cell phone numbers.",
+    "choices": [
+     "The year 2012 saw an overall percentage increase in each category of posted personal information.",
+     "In both years, the percentage of the young Americans who posted photos of themselves was the highest of all the categories.",
+     "In 2006, the percentage of those who posted city or town names was higher than that of those who posted school names.",
+     "Regarding posted email addresses, the percentage of 2012 was three times higher than that of 2006.",
+     "Compared to 2006, 2012 recorded an eighteen percent increase in the category of cell phone numbers."
+    ],
+    "answer": 4,
+    "answers": [
+     4,
+     5
+    ],
+    "body_ok": true
+   },
+   "inputHash": "42dc8178485b552fbd94055e13cdd7f8fb619aab803b938365d02ba63487dc83",
+   "units": null,
+   "analyses": [
+    {
+     "item_id": "2015#25",
+     "version": 1,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "같은 그래프에 곱셈을 요구하는 선지(④)와 뺄셈을 요구하는 선지(⑤)를 나란히 놓고, 나머지 셋은 값을 읽지 않고 증감 방향·높이 순서만으로 닫히게 했다. 곧 계산을 실제로 종이에 적는 학습자와 간격을 눈대중하는 학습자를 가르는 문항이다.",
+     "answer_locus": {
+      "quote": "Regarding posted email addresses, the percentage of 2012 was three times higher than that of 2006.",
+      "reasoning": "다섯 선지 중 값을 곱해야 판정되는 것은 ④ 하나뿐이다 — ①은 항목마다 두 막대의 증감 방향, ②는 각 해의 최고 막대, ③은 2006년 두 막대의 대소, ⑤는 두 막대의 눈금 차로 끝난다. 게다가 ①이 모든 항목에서 2012년 값이 2006년보다 크다고 이미 보증하므로 ④에서 새로 확인할 것은 '늘었는가' 가 아니라 '늘어난 배수가 정확히 3인가' 하나뿐이다. 배수 주장은 참·거짓이 갈리는 폭이 좁아(2006년 값 × 3 이 2012년 막대와 맞아야 한다) 도표 문항이 불일치를 심는 자리로 되풀이 쓰이고, 평가원 정답표가 이 문장을 불일치로 확정한다. ※ email addresses 두 막대의 값은 그림에만 있어 코퍼스 지문에도 columns2/2015.txt 문항 창(365행 앞뒤)에도 없다 — 실제 배수가 얼마인지는 적지 않는다.",
+      "sentence_index": [
+       2,
+       5
+      ],
+      "chart_values_available": false
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "전칭 검증 부담",
+       "verdict": "distractor",
+       "why_tempting": "overall 이 '전체적으로' 로 읽혀 항목 하나쯤 예외가 있어도 참이라고 넘기거나, 반대로 each category 가 다섯 항목 전부를 요구하는 것이 부담스러워 확인 없이 X 를 준다.",
+       "how_to_reject": "다섯 항목에서 2012년 막대가 2006년 막대보다 높은지 방향만 본다. 값을 읽을 필요가 없고, 하나라도 반대이거나 같으면 X 다."
+      },
+      {
+       "n": 2,
+       "trap": "최상급·순위 바꿔치기",
+       "verdict": "distractor",
+       "why_tempting": "In both years 가 붙어 두 해 각각에서 최고 항목을 확인해야 하는데, 2012년 막대만 보고 넘긴다. photos of themselves 가 눈에 띄게 높으면 두 해를 한 덩어리로 처리하기 쉽다.",
+       "how_to_reject": "2006 계열에서 가장 높은 막대 하나, 2012 계열에서 가장 높은 막대 하나를 각각 짚어 둘 다 photos of themselves 인지 본다."
+      },
+      {
+       "n": 3,
+       "trap": "항목 짝 바꾸기",
+       "verdict": "distractor",
+       "why_tempting": "한 문장에 (2006년 · city or town names)와 (2006년 · school names) 두 짝이 들어 있어, 연도를 2012로 밀거나 두 항목을 바꿔 읽으면 부등호가 뒤집힌다. 두 항목은 그래프에서 이웃해 있기도 하다.",
+       "how_to_reject": "2006 계열 막대만 보고 두 항목의 높이를 비교한다 — 2012 막대는 이 선지와 무관하므로 손으로 가린다."
+      },
+      {
+       "n": 4,
+       "trap": "배수 과장",
+       "verdict": "correct",
+       "why_tempting": "①이 모든 항목의 증가를 보증한 뒤라 '많이 늘었다' 는 인상이 이미 서 있고, 간격이 넓어 보이면 three times 를 눈대중으로 통과시킨다. 곱셈을 적지 않으면 두 배 남짓과 세 배가 구분되지 않는다.",
+       "how_to_reject": "email addresses 항목에서 2006 막대 값에 3을 곱한 수를 종이에 적고 2012 막대 값과 견준다. 곱한 값이 2012 막대보다 위에 있으면 이 선지가 불일치다."
+      },
+      {
+       "n": 5,
+       "trap": "단위 혼동",
+       "verdict": "distractor",
+       "why_tempting": "'an eighteen percent increase' 를 '18% 증가(=1.18배)' 로 읽으면 곱셈을 하게 되어 계산이 어긋나고, 참인 선지에 X 를 주게 된다. 도표 문항에서 이 표현은 두 막대의 눈금 차(퍼센트포인트)를 뜻한다.",
+       "how_to_reject": "cell phone numbers 항목의 2006 막대 값과 2012 막대 값을 읽어 빼고, 그 차가 18인지 본다. 선지 옆에 '차' 라고 미리 적어 두면 곱셈으로 새지 않는다."
+      }
+     ]
+    },
+    {
+     "item_id": "2015#25",
+     "version": 2,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "같은 그래프에 곱셈을 요구하는 선지(④)와 뺄셈을 요구하는 선지(⑤)를 나란히 놓고, 나머지 셋은 값을 읽지 않고 증감 방향·높이 순서만으로 닫히게 했다. 곧 계산을 실제로 종이에 적는 학습자와 간격을 눈대중하는 학습자를 가르는 문항이다.",
+     "answer_locus": {
+      "quote": "Regarding posted email addresses, the percentage of 2012 was three times higher than that of 2006.",
+      "reasoning": "다섯 선지 중 값을 곱해야 판정되는 것은 ④ 하나뿐이다 — ①은 항목마다 두 막대의 증감 방향, ②는 각 해의 최고 막대, ③은 2006년 두 막대의 대소, ⑤는 두 막대의 눈금 차로 끝난다. 게다가 ①이 모든 항목에서 2012년 값이 2006년보다 크다고 이미 보증하므로 ④에서 새로 확인할 것은 '늘었는가' 가 아니라 '늘어난 배수가 정확히 3인가' 하나뿐이다. 배수 주장은 참·거짓이 갈리는 폭이 좁아(2006년 값 × 3 이 2012년 막대와 맞아야 한다) 도표 문항이 불일치를 심는 자리로 되풀이 쓰이고, 평가원 정답표가 이 문장을 불일치로 확정한다. ※ email addresses 두 막대의 값은 그림에만 있어 코퍼스 지문에도 columns2/2015.txt 문항 창(365행 앞뒤)에도 없다 — 실제 배수가 얼마인지는 적지 않는다.",
+      "sentence_index": [
+       2,
+       5
+      ],
+      "chart_values_available": false
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "전칭 검증 부담",
+       "verdict": "distractor",
+       "why_tempting": "overall 이 '전체적으로' 로 읽혀 항목 하나쯤 예외가 있어도 참이라고 넘기거나, 반대로 each category 가 다섯 항목 전부를 요구하는 것이 부담스러워 확인 없이 X 를 준다.",
+       "how_to_reject": "다섯 항목에서 2012년 막대가 2006년 막대보다 높은지 방향만 본다. 값을 읽을 필요가 없고, 하나라도 반대이거나 같으면 X 다."
+      },
+      {
+       "n": 2,
+       "trap": "최상급·순위 바꿔치기",
+       "verdict": "distractor",
+       "why_tempting": "In both years 가 붙어 두 해 각각에서 최고 항목을 확인해야 하는데, 2012년 막대만 보고 넘긴다. photos of themselves 가 눈에 띄게 높으면 두 해를 한 덩어리로 처리하기 쉽다.",
+       "how_to_reject": "2006 계열에서 가장 높은 막대 하나, 2012 계열에서 가장 높은 막대 하나를 각각 짚어 둘 다 photos of themselves 인지 본다."
+      },
+      {
+       "n": 3,
+       "trap": "항목 짝 바꾸기",
+       "verdict": "distractor",
+       "why_tempting": "한 문장에 (2006년 · city or town names)와 (2006년 · school names) 두 짝이 들어 있어, 연도를 2012로 밀거나 두 항목을 바꿔 읽으면 부등호가 뒤집힌다. 두 항목은 그래프에서 이웃해 있기도 하다.",
+       "how_to_reject": "2006 계열 막대만 보고 두 항목의 높이를 비교한다 — 2012 막대는 이 선지와 무관하므로 손으로 가린다."
+      },
+      {
+       "n": 4,
+       "verdict": "correct",
+       "why_correct": "선지 ④가 새로 주장하는 것은 배수 하나다. ①의 'The year 2012 saw an overall percentage increase in each category of posted personal information' 이 email addresses 를 포함한 모든 범주에서 2012 > 2006 을 이미 보증하므로, 'the percentage of 2012 was three times higher than that of 2006' 에서 검증이 남는 부분은 증가 여부가 아니라 'three times' 라는 비율이다. 이 배수는 두 막대의 값을 읽어 곱셈을 한 번 해야 나오고, ⑤의 'an eighteen percent increase' 처럼 뺄셈으로 끝나는 진술과 연산이 다르다. 곧 ④가 도표와 일치하지 않는다는 것은 email addresses 의 2012 값이 2006 값의 세 배에 이르지 못한다는 뜻이며, 그 두 값은 그림에서 읽는다.",
+       "confirmed_at": {
+        "note": "학습자가 미끄러지는 자리 — ①이 모든 범주의 증가를 보증한 뒤라 '많이 늘었다'는 인상이 이미 서 있고, 간격이 넓어 보이면 three times 를 눈대중으로 통과시킨다. 곱셈을 적지 않으면 두 배 남짓과 세 배가 구분되지 않는다.",
+        "sentence_index": [
+         5
+        ]
+       }
+      },
+      {
+       "n": 5,
+       "trap": "단위 혼동",
+       "verdict": "distractor",
+       "why_tempting": "'an eighteen percent increase' 를 '18% 증가(=1.18배)' 로 읽으면 곱셈을 하게 되어 계산이 어긋나고, 참인 선지에 X 를 주게 된다. 도표 문항에서 이 표현은 두 막대의 눈금 차(퍼센트포인트)를 뜻한다.",
+       "how_to_reject": "cell phone numbers 항목의 2006 막대 값과 2012 막대 값을 읽어 빼고, 그 차가 18인지 본다. 선지 옆에 '차' 라고 미리 적어 두면 곱셈으로 새지 않는다."
+      }
+     ]
+    },
+    {
+     "item_id": "2015#25",
+     "version": 3,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "같은 그래프에 곱셈을 요구하는 선지(④)와 뺄셈을 요구하는 선지(⑤)를 나란히 놓고, 나머지 셋은 값을 읽지 않고 증감 방향·높이 순서만으로 닫히게 했다. 곧 계산을 실제로 종이에 적는 학습자와 간격을 눈대중하는 학습자를 가르는 문항이다.",
+     "answer_locus": {
+      "quote": "Regarding posted email addresses, the percentage of 2012 was three times higher than that of 2006.",
+      "reasoning": "다섯 선지 중 값을 곱해야 판정되는 것은 ④ 하나뿐이다 — ①은 항목마다 두 막대의 증감 방향, ②는 각 해의 최고 막대, ③은 2006년 두 막대의 대소, ⑤는 두 막대의 눈금 차로 끝난다. 게다가 ①이 모든 항목에서 2012년 값이 2006년보다 크다고 이미 보증하므로 ④에서 새로 확인할 것은 '늘었는가' 가 아니라 '늘어난 배수가 정확히 3인가' 하나뿐이다. 배수 주장은 참·거짓이 갈리는 폭이 좁아(2006년 값 × 3 이 2012년 막대와 맞아야 한다) 도표 문항이 불일치를 심는 자리로 되풀이 쓰이고, 평가원 정답표가 이 문장을 불일치로 확정한다. ※ email addresses 두 막대의 값은 그림에만 있어 코퍼스 지문에도 columns2/2015.txt 문항 창(365행 앞뒤)에도 없다 — 실제 배수가 얼마인지는 적지 않는다.",
+      "sentence_index": [
+       2,
+       5
+      ],
+      "chart_values_available": false
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "전칭 검증 부담",
+       "verdict": "distractor",
+       "why_tempting": "overall 이 '전체적으로' 로 읽혀 항목 하나쯤 예외가 있어도 참이라고 넘기거나, 반대로 each category 가 다섯 항목 전부를 요구하는 것이 부담스러워 확인 없이 X 를 준다.",
+       "how_to_reject": "다섯 항목에서 2012년 막대가 2006년 막대보다 높은지 방향만 본다. 값을 읽을 필요가 없고, 하나라도 반대이거나 같으면 X 다."
+      },
+      {
+       "n": 2,
+       "trap": "최상급·순위 바꿔치기",
+       "verdict": "distractor",
+       "why_tempting": "In both years 가 붙어 두 해 각각에서 최고 항목을 확인해야 하는데, 2012년 막대만 보고 넘긴다. photos of themselves 가 눈에 띄게 높으면 두 해를 한 덩어리로 처리하기 쉽다.",
+       "how_to_reject": "2006 계열에서 가장 높은 막대 하나, 2012 계열에서 가장 높은 막대 하나를 각각 짚어 둘 다 photos of themselves 인지 본다."
+      },
+      {
+       "n": 3,
+       "trap": "항목 짝 바꾸기",
+       "verdict": "distractor",
+       "why_tempting": "한 문장에 (2006년 · city or town names)와 (2006년 · school names) 두 짝이 들어 있어, 연도를 2012로 밀거나 두 항목을 바꿔 읽으면 부등호가 뒤집힌다. 두 항목은 그래프에서 이웃해 있기도 하다.",
+       "how_to_reject": "2006 계열 막대만 보고 두 항목의 높이를 비교한다 — 2012 막대는 이 선지와 무관하므로 손으로 가린다."
+      },
+      {
+       "n": 4,
+       "verdict": "correct",
+       "why_correct": "선지 ④가 새로 주장하는 것은 배수 하나다. ①의 'The year 2012 saw an overall percentage increase in each category of posted personal information' 이 email addresses 를 포함한 모든 범주에서 2012 > 2006 을 이미 보증하므로, 'the percentage of 2012 was three times higher than that of 2006' 에서 검증이 남는 부분은 증가 여부가 아니라 'three times' 라는 비율이다. 이 배수는 두 막대의 값을 읽어 곱셈을 한 번 해야 나오고, ⑤의 'an eighteen percent increase' 처럼 뺄셈으로 끝나는 진술과 연산이 다르다. 곧 ④가 도표와 일치하지 않는다는 것은 email addresses 의 2012 값이 2006 값의 세 배에 이르지 못한다는 뜻이며, 그 두 값은 그림에서 읽는다.",
+       "confirmed_at": {
+        "note": "학습자가 미끄러지는 자리 — ①이 모든 범주의 증가를 보증한 뒤라 '많이 늘었다'는 인상이 이미 서 있고, 간격이 넓어 보이면 three times 를 눈대중으로 통과시킨다. 곱셈을 적지 않으면 두 배 남짓과 세 배가 구분되지 않는다.",
+        "sentence_index": [
+         5
+        ]
+       }
+      },
+      {
+       "n": 5,
+       "trap": "단위 혼동",
+       "verdict": "distractor",
+       "why_tempting": "'an eighteen percent increase' 를 '18% 증가(=1.18배)' 로 읽으면 곱셈을 하게 되어 계산이 어긋나고, 참인 선지에 X 를 주게 된다. 도표 문항에서 이 표현은 두 막대의 눈금 차(퍼센트포인트)를 뜻한다.",
+       "how_to_reject": "cell phone numbers 항목의 2006 막대 값과 2012 막대 값을 읽어 빼고, 그 차가 18인지 본다. 선지 옆에 '차' 라고 미리 적어 두면 곱셈으로 새지 않는다."
+      }
+     ]
+    },
+    {
+     "item_id": "2015#25",
+     "version": 4,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "같은 그래프에 곱셈을 요구하는 선지(④)와 뺄셈을 요구하는 선지(⑤)를 나란히 놓고, 나머지 셋은 값을 읽지 않고 증감 방향·높이 순서만으로 닫히게 했다. 곧 계산을 실제로 종이에 적는 학습자와 간격을 눈대중하는 학습자를 가르는 문항이다.",
+     "answer_locus": {
+      "quote": "Regarding posted email addresses, the percentage of 2012 was three times higher than that of 2006.",
+      "reasoning": "다섯 선지 중 값을 곱해야 판정되는 것은 ④ 하나뿐이다 — ①은 항목마다 두 막대의 증감 방향, ②는 각 해의 최고 막대, ③은 2006년 두 막대의 대소, ⑤는 두 막대의 눈금 차로 끝난다. 게다가 ①이 모든 항목에서 2012년 값이 2006년보다 크다고 이미 보증하므로 ④에서 새로 확인할 것은 '늘었는가' 가 아니라 '늘어난 배수가 정확히 3인가' 하나뿐이다. 배수 주장은 참·거짓이 갈리는 폭이 좁아(2006년 값 × 3 이 2012년 막대와 맞아야 한다) 도표 문항이 불일치를 심는 자리로 되풀이 쓰이고, 평가원 정답표가 이 문장을 불일치로 확정한다. ※ email addresses 두 막대의 값은 그림에만 있어 코퍼스 지문에도 columns2/2015.txt 문항 창(365행 앞뒤)에도 없다 — 실제 배수가 얼마인지는 적지 않는다.",
+      "sentence_index": [
+       2,
+       5
+      ],
+      "chart_values_available": false
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "전칭 검증 부담",
+       "verdict": "distractor",
+       "why_tempting": "overall 이 '전체적으로' 로 읽혀 항목 하나쯤 예외가 있어도 참이라고 넘기거나, 반대로 each category 가 다섯 항목 전부를 요구하는 것이 부담스러워 확인 없이 X 를 준다.",
+       "how_to_reject": "다섯 항목에서 2012년 막대가 2006년 막대보다 높은지 방향만 본다. 값을 읽을 필요가 없고, 하나라도 반대이거나 같으면 X 다."
+      },
+      {
+       "n": 2,
+       "trap": "최상급·순위 바꿔치기",
+       "verdict": "distractor",
+       "why_tempting": "In both years 가 붙어 두 해 각각에서 최고 항목을 확인해야 하는데, 2012년 막대만 보고 넘긴다. photos of themselves 가 눈에 띄게 높으면 두 해를 한 덩어리로 처리하기 쉽다.",
+       "how_to_reject": "2006 계열에서 가장 높은 막대 하나, 2012 계열에서 가장 높은 막대 하나를 각각 짚어 둘 다 photos of themselves 인지 본다."
+      },
+      {
+       "n": 3,
+       "trap": "항목 짝 바꾸기",
+       "verdict": "distractor",
+       "why_tempting": "한 문장에 (2006년 · city or town names)와 (2006년 · school names) 두 짝이 들어 있어, 연도를 2012로 밀거나 두 항목을 바꿔 읽으면 부등호가 뒤집힌다. 두 항목은 그래프에서 이웃해 있기도 하다.",
+       "how_to_reject": "2006 계열 막대만 보고 두 항목의 높이를 비교한다 — 2012 막대는 이 선지와 무관하므로 손으로 가린다."
+      },
+      {
+       "n": 4,
+       "verdict": "correct",
+       "why_correct": "선지 ④가 새로 주장하는 것은 배수 하나다. ①의 'The year 2012 saw an overall percentage increase in each category of posted personal information' 이 email addresses 를 포함한 모든 범주에서 2012 > 2006 을 이미 보증하므로, 'the percentage of 2012 was three times higher than that of 2006' 에서 검증이 남는 부분은 증가 여부가 아니라 'three times' 라는 비율이다. 이 배수는 두 막대의 값을 읽어 곱셈을 한 번 해야 나오고, ⑤의 'an eighteen percent increase' 처럼 뺄셈으로 끝나는 진술과 연산이 다르다. 곧 ④가 도표와 일치하지 않는다는 것은 email addresses 의 2012 값이 2006 값의 세 배에 이르지 못한다는 뜻이며, 그 두 값은 그림에서 읽는다.",
+       "confirmed_at": {
+        "note": "학습자가 미끄러지는 자리 — ①이 모든 범주의 증가를 보증한 뒤라 '많이 늘었다'는 인상이 이미 서 있고, 간격이 넓어 보이면 three times 를 눈대중으로 통과시킨다. 곱셈을 적지 않으면 두 배 남짓과 세 배가 구분되지 않는다.",
+        "sentence_index": [
+         5
+        ]
+       }
+      },
+      {
+       "n": 5,
+       "trap": "단위 혼동",
+       "verdict": "distractor",
+       "why_tempting": "'an eighteen percent increase' 를 '18% 증가(=1.18배)' 로 읽으면 곱셈을 하게 되어 계산이 어긋나고, 참인 선지에 X 를 주게 된다. 도표 문항에서 이 표현은 두 막대의 눈금 차(퍼센트포인트)를 뜻한다.",
+       "how_to_reject": "cell phone numbers 항목의 2006 막대 값과 2012 막대 값을 읽어 빼고, 그 차가 18인지 본다. 선지 옆에 '차' 라고 미리 적어 두면 곱셈으로 새지 않는다."
+      }
+     ]
+    },
+    {
+     "item_id": "2015#25",
+     "version": 5,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "Email Addresses 는 2006년 29%, 2012년 53%다. 53÷29 는 약 1.8배라 「three times」가 성립하지 않는다. 같은 도표에서 Cell Phone Numbers 는 2%→20%로 10배 늘어 「배수가 크다」는 인상을 다른 항목에서 주기 때문에, 배수 주장을 항목별로 계산하는지 가른다.",
+     "answer_locus": {
+      "quote": "the percentage of 2012 was three times higher than that of 2006",
+      "reasoning": "Email Addresses 막대는 2006년 29, 2012년 53 이다. 세 배라면 29×3=87 이어야 하는데 53 이므로 약 1.8배에 그친다. 따라서 [5]의 배수 주장은 도표와 어긋난다.",
+      "sentence_index": [
+       5
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "verdict": "distractor",
+       "how_to_reject": "[2] 문장은 다섯 항목 모두에서 2012 막대가 2006 막대보다 높아야 참이다. 79→91, 49→71, 61→71, 29→53, 2→20 으로 다섯 항목 모두 늘었으므로 맞는 진술이라 답이 아니다."
+      },
+      {
+       "n": 2,
+       "verdict": "distractor",
+       "how_to_reject": "[3] 문장은 두 해 각각에서 Photos of Themselves 가 최고인지 묻는다. 2006 은 79(다음 61), 2012 는 91(다음 71)로 두 해 모두 가장 높아 맞는 진술이고 답이 아니다."
+      },
+      {
+       "n": 3,
+       "verdict": "distractor",
+       "how_to_reject": "[4] 문장은 2006년 막대끼리 비교다. City or Town Names 61 > School Names 49 이므로 맞는 진술이라 답이 아니다. 2012 는 둘 다 71 이지만 선지는 2006 만 말한다."
+      },
+      {
+       "n": 4,
+       "trap": "배수 과장",
+       "verdict": "correct",
+       "why_correct": "[5]의 「three times higher」를 Email Addresses 의 두 값으로 나눠 보면 53÷29≈1.8 이다. 세 배가 되려면 2012 값이 약 87 이어야 하므로 배수 주장이 성립하지 않는다. 항목(email addresses)과 연도(2012 vs 2006)는 맞고 배수만 바뀐 문장이다.",
+       "confirmed_at": {
+        "note": "원본 도표 확인 — 2015_영어영역-홀수.pdf 4쪽, 읽은 값(2006/2012 %): Photos of Themselves 79/91, School Names 49/71, City or Town Names 61/71, Email Addresses 29/53, Cell Phone Numbers 2/20.",
+        "sentence_index": [
+         5
+        ]
+       }
+      },
+      {
+       "n": 5,
+       "verdict": "distractor",
+       "how_to_reject": "[6] 문장은 Cell Phone Numbers 의 2006 값 2 와 2012 값 20 의 차이를 말한다. 20−2=18 이므로 18 포인트 증가로 읽으면 도표와 일치해 답이 아니다(이 선지의 percent 는 백분율 값의 차이를 가리킨다)."
+      }
+     ]
+    }
+   ],
+   "pdfAnchored": true
+  },
+  {
+   "item": {
+    "id": "2014A#29",
+    "exam_id": "2014A",
+    "no": 29,
+    "type_id": "R-NOTICE",
+    "stem": "Modern Pottery Museum에 관한 다음 안내문의 내용과 일치하는 것은?",
+    "passage": "Modern Pottery Museum The Modern Pottery Museum exhibits collections of artistic ceramic works. It also offers information about the history and development of modern pottery. Visitors can make their own plates or cups for an additional fee. Hours* Weekdays: 9:00 a.m. － 6:00 p.m. Weekends: 9:00 a.m. － 5:00 p.m. month. Fees General Admission: $5 Children under 12: Free Pottery Experience: $10 Parking A parking discount is available to museum visitors. To receive the discount, visitors must have their parking tickets stamped at the visitor information desk.",
+    "choices": [
+     "방문객은 추가 비용 없이 접시나 컵을 만들 수 있다.",
+     "주말은 평일보다 관람 시간이 1시간 더 길다.",
+     "매주 월요일에 휴관한다.",
+     "12세 미만의 어린이는 입장료가 $5이다.",
+     "방문객은 주차 요금을 할인받을 수 있다."
+    ],
+    "answer": 5,
+    "answers": [
+     5
+    ],
+    "body_ok": true
+   },
+   "inputHash": "32c61e1af56ea295013383ae0e1ffc2cefb842fca0f46af0440fe614990e8ad6",
+   "units": null,
+   "analyses": [
+    {
+     "item_id": "2014A#29",
+     "version": 1,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "단순 대조가 아니라 두 줄의 차를 계산해야 하는 선지(②)와, 요금표에서 줄을 한 칸 밀어 읽으면 참이 되는 선지(④)를 함께 깔았다. 정답은 계산이 필요 없는 Parking 항목 첫 줄에 두어, 표를 끝까지 내려가 읽는지를 가른다.",
+     "answer_locus": {
+      "quote": "A parking discount is available to museum visitors.",
+      "reasoning": "Parking 항목의 첫 문장이 방문객에게 주차 할인이 제공된다고 직접 진술한다. 이어지는 문장은 도장을 받아야 한다는 절차 조건일 뿐 할인 자체를 부정하지 않으므로, 선지 ⑤의 '할인받을 수 있다'가 그대로 성립한다.",
+      "sentence_index": [
+       13
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "반대 진술",
+       "verdict": "distractor",
+       "why_tempting": "'Visitors can make their own plates or cups'까지만 읽으면 체험이 관람에 포함된 것으로 보여 추가 비용이 없다고 읽힌다.",
+       "how_to_reject": "같은 문장 끝의 for an additional fee 가 추가 요금을 명시하고, Fees 항목의 'Pottery Experience: $10' 이 그 금액을 다시 적는다."
+      },
+      {
+       "n": 2,
+       "trap": "부분 사실",
+       "verdict": "distractor",
+       "why_tempting": "평일과 주말의 마감 시각이 6시와 5시로 한 시간 차이라는 계산은 맞아떨어지므로, 어느 쪽이 긴지를 확인하지 않으면 참으로 보인다.",
+       "how_to_reject": "Hours 항목 두 줄 'Weekdays: 9:00 a.m. － 6:00 p.m.' 과 'Weekends: 9:00 a.m. － 5:00 p.m.' — 시작이 같고 마감이 주말에 한 시간 이르므로 주말이 한 시간 짧다."
+      },
+      {
+       "n": 3,
+       "trap": "지문 밖 상식",
+       "verdict": "distractor",
+       "why_tempting": "박물관은 월요일에 쉰다는 통념이 강해, 휴관 주기를 안내문에서 확인하지 않고 '매주 월요일'을 참으로 받아들인다.",
+       "how_to_reject": "Hours 에 별표(*)가 붙어 각주가 딸려 있고 그 각주는 'month.'로 끝난다 — 휴관 주기가 달(month) 단위로 걸려 있으므로 '매주'와 다르다. 각주 문장 전체가 인쇄면에서 잘려 있으면 이 선지는 근거로 확정하지 말고 다른 선지에서 참인 것을 찾는 쪽으로 간다."
+      },
+      {
+       "n": 4,
+       "trap": "어휘 함정",
+       "verdict": "distractor",
+       "why_tempting": "Fees 아래 항목이 세 줄로 붙어 있어 한 칸 밀려 읽으면 'General Admission: $5'의 금액이 그 아래 Children 줄에 붙는다.",
+       "how_to_reject": "'Children under 12: Free' — 12세 미만은 무료이고, $5 는 바로 위 General Admission 에 붙은 금액이다."
+      },
+      {
+       "n": 5,
+       "trap": "-",
+       "verdict": "correct",
+       "why_tempting": "Parking 항목이 안내문 맨 끝이라 요금표까지만 보고 멈추면 눈에 들어오지 않는다.",
+       "how_to_reject": "배제되지 않는다 — 주차 할인이 방문객에게 제공된다고 첫 문장에 적혀 있다."
+      }
+     ]
+    },
+    {
+     "item_id": "2014A#29",
+     "version": 2,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "단순 대조가 아니라 두 줄의 차를 계산해야 하는 선지(②)와, 요금표에서 줄을 한 칸 밀어 읽으면 참이 되는 선지(④)를 함께 깔았다. 정답은 계산이 필요 없는 Parking 항목 첫 줄에 두어, 표를 끝까지 내려가 읽는지를 가른다.",
+     "answer_locus": {
+      "quote": "A parking discount is available to museum visitors.",
+      "reasoning": "Parking 항목의 첫 문장이 방문객에게 주차 할인이 제공된다고 직접 진술한다. 이어지는 문장은 도장을 받아야 한다는 절차 조건일 뿐 할인 자체를 부정하지 않으므로, 선지 ⑤의 '할인받을 수 있다'가 그대로 성립한다.",
+      "sentence_index": [
+       13
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "반대 진술",
+       "verdict": "distractor",
+       "why_tempting": "'Visitors can make their own plates or cups'까지만 읽으면 체험이 관람에 포함된 것으로 보여 추가 비용이 없다고 읽힌다.",
+       "how_to_reject": "같은 문장 끝의 for an additional fee 가 추가 요금을 명시하고, Fees 항목의 'Pottery Experience: $10' 이 그 금액을 다시 적는다."
+      },
+      {
+       "n": 2,
+       "trap": "부분 사실",
+       "verdict": "distractor",
+       "why_tempting": "평일과 주말의 마감 시각이 6시와 5시로 한 시간 차이라는 계산은 맞아떨어지므로, 어느 쪽이 긴지를 확인하지 않으면 참으로 보인다.",
+       "how_to_reject": "Hours 항목 두 줄 'Weekdays: 9:00 a.m. － 6:00 p.m.' 과 'Weekends: 9:00 a.m. － 5:00 p.m.' — 시작이 같고 마감이 주말에 한 시간 이르므로 주말이 한 시간 짧다."
+      },
+      {
+       "n": 3,
+       "trap": "지문 밖 상식",
+       "verdict": "distractor",
+       "why_tempting": "박물관은 월요일에 쉰다는 통념이 강해, 휴관 주기를 안내문에서 확인하지 않고 '매주 월요일'을 참으로 받아들인다.",
+       "how_to_reject": "Hours 에 별표(*)가 붙어 각주가 딸려 있고 그 각주는 'month.'로 끝난다 — 휴관 주기가 달(month) 단위로 걸려 있으므로 '매주'와 다르다. 각주 문장 전체가 인쇄면에서 잘려 있으면 이 선지는 근거로 확정하지 말고 다른 선지에서 참인 것을 찾는 쪽으로 간다."
+      },
+      {
+       "n": 4,
+       "trap": "어휘 함정",
+       "verdict": "distractor",
+       "why_tempting": "Fees 아래 항목이 세 줄로 붙어 있어 한 칸 밀려 읽으면 'General Admission: $5'의 금액이 그 아래 Children 줄에 붙는다.",
+       "how_to_reject": "'Children under 12: Free' — 12세 미만은 무료이고, $5 는 바로 위 General Admission 에 붙은 금액이다."
+      },
+      {
+       "n": 5,
+       "verdict": "correct",
+       "why_correct": "발문이 '일치하는 것'이고, Parking 항목 첫 줄 A parking discount is available to museum visitors 의 a parking discount ↔ 선지 ⑤의 '주차 요금을 할인', museum visitors ↔ '방문객' 이 성분끼리 대응한다. 뒤 줄 visitors must have their parking tickets stamped at the visitor information desk 는 할인을 받는 절차 조건일 뿐 할인 자체를 취소하지 않으므로 '할인받을 수 있다' 가 그대로 성립한다.",
+       "confirmed_at": {
+        "note": "Parking 항목이 안내문 맨 끝이라 Fees 요금표까지만 보고 멈추면 이 줄이 눈에 들어오지 않는다 — 일치 문항은 마지막 항목까지 선지 번호를 여백에 적으며 내려간다.",
+        "sentence_index": [
+         13
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "item_id": "2014A#29",
+     "version": 3,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "단순 대조가 아니라 두 줄의 차를 계산해야 하는 선지(②)와, 요금표에서 줄을 한 칸 밀어 읽으면 참이 되는 선지(④)를 함께 깔았다. 정답은 계산이 필요 없는 Parking 항목 첫 줄에 두어, 표를 끝까지 내려가 읽는지를 가른다.",
+     "answer_locus": {
+      "quote": "A parking discount is available to museum visitors.",
+      "reasoning": "Parking 항목의 첫 문장이 방문객에게 주차 할인이 제공된다고 직접 진술한다. 이어지는 문장은 도장을 받아야 한다는 절차 조건일 뿐 할인 자체를 부정하지 않으므로, 선지 ⑤의 '할인받을 수 있다'가 그대로 성립한다.",
+      "sentence_index": [
+       13
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "반대 진술",
+       "verdict": "distractor",
+       "why_tempting": "'Visitors can make their own plates or cups'까지만 읽으면 체험이 관람에 포함된 것으로 보여 추가 비용이 없다고 읽힌다.",
+       "how_to_reject": "같은 문장 끝의 for an additional fee 가 추가 요금을 명시하고, Fees 항목의 'Pottery Experience: $10' 이 그 금액을 다시 적는다."
+      },
+      {
+       "n": 2,
+       "trap": "부분 사실",
+       "verdict": "distractor",
+       "why_tempting": "평일과 주말의 마감 시각이 6시와 5시로 한 시간 차이라는 계산은 맞아떨어지므로, 어느 쪽이 긴지를 확인하지 않으면 참으로 보인다.",
+       "how_to_reject": "Hours 항목 두 줄 'Weekdays: 9:00 a.m. － 6:00 p.m.' 과 'Weekends: 9:00 a.m. － 5:00 p.m.' — 시작이 같고 마감이 주말에 한 시간 이르므로 주말이 한 시간 짧다."
+      },
+      {
+       "n": 3,
+       "trap": "지문 밖 상식",
+       "verdict": "distractor",
+       "why_tempting": "박물관은 월요일에 쉰다는 통념이 강해, 휴관 주기를 안내문에서 확인하지 않고 '매주 월요일'을 참으로 받아들인다.",
+       "how_to_reject": "Hours 에 별표(*)가 붙어 각주가 딸려 있고 그 각주는 'month.'로 끝난다 — 휴관 주기가 달(month) 단위로 걸려 있으므로 '매주'와 다르다. 각주 문장 전체가 인쇄면에서 잘려 있으면 이 선지는 근거로 확정하지 말고 다른 선지에서 참인 것을 찾는 쪽으로 간다."
+      },
+      {
+       "n": 4,
+       "trap": "어휘 함정",
+       "verdict": "distractor",
+       "why_tempting": "Fees 아래 항목이 세 줄로 붙어 있어 한 칸 밀려 읽으면 'General Admission: $5'의 금액이 그 아래 Children 줄에 붙는다.",
+       "how_to_reject": "'Children under 12: Free' — 12세 미만은 무료이고, $5 는 바로 위 General Admission 에 붙은 금액이다."
+      },
+      {
+       "n": 5,
+       "verdict": "correct",
+       "why_correct": "발문이 '일치하는 것'이고, Parking 항목 첫 줄 A parking discount is available to museum visitors 의 a parking discount ↔ 선지 ⑤의 '주차 요금을 할인', museum visitors ↔ '방문객' 이 성분끼리 대응한다. 뒤 줄 visitors must have their parking tickets stamped at the visitor information desk 는 할인을 받는 절차 조건일 뿐 할인 자체를 취소하지 않으므로 '할인받을 수 있다' 가 그대로 성립한다.",
+       "confirmed_at": {
+        "note": "Parking 항목이 안내문 맨 끝이라 Fees 요금표까지만 보고 멈추면 이 줄이 눈에 들어오지 않는다 — 일치 문항은 마지막 항목까지 선지 번호를 여백에 적으며 내려간다.",
+        "sentence_index": [
+         13
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "item_id": "2014A#29",
+     "version": 4,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "단순 대조가 아니라 두 줄의 차를 계산해야 하는 선지(②)와, 요금표에서 줄을 한 칸 밀어 읽으면 참이 되는 선지(④)를 함께 깔았다. 정답은 계산이 필요 없는 Parking 항목 첫 줄에 두어, 표를 끝까지 내려가 읽는지를 가른다.",
+     "answer_locus": {
+      "quote": "A parking discount is available to museum visitors.",
+      "reasoning": "Parking 항목의 첫 문장이 방문객에게 주차 할인이 제공된다고 직접 진술한다. 이어지는 문장은 도장을 받아야 한다는 절차 조건일 뿐 할인 자체를 부정하지 않으므로, 선지 ⑤의 '할인받을 수 있다'가 그대로 성립한다.",
+      "sentence_index": [
+       13
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "반대 진술",
+       "verdict": "distractor",
+       "why_tempting": "'Visitors can make their own plates or cups'까지만 읽으면 체험이 관람에 포함된 것으로 보여 추가 비용이 없다고 읽힌다.",
+       "how_to_reject": "같은 문장 끝의 for an additional fee 가 추가 요금을 명시하고, Fees 항목의 'Pottery Experience: $10' 이 그 금액을 다시 적는다."
+      },
+      {
+       "n": 2,
+       "trap": "부분 사실",
+       "verdict": "distractor",
+       "lure_quote": "Weekends: 9:00 a.m. － 5:00 p.m.",
+       "why_tempting": "평일과 주말의 마감 시각이 6시와 5시로 한 시간 차이라는 계산은 맞아떨어지므로, 어느 쪽이 긴지를 확인하지 않으면 참으로 보인다.",
+       "how_to_reject": "Hours 항목 두 줄 'Weekdays: 9:00 a.m. － 6:00 p.m.' 과 'Weekends: 9:00 a.m. － 5:00 p.m.' — 시작이 같고 마감이 주말에 한 시간 이르므로 주말이 한 시간 짧다."
+      },
+      {
+       "n": 3,
+       "trap": "지문 밖 상식",
+       "verdict": "distractor",
+       "why_tempting": "박물관은 월요일에 쉰다는 통념이 강해, 휴관 주기를 안내문에서 확인하지 않고 '매주 월요일'을 참으로 받아들인다.",
+       "how_to_reject": "Hours 에 별표(*)가 붙어 각주가 딸려 있고 그 각주는 'month.'로 끝난다 — 휴관 주기가 달(month) 단위로 걸려 있으므로 '매주'와 다르다. 각주 문장 전체가 인쇄면에서 잘려 있으면 이 선지는 근거로 확정하지 말고 다른 선지에서 참인 것을 찾는 쪽으로 간다."
+      },
+      {
+       "n": 4,
+       "trap": "어휘 함정",
+       "verdict": "distractor",
+       "lure_quote": "General Admission: $5 Children under 12: Free",
+       "why_tempting": "Fees 아래 항목이 세 줄로 붙어 있어 한 칸 밀려 읽으면 'General Admission: $5'의 금액이 그 아래 Children 줄에 붙는다.",
+       "how_to_reject": "'Children under 12: Free' — 12세 미만은 무료이고, $5 는 바로 위 General Admission 에 붙은 금액이다."
+      },
+      {
+       "n": 5,
+       "verdict": "correct",
+       "why_correct": "발문이 '일치하는 것'이고, Parking 항목 첫 줄 A parking discount is available to museum visitors 의 a parking discount ↔ 선지 ⑤의 '주차 요금을 할인', museum visitors ↔ '방문객' 이 성분끼리 대응한다. 뒤 줄 visitors must have their parking tickets stamped at the visitor information desk 는 할인을 받는 절차 조건일 뿐 할인 자체를 취소하지 않으므로 '할인받을 수 있다' 가 그대로 성립한다.",
+       "confirmed_at": {
+        "note": "Parking 항목이 안내문 맨 끝이라 Fees 요금표까지만 보고 멈추면 이 줄이 눈에 들어오지 않는다 — 일치 문항은 마지막 항목까지 선지 번호를 여백에 적으며 내려간다.",
+        "sentence_index": [
+         13
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "item_id": "2014A#29",
+     "version": 5,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "'일치하는 것'을 묻는 문항이라 정답 하나만 안내문과 모든 성분이 맞고, 확인 가능한 오답 셋은 각각 한 항목의 성분 하나를 바꿨다 — ①은 비용 조건(for an additional fee → 추가 비용 없이, [3]·[6]), ②는 비교 방향(주말이 1시간 짧음 → 더 김, [4]·[5]), ④는 금액이 붙는 대상(Free → $5, [6]). ③(매주 월요일 휴관)은 Hours 별표 각주가 지문에 'month.' 조각만 남아 휴관 주기 원문을 확인할 수 없으므로 판정을 보류하고, 정답은 ③에 기대지 않고 정한다. 정답 ⑤는 Parking 항목 첫 줄([6])을 대상(방문객)·혜택(주차 할인)까지 그대로 옮기고, 뒤 문장([7])의 도장 절차는 조건일 뿐 혜택을 지우지 않는다는 점을 읽는지 본다.",
+     "answer_locus": {
+      "quote": "A parking discount is available to museum visitors.",
+      "reasoning": "Parking 항목이 방문객에게 주차 할인이 '제공된다(is available)'고 단정한다. 이어지는 'visitors must have their parking tickets stamped' 는 할인을 받는 절차를 덧붙일 뿐 할인 자체를 제한·부정하지 않으므로, '할인받을 수 있다'는 가능 진술이 성분 손실 없이 성립한다.",
+      "sentence_index": [
+       6
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "verdict": "distractor",
+       "how_to_reject": "[3] 'Visitors can make their own plates or cups for an additional fee.' 가 체험 자체는 맞지만 끝의 for an additional fee 가 추가 비용을 명시하고, [6] Fees 의 'Pottery Experience: $10' 이 그 금액을 다시 적는다 — 비용 조건이 '추가 비용 없이'로 뒤집혀 불일치."
+      },
+      {
+       "n": 2,
+       "verdict": "distractor",
+       "how_to_reject": "[4] 'Weekdays: 9:00 a.m. － 6:00 p.m.' 과 [5] 'Weekends: 9:00 a.m. － 5:00 p.m.' 은 시작이 같고 마감이 주말에 한 시간 이르다 — 차이 1시간은 맞지만 방향이 반대(주말이 짧다)라 불일치."
+      },
+      {
+       "n": 3,
+       "verdict": "distractor",
+       "how_to_reject": "휴관 정보는 [4] Hours 에 붙은 별표(*) 각주에 있어야 하는데, 이 지문에는 그 각주가 [5] 끝의 'month.' 조각으로만 남아 휴관 주기를 확인할 수 없다. 따라서 ③은 일치·불일치를 단정하지 않고 보류하며, ⑤가 [6]에서 모든 성분이 확인되는 것으로 답을 정한다."
+      },
+      {
+       "n": 4,
+       "verdict": "distractor",
+       "how_to_reject": "[6] Fees 의 'Children under 12: Free' 가 12세 미만은 무료라고 적는다. $5 는 바로 윗줄 'General Admission: $5' 에 붙은 금액이다 — 금액이 붙는 대상을 바꿔 불일치."
+      },
+      {
+       "n": 5,
+       "verdict": "correct",
+       "why_correct": "근거의 museum visitors ↔ 선지 '방문객은', a parking discount ↔ '주차 요금을 할인', is available ↔ '받을 수 있다' 로 세 성분이 모두 대응한다. 나머지 넷은 각각 한 성분이 안내문과 어긋나므로 발문 '일치하는 것'을 충족하는 것은 이 선지뿐이다.",
+       "confirmed_at": {
+        "note": "[7](도장 절차)은 할인을 받는 조건이지 할인의 부정이 아니다.",
+        "sentence_index": [
+         6,
+         7
+        ]
+       }
+      }
+     ]
+    }
+   ],
+   "pdfAnchored": true
+  },
+  {
+   "item": {
+    "id": "2024#29",
+    "exam_id": "2024",
+    "no": 29,
+    "type_id": "R-GRAMMAR",
+    "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+    "passage": "A number of studies provide substantial evidence of an innate human disposition to respond differentially to social stimuli. From birth, infants will orient preferentially towards the human face and voice, ① seeming to know that such stimuli are particularly meaningful for them. Moreover, they register this connection actively, imitating a variety of facial gestures that are presented to them ― tongue protrusions, lip tightenings, mouth openings. They will even try to match gestures ② which they have some difficulty, experimenting with their own faces until they succeed. When they ③ do succeed, they show pleasure by a brightening of their eyes; when they fail, they show distress. In other words, they not only have an innate capacity for matching their own kinaesthetically experienced bodily movements with ④ those of others that are visually perceived; they have an innate drive to do so. That is, they seem to have an innate drive to imitate others whom they judge ⑤ to be ‘like me’.",
+    "choices": [
+     "seeming to know that such stimuli are particularly meaningful for them. Moreover, they register this connection actively, imitating a variety of facial gestures that are presented to them ― tongue protrusions, lip tightenings, mouth openings. They will even try to match gestures",
+     "which they have some difficulty, experimenting with their own faces until they succeed. When they",
+     "do succeed, they show pleasure by a brightening of their eyes; when they fail, they show distress. In other words, they not only have an innate capacity for matching their own kinaesthetically experienced bodily movements with",
+     "those of others that are visually perceived; they have an innate drive to do so. That is, they seem to have an innate drive to imitate others whom they judge",
+     "to be ‘like me’. * innate: 타고난 ** disposition: 성향 *** kinaesthetically: 운동감각적으로"
+    ],
+    "answer": 2,
+    "answers": [
+     2
+    ],
+    "body_ok": true
+   },
+   "inputHash": "02ea8bc1dfc677d644f25e8bb3b5cbfffa4d6dee170c47fcca157a31b3f9eabe",
+   "units": null,
+   "analyses": [
+    {
+     "item_id": "2024#29",
+     "version": 1,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "have difficulty 라는 숙어를 match gestures 와 붙여 놓아, '어려움을 겪는 몸짓' 이라는 뜻이 which 만으로도 통하는 것처럼 보이게 했다. 나머지 넷은 강조의 do, 대명사 those, 5형식 to be 등 형태로 확인되는 항목이라 시간이 덜 든다.",
+     "answer_locus": {
+      "quote": "They will even try to match gestures ② which they have some difficulty",
+      "reasoning": "which 뒤 절은 주어 they, 동사 have, 목적어 some difficulty 가 모두 차 있어 관계대명사가 들어갈 빈자리가 없다. 원래 문장은 they have some difficulty with the gestures 이므로 with which(또는 that ... with)여야 한다.",
+      "sentence_index": [
+       4
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "분사구문 주어 일치",
+       "verdict": "distractor",
+       "why_tempting": "콤마 뒤에 -ing 가 와서 앞 절의 will orient 와 시제가 어긋나 보이고, seem 이나 they seem 으로 고치고 싶어진다.",
+       "how_to_reject": "콤마 앞 주절 주어가 infants 이고 '아는 듯한' 주체가 infants 다. 접속사 없이 정동사를 더 놓을 수 없으므로 능동 분사구문 seeming 이 맞다."
+      },
+      {
+       "n": 2,
+       "trap": "관계사 선택",
+       "verdict": "correct",
+       "why_tempting": "선행사 gestures 가 바로 앞에 있고 which 로 이으면 '어려움을 겪는 몸짓' 으로 뜻이 통해 보인다.",
+       "how_to_reject": "which 뒤 절의 성분을 센다 — they(주어) have(동사) some difficulty(목적어)로 빈자리가 없다. 선행사를 되돌려 넣으면 have difficulty with the gestures 이므로 전치사 with 가 필요하다."
+      },
+      {
+       "n": 3,
+       "trap": "강조 구문",
+       "verdict": "distractor",
+       "why_tempting": "When they 뒤에 do 와 succeed 가 나란히 와서 동사가 둘로 보이고, do 가 군더더기처럼 느껴진다.",
+       "how_to_reject": "바로 뒤 when they fail 과 대구를 이루는 자리다. 앞 문장의 until they succeed 를 받아 '정말로 성공했을 때' 를 강조하는 do + 원형이므로 맞는다."
+      },
+      {
+       "n": 4,
+       "trap": "대명사 지시·수·격",
+       "verdict": "distractor",
+       "why_tempting": "with 뒤 목적어라 that 이나 them 이 맞아 보이고, of others 가 붙어 소유 관계처럼 읽힌다.",
+       "how_to_reject": "짝을 이루는 앞부분이 matching their own ... bodily movements with 다. 비교 대상은 movements(복수)이고 반복을 피한 대용어이므로 복수형 those 가 맞다."
+      },
+      {
+       "n": 5,
+       "trap": "준동사 형태 선택",
+       "verdict": "distractor",
+       "why_tempting": "whom they judge 뒤에 목적어가 없어 절이 끊긴 듯 보이고, are 나 being 이 맞아 보인다.",
+       "how_to_reject": "선행사 others 가 whom 으로 앞당겨져 judge 의 목적어 자리가 비어 있다. judge + 목적어 + to be 보어 구조이므로 to be 가 맞다."
+      }
+     ]
+    },
+    {
+     "item_id": "2024#29",
+     "version": 2,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "have difficulty 라는 숙어를 match gestures 와 붙여 놓아, '어려움을 겪는 몸짓' 이라는 뜻이 which 만으로도 통하는 것처럼 보이게 했다. 나머지 넷은 강조의 do, 대명사 those, 5형식 to be 등 형태로 확인되는 항목이라 시간이 덜 든다.",
+     "answer_locus": {
+      "quote": "They will even try to match gestures ② which they have some difficulty",
+      "reasoning": "which 뒤 절은 주어 they, 동사 have, 목적어 some difficulty 가 모두 차 있어 관계대명사가 들어갈 빈자리가 없다. 원래 문장은 they have some difficulty with the gestures 이므로 with which(또는 that ... with)여야 한다.",
+      "sentence_index": [
+       4
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "분사구문 주어 일치",
+       "verdict": "distractor",
+       "why_tempting": "콤마 뒤에 -ing 가 와서 앞 절의 will orient 와 시제가 어긋나 보이고, seem 이나 they seem 으로 고치고 싶어진다.",
+       "how_to_reject": "콤마 앞 주절 주어가 infants 이고 '아는 듯한' 주체가 infants 다. 접속사 없이 정동사를 더 놓을 수 없으므로 능동 분사구문 seeming 이 맞다."
+      },
+      {
+       "n": 2,
+       "verdict": "correct",
+       "why_correct": "밑줄 ②의 자리를 지배하는 것은 뒤 절이 완전한가다. 'which they have some difficulty' 는 주어(they)·동사(have)·목적어(some difficulty)가 다 차 있어 관계대명사가 메울 명사 자리가 없다. have difficulty 는 대상을 with 로 받는 표현이므로, 선행사 gestures 를 그 with 의 목적어로 넘기는 with which 가 되어야 한다. 바로 앞 문장의 'facial gestures that are presented to them' 은 are presented 의 주어가 비어 있어 관계대명사만으로 성립하지만, ②의 절에는 그런 빈자리가 없다. 곧 틀린 자리는 ② 이다.",
+       "confirmed_at": {
+        "note": "「학습자가 미끄러지는 자리」 선행사 gestures 가 바로 앞에 있고 which 로 이으면 '어려움을 겪는 몸짓' 으로 뜻이 통해 보여, 뒤 절의 성분을 세지 않고 넘긴다.",
+        "sentence_index": [
+         3
+        ]
+       }
+      },
+      {
+       "n": 3,
+       "trap": "강조 구문",
+       "verdict": "distractor",
+       "why_tempting": "When they 뒤에 do 와 succeed 가 나란히 와서 동사가 둘로 보이고, do 가 군더더기처럼 느껴진다.",
+       "how_to_reject": "바로 뒤 when they fail 과 대구를 이루는 자리다. 앞 문장의 until they succeed 를 받아 '정말로 성공했을 때' 를 강조하는 do + 원형이므로 맞는다."
+      },
+      {
+       "n": 4,
+       "trap": "대명사 지시·수·격",
+       "verdict": "distractor",
+       "why_tempting": "with 뒤 목적어라 that 이나 them 이 맞아 보이고, of others 가 붙어 소유 관계처럼 읽힌다.",
+       "how_to_reject": "짝을 이루는 앞부분이 matching their own ... bodily movements with 다. 비교 대상은 movements(복수)이고 반복을 피한 대용어이므로 복수형 those 가 맞다."
+      },
+      {
+       "n": 5,
+       "trap": "준동사 형태 선택",
+       "verdict": "distractor",
+       "why_tempting": "whom they judge 뒤에 목적어가 없어 절이 끊긴 듯 보이고, are 나 being 이 맞아 보인다.",
+       "how_to_reject": "선행사 others 가 whom 으로 앞당겨져 judge 의 목적어 자리가 비어 있다. judge + 목적어 + to be 보어 구조이므로 to be 가 맞다."
+      }
+     ]
+    },
+    {
+     "item_id": "2024#29",
+     "version": 3,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "have difficulty 라는 숙어를 match gestures 와 붙여 놓아, '어려움을 겪는 몸짓' 이라는 뜻이 which 만으로도 통하는 것처럼 보이게 했다. 나머지 넷은 강조의 do, 대명사 those, 5형식 to be 등 형태로 확인되는 항목이라 시간이 덜 든다.",
+     "answer_locus": {
+      "quote": "They will even try to match gestures ② which they have some difficulty",
+      "reasoning": "which 뒤 절은 주어 they, 동사 have, 목적어 some difficulty 가 모두 차 있어 관계대명사가 들어갈 빈자리가 없다. 원래 문장은 they have some difficulty with the gestures 이므로 with which(또는 that ... with)여야 한다.",
+      "sentence_index": [
+       4
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "분사구문 주어 일치",
+       "verdict": "distractor",
+       "why_tempting": "콤마 뒤에 -ing 가 와서 앞 절의 will orient 와 시제가 어긋나 보이고, seem 이나 they seem 으로 고치고 싶어진다.",
+       "how_to_reject": "콤마 앞 주절 주어가 infants 이고 '아는 듯한' 주체가 infants 다. 접속사 없이 정동사를 더 놓을 수 없으므로 능동 분사구문 seeming 이 맞다."
+      },
+      {
+       "n": 2,
+       "verdict": "correct",
+       "why_correct": "밑줄 ②의 자리를 지배하는 것은 뒤 절이 완전한가다. 'which they have some difficulty' 는 주어(they)·동사(have)·목적어(some difficulty)가 다 차 있어 관계대명사가 메울 명사 자리가 없다. have difficulty 는 대상을 with 로 받는 표현이므로, 선행사 gestures 를 그 with 의 목적어로 넘기는 with which 가 되어야 한다. 바로 앞 문장의 'facial gestures that are presented to them' 은 are presented 의 주어가 비어 있어 관계대명사만으로 성립하지만, ②의 절에는 그런 빈자리가 없다. 곧 틀린 자리는 ② 이다.",
+       "confirmed_at": {
+        "note": "「학습자가 미끄러지는 자리」 선행사 gestures 가 바로 앞에 있고 which 로 이으면 '어려움을 겪는 몸짓' 으로 뜻이 통해 보여, 뒤 절의 성분을 세지 않고 넘긴다.",
+        "sentence_index": [
+         3
+        ]
+       }
+      },
+      {
+       "n": 3,
+       "trap": "강조 구문",
+       "verdict": "distractor",
+       "why_tempting": "When they 뒤에 do 와 succeed 가 나란히 와서 동사가 둘로 보이고, do 가 군더더기처럼 느껴진다.",
+       "how_to_reject": "바로 뒤 when they fail 과 대구를 이루는 자리다. 앞 문장의 until they succeed 를 받아 '정말로 성공했을 때' 를 강조하는 do + 원형이므로 맞는다."
+      },
+      {
+       "n": 4,
+       "trap": "대명사 지시·수·격",
+       "verdict": "distractor",
+       "why_tempting": "with 뒤 목적어라 that 이나 them 이 맞아 보이고, of others 가 붙어 소유 관계처럼 읽힌다.",
+       "how_to_reject": "짝을 이루는 앞부분이 matching their own ... bodily movements with 다. 비교 대상은 movements(복수)이고 반복을 피한 대용어이므로 복수형 those 가 맞다."
+      },
+      {
+       "n": 5,
+       "trap": "준동사 형태 선택",
+       "verdict": "distractor",
+       "why_tempting": "whom they judge 뒤에 목적어가 없어 절이 끊긴 듯 보이고, are 나 being 이 맞아 보인다.",
+       "how_to_reject": "선행사 others 가 whom 으로 앞당겨져 judge 의 목적어 자리가 비어 있다. judge + 목적어 + to be 보어 구조이므로 to be 가 맞다."
+      }
+     ]
+    },
+    {
+     "item_id": "2024#29",
+     "version": 4,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "have difficulty 라는 숙어를 match gestures 와 붙여 놓아, '어려움을 겪는 몸짓' 이라는 뜻이 which 만으로도 통하는 것처럼 보이게 했다. 나머지 넷은 강조의 do, 대명사 those, 5형식 to be 등 형태로 확인되는 항목이라 시간이 덜 든다.",
+     "answer_locus": {
+      "quote": "They will even try to match gestures ② which they have some difficulty",
+      "reasoning": "which 뒤 절은 주어 they, 동사 have, 목적어 some difficulty 가 모두 차 있어 관계대명사가 들어갈 빈자리가 없다. 원래 문장은 they have some difficulty with the gestures 이므로 with which(또는 that ... with)여야 한다.",
+      "sentence_index": [
+       4
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "분사구문 주어 일치",
+       "verdict": "distractor",
+       "why_tempting": "콤마 뒤에 -ing 가 와서 앞 절의 will orient 와 시제가 어긋나 보이고, seem 이나 they seem 으로 고치고 싶어진다.",
+       "how_to_reject": "콤마 앞 주절 주어가 infants 이고 '아는 듯한' 주체가 infants 다. 접속사 없이 정동사를 더 놓을 수 없으므로 능동 분사구문 seeming 이 맞다."
+      },
+      {
+       "n": 2,
+       "verdict": "correct",
+       "why_correct": "밑줄 ②의 자리를 지배하는 것은 뒤 절이 완전한가다. 'which they have some difficulty' 는 주어(they)·동사(have)·목적어(some difficulty)가 다 차 있어 관계대명사가 메울 명사 자리가 없다. have difficulty 는 대상을 with 로 받는 표현이므로, 선행사 gestures 를 그 with 의 목적어로 넘기는 with which 가 되어야 한다. 바로 앞 문장의 'facial gestures that are presented to them' 은 are presented 의 주어가 비어 있어 관계대명사만으로 성립하지만, ②의 절에는 그런 빈자리가 없다. 곧 틀린 자리는 ② 이다.",
+       "confirmed_at": {
+        "note": "「학습자가 미끄러지는 자리」 선행사 gestures 가 바로 앞에 있고 which 로 이으면 '어려움을 겪는 몸짓' 으로 뜻이 통해 보여, 뒤 절의 성분을 세지 않고 넘긴다.",
+        "sentence_index": [
+         3
+        ]
+       }
+      },
+      {
+       "n": 3,
+       "trap": "강조 구문",
+       "verdict": "distractor",
+       "why_tempting": "When they 뒤에 do 와 succeed 가 나란히 와서 동사가 둘로 보이고, do 가 군더더기처럼 느껴진다.",
+       "how_to_reject": "바로 뒤 when they fail 과 대구를 이루는 자리다. 앞 문장의 until they succeed 를 받아 '정말로 성공했을 때' 를 강조하는 do + 원형이므로 맞는다."
+      },
+      {
+       "n": 4,
+       "trap": "대명사 지시·수·격",
+       "verdict": "distractor",
+       "why_tempting": "with 뒤 목적어라 that 이나 them 이 맞아 보이고, of others 가 붙어 소유 관계처럼 읽힌다.",
+       "how_to_reject": "짝을 이루는 앞부분이 matching their own ... bodily movements with 다. 비교 대상은 movements(복수)이고 반복을 피한 대용어이므로 복수형 those 가 맞다."
+      },
+      {
+       "n": 5,
+       "trap": "준동사 형태 선택",
+       "verdict": "distractor",
+       "lure_quote": "imitate others whom they judge",
+       "why_tempting": "whom they judge 뒤에 목적어가 없어 절이 끊긴 듯 보이고, are 나 being 이 맞아 보인다.",
+       "how_to_reject": "선행사 others 가 whom 으로 앞당겨져 judge 의 목적어 자리가 비어 있다. judge + 목적어 + to be 보어 구조이므로 to be 가 맞다."
+      }
+     ]
+    },
+    {
+     "item_id": "2024#29",
+     "version": 5,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "[4]에서 gestures 뒤에 which를 두고 뒤 절 they have some difficulty를 완전한 절처럼 보이게 했다. have difficulty with에서 전치사 with가 빠져 관계대명사가 들어갈 빈자리가 없다는 점이 설계의 핵심이다.",
+     "answer_locus": {
+      "quote": "They will even try to match gestures ② which they have some difficulty",
+      "reasoning": "밑줄 뒤 they have some difficulty는 주어·동사·목적어가 다 있어 관계대명사가 들어갈 빈자리가 없다. 선행사 gestures는 '~에 어려움을 겪다'의 have difficulty with의 대상이므로 with which(또는 which ... with)로 고쳐야 한다.",
+      "sentence_index": [
+       4
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "verdict": "distractor",
+       "how_to_reject": "① 자리의 seeming — [2]에서 주절 infants will orient ... 뒤 콤마로 이어진 분사구문이고, 아기들이 '~을 아는 것처럼 보이는' 능동 관계라 현재분사가 맞다."
+      },
+      {
+       "n": 2,
+       "trap": "관계대명사 앞 전치사 누락",
+       "verdict": "correct",
+       "why_correct": "인용의 'they have some difficulty' 가 빈자리 없는 완전한 절이라는 점이 ② 자리의 which와 맞물린다. 선행사 gestures는 have difficulty with의 대상이므로 which → with which로 고쳐야 한다.",
+       "confirmed_at": {
+        "note": "입력 choices 필드는 밑줄 낱말이 아니라 다음 밑줄 직전까지의 지문 조각을 담고 있어(각주 잔여 포함) 선지 표시용으로 쓰면 안 된다. 실제 선지는 각 원문자 바로 뒤 밑줄 어구다 — 보고에 기록. 이전 confirmed_at.sentence_index 3 을 answer_locus 와 같은 4 로 맞췄고, 학습자용 표제 문구를 note 에서 지웠다.",
+        "sentence_index": [
+         4
+        ]
+       }
+      },
+      {
+       "n": 3,
+       "verdict": "distractor",
+       "how_to_reject": "③ 자리의 do — [5]에서 do는 동사 succeed를 강조하는 조동사로, 뒤 절 when they fail과 대비해 '정말로 성공하면'을 뜻하므로 맞다."
+      },
+      {
+       "n": 4,
+       "verdict": "distractor",
+       "how_to_reject": "④ 자리의 those — [6]에서 those는 앞의 bodily movements(복수)를 대신해 '다른 사람들의 움직임'을 가리키므로 복수 지시대명사가 맞다."
+      },
+      {
+       "n": 5,
+       "verdict": "distractor",
+       "how_to_reject": "⑤ 자리의 to — [7]의 others whom they judge to be 'like me'는 judge + 목적어 + to be 구문에서 목적어 others가 관계대명사 whom으로 앞에 나간 형태라 맞다."
+      }
+     ]
+    }
+   ],
+   "pdfAnchored": true
+  },
+  {
+   "item": {
+    "id": "2024#30",
+    "exam_id": "2024",
+    "no": 30,
+    "type_id": "R-VOCAB",
+    "stem": "다음 글의 밑줄 친 부분 중, 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
+    "passage": "Bazaar economies feature an apparently flexible price-setting mechanism that sits atop more enduring ties of shared culture. Both the buyer and seller are aware of each other’s ① restrictions. In Delhi’s bazaars, buyers and sellers can ② assess to a large extent the financial constraints that other actors have in their everyday life. Each actor belonging to a specific economic class understands what the other sees as a necessity and a luxury. In the case of electronic products like video games, they are not a ③ necessity at the same level as other household purchases such as food items. So, the seller in Delhi’s bazaars is careful not to directly ask for very ④ low prices for video games because at no point will the buyer see possession of them as an absolute necessity. Access to this type of knowledge establishes a price consensus by relating to each other’s preferences and limitations of belonging to a ⑤ similar cultural and economic universe.",
+    "choices": [
+     "restrictions. In Delhi’s bazaars, buyers and sellers can",
+     "assess to a large extent the financial constraints that other actors have in their everyday life. Each actor belonging to a specific economic class understands what the other sees as a necessity and a luxury. In the case of electronic products like video games, they are not a",
+     "necessity at the same level as other household purchases such as food items. So, the seller in Delhi’s bazaars is careful not to directly ask for very",
+     "low prices for video games because at no point will the buyer see possession of them as an absolute necessity. Access to this type of knowledge establishes a price consensus by relating to each other’s preferences and limitations of belonging to a",
+     "similar cultural and economic universe. * constraint: 압박 ** consensus: 일치 5"
+    ],
+    "answer": 4,
+    "answers": [
+     4
+    ],
+    "body_ok": true
+   },
+   "inputHash": "28c81934bccbc242f8d17934e9bf680bb92ab3054bbc02981d0ee2513c459ec8",
+   "units": null,
+   "analyses": [
+    {
+     "item_id": "2024#30",
+     "version": 1,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "구매자와 판매자가 서로의 형편을 안다는 전제를 깔아 두고, 비디오 게임처럼 필수품이 아닌 물건에 판매자가 어떤 가격을 부르지 않는지 묻는다. 정답 문장 안에 이유절이 붙어 있어 문장 하나만으로 판정이 가능한 대신, not 과 because 를 함께 셈해야 한다.",
+     "answer_locus": {
+      "quote": "So, the seller in Delhi’s bazaars is careful not to directly ask for very ④ low prices for video games because at no point will the buyer see possession of them as an absolute necessity.",
+      "reasoning": "because 절이 구매자가 그 물건을 절대적 필수품으로 여기지 않는다고 말한다. 필수품이 아니면 비싼 값에 응하지 않으므로 판매자가 삼가는 것은 높은 값 부르기다. 앞 5번 문장도 비디오 게임이 식료품 수준의 필수품이 아니라고 못 박아 같은 방향을 지지한다.",
+      "sentence_index": [
+       5,
+       6
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "추상 명사 낯섦 회피",
+       "verdict": "distractor",
+       "why_tempting": "시장에서 서로 아는 것이라면 취향이나 필요일 것 같아 restrictions 라는 제약 명사가 낯설게 느껴진다.",
+       "how_to_reject": "다음 3번 문장의 the financial constraints that other actors have 와 마지막 문장의 preferences and limitations 를 본다. 같은 뜻이 두 번 다시 나온다."
+      },
+      {
+       "n": 2,
+       "trap": "가능 동사 과대 의심",
+       "verdict": "distractor",
+       "why_tempting": "남의 살림 형편을 상당 부분 가늠할 수 있다는 말이 과해 보여 다른 동사가 와야 할 것처럼 읽힌다.",
+       "how_to_reject": "1번 문장의 more enduring ties of shared culture 와 4번 문장의 understands what the other sees as a necessity and a luxury 를 본다. 서로 아는 관계가 전제로 깔려 있다."
+      },
+      {
+       "n": 3,
+       "trap": "부정문 속 명사 치환 유인",
+       "verdict": "distractor",
+       "why_tempting": "they are not a ... at the same level 이라는 부정문이라 그 자리에 luxury 를 넣어야 할 것처럼 보인다.",
+       "how_to_reject": "비교 대상인 other household purchases such as food items 를 본다. 식료품과 같은 수준이 아니라고 말하려면 그 자리에 필수품 쪽 낱말이 와야 한다."
+      },
+      {
+       "n": 4,
+       "trap": "반의어 치환 — 이유절과 가격 방향 뒤집기",
+       "verdict": "correct",
+       "why_tempting": "careful not to 라는 부정과 low 라는 낮은 값이 겹쳐 판매자가 손해를 피한다는 그림이 얼핏 성립한다.",
+       "how_to_reject": "같은 문장의 because 절 at no point will the buyer see possession of them as an absolute necessity 를 본다. 필수품이 아니어서 삼가는 것은 낮은 값이 아니라 높은 값이다."
+      },
+      {
+       "n": 5,
+       "trap": "동질-이질 축 오판",
+       "verdict": "distractor",
+       "why_tempting": "앞에서 각자 특정 경제 계층에 속한다고 했으므로 서로 다른 세계에 속한다고 읽어야 할 것 같다.",
+       "how_to_reject": "같은 문장의 establishes a price consensus 와 1번 문장의 ties of shared culture 를 본다. 값의 합의가 가능한 것은 공유된 세계에 속하기 때문이다."
+      }
+     ]
+    },
+    {
+     "item_id": "2024#30",
+     "version": 2,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "구매자와 판매자가 서로의 형편을 안다는 전제를 깔아 두고, 비디오 게임처럼 필수품이 아닌 물건에 판매자가 어떤 가격을 부르지 않는지 묻는다. 정답 문장 안에 이유절이 붙어 있어 문장 하나만으로 판정이 가능한 대신, not 과 because 를 함께 셈해야 한다.",
+     "answer_locus": {
+      "quote": "So, the seller in Delhi’s bazaars is careful not to directly ask for very ④ low prices for video games because at no point will the buyer see possession of them as an absolute necessity.",
+      "reasoning": "because 절이 구매자가 그 물건을 절대적 필수품으로 여기지 않는다고 말한다. 필수품이 아니면 비싼 값에 응하지 않으므로 판매자가 삼가는 것은 높은 값 부르기다. 앞 5번 문장도 비디오 게임이 식료품 수준의 필수품이 아니라고 못 박아 같은 방향을 지지한다.",
+      "sentence_index": [
+       5,
+       6
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "추상 명사 낯섦 회피",
+       "verdict": "distractor",
+       "why_tempting": "시장에서 서로 아는 것이라면 취향이나 필요일 것 같아 restrictions 라는 제약 명사가 낯설게 느껴진다.",
+       "how_to_reject": "다음 3번 문장의 the financial constraints that other actors have 와 마지막 문장의 preferences and limitations 를 본다. 같은 뜻이 두 번 다시 나온다."
+      },
+      {
+       "n": 2,
+       "trap": "가능 동사 과대 의심",
+       "verdict": "distractor",
+       "why_tempting": "남의 살림 형편을 상당 부분 가늠할 수 있다는 말이 과해 보여 다른 동사가 와야 할 것처럼 읽힌다.",
+       "how_to_reject": "1번 문장의 more enduring ties of shared culture 와 4번 문장의 understands what the other sees as a necessity and a luxury 를 본다. 서로 아는 관계가 전제로 깔려 있다."
+      },
+      {
+       "n": 3,
+       "trap": "부정문 속 명사 치환 유인",
+       "verdict": "distractor",
+       "why_tempting": "they are not a ... at the same level 이라는 부정문이라 그 자리에 luxury 를 넣어야 할 것처럼 보인다.",
+       "how_to_reject": "비교 대상인 other household purchases such as food items 를 본다. 식료품과 같은 수준이 아니라고 말하려면 그 자리에 필수품 쪽 낱말이 와야 한다."
+      },
+      {
+       "n": 4,
+       "verdict": "correct",
+       "why_correct": "선지 ④가 든 절의 이유가 'because at no point will the buyer see possession of them as an absolute necessity' 다. 필수품으로 보지 않는 구매자에게 판매자가 삼갈 것은 비싼 값 부르기이므로 'careful not to directly ask for very low prices' 의 low 는 부호가 뒤집혔고, 앞 문장의 they are not a necessity at the same level as other household purchases 도 같은 방향이다.",
+       "confirmed_at": {
+        "note": "학습자가 실제로 미끄러지는 자리(3차에 why_correct 에서 이관): careful not to 라는 부정과 low 라는 낮은 값이 겹쳐 판매자가 손해를 피한다는 그림이 얼핏 성립한다.",
+        "sentence_index": [
+         5,
+         6
+        ]
+       }
+      },
+      {
+       "n": 5,
+       "trap": "동질-이질 축 오판",
+       "verdict": "distractor",
+       "why_tempting": "앞에서 각자 특정 경제 계층에 속한다고 했으므로 서로 다른 세계에 속한다고 읽어야 할 것 같다.",
+       "how_to_reject": "같은 문장의 establishes a price consensus 와 1번 문장의 ties of shared culture 를 본다. 값의 합의가 가능한 것은 공유된 세계에 속하기 때문이다."
+      }
+     ]
+    },
+    {
+     "item_id": "2024#30",
+     "version": 3,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "구매자와 판매자가 서로의 형편을 안다는 전제를 깔아 두고, 비디오 게임처럼 필수품이 아닌 물건에 판매자가 어떤 가격을 부르지 않는지 묻는다. 정답 문장 안에 이유절이 붙어 있어 문장 하나만으로 판정이 가능한 대신, not 과 because 를 함께 셈해야 한다.",
+     "answer_locus": {
+      "quote": "So, the seller in Delhi’s bazaars is careful not to directly ask for very ④ low prices for video games because at no point will the buyer see possession of them as an absolute necessity.",
+      "reasoning": "because 절이 구매자가 그 물건을 절대적 필수품으로 여기지 않는다고 말한다. 필수품이 아니면 비싼 값에 응하지 않으므로 판매자가 삼가는 것은 높은 값 부르기다. 앞 5번 문장도 비디오 게임이 식료품 수준의 필수품이 아니라고 못 박아 같은 방향을 지지한다.",
+      "sentence_index": [
+       5,
+       6
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "추상 명사 낯섦 회피",
+       "verdict": "distractor",
+       "why_tempting": "시장에서 서로 아는 것이라면 취향이나 필요일 것 같아 restrictions 라는 제약 명사가 낯설게 느껴진다.",
+       "how_to_reject": "다음 3번 문장의 the financial constraints that other actors have 와 마지막 문장의 preferences and limitations 를 본다. 같은 뜻이 두 번 다시 나온다."
+      },
+      {
+       "n": 2,
+       "trap": "가능 동사 과대 의심",
+       "verdict": "distractor",
+       "why_tempting": "남의 살림 형편을 상당 부분 가늠할 수 있다는 말이 과해 보여 다른 동사가 와야 할 것처럼 읽힌다.",
+       "how_to_reject": "1번 문장의 more enduring ties of shared culture 와 4번 문장의 understands what the other sees as a necessity and a luxury 를 본다. 서로 아는 관계가 전제로 깔려 있다."
+      },
+      {
+       "n": 3,
+       "trap": "부정문 속 명사 치환 유인",
+       "verdict": "distractor",
+       "why_tempting": "they are not a ... at the same level 이라는 부정문이라 그 자리에 luxury 를 넣어야 할 것처럼 보인다.",
+       "how_to_reject": "비교 대상인 other household purchases such as food items 를 본다. 식료품과 같은 수준이 아니라고 말하려면 그 자리에 필수품 쪽 낱말이 와야 한다."
+      },
+      {
+       "n": 4,
+       "verdict": "correct",
+       "why_correct": "선지 ④가 든 절의 이유가 'because at no point will the buyer see possession of them as an absolute necessity' 다. 필수품으로 보지 않는 구매자에게 판매자가 삼갈 것은 비싼 값 부르기이므로 'careful not to directly ask for very low prices' 의 low 는 부호가 뒤집혔고, 앞 문장의 they are not a necessity at the same level as other household purchases 도 같은 방향이다.",
+       "confirmed_at": {
+        "note": "학습자가 실제로 미끄러지는 자리(3차에 why_correct 에서 이관): careful not to 라는 부정과 low 라는 낮은 값이 겹쳐 판매자가 손해를 피한다는 그림이 얼핏 성립한다.",
+        "sentence_index": [
+         5,
+         6
+        ]
+       }
+      },
+      {
+       "n": 5,
+       "trap": "동질-이질 축 오판",
+       "verdict": "distractor",
+       "why_tempting": "앞에서 각자 특정 경제 계층에 속한다고 했으므로 서로 다른 세계에 속한다고 읽어야 할 것 같다.",
+       "how_to_reject": "같은 문장의 establishes a price consensus 와 1번 문장의 ties of shared culture 를 본다. 값의 합의가 가능한 것은 공유된 세계에 속하기 때문이다."
+      }
+     ]
+    },
+    {
+     "item_id": "2024#30",
+     "version": 4,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "구매자와 판매자가 서로의 형편을 안다는 전제를 깔아 두고, 비디오 게임처럼 필수품이 아닌 물건에 판매자가 어떤 가격을 부르지 않는지 묻는다. 정답 문장 안에 이유절이 붙어 있어 문장 하나만으로 판정이 가능한 대신, not 과 because 를 함께 셈해야 한다.",
+     "answer_locus": {
+      "quote": "So, the seller in Delhi’s bazaars is careful not to directly ask for very ④ low prices for video games because at no point will the buyer see possession of them as an absolute necessity.",
+      "reasoning": "because 절이 구매자가 그 물건을 절대적 필수품으로 여기지 않는다고 말한다. 필수품이 아니면 비싼 값에 응하지 않으므로 판매자가 삼가는 것은 높은 값 부르기다. 앞 5번 문장도 비디오 게임이 식료품 수준의 필수품이 아니라고 못 박아 같은 방향을 지지한다.",
+      "sentence_index": [
+       5,
+       6
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "추상 명사 낯섦 회피",
+       "verdict": "distractor",
+       "why_tempting": "시장에서 서로 아는 것이라면 취향이나 필요일 것 같아 restrictions 라는 제약 명사가 낯설게 느껴진다.",
+       "how_to_reject": "다음 3번 문장의 the financial constraints that other actors have 와 마지막 문장의 preferences and limitations 를 본다. 같은 뜻이 두 번 다시 나온다."
+      },
+      {
+       "n": 2,
+       "trap": "가능 동사 과대 의심",
+       "verdict": "distractor",
+       "why_tempting": "남의 살림 형편을 상당 부분 가늠할 수 있다는 말이 과해 보여 다른 동사가 와야 할 것처럼 읽힌다.",
+       "how_to_reject": "1번 문장의 more enduring ties of shared culture 와 4번 문장의 understands what the other sees as a necessity and a luxury 를 본다. 서로 아는 관계가 전제로 깔려 있다."
+      },
+      {
+       "n": 3,
+       "trap": "부정문 속 명사 치환 유인",
+       "verdict": "distractor",
+       "why_tempting": "they are not a ... at the same level 이라는 부정문이라 그 자리에 luxury 를 넣어야 할 것처럼 보인다.",
+       "how_to_reject": "비교 대상인 other household purchases such as food items 를 본다. 식료품과 같은 수준이 아니라고 말하려면 그 자리에 필수품 쪽 낱말이 와야 한다."
+      },
+      {
+       "n": 4,
+       "verdict": "correct",
+       "why_correct": "선지 ④가 든 절의 이유가 'because at no point will the buyer see possession of them as an absolute necessity' 다. 필수품으로 보지 않는 구매자에게 판매자가 삼갈 것은 비싼 값 부르기이므로 'careful not to directly ask for very low prices' 의 low 는 부호가 뒤집혔고, 앞 문장의 they are not a necessity at the same level as other household purchases 도 같은 방향이다.",
+       "confirmed_at": {
+        "note": "학습자가 실제로 미끄러지는 자리(3차에 why_correct 에서 이관): careful not to 라는 부정과 low 라는 낮은 값이 겹쳐 판매자가 손해를 피한다는 그림이 얼핏 성립한다.",
+        "sentence_index": [
+         5,
+         6
+        ]
+       }
+      },
+      {
+       "n": 5,
+       "trap": "동질-이질 축 오판",
+       "verdict": "distractor",
+       "why_tempting": "앞에서 각자 특정 경제 계층에 속한다고 했으므로 서로 다른 세계에 속한다고 읽어야 할 것 같다.",
+       "how_to_reject": "같은 문장의 establishes a price consensus 와 1번 문장의 ties of shared culture 를 본다. 값의 합의가 가능한 것은 공유된 세계에 속하기 때문이다."
+      }
+     ]
+    },
+    {
+     "item_id": "2024#30",
+     "version": 5,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "4·5번이 구매자와 판매자가 서로의 필수품·사치품 인식을 안다고 깔고, 6번에서 So 와 because 로 판매자의 행동을 그 지식에서 끌어낸다. 필수품이 아닌 물건에 높은 값을 부르면 구매자가 사지 않으므로 판매자가 조심하는 것은 high prices 다. low 는 「판매자가 싸게 부르기를 꺼린다」는 장사 상식으로 그럴듯하게 놓였다.",
+     "answer_locus": {
+      "quote": "because at no point will the buyer see possession of them as an absolute necessity",
+      "reasoning": "6번 문장의 because 절은 판매자가 조심하는 이유를 구매자가 비디오 게임을 절대 필수품으로 보지 않는다는 데서 찾는다. 필수품이 아니면 비싼 값에 살 이유가 없으므로, 판매자가 직접 부르지 않으려는 것은 매우 높은(high) 가격이어야 이유와 행동이 맞는다.",
+      "sentence_index": [
+       5,
+       6
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "verdict": "distractor",
+       "how_to_reject": "2번 문장의 restrictions 는 3번 문장에서 the financial constraints that other actors have 로 다시 풀린다. 서로의 제약을 안다는 진술이 맞다."
+      },
+      {
+       "n": 2,
+       "verdict": "distractor",
+       "how_to_reject": "3번 문장은 상대의 재정적 제약을 to a large extent 가늠할 수 있다는 내용이고, 4번 문장의 understands what the other sees as a necessity 가 같은 능력을 다시 말한다. 그러므로 assess 가 맞다."
+      },
+      {
+       "n": 3,
+       "verdict": "distractor",
+       "how_to_reject": "5번 문장의 not a necessity at the same level as ... food items 는 4번 문장의 necessity and a luxury 구분을 받아 비디오 게임을 식품만큼의 필수품이 아니라고 한다. 6번의 absolute necessity 도 같은 판단이라 necessity 가 맞다."
+      },
+      {
+       "n": 4,
+       "verdict": "correct",
+       "why_correct": "정답 근거의 at no point will the buyer see possession of them as an absolute necessity 가 ④의 「직접 요구하지 않으려는 가격」의 이유다. 필수품이 아닌 물건은 높은 값에 안 팔리므로 판매자가 피하는 것은 high 쪽이고, low 는 이유절과 반대 방향이다.",
+       "confirmed_at": {
+        "note": "내부 기록: 저장된 선지 문자열이 밑줄 낱말이 아니라 다음 밑줄까지의 지문 구간이며 끝에 각주·쪽번호가 섞여 있다. 선지 판정은 지문 속 원문자 밑줄 낱말 기준으로 했다.",
+        "sentence_index": [
+         5,
+         6
+        ]
+       }
+      },
+      {
+       "n": 5,
+       "verdict": "distractor",
+       "how_to_reject": "7번 문장은 1번의 enduring ties of shared culture 를 받아, 같은 문화·경제적 세계에 속한 데서 오는 선호와 한계를 말한다. 공유 문화를 전제하므로 similar 가 맞다."
+      }
+     ]
+    }
+   ],
+   "pdfAnchored": true
+  },
+  {
+   "item": {
+    "id": "2016#24",
+    "exam_id": "2016",
+    "no": 24,
+    "type_id": "R-CHART",
+    "stem": "다음 도표의 내용과 일치하지 않는 것은?",
+    "passage": "The above graph shows the results of a survey conducted in 2012. It compares the percentage of parents of minor children (hereafter, parents) and that of other adults in terms of their involvement in six library activities. ① Most notably, the percentage of parents is higher than that of other adults in all activity types. ② The percentage of parents who browsed shelves is the same as that of parents who borrowed print books. ③ The percentage gap between parents and other adults is largest in the activity of attending classes or events for children and is smallest in the activity of using computers or the Internet. ④ The percentage of other adults who browsed shelves is twice as high as that of other adults who borrowed DVDs, CDs, or videotapes. ⑤ Finally, the percentage of parents who borrowed e-books is less than 10% but is higher than that of other adults who did the same activity.",
+    "choices": [
+     "Most notably, the percentage of parents is higher than that of other adults in all activity types.",
+     "The percentage of parents who browsed shelves is the same as that of parents who borrowed print books.",
+     "The percentage gap between parents and other adults is largest in the activity of attending classes or events for children and is smallest in the activity of using computers or the Internet.",
+     "The percentage of other adults who browsed shelves is twice as high as that of other adults who borrowed DVDs, CDs, or videotapes.",
+     "Finally, the percentage of parents who borrowed e-books is less than 10% but is higher than that of other adults who did the same activity. 8"
+    ],
+    "answer": 3,
+    "answers": [
+     3
+    ],
+    "body_ok": true
+   },
+   "inputHash": "8ff07e8a35f4c5d7124e4bd6c404574145f3b7ff09f13b5f9609e16f60b8a8c2",
+   "units": null,
+   "analyses": [
+    {
+     "item_id": "2016#24",
+     "version": 1,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "나머지 네 선지는 막대 한둘로 닫히도록(같은 값 · 배수 · 임계+대소 · 높이 순서만 보는 전칭) 만들어 두고, ③에만 여섯 쌍 열두 막대의 차이를 재게 했다. 곧 가장 비싼 선지에 불일치를 심어, 시간에 쫓겨 눈에 띄는 최대 차이만 확인하고 최소 차이를 넘기는 학습자를 걸러 낸다.",
+     "answer_locus": {
+      "quote": "The percentage gap between parents and other adults is largest in the activity of attending classes or events for children and is smallest in the activity of using computers or the Internet.",
+      "reasoning": "③은 막대 값이 아니라 '두 계열의 차이' 라는 파생량의 최대와 최소를 동시에 주장하는 유일한 선지이고, 두 주장 중 하나만 어긋나도 문장 전체가 거짓이 된다. ①이 여섯 항목 모두에서 parents 가 위라고 못 박으므로 차이는 전부 양수여서 여섯 개를 부호 없이 견줄 수 있고, ⑤는 e-book 항목에서 parents 가 10% 미만이고 other adults 는 그보다 더 아래라고 알려 주므로 그 항목의 차이는 10%p 미만 — '가장 작은 차이' 자리를 두고 using computers or the Internet 과 겨루는 후보가 선지 문장만으로 하나 생긴다. 곧 최소 쪽 주장은 두 항목을 직접 견줘야 닫히는데, 평가원 정답표가 ③을 불일치로 확정한다. ※ 막대 값은 그림에만 있고 코퍼스 지문에도 columns2/2016.txt 문항 창(337행 앞뒤)에도 없다 — 어느 절(최대 쪽인가 최소 쪽인가)이 어긋났는지는 확정하지 못했고 %p 수치는 하나도 적지 않았다.",
+      "sentence_index": [
+       5,
+       7
+      ],
+      "chart_values_available": false
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "전칭 검증 부담",
+       "verdict": "distractor",
+       "why_tempting": "in all activity types 는 여섯 쌍 열두 막대를 다 봐야 하는 주장이라 부담이 커서, 눈에 띄는 한두 항목만 보고 O 를 주거나 '전칭은 대개 거짓' 이라는 요령으로 X 를 준다. Most notably 라는 머리말이 이미 확인된 사실처럼 들리는 것도 거든다.",
+       "how_to_reject": "값을 읽지 않고 여섯 항목에서 두 막대의 위아래만 훑어 뒤집힌 항목이 하나라도 있는지 본다. 이 훑기는 ③의 차이 비교에도 그대로 쓰이므로 버려지지 않는다."
+      },
+      {
+       "n": 2,
+       "trap": "동일값 단정",
+       "verdict": "distractor",
+       "why_tempting": "browsed shelves 와 borrowed print books 는 뜻이 가까워 값도 같을 것 같고, 두 막대가 이웃해 있으면 높이 차가 눈금 한 칸 미만일 때 '같다' 로 넘어간다. 반대로 완전히 같은 값은 드물다는 인상 때문에 X 를 주기도 한다.",
+       "how_to_reject": "parents 계열의 두 막대 끝을 같은 가로 눈금선에 대고 본다. ④가 같은 browsed shelves 항목을 other adults 계열로 다시 묻고 있으므로, 여기서는 계열을 parents 로 고정했는지 먼저 확인한다."
+      },
+      {
+       "n": 3,
+       "trap": "파생량 최대·최소 동시 주장",
+       "verdict": "correct",
+       "why_tempting": "attending classes or events for children 은 부모 쪽이 압도적일 것이라는 상식이 강해 최대 쪽 주장을 검증 없이 참으로 넘기고, 그 순간 문장 전체를 O 로 처리한다. 최소 쪽은 여섯 차이를 다 만들어야 판정되므로 시간이 없으면 자동으로 생략된다.",
+       "how_to_reject": "여섯 항목에서 두 막대 사이의 간격을 눈금 칸수로 적어 여섯 개의 차이를 만든 뒤 최대와 최소를 지목한다. ⑤가 알려 준 e-book 항목(두 계열 모두 10% 미만)이 최소 후보이므로 using computers or the Internet 과 그 항목을 반드시 견준다."
+      },
+      {
+       "n": 4,
+       "trap": "배수 과장",
+       "verdict": "distractor",
+       "why_tempting": "twice as high 는 간격이 커 보이면 눈대중으로 참이라고 넘기게 된다. 게다가 browsed shelves 는 ②에서 이미 본 항목이라 계열을 parents 로 바꿔 읽은 채 비교하기 쉽다.",
+       "how_to_reject": "other adults 계열의 borrowed DVDs, CDs, or videotapes 막대 값에 2를 곱해 종이에 적고, 같은 계열의 browsed shelves 값과 견준다. 곱셈 결과를 숫자로 적지 않으면 판정이 눈대중으로 갈린다."
+      },
+      {
+       "n": 5,
+       "trap": "복합 절 후반 누락",
+       "verdict": "distractor",
+       "why_tempting": "less than 10% 라는 임계와 other adults 보다 높다는 대소, 두 절이 붙어 있어 앞 절만 확인하고 넘기거나, 뒤 절 때문에 막대 네 개를 새로 읽느라 시간을 쓴다.",
+       "how_to_reject": "앞 절은 parents 의 e-books 막대 하나를 10% 눈금선과 견주면 끝난다. 뒤 절은 ①의 전칭(모든 항목에서 parents 가 위)이 이미 보증하므로 새로 읽을 막대가 없다 — 선지끼리 덮어 주는 관계를 표시해 두면 확인 횟수가 준다."
+      }
+     ]
+    },
+    {
+     "item_id": "2016#24",
+     "version": 2,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "나머지 네 선지는 막대 한둘로 닫히도록(같은 값 · 배수 · 임계+대소 · 높이 순서만 보는 전칭) 만들어 두고, ③에만 여섯 쌍 열두 막대의 차이를 재게 했다. 곧 가장 비싼 선지에 불일치를 심어, 시간에 쫓겨 눈에 띄는 최대 차이만 확인하고 최소 차이를 넘기는 학습자를 걸러 낸다.",
+     "answer_locus": {
+      "quote": "The percentage gap between parents and other adults is largest in the activity of attending classes or events for children and is smallest in the activity of using computers or the Internet.",
+      "reasoning": "③은 막대 값이 아니라 '두 계열의 차이' 라는 파생량의 최대와 최소를 동시에 주장하는 유일한 선지이고, 두 주장 중 하나만 어긋나도 문장 전체가 거짓이 된다. ①이 여섯 항목 모두에서 parents 가 위라고 못 박으므로 차이는 전부 양수여서 여섯 개를 부호 없이 견줄 수 있고, ⑤는 e-book 항목에서 parents 가 10% 미만이고 other adults 는 그보다 더 아래라고 알려 주므로 그 항목의 차이는 10%p 미만 — '가장 작은 차이' 자리를 두고 using computers or the Internet 과 겨루는 후보가 선지 문장만으로 하나 생긴다. 곧 최소 쪽 주장은 두 항목을 직접 견줘야 닫히는데, 평가원 정답표가 ③을 불일치로 확정한다. ※ 막대 값은 그림에만 있고 코퍼스 지문에도 columns2/2016.txt 문항 창(337행 앞뒤)에도 없다 — 어느 절(최대 쪽인가 최소 쪽인가)이 어긋났는지는 확정하지 못했고 %p 수치는 하나도 적지 않았다.",
+      "sentence_index": [
+       5,
+       7
+      ],
+      "chart_values_available": false
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "전칭 검증 부담",
+       "verdict": "distractor",
+       "why_tempting": "in all activity types 는 여섯 쌍 열두 막대를 다 봐야 하는 주장이라 부담이 커서, 눈에 띄는 한두 항목만 보고 O 를 주거나 '전칭은 대개 거짓' 이라는 요령으로 X 를 준다. Most notably 라는 머리말이 이미 확인된 사실처럼 들리는 것도 거든다.",
+       "how_to_reject": "값을 읽지 않고 여섯 항목에서 두 막대의 위아래만 훑어 뒤집힌 항목이 하나라도 있는지 본다. 이 훑기는 ③의 차이 비교에도 그대로 쓰이므로 버려지지 않는다."
+      },
+      {
+       "n": 2,
+       "trap": "동일값 단정",
+       "verdict": "distractor",
+       "why_tempting": "browsed shelves 와 borrowed print books 는 뜻이 가까워 값도 같을 것 같고, 두 막대가 이웃해 있으면 높이 차가 눈금 한 칸 미만일 때 '같다' 로 넘어간다. 반대로 완전히 같은 값은 드물다는 인상 때문에 X 를 주기도 한다.",
+       "how_to_reject": "parents 계열의 두 막대 끝을 같은 가로 눈금선에 대고 본다. ④가 같은 browsed shelves 항목을 other adults 계열로 다시 묻고 있으므로, 여기서는 계열을 parents 로 고정했는지 먼저 확인한다."
+      },
+      {
+       "n": 3,
+       "verdict": "correct",
+       "why_correct": "선지 ③은 최대와 최소를 한 문장에 묶은 연언이다 — 'largest in the activity of attending classes or events for children' 과 'is smallest in the activity of using computers or the Internet' 이 둘 다 참이어야 하고 한쪽만 어긋나도 선지 전체가 도표와 일치하지 않는다. 두 절 모두 여섯 활동의 격차를 만들어 견주는 연산이지만, 뒤 절만은 본문이 경쟁자를 하나 쥐여 준다 — ⑤의 'the percentage of parents who borrowed e-books is less than 10% but is higher than that of other adults who did the same activity' 는 e-books 에서 부모 쪽이 10% 미만이고 다른 성인은 그보다 더 낮다고 하므로, 그 활동의 격차는 10 퍼센트포인트를 넘을 수 없다. 곧 뒤 절이 참이려면 using computers or the Internet 의 격차가 그 10 미만짜리 격차보다도 작아야 한다. ①의 'the percentage of parents is higher than that of other adults in all activity types' 이 여섯 격차가 모두 양수임을 보증해 부호는 따질 필요가 없으므로, 남는 일은 두 활동에서 부모 막대와 다른 성인 막대의 간격을 그림에서 견주는 것이다.",
+       "confirmed_at": {
+        "note": "학습자가 미끄러지는 자리 — attending classes or events for children 은 부모 쪽이 압도적일 것이라는 상식이 강해 앞 절을 검증 없이 참으로 넘기고, 그 순간 문장 전체를 O 로 처리한다. 뒤 절은 여섯 격차를 다 만들어야 판정되므로 시간이 없으면 자동으로 생략된다.",
+        "sentence_index": [
+         5,
+         7
+        ]
+       }
+      },
+      {
+       "n": 4,
+       "trap": "배수 과장",
+       "verdict": "distractor",
+       "why_tempting": "twice as high 는 간격이 커 보이면 눈대중으로 참이라고 넘기게 된다. 게다가 browsed shelves 는 ②에서 이미 본 항목이라 계열을 parents 로 바꿔 읽은 채 비교하기 쉽다.",
+       "how_to_reject": "other adults 계열의 borrowed DVDs, CDs, or videotapes 막대 값에 2를 곱해 종이에 적고, 같은 계열의 browsed shelves 값과 견준다. 곱셈 결과를 숫자로 적지 않으면 판정이 눈대중으로 갈린다."
+      },
+      {
+       "n": 5,
+       "trap": "복합 절 후반 누락",
+       "verdict": "distractor",
+       "why_tempting": "less than 10% 라는 임계와 other adults 보다 높다는 대소, 두 절이 붙어 있어 앞 절만 확인하고 넘기거나, 뒤 절 때문에 막대 네 개를 새로 읽느라 시간을 쓴다.",
+       "how_to_reject": "앞 절은 parents 의 e-books 막대 하나를 10% 눈금선과 견주면 끝난다. 뒤 절은 ①의 전칭(모든 항목에서 parents 가 위)이 이미 보증하므로 새로 읽을 막대가 없다 — 선지끼리 덮어 주는 관계를 표시해 두면 확인 횟수가 준다."
+      }
+     ]
+    },
+    {
+     "item_id": "2016#24",
+     "version": 3,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "나머지 네 선지는 막대 한둘로 닫히도록(같은 값 · 배수 · 임계+대소 · 높이 순서만 보는 전칭) 만들어 두고, ③에만 여섯 쌍 열두 막대의 차이를 재게 했다. 곧 가장 비싼 선지에 불일치를 심어, 시간에 쫓겨 눈에 띄는 최대 차이만 확인하고 최소 차이를 넘기는 학습자를 걸러 낸다.",
+     "answer_locus": {
+      "quote": "The percentage gap between parents and other adults is largest in the activity of attending classes or events for children and is smallest in the activity of using computers or the Internet.",
+      "reasoning": "③은 막대 값이 아니라 '두 계열의 차이' 라는 파생량의 최대와 최소를 동시에 주장하는 유일한 선지이고, 두 주장 중 하나만 어긋나도 문장 전체가 거짓이 된다. ①이 여섯 항목 모두에서 parents 가 위라고 못 박으므로 차이는 전부 양수여서 여섯 개를 부호 없이 견줄 수 있고, ⑤는 e-book 항목에서 parents 가 10% 미만이고 other adults 는 그보다 더 아래라고 알려 주므로 그 항목의 차이는 10%p 미만 — '가장 작은 차이' 자리를 두고 using computers or the Internet 과 겨루는 후보가 선지 문장만으로 하나 생긴다. 곧 최소 쪽 주장은 두 항목을 직접 견줘야 닫히는데, 평가원 정답표가 ③을 불일치로 확정한다. ※ 막대 값은 그림에만 있고 코퍼스 지문에도 columns2/2016.txt 문항 창(337행 앞뒤)에도 없다 — 어느 절(최대 쪽인가 최소 쪽인가)이 어긋났는지는 확정하지 못했고 %p 수치는 하나도 적지 않았다.",
+      "sentence_index": [
+       5,
+       7
+      ],
+      "chart_values_available": false
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "전칭 검증 부담",
+       "verdict": "distractor",
+       "why_tempting": "in all activity types 는 여섯 쌍 열두 막대를 다 봐야 하는 주장이라 부담이 커서, 눈에 띄는 한두 항목만 보고 O 를 주거나 '전칭은 대개 거짓' 이라는 요령으로 X 를 준다. Most notably 라는 머리말이 이미 확인된 사실처럼 들리는 것도 거든다.",
+       "how_to_reject": "값을 읽지 않고 여섯 항목에서 두 막대의 위아래만 훑어 뒤집힌 항목이 하나라도 있는지 본다. 이 훑기는 ③의 차이 비교에도 그대로 쓰이므로 버려지지 않는다."
+      },
+      {
+       "n": 2,
+       "trap": "동일값 단정",
+       "verdict": "distractor",
+       "why_tempting": "browsed shelves 와 borrowed print books 는 뜻이 가까워 값도 같을 것 같고, 두 막대가 이웃해 있으면 높이 차가 눈금 한 칸 미만일 때 '같다' 로 넘어간다. 반대로 완전히 같은 값은 드물다는 인상 때문에 X 를 주기도 한다.",
+       "how_to_reject": "parents 계열의 두 막대 끝을 같은 가로 눈금선에 대고 본다. ④가 같은 browsed shelves 항목을 other adults 계열로 다시 묻고 있으므로, 여기서는 계열을 parents 로 고정했는지 먼저 확인한다."
+      },
+      {
+       "n": 3,
+       "verdict": "correct",
+       "why_correct": "선지 ③은 최대와 최소를 한 문장에 묶은 연언이다 — 'largest in the activity of attending classes or events for children' 과 'is smallest in the activity of using computers or the Internet' 이 둘 다 참이어야 하고 한쪽만 어긋나도 선지 전체가 도표와 일치하지 않는다. 두 절 모두 여섯 활동의 격차를 만들어 견주는 연산이지만, 뒤 절만은 본문이 경쟁자를 하나 쥐여 준다 — ⑤의 'the percentage of parents who borrowed e-books is less than 10% but is higher than that of other adults who did the same activity' 는 e-books 에서 부모 쪽이 10% 미만이고 다른 성인은 그보다 더 낮다고 하므로, 그 활동의 격차는 10 퍼센트포인트를 넘을 수 없다. 곧 뒤 절이 참이려면 using computers or the Internet 의 격차가 그 10 미만짜리 격차보다도 작아야 한다. ①의 'the percentage of parents is higher than that of other adults in all activity types' 이 여섯 격차가 모두 양수임을 보증해 부호는 따질 필요가 없으므로, 남는 일은 두 활동에서 부모 막대와 다른 성인 막대의 간격을 그림에서 견주는 것이다.",
+       "confirmed_at": {
+        "note": "학습자가 미끄러지는 자리 — attending classes or events for children 은 부모 쪽이 압도적일 것이라는 상식이 강해 앞 절을 검증 없이 참으로 넘기고, 그 순간 문장 전체를 O 로 처리한다. 뒤 절은 여섯 격차를 다 만들어야 판정되므로 시간이 없으면 자동으로 생략된다.",
+        "sentence_index": [
+         5,
+         7
+        ]
+       }
+      },
+      {
+       "n": 4,
+       "trap": "배수 과장",
+       "verdict": "distractor",
+       "why_tempting": "twice as high 는 간격이 커 보이면 눈대중으로 참이라고 넘기게 된다. 게다가 browsed shelves 는 ②에서 이미 본 항목이라 계열을 parents 로 바꿔 읽은 채 비교하기 쉽다.",
+       "how_to_reject": "other adults 계열의 borrowed DVDs, CDs, or videotapes 막대 값에 2를 곱해 종이에 적고, 같은 계열의 browsed shelves 값과 견준다. 곱셈 결과를 숫자로 적지 않으면 판정이 눈대중으로 갈린다."
+      },
+      {
+       "n": 5,
+       "trap": "복합 절 후반 누락",
+       "verdict": "distractor",
+       "why_tempting": "less than 10% 라는 임계와 other adults 보다 높다는 대소, 두 절이 붙어 있어 앞 절만 확인하고 넘기거나, 뒤 절 때문에 막대 네 개를 새로 읽느라 시간을 쓴다.",
+       "how_to_reject": "앞 절은 parents 의 e-books 막대 하나를 10% 눈금선과 견주면 끝난다. 뒤 절은 ①의 전칭(모든 항목에서 parents 가 위)이 이미 보증하므로 새로 읽을 막대가 없다 — 선지끼리 덮어 주는 관계를 표시해 두면 확인 횟수가 준다."
+      }
+     ]
+    },
+    {
+     "item_id": "2016#24",
+     "version": 4,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "나머지 네 선지는 막대 한둘로 닫히도록(같은 값 · 배수 · 임계+대소 · 높이 순서만 보는 전칭) 만들어 두고, ③에만 여섯 쌍 열두 막대의 차이를 재게 했다. 곧 가장 비싼 선지에 불일치를 심어, 시간에 쫓겨 눈에 띄는 최대 차이만 확인하고 최소 차이를 넘기는 학습자를 걸러 낸다.",
+     "answer_locus": {
+      "quote": "The percentage gap between parents and other adults is largest in the activity of attending classes or events for children and is smallest in the activity of using computers or the Internet.",
+      "reasoning": "③은 막대 값이 아니라 '두 계열의 차이' 라는 파생량의 최대와 최소를 동시에 주장하는 유일한 선지이고, 두 주장 중 하나만 어긋나도 문장 전체가 거짓이 된다. ①이 여섯 항목 모두에서 parents 가 위라고 못 박으므로 차이는 전부 양수여서 여섯 개를 부호 없이 견줄 수 있고, ⑤는 e-book 항목에서 parents 가 10% 미만이고 other adults 는 그보다 더 아래라고 알려 주므로 그 항목의 차이는 10%p 미만 — '가장 작은 차이' 자리를 두고 using computers or the Internet 과 겨루는 후보가 선지 문장만으로 하나 생긴다. 곧 최소 쪽 주장은 두 항목을 직접 견줘야 닫히는데, 평가원 정답표가 ③을 불일치로 확정한다. ※ 막대 값은 그림에만 있고 코퍼스 지문에도 columns2/2016.txt 문항 창(337행 앞뒤)에도 없다 — 어느 절(최대 쪽인가 최소 쪽인가)이 어긋났는지는 확정하지 못했고 %p 수치는 하나도 적지 않았다.",
+      "sentence_index": [
+       5,
+       7
+      ],
+      "chart_values_available": false
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "전칭 검증 부담",
+       "verdict": "distractor",
+       "why_tempting": "in all activity types 는 여섯 쌍 열두 막대를 다 봐야 하는 주장이라 부담이 커서, 눈에 띄는 한두 항목만 보고 O 를 주거나 '전칭은 대개 거짓' 이라는 요령으로 X 를 준다. Most notably 라는 머리말이 이미 확인된 사실처럼 들리는 것도 거든다.",
+       "how_to_reject": "값을 읽지 않고 여섯 항목에서 두 막대의 위아래만 훑어 뒤집힌 항목이 하나라도 있는지 본다. 이 훑기는 ③의 차이 비교에도 그대로 쓰이므로 버려지지 않는다."
+      },
+      {
+       "n": 2,
+       "trap": "동일값 단정",
+       "verdict": "distractor",
+       "why_tempting": "browsed shelves 와 borrowed print books 는 뜻이 가까워 값도 같을 것 같고, 두 막대가 이웃해 있으면 높이 차가 눈금 한 칸 미만일 때 '같다' 로 넘어간다. 반대로 완전히 같은 값은 드물다는 인상 때문에 X 를 주기도 한다.",
+       "how_to_reject": "parents 계열의 두 막대 끝을 같은 가로 눈금선에 대고 본다. ④가 같은 browsed shelves 항목을 other adults 계열로 다시 묻고 있으므로, 여기서는 계열을 parents 로 고정했는지 먼저 확인한다."
+      },
+      {
+       "n": 3,
+       "verdict": "correct",
+       "why_correct": "선지 ③은 최대와 최소를 한 문장에 묶은 연언이다 — 'largest in the activity of attending classes or events for children' 과 'is smallest in the activity of using computers or the Internet' 이 둘 다 참이어야 하고 한쪽만 어긋나도 선지 전체가 도표와 일치하지 않는다. 두 절 모두 여섯 활동의 격차를 만들어 견주는 연산이지만, 뒤 절만은 본문이 경쟁자를 하나 쥐여 준다 — ⑤의 'the percentage of parents who borrowed e-books is less than 10% but is higher than that of other adults who did the same activity' 는 e-books 에서 부모 쪽이 10% 미만이고 다른 성인은 그보다 더 낮다고 하므로, 그 활동의 격차는 10 퍼센트포인트를 넘을 수 없다. 곧 뒤 절이 참이려면 using computers or the Internet 의 격차가 그 10 미만짜리 격차보다도 작아야 한다. ①의 'the percentage of parents is higher than that of other adults in all activity types' 이 여섯 격차가 모두 양수임을 보증해 부호는 따질 필요가 없으므로, 남는 일은 두 활동에서 부모 막대와 다른 성인 막대의 간격을 그림에서 견주는 것이다.",
+       "confirmed_at": {
+        "note": "학습자가 미끄러지는 자리 — attending classes or events for children 은 부모 쪽이 압도적일 것이라는 상식이 강해 앞 절을 검증 없이 참으로 넘기고, 그 순간 문장 전체를 O 로 처리한다. 뒤 절은 여섯 격차를 다 만들어야 판정되므로 시간이 없으면 자동으로 생략된다.",
+        "sentence_index": [
+         5,
+         7
+        ]
+       }
+      },
+      {
+       "n": 4,
+       "trap": "배수 과장",
+       "verdict": "distractor",
+       "why_tempting": "twice as high 는 간격이 커 보이면 눈대중으로 참이라고 넘기게 된다. 게다가 browsed shelves 는 ②에서 이미 본 항목이라 계열을 parents 로 바꿔 읽은 채 비교하기 쉽다.",
+       "how_to_reject": "other adults 계열의 borrowed DVDs, CDs, or videotapes 막대 값에 2를 곱해 종이에 적고, 같은 계열의 browsed shelves 값과 견준다. 곱셈 결과를 숫자로 적지 않으면 판정이 눈대중으로 갈린다."
+      },
+      {
+       "n": 5,
+       "trap": "복합 절 후반 누락",
+       "verdict": "distractor",
+       "why_tempting": "less than 10% 라는 임계와 other adults 보다 높다는 대소, 두 절이 붙어 있어 앞 절만 확인하고 넘기거나, 뒤 절 때문에 막대 네 개를 새로 읽느라 시간을 쓴다.",
+       "how_to_reject": "앞 절은 parents 의 e-books 막대 하나를 10% 눈금선과 견주면 끝난다. 뒤 절은 ①의 전칭(모든 항목에서 parents 가 위)이 이미 보증하므로 새로 읽을 막대가 없다 — 선지끼리 덮어 주는 관계를 표시해 두면 확인 횟수가 준다."
+      }
+     ]
+    },
+    {
+     "item_id": "2016#24",
+     "version": 5,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "여섯 활동의 부모−기타 성인 차이는 11·13·33·15·13·4%p다. ③은 최대 차이(Attend classes 33%p)를 맞게 짚은 뒤 최소 차이를 Use computers(13%p)로 적었지만 실제 최소는 맨 아래 Borrow e-books(9−5=4%p)다. 앞 절이 맞아 뒤 절을 덜 검산하게 만들고, 막대가 짧아 차이도 작아 보이지 않는 맨 아래 항목을 빠뜨리는지 가른다.",
+     "answer_locus": {
+      "quote": "is smallest in the activity of using computers or the Internet",
+      "reasoning": "도표에서 Use computers or the Internet 은 부모 40%·기타 성인 27%로 차이 13%p, Borrow e-books 는 9%·5%로 차이 4%p다. 4 < 13 이므로 최소 차이 활동은 e-books 이고, using computers 가 최소라는 [5]의 뒤 절은 도표와 어긋난다.",
+      "sentence_index": [
+       5
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "verdict": "distractor",
+       "how_to_reject": "[3]의 「all activity types」는 여섯 쌍 전부에서 부모 막대가 더 길어야 참이다. 81>70, 81>68, 66>33, 50>35, 40>27, 9>5 로 여섯 쌍 모두 부모가 높으므로 도표와 일치해 답이 아니다."
+      },
+      {
+       "n": 2,
+       "verdict": "distractor",
+       "how_to_reject": "[4] 문장은 부모의 Browse shelves 와 Borrow print books 를 견준다. 두 막대 모두 81%로 같으므로 「the same」은 맞는 진술이고 답이 아니다."
+      },
+      {
+       "n": 3,
+       "trap": "부분 사실",
+       "verdict": "correct",
+       "why_correct": "[5]의 「smallest in the activity of using computers or the Internet」이 거짓이다. 최소 차이를 고르려면 여섯 차이 11·13·33·15·13·4 를 모두 비교해야 하고, 가장 작은 값은 Borrow e-books 의 4%p(9%−5%)다. Use computers 의 13%p(40%−27%)는 최소가 아니므로 「smallest」가 성립하지 않는다. 앞 절 「largest in … attending classes」(33%p)는 맞아 뒤 절만 바뀐 문장이다.",
+       "confirmed_at": {
+        "note": "원본 도표 확인 — 2016_영어영역-홀수.pdf 3쪽, 읽은 값(부모/기타 성인 %): Browse shelves 81/70, Borrow print books 81/68, Attend classes or events for children 66/33, Borrow DVDs·CDs·videotapes 50/35, Use computers or the Internet 40/27, Borrow e-books 9/5.",
+        "sentence_index": [
+         5
+        ]
+       }
+      },
+      {
+       "n": 4,
+       "verdict": "distractor",
+       "how_to_reject": "[6] 문장은 기타 성인 막대끼리 배수를 묻는다. Browse shelves 70%, Borrow DVDs·CDs·videotapes 35% 이고 70 = 35×2 이므로 「twice as high」는 맞아 답이 아니다."
+      },
+      {
+       "n": 5,
+       "verdict": "distractor",
+       "how_to_reject": "[7] 문장은 부모 e-books 9%가 10% 미만이고 기타 성인 5%보다 높다는 두 조건이다. 9<10, 9>5 로 둘 다 성립해 답이 아니다."
+      }
+     ]
+    }
+   ],
+   "pdfAnchored": true
+  },
+  {
+   "item": {
+    "id": "2015#38",
+    "exam_id": "2015",
+    "no": 38,
+    "type_id": "R-INSERT",
+    "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+    "passage": "The researchers had made this happen by lengthening the period of daylight to which the peach trees on whose roots the insects fed were exposed. Exactly how cicadas keep track of time has always intrigued researchers, and it has always been assumed that the insects must rely on an internal clock. Recently, however, one group of scientists working with the 17-year cicada in California have suggested that the nymphs use an external cue and that they can count. ( ① ) For their experiments they took 15-year-old nymphs and moved them to an experimental enclosure. ( ② ) These nymphs should have taken a further two years to emerge as adults, but in fact they took just one year. ( ③ ) By doing this, the trees were “tricked” into flowering twice during the year rather than the usual once. ( ④ ) Flowering in trees coincides with a peak in amino acid concentrations in the sap that the insects feed on. ( ⑤ ) So it seems that the cicadas keep track of time by counting the peaks.",
+    "choices": [
+     ") For their experiments they took 15-year-old nymphs and moved them to an experimental enclosure. (",
+     ") These nymphs should have taken a further two years to emerge as adults, but in fact they took just one year. (",
+     ") By doing this, the trees were “tricked” into flowering twice during the year rather than the usual once. (",
+     ") Flowering in trees coincides with a peak in amino acid concentrations in the sap that the insects feed on. (",
+     ") So it seems that the cicadas keep track of time by counting the peaks. * nymph: 애벌레 ** sap: 수액 7"
+    ],
+    "answer": 3,
+    "answers": [
+     3
+    ],
+    "body_ok": true
+   },
+   "inputHash": "20bb36a23cec3378686564a9f032278ce99ad72e16971020b64986bc3623e700",
+   "units": null,
+   "analyses": [
+    {
+     "item_id": "2015#38",
+     "version": 1,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "삽입문 자체가 '앞의 this를 받고 뒤의 By doing this에 먹이를 주는' 이중 고리다. 학습자가 대명사 하나만 보고 자리를 정하면 ②나 ④로 새게 되어 있고, 두 고리를 동시에 만족시키는 자리는 ③ 하나뿐이다.",
+     "answer_locus": {
+      "quote": "By doing this, the trees were “tricked” into flowering twice during the year rather than the usual once.",
+      "reasoning": "'By doing this'의 this는 연구자가 한 **조작**이어야 하는데, ③ 앞까지 서술된 것은 '15년생 약충을 사육장으로 옮겼다'와 '2년 걸릴 것이 1년 만에 나왔다'는 결과뿐이고 나무를 속일 수 있는 조작은 없다. 삽입문의 '일조 시간을 늘렸다'가 들어와야 By doing this가 가리킬 행위가 생긴다. 동시에 삽입문의 'made this happen'은 앞 문장의 '1년 만에 성체가 됨'을 받으므로 자리는 ③뿐이다.",
+      "sentence_index": [
+       5,
+       6
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "시간 순서 역행",
+       "verdict": "distractor",
+       "why_tempting": "① 앞에서 연구자들이 외부 단서 가설을 제시했으므로 곧바로 연구자의 조작 설명이 올 것 같다.",
+       "how_to_reject": "① 뒤 문장이 'For their experiments they took 15-year-old nymphs ...'로 실험을 **도입**한다. 도입보다 앞에 조작 상세가 오면 순서가 뒤집히고, 삽입문의 'made this happen'이 받을 결과도 아직 없다."
+      },
+      {
+       "n": 2,
+       "trap": "지시어 선행사 부재",
+       "verdict": "distractor",
+       "why_tempting": "② 앞 문장에 사육장으로 옮겼다는 조작이 나와 'made this happen'이 그 조치를 가리키는 듯 보인다.",
+       "how_to_reject": "'this'가 가리켜야 할 것은 '일어난 일(결과)'인데 ② 앞에는 결과가 없다. 결과는 ② 뒤 문장 'but in fact they took just one year'에서 처음 나온다. 또 'These nymphs'가 바로 앞 문장의 nymphs를 받으므로 그 사이를 끊을 수 없다."
+      },
+      {
+       "n": 3,
+       "trap": null,
+       "verdict": "correct",
+       "why_tempting": "정답. 앞 문장이 결과를, 삽입문이 조작을, 뒤 문장이 그 조작의 효과를 잇는다.",
+       "how_to_reject": "-"
+      },
+      {
+       "n": 4,
+       "trap": "지시어 선행사 절단",
+       "verdict": "distractor",
+       "why_tempting": "④ 앞 문장에 the trees가 나와 삽입문의 peach trees와 낱말이 맞물린다.",
+       "how_to_reject": "④ 앞 문장이 이미 'By doing this'로 시작한다. 조작 설명을 그 뒤로 미루면 By doing this가 가리킬 행위가 앞에 없어진다."
+      },
+      {
+       "n": 5,
+       "trap": "지문 표지 절단",
+       "verdict": "distractor",
+       "why_tempting": "⑤ 앞 문장의 'the sap that the insects feed on'과 삽입문의 'the insects fed'가 같은 표현이라 이어져 보인다.",
+       "how_to_reject": "⑤ 뒤 마지막 문장은 'So it seems that the cicadas keep track of time by counting the peaks.'로 바로 앞 문장(개화와 아미노산 최고점의 일치)을 근거로 받는다. 그 사이에 조작 설명을 넣으면 So가 받을 근거가 끊긴다."
+      }
+     ]
+    },
+    {
+     "item_id": "2015#38",
+     "version": 2,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "삽입문 자체가 '앞의 this를 받고 뒤의 By doing this에 먹이를 주는' 이중 고리다. 학습자가 대명사 하나만 보고 자리를 정하면 ②나 ④로 새게 되어 있고, 두 고리를 동시에 만족시키는 자리는 ③ 하나뿐이다.",
+     "answer_locus": {
+      "quote": "By doing this, the trees were “tricked” into flowering twice during the year rather than the usual once.",
+      "reasoning": "'By doing this'의 this는 연구자가 한 **조작**이어야 하는데, ③ 앞까지 서술된 것은 '15년생 약충을 사육장으로 옮겼다'와 '2년 걸릴 것이 1년 만에 나왔다'는 결과뿐이고 나무를 속일 수 있는 조작은 없다. 삽입문의 '일조 시간을 늘렸다'가 들어와야 By doing this가 가리킬 행위가 생긴다. 동시에 삽입문의 'made this happen'은 앞 문장의 '1년 만에 성체가 됨'을 받으므로 자리는 ③뿐이다.",
+      "sentence_index": [
+       5,
+       6
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "시간 순서 역행",
+       "verdict": "distractor",
+       "why_tempting": "① 앞에서 연구자들이 외부 단서 가설을 제시했으므로 곧바로 연구자의 조작 설명이 올 것 같다.",
+       "how_to_reject": "① 뒤 문장이 'For their experiments they took 15-year-old nymphs ...'로 실험을 **도입**한다. 도입보다 앞에 조작 상세가 오면 순서가 뒤집히고, 삽입문의 'made this happen'이 받을 결과도 아직 없다."
+      },
+      {
+       "n": 2,
+       "trap": "지시어 선행사 부재",
+       "verdict": "distractor",
+       "why_tempting": "② 앞 문장에 사육장으로 옮겼다는 조작이 나와 'made this happen'이 그 조치를 가리키는 듯 보인다.",
+       "how_to_reject": "'this'가 가리켜야 할 것은 '일어난 일(결과)'인데 ② 앞에는 결과가 없다. 결과는 ② 뒤 문장 'but in fact they took just one year'에서 처음 나온다. 또 'These nymphs'가 바로 앞 문장의 nymphs를 받으므로 그 사이를 끊을 수 없다."
+      },
+      {
+       "n": 3,
+       "verdict": "correct",
+       "why_correct": "앞쪽 대응: 주어진 문장의 The researchers had made this happen 의 this 는 ③ 앞 문장 These nymphs should have taken a further two years to emerge as adults, but in fact they took just one year 의 결과를 받는다. 뒤쪽 대응: 주어진 문장이 lengthening the period of daylight 라는 조작을 놓아야, 뒤 문장 By doing this, the trees were “tricked” into flowering twice during the year 의 By doing this 가 가리킬 행위가 생긴다 — ③ 앞에는 나무를 속일 조작이 하나도 서술되어 있지 않다."
+      },
+      {
+       "n": 4,
+       "trap": "지시어 선행사 절단",
+       "verdict": "distractor",
+       "why_tempting": "④ 앞 문장에 the trees가 나와 삽입문의 peach trees와 낱말이 맞물린다.",
+       "how_to_reject": "④ 앞 문장이 이미 'By doing this'로 시작한다. 조작 설명을 그 뒤로 미루면 By doing this가 가리킬 행위가 앞에 없어진다."
+      },
+      {
+       "n": 5,
+       "trap": "지문 표지 절단",
+       "verdict": "distractor",
+       "why_tempting": "⑤ 앞 문장의 'the sap that the insects feed on'과 삽입문의 'the insects fed'가 같은 표현이라 이어져 보인다.",
+       "how_to_reject": "⑤ 뒤 마지막 문장은 'So it seems that the cicadas keep track of time by counting the peaks.'로 바로 앞 문장(개화와 아미노산 최고점의 일치)을 근거로 받는다. 그 사이에 조작 설명을 넣으면 So가 받을 근거가 끊긴다."
+      }
+     ]
+    },
+    {
+     "item_id": "2015#38",
+     "version": 3,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "삽입문 자체가 '앞의 this를 받고 뒤의 By doing this에 먹이를 주는' 이중 고리다. 학습자가 대명사 하나만 보고 자리를 정하면 ②나 ④로 새게 되어 있고, 두 고리를 동시에 만족시키는 자리는 ③ 하나뿐이다.",
+     "answer_locus": {
+      "quote": "By doing this, the trees were “tricked” into flowering twice during the year rather than the usual once.",
+      "reasoning": "'By doing this'의 this는 연구자가 한 **조작**이어야 하는데, ③ 앞까지 서술된 것은 '15년생 약충을 사육장으로 옮겼다'와 '2년 걸릴 것이 1년 만에 나왔다'는 결과뿐이고 나무를 속일 수 있는 조작은 없다. 삽입문의 '일조 시간을 늘렸다'가 들어와야 By doing this가 가리킬 행위가 생긴다. 동시에 삽입문의 'made this happen'은 앞 문장의 '1년 만에 성체가 됨'을 받으므로 자리는 ③뿐이다.",
+      "sentence_index": [
+       5,
+       6
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "시간 순서 역행",
+       "verdict": "distractor",
+       "why_tempting": "① 앞에서 연구자들이 외부 단서 가설을 제시했으므로 곧바로 연구자의 조작 설명이 올 것 같다.",
+       "how_to_reject": "① 뒤 문장이 'For their experiments they took 15-year-old nymphs ...'로 실험을 **도입**한다. 도입보다 앞에 조작 상세가 오면 순서가 뒤집히고, 삽입문의 'made this happen'이 받을 결과도 아직 없다."
+      },
+      {
+       "n": 2,
+       "trap": "지시어 선행사 부재",
+       "verdict": "distractor",
+       "why_tempting": "② 앞 문장에 사육장으로 옮겼다는 조작이 나와 'made this happen'이 그 조치를 가리키는 듯 보인다.",
+       "how_to_reject": "'this'가 가리켜야 할 것은 '일어난 일(결과)'인데 ② 앞에는 결과가 없다. 결과는 ② 뒤 문장 'but in fact they took just one year'에서 처음 나온다. 또 'These nymphs'가 바로 앞 문장의 nymphs를 받으므로 그 사이를 끊을 수 없다."
+      },
+      {
+       "n": 3,
+       "verdict": "correct",
+       "why_correct": "앞쪽 대응: 주어진 문장의 The researchers had made this happen 의 this 는 ③ 앞 문장 These nymphs should have taken a further two years to emerge as adults, but in fact they took just one year 의 결과를 받는다. 뒤쪽 대응: 주어진 문장이 lengthening the period of daylight 라는 조작을 놓아야, 뒤 문장 By doing this, the trees were “tricked” into flowering twice during the year 의 By doing this 가 가리킬 행위가 생긴다 — ③ 앞에는 나무를 속일 조작이 하나도 서술되어 있지 않다."
+      },
+      {
+       "n": 4,
+       "trap": "지시어 선행사 절단",
+       "verdict": "distractor",
+       "why_tempting": "④ 앞 문장에 the trees가 나와 삽입문의 peach trees와 낱말이 맞물린다.",
+       "how_to_reject": "④ 앞 문장이 이미 'By doing this'로 시작한다. 조작 설명을 그 뒤로 미루면 By doing this가 가리킬 행위가 앞에 없어진다."
+      },
+      {
+       "n": 5,
+       "trap": "지문 표지 절단",
+       "verdict": "distractor",
+       "why_tempting": "⑤ 앞 문장의 'the sap that the insects feed on'과 삽입문의 'the insects fed'가 같은 표현이라 이어져 보인다.",
+       "how_to_reject": "⑤ 뒤 마지막 문장은 'So it seems that the cicadas keep track of time by counting the peaks.'로 바로 앞 문장(개화와 아미노산 최고점의 일치)을 근거로 받는다. 그 사이에 조작 설명을 넣으면 So가 받을 근거가 끊긴다."
+      }
+     ]
+    },
+    {
+     "item_id": "2015#38",
+     "version": 4,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "삽입문 자체가 '앞의 this를 받고 뒤의 By doing this에 먹이를 주는' 이중 고리다. 학습자가 대명사 하나만 보고 자리를 정하면 ②나 ④로 새게 되어 있고, 두 고리를 동시에 만족시키는 자리는 ③ 하나뿐이다.",
+     "answer_locus": {
+      "quote": "By doing this, the trees were “tricked” into flowering twice during the year rather than the usual once.",
+      "reasoning": "'By doing this'의 this는 연구자가 한 **조작**이어야 하는데, ③ 앞까지 서술된 것은 '15년생 약충을 사육장으로 옮겼다'와 '2년 걸릴 것이 1년 만에 나왔다'는 결과뿐이고 나무를 속일 수 있는 조작은 없다. 삽입문의 '일조 시간을 늘렸다'가 들어와야 By doing this가 가리킬 행위가 생긴다. 동시에 삽입문의 'made this happen'은 앞 문장의 '1년 만에 성체가 됨'을 받으므로 자리는 ③뿐이다.",
+      "passage_design": {
+       "cues": [
+        "pronoun",
+        "logic"
+       ],
+       "roles": [
+        "example",
+        "background",
+        "topic",
+        "example",
+        "example",
+        "example",
+        "support",
+        "conclusion"
+       ],
+       "pattern": "study_implication",
+       "criteria": "v1.3",
+       "selection": "매미가 시간을 세는 방법에 관한 실험을 소개하는 글로, 결과 진술과 그 원인이 된 조작 설명을 잇는 자리를 찾게 한다.",
+       "transform": "none",
+       "alternatives": [],
+       "transform_note": "this happen이 한 해 만에 나온 결과를 가리키고, 뒤 문장의 「By doing」 구가 낮 길이를 늘린 조작을 받으므로 ③ 자리다."
+      },
+      "sentence_index": [
+       5,
+       6
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "시간 순서 역행",
+       "verdict": "distractor",
+       "lure_quote": "suggested that the nymphs use an external cue",
+       "why_tempting": "① 앞에서 연구자들이 외부 단서 가설을 제시했으므로 곧바로 연구자의 조작 설명이 올 것 같다.",
+       "how_to_reject": "① 뒤 문장이 'For their experiments they took 15-year-old nymphs ...'로 실험을 **도입**한다. 도입보다 앞에 조작 상세가 오면 순서가 뒤집히고, 삽입문의 'made this happen'이 받을 결과도 아직 없다."
+      },
+      {
+       "n": 2,
+       "trap": "지시어 선행사 부재",
+       "verdict": "distractor",
+       "lure_quote": "moved them to an experimental enclosure",
+       "why_tempting": "② 앞 문장에 사육장으로 옮겼다는 조작이 나와 'made this happen'이 그 조치를 가리키는 듯 보인다.",
+       "how_to_reject": "'this'가 가리켜야 할 것은 '일어난 일(결과)'인데 ② 앞에는 결과가 없다. 결과는 ② 뒤 문장 'but in fact they took just one year'에서 처음 나온다. 또 'These nymphs'가 바로 앞 문장의 nymphs를 받으므로 그 사이를 끊을 수 없다."
+      },
+      {
+       "n": 3,
+       "verdict": "correct",
+       "why_correct": "앞쪽 대응: 주어진 문장의 The researchers had made this happen 의 this 는 ③ 앞 문장 These nymphs should have taken a further two years to emerge as adults, but in fact they took just one year 의 결과를 받는다. 뒤쪽 대응: 주어진 문장이 lengthening the period of daylight 라는 조작을 놓아야, 뒤 문장 By doing this, the trees were “tricked” into flowering twice during the year 의 By doing this 가 가리킬 행위가 생긴다 — ③ 앞에는 나무를 속일 조작이 하나도 서술되어 있지 않다."
+      },
+      {
+       "n": 4,
+       "trap": "지시어 선행사 절단",
+       "verdict": "distractor",
+       "lure_quote": "into flowering twice during the year rather than the usual once",
+       "why_tempting": "④ 앞 문장에 the trees가 나와 삽입문의 peach trees와 낱말이 맞물린다.",
+       "how_to_reject": "④ 앞 문장이 이미 'By doing this'로 시작한다. 조작 설명을 그 뒤로 미루면 By doing this가 가리킬 행위가 앞에 없어진다."
+      },
+      {
+       "n": 5,
+       "trap": "지문 표지 절단",
+       "verdict": "distractor",
+       "lure_quote": "the sap that the insects feed on",
+       "why_tempting": "⑤ 앞 문장의 'the sap that the insects feed on'과 삽입문의 'the insects fed'가 같은 표현이라 이어져 보인다.",
+       "how_to_reject": "⑤ 뒤 마지막 문장은 'So it seems that the cicadas keep track of time by counting the peaks.'로 바로 앞 문장(개화와 아미노산 최고점의 일치)을 근거로 받는다. 그 사이에 조작 설명을 넣으면 So가 받을 근거가 끊긴다."
+      }
+     ]
+    },
+    {
+     "item_id": "2015#38",
+     "version": 5,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "주어진 문장은 앞뒤로 동시에 걸리는 이중 고리다 — 'had made this happen'의 this는 앞에 서술된 결과(1년 만에 성체가 됨)를 받고, 'lengthening the period of daylight'는 뒤 문장 By doing this가 가리킬 조작을 대준다. 대명사 한쪽만 맞추면 ② 또는 ④가 남도록 설계됐고, 두 고리가 함께 채워지는 자리는 결과 문장과 By doing this 문장 사이 하나다.",
+     "answer_locus": {
+      "quote": "By doing this, the trees were “tricked” into flowering twice during the year rather than the usual once.",
+      "reasoning": "'By doing this'의 this는 연구자가 한 **조작**이어야 하는데, ③ 앞까지 서술된 것은 '15년생 약충을 사육장으로 옮겼다'와 '2년 걸릴 것이 1년 만에 나왔다'는 결과뿐이고 나무를 속일 수 있는 조작은 없다. 삽입문의 '일조 시간을 늘렸다'가 들어와야 By doing this가 가리킬 행위가 생긴다. 동시에 삽입문의 'made this happen'은 앞 문장의 '1년 만에 성체가 됨'을 받으므로 자리는 ③뿐이다.",
+      "sentence_index": [
+       5,
+       6
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "시간·인과 순서 역전",
+       "verdict": "distractor",
+       "why_tempting": "① 앞에서 연구자들이 외부 단서 가설을 제시했으므로 곧바로 연구자의 조작 설명이 올 것 같다.",
+       "how_to_reject": "① 뒤 문장이 'For their experiments they took 15-year-old nymphs ...'로 실험을 **도입**한다. 도입보다 앞에 조작 상세가 오면 순서가 뒤집히고, 삽입문의 'made this happen'이 받을 결과도 아직 없다."
+      },
+      {
+       "n": 2,
+       "trap": "지시어 선행사 앞당김",
+       "verdict": "distractor",
+       "why_tempting": "② 앞 문장에 사육장으로 옮겼다는 조작이 나와 'made this happen'이 그 조치를 가리키는 듯 보인다.",
+       "how_to_reject": "삽입문의 'made this happen'이 받아야 할 것은 이미 일어난 결과인데, ② 앞에는 '15년생 애벌레를 사육장으로 옮겼다'는 준비만 있다. 결과는 ② 뒤 문장 'but in fact they took just one year'에서 처음 나오므로 this가 선행사보다 앞에 놓인다. 또 ② 뒤 'These nymphs'는 ② 앞 문장의 15-year-old nymphs를 받는 연결이라 끊을 이유가 없다."
+      },
+      {
+       "n": 3,
+       "verdict": "correct",
+       "why_correct": "앞쪽 대응: 주어진 문장의 The researchers had made this happen 의 this 는 ③ 앞 문장 These nymphs should have taken a further two years to emerge as adults, but in fact they took just one year 의 결과를 받는다. 뒤쪽 대응: 주어진 문장이 lengthening the period of daylight 라는 조작을 놓아야, 뒤 문장 By doing this, the trees were “tricked” into flowering twice during the year 의 By doing this 가 가리킬 행위가 생긴다 — ③ 앞에는 나무를 속일 조작이 하나도 서술되어 있지 않다.",
+       "confirmed_at": {
+        "note": "문장 번호는 passage 를 처음부터 센 것으로, 1번에 주어진 문장이 붙어 있어 5=These nymphs…, 6=By doing this… 이다. 원장 결함 source_broken: 주어진 문장이 passage 첫머리에 합쳐져 있고 choices 가 위치 뒤 문장 조각이며 ⑤에 각주·쪽번호가 섞여 있다 — 정답 근거 두 줄은 지문에 온전히 있어 분석은 그 두 줄로만 세웠다. 원문 정리는 별도 작업.",
+        "sentence_index": [
+         5,
+         6
+        ]
+       }
+      },
+      {
+       "n": 4,
+       "trap": "지시어 선행사 절단",
+       "verdict": "distractor",
+       "why_tempting": "④ 앞 문장에 the trees가 나와 삽입문의 peach trees와 낱말이 맞물린다.",
+       "how_to_reject": "④ 앞 문장이 이미 'By doing this'로 시작한다. 조작 설명을 그 뒤로 미루면 By doing this가 가리킬 행위가 앞에 없어진다."
+      },
+      {
+       "n": 5,
+       "trap": "어휘 반복 유인",
+       "verdict": "distractor",
+       "why_tempting": "⑤ 앞 문장의 'the sap that the insects feed on'과 삽입문의 'the insects fed'가 같은 동사 feed를 써서 두 문장이 맞물려 보인다. 겹치는 것은 소재 낱말일 뿐 기능(⑤ 앞은 개화의 효과, 삽입문은 연구자의 조작)이 다르다.",
+       "how_to_reject": "⑤ 뒤 마지막 문장은 'So it seems that the cicadas keep track of time by counting the peaks.'로 바로 앞 문장(개화와 아미노산 최고점의 일치)을 근거로 받는다. 그 사이에 조작 설명을 넣으면 So가 받을 근거가 끊긴다."
+      }
+     ]
+    }
+   ],
+   "pdfAnchored": true
+  },
+  {
+   "item": {
+    "id": "2014B#39",
+    "exam_id": "2014B",
+    "no": 39,
+    "type_id": "R-INSERT",
+    "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳은?",
+    "passage": "So, when someone is threatening to go to war, or trying to convince us and mounting a huge public relations campaign to justify it, the news media have a responsibility to question everything. It’s important that the media provide us with diverse and opposing views, so we can choose the best available options. Let’s take the example of going to war. ( ① ) War should be a last resort, obviously, undertaken when all other options have failed. ( ② ) They should be providing the most intense scrutiny on our behalf, so the public can see the other side of things. ( ③ ) Otherwise, we may be drawn into unnecessary wars, or wars fought for reasons other than those presented by governments and generals. ( ④ ) Most of the time, the media fail to perform this crucial role. ( ⑤ ) Even the large, so-called ‘liberal’ American media have admitted that they have not always been watchdogs for the public interest, and that their own coverage on some major issues “looks strikingly one-sided at times.”",
+    "choices": [
+     ") War should be a last resort, obviously, undertaken when all other options have failed. (",
+     ") They should be providing the most intense scrutiny on our behalf, so the public can see the other side of things. (",
+     ") Otherwise, we may be drawn into unnecessary wars, or wars fought for reasons other than those presented by governments and generals. (",
+     ") Most of the time, the media fail to perform this crucial role. (",
+     ") Even the large, so-called ‘liberal’ American media have admitted that they have not always been watchdogs for the public interest, and that their own coverage on some major issues “looks strikingly one-sided at times.” * scrutiny: 면밀한 조사"
+    ],
+    "answer": 2,
+    "answers": [
+     2
+    ],
+    "body_ok": true
+   },
+   "inputHash": "f864679958cb38e92ff9abb5c1cc37f657d8d2d527788702f7af6e9665a99912",
+   "units": null,
+   "analyses": [
+    {
+     "item_id": "2014B#39",
+     "version": 1,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "지문 전체가 media를 화제로 삼아 어느 자리든 낱말이 맞물린다. 실제 잠금은 ② 뒤 문장의 They 하나다 — 그 앞 문장 주어는 War이므로 They가 받을 복수 주체가 없다. ④의 'this crucial role'이 삽입문의 responsibility를 받는 것처럼 보이게 배치해, 대명사 대신 명사구 호응을 좇으면 ④로 가도록 유도한다.",
+     "answer_locus": {
+      "quote": "They should be providing the most intense scrutiny on our behalf, so the public can see the other side of things.",
+      "reasoning": "이 문장의 주어 They는 복수 주체를 요구하는데, 바로 앞 문장은 'War should be a last resort ...'로 주어가 War(단수)다. 지문에서 They가 받을 수 있는 복수 주체는 삽입문의 'the news media'뿐이므로 삽입문이 이 문장 바로 앞에 와야 한다. 또 삽입문의 So는 '전쟁은 최후 수단이어야 한다'는 앞 문장을 근거로 받으므로 두 조건이 같은 자리(②)에서 맞는다.",
+      "sentence_index": [
+       4,
+       5
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "삽입문 표지 근거 부재",
+       "verdict": "distractor",
+       "why_tempting": "① 앞이 'Let's take the example of going to war.'라 전쟁 화제가 막 열렸고 삽입문도 전쟁 이야기라 곧바로 이어 보인다.",
+       "how_to_reject": "삽입문은 So로 시작해 앞에 근거 진술을 요구한다. ① 앞은 예시를 꺼내겠다는 예고일 뿐 근거가 아니고, 근거가 되는 'War should be a last resort ... when all other options have failed.'는 ① 뒤에 있다."
+      },
+      {
+       "n": 2,
+       "trap": null,
+       "verdict": "correct",
+       "why_tempting": "정답. 앞 문장이 So의 근거를 대고, 뒤 문장의 They가 삽입문의 the news media를 받는다.",
+       "how_to_reject": "-"
+      },
+      {
+       "n": 3,
+       "trap": "지문 표지 절단",
+       "verdict": "distractor",
+       "why_tempting": "③ 앞 문장이 언론의 감시 의무를 말해 삽입문의 responsibility to question everything과 내용이 겹친다.",
+       "how_to_reject": "③ 뒤 문장은 'Otherwise, ...'로 시작해 바로 앞의 당위(should be providing scrutiny)가 지켜지지 않을 경우를 말한다. 그 사이를 끊을 수 없고, 여기 넣으면 ② 뒤의 They는 여전히 받을 주체가 없다."
+      },
+      {
+       "n": 4,
+       "trap": "지시어 근접 오연결",
+       "verdict": "distractor",
+       "why_tempting": "④ 뒤 문장의 'this crucial role'이 삽입문의 'responsibility to question everything'을 바로 받는 것처럼 보여 가장 그럴듯하다.",
+       "how_to_reject": "this crucial role은 ② 뒤·③ 뒤에서 이미 서술된 감시 역할을 받으므로 굳이 삽입문이 필요 없다. 반대로 ② 뒤의 They는 삽입문 없이는 선행사를 못 얻는다 — 대명사가 비는 자리가 명사구 호응보다 우선한다."
+      },
+      {
+       "n": 5,
+       "trap": "일반화-사례 순서 혼동",
+       "verdict": "distractor",
+       "why_tempting": "⑤ 뒤 마지막 문장이 미국 언론의 자백을 들어 언론 비판을 마무리하므로, 그 앞에 언론의 책무를 못 박아 두면 대비가 선명해 보인다.",
+       "how_to_reject": "⑤ 뒤 문장은 'Even the large ... media have admitted ...'로 바로 앞 문장 'Most of the time, the media fail to perform this crucial role.'의 구체 사례다. 일반 진술과 그 사례 사이에 당위 문장이 끼면 Even이 강조할 앞 진술을 잃는다."
+      }
+     ]
+    },
+    {
+     "item_id": "2014B#39",
+     "version": 2,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "지문 전체가 media를 화제로 삼아 어느 자리든 낱말이 맞물린다. 실제 잠금은 ② 뒤 문장의 They 하나다 — 그 앞 문장 주어는 War이므로 They가 받을 복수 주체가 없다. ④의 'this crucial role'이 삽입문의 responsibility를 받는 것처럼 보이게 배치해, 대명사 대신 명사구 호응을 좇으면 ④로 가도록 유도한다.",
+     "answer_locus": {
+      "quote": "They should be providing the most intense scrutiny on our behalf, so the public can see the other side of things.",
+      "reasoning": "이 문장의 주어 They는 복수 주체를 요구하는데, 바로 앞 문장은 'War should be a last resort ...'로 주어가 War(단수)다. 지문에서 They가 받을 수 있는 복수 주체는 삽입문의 'the news media'뿐이므로 삽입문이 이 문장 바로 앞에 와야 한다. 또 삽입문의 So는 '전쟁은 최후 수단이어야 한다'는 앞 문장을 근거로 받으므로 두 조건이 같은 자리(②)에서 맞는다.",
+      "sentence_index": [
+       4,
+       5
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "삽입문 표지 근거 부재",
+       "verdict": "distractor",
+       "why_tempting": "① 앞이 'Let's take the example of going to war.'라 전쟁 화제가 막 열렸고 삽입문도 전쟁 이야기라 곧바로 이어 보인다.",
+       "how_to_reject": "삽입문은 So로 시작해 앞에 근거 진술을 요구한다. ① 앞은 예시를 꺼내겠다는 예고일 뿐 근거가 아니고, 근거가 되는 'War should be a last resort ... when all other options have failed.'는 ① 뒤에 있다."
+      },
+      {
+       "n": 2,
+       "verdict": "correct",
+       "why_correct": "앞쪽 대응: 주어진 문장의 So 는 근거를 요구하는데 ② 앞 문장 War should be a last resort, obviously, undertaken when all other options have failed 가 그 근거다. 뒤쪽 대응: 주어진 문장이 the news media 를 놓아야 뒤 문장 They should be providing the most intense scrutiny on our behalf 의 복수 주어 They 가 받을 명사가 생긴다 — ② 앞 문장의 주어는 단수 War 라 They 가 받을 수 없다."
+      },
+      {
+       "n": 3,
+       "trap": "지문 표지 절단",
+       "verdict": "distractor",
+       "why_tempting": "③ 앞 문장이 언론의 감시 의무를 말해 삽입문의 responsibility to question everything과 내용이 겹친다.",
+       "how_to_reject": "③ 뒤 문장은 'Otherwise, ...'로 시작해 바로 앞의 당위(should be providing scrutiny)가 지켜지지 않을 경우를 말한다. 그 사이를 끊을 수 없고, 여기 넣으면 ② 뒤의 They는 여전히 받을 주체가 없다."
+      },
+      {
+       "n": 4,
+       "trap": "지시어 근접 오연결",
+       "verdict": "distractor",
+       "why_tempting": "④ 뒤 문장의 'this crucial role'이 삽입문의 'responsibility to question everything'을 바로 받는 것처럼 보여 가장 그럴듯하다.",
+       "how_to_reject": "this crucial role은 ② 뒤·③ 뒤에서 이미 서술된 감시 역할을 받으므로 굳이 삽입문이 필요 없다. 반대로 ② 뒤의 They는 삽입문 없이는 선행사를 못 얻는다 — 대명사가 비는 자리가 명사구 호응보다 우선한다."
+      },
+      {
+       "n": 5,
+       "trap": "일반화-사례 순서 혼동",
+       "verdict": "distractor",
+       "why_tempting": "⑤ 뒤 마지막 문장이 미국 언론의 자백을 들어 언론 비판을 마무리하므로, 그 앞에 언론의 책무를 못 박아 두면 대비가 선명해 보인다.",
+       "how_to_reject": "⑤ 뒤 문장은 'Even the large ... media have admitted ...'로 바로 앞 문장 'Most of the time, the media fail to perform this crucial role.'의 구체 사례다. 일반 진술과 그 사례 사이에 당위 문장이 끼면 Even이 강조할 앞 진술을 잃는다."
+      }
+     ]
+    },
+    {
+     "item_id": "2014B#39",
+     "version": 3,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "지문 전체가 media를 화제로 삼아 어느 자리든 낱말이 맞물린다. 실제 잠금은 ② 뒤 문장의 They 하나다 — 그 앞 문장 주어는 War이므로 They가 받을 복수 주체가 없다. ④의 'this crucial role'이 삽입문의 responsibility를 받는 것처럼 보이게 배치해, 대명사 대신 명사구 호응을 좇으면 ④로 가도록 유도한다.",
+     "answer_locus": {
+      "quote": "They should be providing the most intense scrutiny on our behalf, so the public can see the other side of things.",
+      "reasoning": "이 문장의 주어 They는 복수 주체를 요구하는데, 바로 앞 문장은 'War should be a last resort ...'로 주어가 War(단수)다. 지문에서 They가 받을 수 있는 복수 주체는 삽입문의 'the news media'뿐이므로 삽입문이 이 문장 바로 앞에 와야 한다. 또 삽입문의 So는 '전쟁은 최후 수단이어야 한다'는 앞 문장을 근거로 받으므로 두 조건이 같은 자리(②)에서 맞는다.",
+      "sentence_index": [
+       4,
+       5
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "삽입문 표지 근거 부재",
+       "verdict": "distractor",
+       "why_tempting": "① 앞이 'Let's take the example of going to war.'라 전쟁 화제가 막 열렸고 삽입문도 전쟁 이야기라 곧바로 이어 보인다.",
+       "how_to_reject": "삽입문은 So로 시작해 앞에 근거 진술을 요구한다. ① 앞은 예시를 꺼내겠다는 예고일 뿐 근거가 아니고, 근거가 되는 'War should be a last resort ... when all other options have failed.'는 ① 뒤에 있다."
+      },
+      {
+       "n": 2,
+       "verdict": "correct",
+       "why_correct": "앞쪽 대응: 주어진 문장의 So 는 근거를 요구하는데 ② 앞 문장 War should be a last resort, obviously, undertaken when all other options have failed 가 그 근거다. 뒤쪽 대응: 주어진 문장이 the news media 를 놓아야 뒤 문장 They should be providing the most intense scrutiny on our behalf 의 복수 주어 They 가 받을 명사가 생긴다 — ② 앞 문장의 주어는 단수 War 라 They 가 받을 수 없다."
+      },
+      {
+       "n": 3,
+       "trap": "지문 표지 절단",
+       "verdict": "distractor",
+       "why_tempting": "③ 앞 문장이 언론의 감시 의무를 말해 삽입문의 responsibility to question everything과 내용이 겹친다.",
+       "how_to_reject": "③ 뒤 문장은 'Otherwise, ...'로 시작해 바로 앞의 당위(should be providing scrutiny)가 지켜지지 않을 경우를 말한다. 그 사이를 끊을 수 없고, 여기 넣으면 ② 뒤의 They는 여전히 받을 주체가 없다."
+      },
+      {
+       "n": 4,
+       "trap": "지시어 근접 오연결",
+       "verdict": "distractor",
+       "why_tempting": "④ 뒤 문장의 'this crucial role'이 삽입문의 'responsibility to question everything'을 바로 받는 것처럼 보여 가장 그럴듯하다.",
+       "how_to_reject": "this crucial role은 ② 뒤·③ 뒤에서 이미 서술된 감시 역할을 받으므로 굳이 삽입문이 필요 없다. 반대로 ② 뒤의 They는 삽입문 없이는 선행사를 못 얻는다 — 대명사가 비는 자리가 명사구 호응보다 우선한다."
+      },
+      {
+       "n": 5,
+       "trap": "일반화-사례 순서 혼동",
+       "verdict": "distractor",
+       "why_tempting": "⑤ 뒤 마지막 문장이 미국 언론의 자백을 들어 언론 비판을 마무리하므로, 그 앞에 언론의 책무를 못 박아 두면 대비가 선명해 보인다.",
+       "how_to_reject": "⑤ 뒤 문장은 'Even the large ... media have admitted ...'로 바로 앞 문장 'Most of the time, the media fail to perform this crucial role.'의 구체 사례다. 일반 진술과 그 사례 사이에 당위 문장이 끼면 Even이 강조할 앞 진술을 잃는다."
+      }
+     ]
+    },
+    {
+     "item_id": "2014B#39",
+     "version": 4,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "지문 전체가 media를 화제로 삼아 어느 자리든 낱말이 맞물린다. 실제 잠금은 ② 뒤 문장의 They 하나다 — 그 앞 문장 주어는 War이므로 They가 받을 복수 주체가 없다. ④의 'this crucial role'이 삽입문의 responsibility를 받는 것처럼 보이게 배치해, 대명사 대신 명사구 호응을 좇으면 ④로 가도록 유도한다.",
+     "answer_locus": {
+      "quote": "They should be providing the most intense scrutiny on our behalf, so the public can see the other side of things.",
+      "reasoning": "이 문장의 주어 They는 복수 주체를 요구하는데, 바로 앞 문장은 'War should be a last resort ...'로 주어가 War(단수)다. 지문에서 They가 받을 수 있는 복수 주체는 삽입문의 'the news media'뿐이므로 삽입문이 이 문장 바로 앞에 와야 한다. 또 삽입문의 So는 '전쟁은 최후 수단이어야 한다'는 앞 문장을 근거로 받으므로 두 조건이 같은 자리(②)에서 맞는다.",
+      "passage_design": {
+       "cues": [
+        "pronoun",
+        "connective",
+        "logic"
+       ],
+       "roles": [
+        "topic",
+        "support",
+        "example",
+        "example",
+        "support",
+        "support",
+        "turn",
+        "example"
+       ],
+       "pattern": "general_specific",
+       "criteria": "v1.3",
+       "selection": "언론이 다양한 관점을 제공해야 한다는 주장을 전쟁 사례로 좁히는 글로, 언론의 의무를 밝히는 문장과 그 의무의 구체 내용을 잇는 자리를 찾게 한다.",
+       "transform": "none",
+       "alternatives": [
+        {
+         "role": "conclusion",
+         "index": 0
+        }
+       ],
+       "transform_note": "뒤 문장의 They가 받을 복수 주어, 곧 언론이 앞에 있어야 하고 전쟁을 최후 수단이라 한 앞 문장을 So로 이으므로 ② 자리다."
+      },
+      "sentence_index": [
+       4,
+       5
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "삽입문 표지 근거 부재",
+       "verdict": "distractor",
+       "why_tempting": "① 앞이 'Let's take the example of going to war.'라 전쟁 화제가 막 열렸고 삽입문도 전쟁 이야기라 곧바로 이어 보인다.",
+       "how_to_reject": "삽입문은 So로 시작해 앞에 근거 진술을 요구한다. ① 앞은 예시를 꺼내겠다는 예고일 뿐 근거가 아니고, 근거가 되는 'War should be a last resort ... when all other options have failed.'는 ① 뒤에 있다."
+      },
+      {
+       "n": 2,
+       "verdict": "correct",
+       "why_correct": "앞쪽 대응: 주어진 문장의 So 는 근거를 요구하는데 ② 앞 문장 War should be a last resort, obviously, undertaken when all other options have failed 가 그 근거다. 뒤쪽 대응: 주어진 문장이 the news media 를 놓아야 뒤 문장 They should be providing the most intense scrutiny on our behalf 의 복수 주어 They 가 받을 명사가 생긴다 — ② 앞 문장의 주어는 단수 War 라 They 가 받을 수 없다."
+      },
+      {
+       "n": 3,
+       "trap": "지문 표지 절단",
+       "verdict": "distractor",
+       "why_tempting": "③ 앞 문장이 언론의 감시 의무를 말해 삽입문의 responsibility to question everything과 내용이 겹친다.",
+       "how_to_reject": "③ 뒤 문장은 'Otherwise, ...'로 시작해 바로 앞의 당위(should be providing scrutiny)가 지켜지지 않을 경우를 말한다. 그 사이를 끊을 수 없고, 여기 넣으면 ② 뒤의 They는 여전히 받을 주체가 없다."
+      },
+      {
+       "n": 4,
+       "trap": "지시어 근접 오연결",
+       "verdict": "distractor",
+       "why_tempting": "④ 뒤 문장의 'this crucial role'이 삽입문의 'responsibility to question everything'을 바로 받는 것처럼 보여 가장 그럴듯하다.",
+       "how_to_reject": "this crucial role은 ② 뒤·③ 뒤에서 이미 서술된 감시 역할을 받으므로 굳이 삽입문이 필요 없다. 반대로 ② 뒤의 They는 삽입문 없이는 선행사를 못 얻는다 — 대명사가 비는 자리가 명사구 호응보다 우선한다."
+      },
+      {
+       "n": 5,
+       "trap": "일반화-사례 순서 혼동",
+       "verdict": "distractor",
+       "why_tempting": "⑤ 뒤 마지막 문장이 미국 언론의 자백을 들어 언론 비판을 마무리하므로, 그 앞에 언론의 책무를 못 박아 두면 대비가 선명해 보인다.",
+       "how_to_reject": "⑤ 뒤 문장은 'Even the large ... media have admitted ...'로 바로 앞 문장 'Most of the time, the media fail to perform this crucial role.'의 구체 사례다. 일반 진술과 그 사례 사이에 당위 문장이 끼면 Even이 강조할 앞 진술을 잃는다."
+      }
+     ]
+    }
+   ],
+   "pdfAnchored": true
+  },
+  {
+   "item": {
+    "id": "2014A#44",
+    "exam_id": "2014A",
+    "no": 44,
+    "type_id": "X-REFER",
+    "stem": "밑줄 친 (a)～(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?",
+    "passage": "(A) Mom once said that my grandmother came to America as a poor uneducated Greek immigrant at eighteen. My grandmother wanted to go to school, but the harsh immigrant life pushed (a) her to support her family. Though she never learned to read in school, she knew many traditional stories from her home country. (B) One day, when I saw my grandmother on the street by chance, I noticed that (b) she had difficulty in reading an English sign. Right at that moment, it hit upon me to teach her to read English in return for all she had taught me. I talked to my mom about it, and (c) she was delighted with my plan. So my grandmother and I worked hard together using books for beginners. (C) My efforts were rewarded only a month later on the morning of my eighteenth birthday. My grandmother decorated a cake with “HAPPY BIRTHDAY BETTY.” I had only taught her the basics of reading, but (d) she had written these words all by herself. Touched by this simple message, I said, “It’s not just my birthday, Grandma. You stepped into this country at eighteen. Now, you are stepping into another new world. So it’s your birthday, too.” (D) My grandmother liked to tell me these interesting stories at night. I still remember a few stories in which the gods made promises with each other like humans. Those who broke their promises were punished. While listening to the stories, I decided that I would not break any promises. The morals of (e) her stories taught me how I should live my life.",
+    "choices": [
+     "(a)",
+     "(b)",
+     "(c)",
+     "(d)",
+     "(e)"
+    ],
+    "answer": 3,
+    "answers": [
+     3
+    ],
+    "body_ok": true
+   },
+   "inputHash": "c174c1878a869bacc841764cfb3f14c80c175779b901cc7f1ab76e3849be4127",
+   "units": null,
+   "analyses": [
+    {
+     "item_id": "2014A#44",
+     "version": 1,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "밑줄 (b)와 (c)를 같은 단락 (B) 안에 두 문장 간격으로 나란히 넣고 형태를 she 로 통일했다. 그리고 어머니를 'I talked to my mom about it' 이라는 한 절에만 등장시켜, 단락 하나를 한 인물의 것으로 통째 처리하는 학생이 (b)와 (c)를 구분하지 못하게 만들었다. 인물이 바뀌는 신호가 대명사가 아니라 바로 앞 절의 목적어 하나뿐이라는 점이 이 문항의 급소다.",
+     "answer_locus": {
+      "quote": "I talked to my mom about it, and (c) she was delighted with my plan.",
+      "reasoning": "and 로 이어진 앞 절의 목적어가 my mom 이고, 뒤 절의 주어 (c) she 가 그 대화의 상대다. 기뻐한 대상이 'my plan' 인데 그 계획의 내용은 앞 문장 5 'it hit upon me to teach her to read English' 곧 할머니에게 영어 읽기를 가르치겠다는 것이다. 계획의 대상인 할머니는 이 시점에 계획을 전해 들은 사람이 아니므로, 화자가 계획을 말한 상대인 my mom 이 (c)다. 나머지 (a)(b)(d)(e)는 각각 이민 생활에 떠밀린 사람 · 영어 표지판을 못 읽은 사람 · 케이크에 글자를 쓴 사람 · 이야기의 임자로 전부 할머니를 요구한다.",
+      "sentence_index": [
+       5,
+       6
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "첫 문장 발화자 끌림",
+       "verdict": "distractor",
+       "why_tempting": "(A) 첫 문장이 'Mom once said that my grandmother came to America ...' 로 시작해 어머니가 지문에서 가장 먼저 등장한다. 이야기를 여는 사람을 그 뒤 대명사의 임자로 이어 붙이면 (a) her 를 어머니로 본다.",
+       "how_to_reject": "밑줄이 든 문장 2 'My grandmother wanted to go to school, but the harsh immigrant life pushed (a) her to support her family' — but 앞 절의 주어가 My grandmother 이고, 학교에 가고 싶었던 사람과 가족 부양으로 떠밀린 사람이 같은 사람이다. 문장 3 'Though she never learned to read in school' 도 같은 인물을 잇는다."
+      },
+      {
+       "n": 2,
+       "trap": "동일 단락 동형 대명사 일괄 처리",
+       "verdict": "distractor",
+       "why_tempting": "단락 (B) 안에 밑줄 she 가 (b)와 (c) 둘 있는데 형태가 똑같다. 둘 중 하나가 어머니라는 것까지는 눈치채도 어느 쪽인지 가르지 않고 앞의 것을 찍으면 (b)가 된다. 문장 4의 주절 주어가 두 번 다 I 라서 관찰자와 관찰 대상이 뒤섞이는 것도 거든다.",
+       "how_to_reject": "밑줄 앞 절이 'when I saw my grandmother on the street by chance' 이므로, that절의 she 는 방금 목적어로 나온 my grandmother 를 받는다. 내용도 맞물린다 — 문장 3 'Though she never learned to read in school' 이 영어 표지판을 못 읽는 이유를 미리 적어 두었다."
+      },
+      {
+       "n": 3,
+       "trap": "직전 절 목적어 인물 전환",
+       "verdict": "correct",
+       "why_tempting": "단락 (B) 전체가 할머니 이야기이고 밑줄 형태도 (b)와 똑같은 she 라, 한 문장 사이에 인물이 바뀐 지점에 아무 표시가 없다. 관성으로 읽으면 (c)도 할머니가 된다.",
+       "how_to_reject": "확정 근거는 and 앞 절 'I talked to my mom about it' 이다 — 계획을 전해 들은 사람이 my mom 이고 뒤 절이 그 반응을 말한다. 기뻐한 대상이 'my plan'(할머니에게 읽기를 가르치겠다는 계획)이라는 점도 겹친다. 계획의 대상이 아니라 계획을 전해 들은 제3자가 기뻐하는 구도다."
+      },
+      {
+       "n": 4,
+       "trap": "행위자-수혜자 역전",
+       "verdict": "distractor",
+       "why_tempting": "문장 10 'I had only taught her the basics of reading, but (d) she had written these words all by herself' 는 앞 절 주어가 I 이고 her 가 목적어다. 앞 문장 9의 케이크에 적힌 글자가 'HAPPY BIRTHDAY BETTY' 라 Betty(=화자)를 주어로 끌어오면 (d)를 화자로 본다.",
+       "how_to_reject": "but 이 세우는 대비가 '나는 기초만 가르쳤다 ↔ 그런데 그 사람이 혼자 다 썼다' 이므로 두 절의 주어가 달라야 문장이 성립한다. 문장 9 'My grandmother decorated a cake with \"HAPPY BIRTHDAY BETTY.\"' 가 케이크를 꾸민 사람을 할머니로 이름 대어 적어 둔다."
+      },
+      {
+       "n": 5,
+       "trap": "선행사 원거리 이탈",
+       "verdict": "distractor",
+       "why_tempting": "(D)에서 밑줄 앞 세 문장(16~18)의 주어가 the gods · Those who broke their promises · I 라 여성 선행사가 멀다. 가장 가까운 주어 I 를 끌어오면 'her stories' 를 화자 자신의 이야기로 읽는다.",
+       "how_to_reject": "(D) 첫 문장 15 'My grandmother liked to tell me these interesting stories at ... night.' 가 이야기의 임자를 할머니로 적는다. 또 밑줄 문장 19의 'taught me' 에서 me 가 화자이므로, 같은 문장의 her 는 화자일 수 없다."
+      }
+     ]
+    },
+    {
+     "item_id": "2014A#44",
+     "version": 2,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "밑줄 (b)와 (c)를 같은 단락 (B) 안에 두 문장 간격으로 나란히 넣고 형태를 she 로 통일했다. 그리고 어머니를 'I talked to my mom about it' 이라는 한 절에만 등장시켜, 단락 하나를 한 인물의 것으로 통째 처리하는 학생이 (b)와 (c)를 구분하지 못하게 만들었다. 인물이 바뀌는 신호가 대명사가 아니라 바로 앞 절의 목적어 하나뿐이라는 점이 이 문항의 급소다.",
+     "answer_locus": {
+      "quote": "I talked to my mom about it, and (c) she was delighted with my plan.",
+      "reasoning": "and 로 이어진 앞 절의 목적어가 my mom 이고, 뒤 절의 주어 (c) she 가 그 대화의 상대다. 기뻐한 대상이 'my plan' 인데 그 계획의 내용은 앞 문장 5 'it hit upon me to teach her to read English' 곧 할머니에게 영어 읽기를 가르치겠다는 것이다. 계획의 대상인 할머니는 이 시점에 계획을 전해 들은 사람이 아니므로, 화자가 계획을 말한 상대인 my mom 이 (c)다. 나머지 (a)(b)(d)(e)는 각각 이민 생활에 떠밀린 사람 · 영어 표지판을 못 읽은 사람 · 케이크에 글자를 쓴 사람 · 이야기의 임자로 전부 할머니를 요구한다.",
+      "sentence_index": [
+       5,
+       6
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "첫 문장 발화자 끌림",
+       "verdict": "distractor",
+       "why_tempting": "(A) 첫 문장이 'Mom once said that my grandmother came to America ...' 로 시작해 어머니가 지문에서 가장 먼저 등장한다. 이야기를 여는 사람을 그 뒤 대명사의 임자로 이어 붙이면 (a) her 를 어머니로 본다.",
+       "how_to_reject": "밑줄이 든 문장 2 'My grandmother wanted to go to school, but the harsh immigrant life pushed (a) her to support her family' — but 앞 절의 주어가 My grandmother 이고, 학교에 가고 싶었던 사람과 가족 부양으로 떠밀린 사람이 같은 사람이다. 문장 3 'Though she never learned to read in school' 도 같은 인물을 잇는다."
+      },
+      {
+       "n": 2,
+       "trap": "동일 단락 동형 대명사 일괄 처리",
+       "verdict": "distractor",
+       "why_tempting": "단락 (B) 안에 밑줄 she 가 (b)와 (c) 둘 있는데 형태가 똑같다. 둘 중 하나가 어머니라는 것까지는 눈치채도 어느 쪽인지 가르지 않고 앞의 것을 찍으면 (b)가 된다. 문장 4의 주절 주어가 두 번 다 I 라서 관찰자와 관찰 대상이 뒤섞이는 것도 거든다.",
+       "how_to_reject": "밑줄 앞 절이 'when I saw my grandmother on the street by chance' 이므로, that절의 she 는 방금 목적어로 나온 my grandmother 를 받는다. 내용도 맞물린다 — 문장 3 'Though she never learned to read in school' 이 영어 표지판을 못 읽는 이유를 미리 적어 두었다."
+      },
+      {
+       "n": 3,
+       "verdict": "correct",
+       "why_correct": "밑줄이 든 문장은 ‘I talked to my mom about it, and (c) she was delighted with my plan’ 처럼 and 로 이어진 등위절이고, 앞 절이 이야기를 들은 사람을 my mom 으로 새로 들여온다. 기뻐한 대상이 my plan 이라 계획을 세운 화자(I)도 아니므로 (c) she 는 어머니다. 나머지 넷 the harsh immigrant life pushed (a) her to support her family · (b) she had difficulty in reading an English sign · (d) she had written these words all by herself · The morals of (e) her stories 는 모두 할머니를 가리킨다.",
+       "confirmed_at": {
+        "note": "학습자가 실제로 미끄러지는 자리 — 단락 (B) 전체가 할머니 이야기이고 밑줄 형태도 (b)와 똑같은 she 라, 한 문장 사이에 인물이 바뀐 지점에 아무 표시가 없다.",
+        "sentence_index": [
+         6
+        ]
+       }
+      },
+      {
+       "n": 4,
+       "trap": "행위자-수혜자 역전",
+       "verdict": "distractor",
+       "why_tempting": "문장 10 'I had only taught her the basics of reading, but (d) she had written these words all by herself' 는 앞 절 주어가 I 이고 her 가 목적어다. 앞 문장 9의 케이크에 적힌 글자가 'HAPPY BIRTHDAY BETTY' 라 Betty(=화자)를 주어로 끌어오면 (d)를 화자로 본다.",
+       "how_to_reject": "but 이 세우는 대비가 '나는 기초만 가르쳤다 ↔ 그런데 그 사람이 혼자 다 썼다' 이므로 두 절의 주어가 달라야 문장이 성립한다. 문장 9 'My grandmother decorated a cake with \"HAPPY BIRTHDAY BETTY.\"' 가 케이크를 꾸민 사람을 할머니로 이름 대어 적어 둔다."
+      },
+      {
+       "n": 5,
+       "trap": "선행사 원거리 이탈",
+       "verdict": "distractor",
+       "why_tempting": "(D)에서 밑줄 앞 세 문장(16~18)의 주어가 the gods · Those who broke their promises · I 라 여성 선행사가 멀다. 가장 가까운 주어 I 를 끌어오면 'her stories' 를 화자 자신의 이야기로 읽는다.",
+       "how_to_reject": "(D) 첫 문장 15 'My grandmother liked to tell me these interesting stories at ... night.' 가 이야기의 임자를 할머니로 적는다. 또 밑줄 문장 19의 'taught me' 에서 me 가 화자이므로, 같은 문장의 her 는 화자일 수 없다."
+      }
+     ]
+    },
+    {
+     "item_id": "2014A#44",
+     "version": 3,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "밑줄 (b)와 (c)를 같은 단락 (B) 안에 두 문장 간격으로 나란히 넣고 형태를 she 로 통일했다. 그리고 어머니를 'I talked to my mom about it' 이라는 한 절에만 등장시켜, 단락 하나를 한 인물의 것으로 통째 처리하는 학생이 (b)와 (c)를 구분하지 못하게 만들었다. 인물이 바뀌는 신호가 대명사가 아니라 바로 앞 절의 목적어 하나뿐이라는 점이 이 문항의 급소다.",
+     "answer_locus": {
+      "quote": "I talked to my mom about it, and (c) she was delighted with my plan.",
+      "reasoning": "and 로 이어진 앞 절의 목적어가 my mom 이고, 뒤 절의 주어 (c) she 가 그 대화의 상대다. 기뻐한 대상이 'my plan' 인데 그 계획의 내용은 앞 문장 5 'it hit upon me to teach her to read English' 곧 할머니에게 영어 읽기를 가르치겠다는 것이다. 계획의 대상인 할머니는 이 시점에 계획을 전해 들은 사람이 아니므로, 화자가 계획을 말한 상대인 my mom 이 (c)다. 나머지 (a)(b)(d)(e)는 각각 이민 생활에 떠밀린 사람 · 영어 표지판을 못 읽은 사람 · 케이크에 글자를 쓴 사람 · 이야기의 임자로 전부 할머니를 요구한다.",
+      "sentence_index": [
+       5,
+       6
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "첫 문장 발화자 끌림",
+       "verdict": "distractor",
+       "why_tempting": "(A) 첫 문장이 'Mom once said that my grandmother came to America ...' 로 시작해 어머니가 지문에서 가장 먼저 등장한다. 이야기를 여는 사람을 그 뒤 대명사의 임자로 이어 붙이면 (a) her 를 어머니로 본다.",
+       "how_to_reject": "밑줄이 든 문장 2 'My grandmother wanted to go to school, but the harsh immigrant life pushed (a) her to support her family' — but 앞 절의 주어가 My grandmother 이고, 학교에 가고 싶었던 사람과 가족 부양으로 떠밀린 사람이 같은 사람이다. 문장 3 'Though she never learned to read in school' 도 같은 인물을 잇는다."
+      },
+      {
+       "n": 2,
+       "trap": "동일 단락 동형 대명사 일괄 처리",
+       "verdict": "distractor",
+       "why_tempting": "단락 (B) 안에 밑줄 she 가 (b)와 (c) 둘 있는데 형태가 똑같다. 둘 중 하나가 어머니라는 것까지는 눈치채도 어느 쪽인지 가르지 않고 앞의 것을 찍으면 (b)가 된다. 문장 4의 주절 주어가 두 번 다 I 라서 관찰자와 관찰 대상이 뒤섞이는 것도 거든다.",
+       "how_to_reject": "밑줄 앞 절이 'when I saw my grandmother on the street by chance' 이므로, that절의 she 는 방금 목적어로 나온 my grandmother 를 받는다. 내용도 맞물린다 — 문장 3 'Though she never learned to read in school' 이 영어 표지판을 못 읽는 이유를 미리 적어 두었다."
+      },
+      {
+       "n": 3,
+       "verdict": "correct",
+       "why_correct": "밑줄이 든 문장은 ‘I talked to my mom about it, and (c) she was delighted with my plan’ 처럼 and 로 이어진 등위절이고, 앞 절이 이야기를 들은 사람을 my mom 으로 새로 들여온다. 기뻐한 대상이 my plan 이라 계획을 세운 화자(I)도 아니므로 (c) she 는 어머니다. 나머지 넷 the harsh immigrant life pushed (a) her to support her family · (b) she had difficulty in reading an English sign · (d) she had written these words all by herself · The morals of (e) her stories 는 모두 할머니를 가리킨다.",
+       "confirmed_at": {
+        "note": "학습자가 실제로 미끄러지는 자리 — 단락 (B) 전체가 할머니 이야기이고 밑줄 형태도 (b)와 똑같은 she 라, 한 문장 사이에 인물이 바뀐 지점에 아무 표시가 없다.",
+        "sentence_index": [
+         6
+        ]
+       }
+      },
+      {
+       "n": 4,
+       "trap": "행위자-수혜자 역전",
+       "verdict": "distractor",
+       "why_tempting": "문장 10 'I had only taught her the basics of reading, but (d) she had written these words all by herself' 는 앞 절 주어가 I 이고 her 가 목적어다. 앞 문장 9의 케이크에 적힌 글자가 'HAPPY BIRTHDAY BETTY' 라 Betty(=화자)를 주어로 끌어오면 (d)를 화자로 본다.",
+       "how_to_reject": "but 이 세우는 대비가 '나는 기초만 가르쳤다 ↔ 그런데 그 사람이 혼자 다 썼다' 이므로 두 절의 주어가 달라야 문장이 성립한다. 문장 9 'My grandmother decorated a cake with \"HAPPY BIRTHDAY BETTY.\"' 가 케이크를 꾸민 사람을 할머니로 이름 대어 적어 둔다."
+      },
+      {
+       "n": 5,
+       "trap": "선행사 원거리 이탈",
+       "verdict": "distractor",
+       "why_tempting": "(D)에서 밑줄 앞 세 문장(16~18)의 주어가 the gods · Those who broke their promises · I 라 여성 선행사가 멀다. 가장 가까운 주어 I 를 끌어오면 'her stories' 를 화자 자신의 이야기로 읽는다.",
+       "how_to_reject": "(D) 첫 문장 15 'My grandmother liked to tell me these interesting stories at ... night.' 가 이야기의 임자를 할머니로 적는다. 또 밑줄 문장 19의 'taught me' 에서 me 가 화자이므로, 같은 문장의 her 는 화자일 수 없다."
+      }
+     ]
+    },
+    {
+     "item_id": "2014A#44",
+     "version": 4,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "밑줄 (b)와 (c)를 같은 단락 (B) 안에 두 문장 간격으로 나란히 넣고 형태를 she 로 통일했다. 그리고 어머니를 'I talked to my mom about it' 이라는 한 절에만 등장시켜, 단락 하나를 한 인물의 것으로 통째 처리하는 학생이 (b)와 (c)를 구분하지 못하게 만들었다. 인물이 바뀌는 신호가 대명사가 아니라 바로 앞 절의 목적어 하나뿐이라는 점이 이 문항의 급소다.",
+     "answer_locus": {
+      "quote": "I talked to my mom about it, and (c) she was delighted with my plan.",
+      "reasoning": "and 로 이어진 앞 절의 목적어가 my mom 이고, 뒤 절의 주어 (c) she 가 그 대화의 상대다. 기뻐한 대상이 'my plan' 인데 그 계획의 내용은 앞 문장 5 'it hit upon me to teach her to read English' 곧 할머니에게 영어 읽기를 가르치겠다는 것이다. 계획의 대상인 할머니는 이 시점에 계획을 전해 들은 사람이 아니므로, 화자가 계획을 말한 상대인 my mom 이 (c)다. 나머지 (a)(b)(d)(e)는 각각 이민 생활에 떠밀린 사람 · 영어 표지판을 못 읽은 사람 · 케이크에 글자를 쓴 사람 · 이야기의 임자로 전부 할머니를 요구한다.",
+      "sentence_index": [
+       5,
+       6
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "첫 문장 발화자 끌림",
+       "verdict": "distractor",
+       "lure_quote": "Mom once said that my grandmother came to America",
+       "why_tempting": "(A) 첫 문장이 'Mom once said that my grandmother came to America ...' 로 시작해 어머니가 지문에서 가장 먼저 등장한다. 이야기를 여는 사람을 그 뒤 대명사의 임자로 이어 붙이면 (a) her 를 어머니로 본다.",
+       "how_to_reject": "밑줄이 든 문장 2 'My grandmother wanted to go to school, but the harsh immigrant life pushed (a) her to support her family' — but 앞 절의 주어가 My grandmother 이고, 학교에 가고 싶었던 사람과 가족 부양으로 떠밀린 사람이 같은 사람이다. 문장 3 'Though she never learned to read in school' 도 같은 인물을 잇는다."
+      },
+      {
+       "n": 2,
+       "trap": "동일 단락 동형 대명사 일괄 처리",
+       "verdict": "distractor",
+       "why_tempting": "단락 (B) 안에 밑줄 she 가 (b)와 (c) 둘 있는데 형태가 똑같다. 둘 중 하나가 어머니라는 것까지는 눈치채도 어느 쪽인지 가르지 않고 앞의 것을 찍으면 (b)가 된다. 문장 4의 주절 주어가 두 번 다 I 라서 관찰자와 관찰 대상이 뒤섞이는 것도 거든다.",
+       "how_to_reject": "밑줄 앞 절이 'when I saw my grandmother on the street by chance' 이므로, that절의 she 는 방금 목적어로 나온 my grandmother 를 받는다. 내용도 맞물린다 — 문장 3 'Though she never learned to read in school' 이 영어 표지판을 못 읽는 이유를 미리 적어 두었다."
+      },
+      {
+       "n": 3,
+       "verdict": "correct",
+       "why_correct": "밑줄이 든 문장은 ‘I talked to my mom about it, and (c) she was delighted with my plan’ 처럼 and 로 이어진 등위절이고, 앞 절이 이야기를 들은 사람을 my mom 으로 새로 들여온다. 기뻐한 대상이 my plan 이라 계획을 세운 화자(I)도 아니므로 (c) she 는 어머니다. 나머지 넷 the harsh immigrant life pushed (a) her to support her family · (b) she had difficulty in reading an English sign · (d) she had written these words all by herself · The morals of (e) her stories 는 모두 할머니를 가리킨다.",
+       "confirmed_at": {
+        "note": "학습자가 실제로 미끄러지는 자리 — 단락 (B) 전체가 할머니 이야기이고 밑줄 형태도 (b)와 똑같은 she 라, 한 문장 사이에 인물이 바뀐 지점에 아무 표시가 없다.",
+        "sentence_index": [
+         6
+        ]
+       }
+      },
+      {
+       "n": 4,
+       "trap": "행위자-수혜자 역전",
+       "verdict": "distractor",
+       "why_tempting": "문장 10 'I had only taught her the basics of reading, but (d) she had written these words all by herself' 는 앞 절 주어가 I 이고 her 가 목적어다. 앞 문장 9의 케이크에 적힌 글자가 'HAPPY BIRTHDAY BETTY' 라 Betty(=화자)를 주어로 끌어오면 (d)를 화자로 본다.",
+       "how_to_reject": "but 이 세우는 대비가 '나는 기초만 가르쳤다 ↔ 그런데 그 사람이 혼자 다 썼다' 이므로 두 절의 주어가 달라야 문장이 성립한다. 문장 9 'My grandmother decorated a cake with \"HAPPY BIRTHDAY BETTY.\"' 가 케이크를 꾸민 사람을 할머니로 이름 대어 적어 둔다."
+      },
+      {
+       "n": 5,
+       "trap": "선행사 원거리 이탈",
+       "verdict": "distractor",
+       "why_tempting": "(D)에서 밑줄 앞 세 문장(16~18)의 주어가 the gods · Those who broke their promises · I 라 여성 선행사가 멀다. 가장 가까운 주어 I 를 끌어오면 'her stories' 를 화자 자신의 이야기로 읽는다.",
+       "how_to_reject": "(D) 첫 문장 15 'My grandmother liked to tell me these interesting stories at ... night.' 가 이야기의 임자를 할머니로 적는다. 또 밑줄 문장 19의 'taught me' 에서 me 가 화자이므로, 같은 문장의 her 는 화자일 수 없다."
+      }
+     ]
+    }
+   ],
+   "pdfAnchored": true
+  },
+  {
+   "item": {
+    "id": "2019#42",
+    "exam_id": "2019",
+    "no": 42,
+    "type_id": "X-VOCAB",
+    "stem": "밑줄 친 (a)～(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
+    "passage": "Industrial capitalism not only created work, it also created ‘leisure’ in the modern sense of the term. This might seem surprising, for the early cotton masters wanted to keep their machinery running as long as possible and forced their employees to work very long hours. However, by requiring continuous work during work hours and ruling out non-work activity, employers had (a) separated out leisure from work. Some did this quite explicitly by creating distinct holiday periods, when factories were shut down, because it was better to do this than have work (b) promoted by the casual taking of days off. ‘Leisure’ as a distinct non-work time, whether in the form of the holiday, weekend, or evening, was a result of the disciplined and bounded work time created by capitalist production. Workers then wanted more leisure and leisure time was enlarged by union campaigns, which first started in the cotton industry, and eventually new laws were passed that (c) limited the hours of work and gave workers holiday entitlements. Leisure was also the creation of capitalism in another sense, through the commercialization of leisure. This no longer meant participation in traditional sports and pastimes. Workers began to (d) pay for leisure activities organized by capitalist enterprises. Mass travel to spectator sports, especially football and horse-racing, where people could be charged for entry, was now possible. The importance of this can hardly be exaggerated, for whole new industries were emerging to exploit and (e) develop the leisure market, which was to become a huge source of consumer demand, employment, and profit.",
+    "choices": [
+     "(a)",
+     "(b)",
+     "(c)",
+     "(d)",
+     "(e)"
+    ],
+    "answer": 2,
+    "answers": [
+     2
+    ],
+    "body_ok": true
+   },
+   "inputHash": "1c847540304cb7bfeeafaed749108521e8b9bc5486da16a0253bdd2913a0af85",
+   "units": null,
+   "analyses": [
+    {
+     "item_id": "2019#42",
+     "version": 1,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "이 유형이 42번 자리에 처음 놓인 회차다. 노동시간 규율이 오히려 여가를 낳았다는 반직관적 논지를 깔고, 고용주가 별도 휴일을 만든 이유를 because ... better to do this than have work ___ 라는 비교절에 담았다. 상식(휴일은 좋은 것)과 비교 구조(than 뒤는 피하려는 것)를 맞부딪치게 한 설계다.",
+     "answer_locus": {
+      "quote": "it was better to do this than have work (b) promoted by the casual taking of days off",
+      "reasoning": "better to do this than X 구조에서 X 는 고용주가 피하려는 상태다. 여기서 this 는 공장을 닫는 별도 휴일을 만드는 것이고, X 는 제멋대로 쉬는 날이 생겨 벌어지는 일이다. 앞 문장이 고용주가 노동시간 중 비노동 활동을 몰아냈다고(ruling out non-work activity) 했고 다음 문장이 여가는 규율되고 경계 지어진 노동시간의 산물이라 못박으므로, 고용주가 피하려던 것은 작업이 끊기는 것이다. 작업이 촉진되는 상태라면 피할 이유가 없어 비교 구조가 무너진다.",
+      "sentence_index": [
+       4
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "국소 어색",
+       "verdict": "distractor",
+       "why_tempting": "separate out 이라는 구동사를 “떼어 없앴다”로 읽으면 여가가 사라진 것처럼 보여 글의 첫 문장과 부딪친다",
+       "how_to_reject": "같은 문장 앞부분 by requiring continuous work during work hours and ruling out non-work activity 가 수단을 명시한다 — 노동시간에서 비노동을 몰아낸 결과는 둘이 갈라지는 것이다"
+      },
+      {
+       "n": 2,
+       "trap": "방향 반전",
+       "verdict": "correct",
+       "why_tempting": "“쉬는 날이 있으면 일이 잘된다”는 상식을 대입하면 문장이 매끄럽게 읽힌다",
+       "how_to_reject": "better to do this than have work X 에서 than 뒤는 회피 대상이라는 비교 구조가 상식보다 앞선다"
+      },
+      {
+       "n": 3,
+       "trap": "동어 반복 유인",
+       "verdict": "distractor",
+       "why_tempting": "앞 절 Workers then wanted more leisure 를 그대로 되받아 너무 뻔한 자리로 보인다",
+       "how_to_reject": "같은 문장 뒤 and gave workers holiday entitlements 가 법의 방향을 못박는다 — 휴가 권리를 주는 법이 노동시간을 늘릴 수는 없다"
+      },
+      {
+       "n": 4,
+       "trap": "상식 충돌",
+       "verdict": "distractor",
+       "why_tempting": "여가는 쉬는 것이라는 통념 때문에 “돈을 낸다”가 여가의 서술로 낯설게 들린다",
+       "how_to_reject": "앞 문장이 the commercialization of leisure 를 화제로 세웠고, 두 문장 뒤 where people could be charged for entry 가 돈 내는 쪽을 명시한다"
+      },
+      {
+       "n": 5,
+       "trap": "연어 충돌",
+       "verdict": "distractor",
+       "why_tempting": "exploit 과 나란히 놓여 “착취하고 개발한다”가 모순처럼 들린다",
+       "how_to_reject": "이어지는 관계절 which was to become a huge source of consumer demand, employment, and profit 이 시장이 커지는 방향을 확정한다"
+      }
+     ]
+    },
+    {
+     "item_id": "2019#42",
+     "version": 2,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "이 유형이 42번 자리에 처음 놓인 회차다. 노동시간 규율이 오히려 여가를 낳았다는 반직관적 논지를 깔고, 고용주가 별도 휴일을 만든 이유를 because ... better to do this than have work ___ 라는 비교절에 담았다. 상식(휴일은 좋은 것)과 비교 구조(than 뒤는 피하려는 것)를 맞부딪치게 한 설계다.",
+     "answer_locus": {
+      "quote": "it was better to do this than have work (b) promoted by the casual taking of days off",
+      "reasoning": "better to do this than X 구조에서 X 는 고용주가 피하려는 상태다. 여기서 this 는 공장을 닫는 별도 휴일을 만드는 것이고, X 는 제멋대로 쉬는 날이 생겨 벌어지는 일이다. 앞 문장이 고용주가 노동시간 중 비노동 활동을 몰아냈다고(ruling out non-work activity) 했고 다음 문장이 여가는 규율되고 경계 지어진 노동시간의 산물이라 못박으므로, 고용주가 피하려던 것은 작업이 끊기는 것이다. 작업이 촉진되는 상태라면 피할 이유가 없어 비교 구조가 무너진다.",
+      "sentence_index": [
+       4
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "국소 어색",
+       "verdict": "distractor",
+       "why_tempting": "separate out 이라는 구동사를 “떼어 없앴다”로 읽으면 여가가 사라진 것처럼 보여 글의 첫 문장과 부딪친다",
+       "how_to_reject": "같은 문장 앞부분 by requiring continuous work during work hours and ruling out non-work activity 가 수단을 명시한다 — 노동시간에서 비노동을 몰아낸 결과는 둘이 갈라지는 것이다"
+      },
+      {
+       "n": 2,
+       "verdict": "correct",
+       "why_correct": "밑줄이 든 절은 ‘it was better to do this than have work (b) … by the casual taking of days off’ 라는 비교 구문이라, than 뒤가 고용주가 피하려던 나쁜 쪽이어야 한다. 앞에서 고용주를 ‘wanted to keep their machinery running as long as possible’ 로 세워 두었으므로, 제멋대로 쉬는 날이 일으키는 것은 작업의 중단(disrupted)이다. promoted 는 피하려던 쪽을 이득으로 만들어 비교의 방향을 뒤집는다.",
+       "confirmed_at": {
+        "note": "학습자가 실제로 미끄러지는 자리 — “쉬는 날이 있으면 일이 잘된다”는 상식을 대입하면 문장이 매끄럽게 읽힌다.",
+        "sentence_index": [
+         4
+        ]
+       }
+      },
+      {
+       "n": 3,
+       "trap": "동어 반복 유인",
+       "verdict": "distractor",
+       "why_tempting": "앞 절 Workers then wanted more leisure 를 그대로 되받아 너무 뻔한 자리로 보인다",
+       "how_to_reject": "같은 문장 뒤 and gave workers holiday entitlements 가 법의 방향을 못박는다 — 휴가 권리를 주는 법이 노동시간을 늘릴 수는 없다"
+      },
+      {
+       "n": 4,
+       "trap": "상식 충돌",
+       "verdict": "distractor",
+       "why_tempting": "여가는 쉬는 것이라는 통념 때문에 “돈을 낸다”가 여가의 서술로 낯설게 들린다",
+       "how_to_reject": "앞 문장이 the commercialization of leisure 를 화제로 세웠고, 두 문장 뒤 where people could be charged for entry 가 돈 내는 쪽을 명시한다"
+      },
+      {
+       "n": 5,
+       "trap": "연어 충돌",
+       "verdict": "distractor",
+       "why_tempting": "exploit 과 나란히 놓여 “착취하고 개발한다”가 모순처럼 들린다",
+       "how_to_reject": "이어지는 관계절 which was to become a huge source of consumer demand, employment, and profit 이 시장이 커지는 방향을 확정한다"
+      }
+     ]
+    },
+    {
+     "item_id": "2019#42",
+     "version": 3,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "이 유형이 42번 자리에 처음 놓인 회차다. 노동시간 규율이 오히려 여가를 낳았다는 반직관적 논지를 깔고, 고용주가 별도 휴일을 만든 이유를 because ... better to do this than have work ___ 라는 비교절에 담았다. 상식(휴일은 좋은 것)과 비교 구조(than 뒤는 피하려는 것)를 맞부딪치게 한 설계다.",
+     "answer_locus": {
+      "quote": "it was better to do this than have work (b) promoted by the casual taking of days off",
+      "reasoning": "better to do this than X 구조에서 X 는 고용주가 피하려는 상태다. 여기서 this 는 공장을 닫는 별도 휴일을 만드는 것이고, X 는 제멋대로 쉬는 날이 생겨 벌어지는 일이다. 앞 문장이 고용주가 노동시간 중 비노동 활동을 몰아냈다고(ruling out non-work activity) 했고 다음 문장이 여가는 규율되고 경계 지어진 노동시간의 산물이라 못박으므로, 고용주가 피하려던 것은 작업이 끊기는 것이다. 작업이 촉진되는 상태라면 피할 이유가 없어 비교 구조가 무너진다.",
+      "sentence_index": [
+       4
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "국소 어색",
+       "verdict": "distractor",
+       "why_tempting": "separate out 이라는 구동사를 “떼어 없앴다”로 읽으면 여가가 사라진 것처럼 보여 글의 첫 문장과 부딪친다",
+       "how_to_reject": "같은 문장 앞부분 by requiring continuous work during work hours and ruling out non-work activity 가 수단을 명시한다 — 노동시간에서 비노동을 몰아낸 결과는 둘이 갈라지는 것이다"
+      },
+      {
+       "n": 2,
+       "verdict": "correct",
+       "why_correct": "밑줄이 든 절은 ‘it was better to do this than have work (b) … by the casual taking of days off’ 라는 비교 구문이라, than 뒤가 고용주가 피하려던 나쁜 쪽이어야 한다. 앞에서 고용주를 ‘wanted to keep their machinery running as long as possible’ 로 세워 두었으므로, 제멋대로 쉬는 날이 일으키는 것은 작업의 중단(disrupted)이다. promoted 는 피하려던 쪽을 이득으로 만들어 비교의 방향을 뒤집는다.",
+       "confirmed_at": {
+        "note": "학습자가 실제로 미끄러지는 자리 — “쉬는 날이 있으면 일이 잘된다”는 상식을 대입하면 문장이 매끄럽게 읽힌다.",
+        "sentence_index": [
+         4
+        ]
+       }
+      },
+      {
+       "n": 3,
+       "trap": "동어 반복 유인",
+       "verdict": "distractor",
+       "why_tempting": "앞 절 Workers then wanted more leisure 를 그대로 되받아 너무 뻔한 자리로 보인다",
+       "how_to_reject": "같은 문장 뒤 and gave workers holiday entitlements 가 법의 방향을 못박는다 — 휴가 권리를 주는 법이 노동시간을 늘릴 수는 없다"
+      },
+      {
+       "n": 4,
+       "trap": "상식 충돌",
+       "verdict": "distractor",
+       "why_tempting": "여가는 쉬는 것이라는 통념 때문에 “돈을 낸다”가 여가의 서술로 낯설게 들린다",
+       "how_to_reject": "앞 문장이 the commercialization of leisure 를 화제로 세웠고, 두 문장 뒤 where people could be charged for entry 가 돈 내는 쪽을 명시한다"
+      },
+      {
+       "n": 5,
+       "trap": "연어 충돌",
+       "verdict": "distractor",
+       "why_tempting": "exploit 과 나란히 놓여 “착취하고 개발한다”가 모순처럼 들린다",
+       "how_to_reject": "이어지는 관계절 which was to become a huge source of consumer demand, employment, and profit 이 시장이 커지는 방향을 확정한다"
+      }
+     ]
+    },
+    {
+     "item_id": "2019#42",
+     "version": 4,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "이 유형이 42번 자리에 처음 놓인 회차다. 노동시간 규율이 오히려 여가를 낳았다는 반직관적 논지를 깔고, 고용주가 별도 휴일을 만든 이유를 because ... better to do this than have work ___ 라는 비교절에 담았다. 상식(휴일은 좋은 것)과 비교 구조(than 뒤는 피하려는 것)를 맞부딪치게 한 설계다.",
+     "answer_locus": {
+      "quote": "it was better to do this than have work (b) promoted by the casual taking of days off",
+      "reasoning": "better to do this than X 구조에서 X 는 고용주가 피하려는 상태다. 여기서 this 는 공장을 닫는 별도 휴일을 만드는 것이고, X 는 제멋대로 쉬는 날이 생겨 벌어지는 일이다. 앞 문장이 고용주가 노동시간 중 비노동 활동을 몰아냈다고(ruling out non-work activity) 했고 다음 문장이 여가는 규율되고 경계 지어진 노동시간의 산물이라 못박으므로, 고용주가 피하려던 것은 작업이 끊기는 것이다. 작업이 촉진되는 상태라면 피할 이유가 없어 비교 구조가 무너진다.",
+      "sentence_index": [
+       4
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "trap": "국소 어색",
+       "verdict": "distractor",
+       "why_tempting": "separate out 이라는 구동사를 “떼어 없앴다”로 읽으면 여가가 사라진 것처럼 보여 글의 첫 문장과 부딪친다",
+       "how_to_reject": "같은 문장 앞부분 by requiring continuous work during work hours and ruling out non-work activity 가 수단을 명시한다 — 노동시간에서 비노동을 몰아낸 결과는 둘이 갈라지는 것이다"
+      },
+      {
+       "n": 2,
+       "verdict": "correct",
+       "why_correct": "밑줄이 든 절은 ‘it was better to do this than have work (b) … by the casual taking of days off’ 라는 비교 구문이라, than 뒤가 고용주가 피하려던 나쁜 쪽이어야 한다. 앞에서 고용주를 ‘wanted to keep their machinery running as long as possible’ 로 세워 두었으므로, 제멋대로 쉬는 날이 일으키는 것은 작업의 중단(disrupted)이다. promoted 는 피하려던 쪽을 이득으로 만들어 비교의 방향을 뒤집는다.",
+       "confirmed_at": {
+        "note": "학습자가 실제로 미끄러지는 자리 — “쉬는 날이 있으면 일이 잘된다”는 상식을 대입하면 문장이 매끄럽게 읽힌다.",
+        "sentence_index": [
+         4
+        ]
+       }
+      },
+      {
+       "n": 3,
+       "trap": "동어 반복 유인",
+       "verdict": "distractor",
+       "why_tempting": "앞 절 Workers then wanted more leisure 를 그대로 되받아 너무 뻔한 자리로 보인다",
+       "how_to_reject": "같은 문장 뒤 and gave workers holiday entitlements 가 법의 방향을 못박는다 — 휴가 권리를 주는 법이 노동시간을 늘릴 수는 없다"
+      },
+      {
+       "n": 4,
+       "trap": "상식 충돌",
+       "verdict": "distractor",
+       "why_tempting": "여가는 쉬는 것이라는 통념 때문에 “돈을 낸다”가 여가의 서술로 낯설게 들린다",
+       "how_to_reject": "앞 문장이 the commercialization of leisure 를 화제로 세웠고, 두 문장 뒤 where people could be charged for entry 가 돈 내는 쪽을 명시한다"
+      },
+      {
+       "n": 5,
+       "trap": "연어 충돌",
+       "verdict": "distractor",
+       "why_tempting": "exploit 과 나란히 놓여 “착취하고 개발한다”가 모순처럼 들린다",
+       "how_to_reject": "이어지는 관계절 which was to become a huge source of consumer demand, employment, and profit 이 시장이 커지는 방향을 확정한다"
+      }
+     ]
+    },
+    {
+     "item_id": "2019#42",
+     "version": 5,
+     "status": "published",
+     "units_version": null,
+     "units_hash": null,
+     "design_intent": "노동시간 규율이 오히려 여가를 낳았다는 반직관적 논지를 깔고, 고용주가 공장을 닫는 별도 휴일을 만든 이유를 because ... better to do this than have work (b) ... 라는 비교절에 담았다. than 뒤는 고용주가 피하려던 상태여야 하는데, 「쉬면 일이 잘된다」는 상식으로 읽으면 promoted 가 매끄럽게 들리도록 비교 구조와 상식을 맞부딪치게 한 설계다. 바꾼 성분은 than 뒤 술어의 극성 하나(disrupted → promoted)다.",
+     "answer_locus": {
+      "quote": "it was better to do this than have work (b) promoted by the casual taking of days off",
+      "reasoning": "better to do this than X 구조에서 X 는 고용주가 피하려는 상태다. 여기서 this 는 공장을 닫는 별도 휴일을 만드는 것이고, X 는 제멋대로 쉬는 날이 생겨 벌어지는 일이다. [u3]이 고용주가 노동시간 중 비노동 활동을 몰아냈다고(ruling out non-work activity) 했고 [u5]가 여가는 규율되고 경계 지어진 노동시간의 산물이라 못박으므로, 고용주가 피하려던 것은 작업이 끊기는 것이다. 작업이 촉진되는 상태라면 피할 이유가 없어 비교 구조가 무너진다.",
+      "sentence_index": [
+       3,
+       4,
+       5
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 1,
+       "verdict": "distractor",
+       "how_to_reject": "(a) separated out 은 문맥에 맞다. [u3] 앞부분 by requiring continuous work during work hours and ruling out non-work activity 가 수단을 밝히고, 노동시간에서 비노동을 몰아낸 결과는 여가가 일과 갈라지는 것이다. [u5] 'Leisure' as a distinct non-work time 이 그 분리를 되받으므로 고칠 낱말이 아니다."
+      },
+      {
+       "n": 2,
+       "verdict": "correct",
+       "why_correct": "밑줄이 든 절은 ‘it was better to do this than have work (b) … by the casual taking of days off’ 라는 비교 구문이라, than 뒤가 고용주가 피하려던 나쁜 쪽이어야 한다. 앞에서 고용주를 ‘wanted to keep their machinery running as long as possible’ 로 세워 두었으므로, 제멋대로 쉬는 날이 일으키는 것은 작업의 중단(disrupted)이다. promoted 는 피하려던 쪽을 이득으로 만들어 비교의 방향을 뒤집는다.",
+       "confirmed_at": {
+        "note": "[u2]의 고용주 동기(machinery running as long as possible)와 [u4] 비교 구조 than 뒤가 함께 확정한다.",
+        "sentence_index": [
+         2,
+         4
+        ]
+       }
+      },
+      {
+       "n": 3,
+       "verdict": "distractor",
+       "how_to_reject": "(c) limited 는 문맥에 맞다. 바로 앞 Workers then wanted more leisure 와 union campaigns 가 여가 확대 요구를 세웠고, 같은 절 and gave workers holiday entitlements 와 나란히 놓여 노동시간을 줄이는 법임이 확정된다. 그래서 적절하지 않은 낱말이 아니다."
+      },
+      {
+       "n": 4,
+       "verdict": "distractor",
+       "how_to_reject": "(d) pay 는 문맥에 맞다. [u7]이 the commercialization of leisure 를 화제로 세웠고, [u10] where people could be charged for entry 가 입장료를 내는 쪽을 명시한다. 여가의 상업화 서술과 방향이 같아 답이 아니다."
+      },
+      {
+       "n": 5,
+       "verdict": "distractor",
+       "how_to_reject": "(e) develop 은 문맥에 맞다. 이어지는 관계절 which was to become a huge source of consumer demand, employment, and profit 이 여가 시장이 커지는 방향을 확정하고, whole new industries were emerging 과도 일치한다. 그래서 고칠 낱말이 아니다."
+      }
+     ]
+    }
+   ],
+   "pdfAnchored": true
+  },
+  {
+   "item": {
+    "id": "H1811G1#27",
+    "exam_id": "H1811G1",
+    "no": 27,
+    "type_id": "R-NOTICE",
+    "stem": "Dinosaur Museum에 관한 다음 안내문의 내용과 일치하는 것은?",
+    "passage": "Dinosaur Museum Established in 1993, the Dinosaur Museum has developed into the largest display of dinosaur and prehistoric life in Canada. Hours • 9:00 a.m. ― 5:00 p.m. (Monday ― Friday) • 9:00 a.m. ― 3:00 p.m. (Saturday & Sunday) Admission • $4 for adults, $2 for students & children Programs • Paint a Dinosaur Egg! At 10:00 a.m. every day, kids can paint a dinosaur egg to take home. • Dinosaur Quiz At 2:00 p.m. during the weekend, one winner of our dinosaur quiz will be given a real fossil as a prize. • Guided Tours The tours run at 11:00 a.m. and 1:00 p.m. every day. The tours are free and require no bookings. Just show up! Notice • Food and pets are prohibited in the museum. • Please do not touch or climb on the exhibits.",
+    "choices": [
+     "일요일은 휴관일이다.",
+     "어린이의 입장은 무료이다.",
+     "공룡 퀴즈 우승자는 화석을 상품으로 받는다.",
+     "가이드가 동행하는 관람은 예약이 필요하다.",
+     "애완동물을 데리고 입장할 수 있다."
+    ],
+    "answer": 3,
+    "answers": [
+     3
+    ],
+    "body_ok": true
+   },
+   "inputHash": "26945bba5919b40f195979c9f8dafaf4eb14f10284035e5db72180b661f0ab5a",
+   "units": {
+    "item_id": "H1811G1#27",
+    "units_version": 1,
+    "units_hash": "c5d12ff667e48f03376f9e1a4449d2161e598a9af7f2bf9c8b9dccc3f3c8f456",
+    "input_hash": "26945bba5919b40f195979c9f8dafaf4eb14f10284035e5db72180b661f0ab5a",
+    "units": [
+     {
+      "n": 1,
+      "id": "u1",
+      "end": 139,
+      "kind": "sentence",
+      "text": "Dinosaur Museum Established in 1993, the Dinosaur Museum has developed into the largest display of dinosaur and prehistoric life in Canada.",
+      "start": 0
+     },
+     {
+      "n": 2,
+      "id": "u2",
+      "end": 145,
+      "kind": "sentence",
+      "text": "Hours",
+      "start": 140
+     },
+     {
+      "n": 3,
+      "id": "u3",
+      "end": 187,
+      "kind": "line",
+      "text": "• 9:00 a.m. ― 5:00 p.m. (Monday ― Friday)",
+      "start": 146
+     },
+     {
+      "n": 4,
+      "id": "u4",
+      "end": 241,
+      "kind": "line",
+      "text": "• 9:00 a.m. ― 3:00 p.m. (Saturday & Sunday) Admission",
+      "start": 188
+     },
+     {
+      "n": 5,
+      "id": "u5",
+      "end": 294,
+      "kind": "line",
+      "text": "• $4 for adults, $2 for students & children Programs",
+      "start": 242
+     },
+     {
+      "n": 6,
+      "id": "u6",
+      "end": 318,
+      "kind": "line",
+      "text": "• Paint a Dinosaur Egg!",
+      "start": 295
+     },
+     {
+      "n": 7,
+      "id": "u7",
+      "end": 387,
+      "kind": "sentence",
+      "text": "At 10:00 a.m. every day, kids can paint a dinosaur egg to take home.",
+      "start": 319
+     },
+     {
+      "n": 8,
+      "id": "u8",
+      "end": 508,
+      "kind": "line",
+      "text": "• Dinosaur Quiz At 2:00 p.m. during the weekend, one winner of our dinosaur quiz will be given a real fossil as a prize.",
+      "start": 388
+     },
+     {
+      "n": 9,
+      "id": "u9",
+      "end": 576,
+      "kind": "line",
+      "text": "• Guided Tours The tours run at 11:00 a.m. and 1:00 p.m. every day.",
+      "start": 509
+     },
+     {
+      "n": 10,
+      "id": "u10",
+      "end": 620,
+      "kind": "sentence",
+      "text": "The tours are free and require no bookings.",
+      "start": 577
+     },
+     {
+      "n": 11,
+      "id": "u11",
+      "end": 634,
+      "kind": "sentence",
+      "text": "Just show up!",
+      "start": 621
+     },
+     {
+      "n": 12,
+      "id": "u12",
+      "end": 641,
+      "kind": "sentence",
+      "text": "Notice",
+      "start": 635
+     },
+     {
+      "n": 13,
+      "id": "u13",
+      "end": 687,
+      "kind": "line",
+      "text": "• Food and pets are prohibited in the museum.",
+      "start": 642
+     },
+     {
+      "n": 14,
+      "id": "u14",
+      "end": 735,
+      "kind": "line",
+      "text": "• Please do not touch or climb on the exhibits.",
+      "start": 688
+     }
+    ]
+   },
+   "analyses": [
+    {
+     "item_id": "H1811G1#27",
+     "version": 2,
+     "status": "published",
+     "units_version": 1,
+     "units_hash": "c5d12ff667e48f03376f9e1a4449d2161e598a9af7f2bf9c8b9dccc3f3c8f456",
+     "design_intent": "일치형에서 정답을 Programs 의 Dinosaur Quiz 항목에 두고, 오답 넷은 개관(주말도 3시까지 개관을 휴관으로)·요금($2→무료)·예약(no bookings→필요)·반려동물(prohibited→가능)을 각각 한 성분만 바꿨다. 원문 데이터 사정: 근거 단위 [u4]·[u5] 끝에 다음 소제목(Admission, Programs)이 붙어 있어 분절이 소제목과 항목을 한 단위에 묶는다.",
+     "answer_locus": {
+      "quote": "At 2:00 p.m. during the weekend, one winner of our dinosaur quiz will be given a real fossil as a prize.",
+      "reasoning": "[u8] 의 Dinosaur Quiz 항목이 주말 오후 2시 우승자 한 명에게 진짜 화석을 상품으로 준다고 밝힌다. 선지가 말하는 우승자와 상품이 같은 단위에 있어 한 곳에서 확정된다.",
+      "sentence_index": [
+       8
+      ]
+     },
+     "choice_analysis": [
+      {
+       "n": 3,
+       "verdict": "correct",
+       "why_correct": "선지의 '공룡 퀴즈 우승자' 는 'winner of our dinosaur quiz' 와, '화석을 상품으로 받는다' 는 'a real fossil as a prize' 와 구 단위로 대응한다.",
+       "confirmed_at": {
+        "note": "[u8] 한 단위에서 우승자와 상품이 모두 확인된다.",
+        "sentence_index": [
+         8
+        ]
+       }
+      },
+      {
+       "n": 1,
+       "trap": "범위 과대",
+       "verdict": "distractor",
+       "why_tempting": "평일 시간은 [u3], 주말 시간은 [u4] 로 줄이 나뉘고 주말 폐관이 3시로 짧아, 단축 운영을 휴관으로 넓혀 읽게 된다.",
+       "how_to_reject": "[u4] '9:00 a.m. ― 3:00 p.m. (Saturday & Sunday)' — 일요일도 오전 9시부터 오후 3시까지 개관한다. 휴관일이 아니다."
+      },
+      {
+       "n": 2,
+       "trap": "수치 변형",
+       "verdict": "distractor",
+       "why_tempting": "요금 줄이 'adults' 와 'students & children' 두 값으로 나뉘어 있어 어린이 값을 성인 값과 따로 읽지 않고 할인이 곧 무료라고 넘겨짚는다.",
+       "how_to_reject": "[u5] '$4 for adults, $2 for students & children' — 어린이는 2달러다. 무료가 아니다."
+      },
+      {
+       "n": 4,
+       "trap": "부정어 누락",
+       "verdict": "distractor",
+       "why_tempting": "[u10] 의 free 가 눈에 띄어 가이드 투어를 무료이면서 절차가 있는 프로그램으로 읽고, 뒤따르는 require no bookings 의 부정을 놓치게 된다.",
+       "how_to_reject": "[u10] 'The tours are free and require no bookings.' 와 [u11] 'Just show up!' — 예약이 필요 없다. 선지는 부정어를 떼어 냈다."
+      },
+      {
+       "n": 5,
+       "trap": "반대 진술",
+       "verdict": "distractor",
+       "why_tempting": "Food and pets 가 한 묶음으로 나와 food 쪽 금지에만 시선이 머물러 pets 의 금지를 놓치게 된다.",
+       "how_to_reject": "[u13] 'Food and pets are prohibited in the museum.' — 반려동물은 입장이 금지된다. 선지의 가능과 반대다."
+      }
+     ]
+    }
+   ],
+   "pdfAnchored": false
+  }
+ ]
+}

@@ -62,6 +62,13 @@ async function observe(page: Page) {
   const nextLabel = (await pop.locator('[data-testid="pop-next"]').count()) ? (await pop.locator('[data-testid="pop-next"]').innerText()).trim() : null
   return { priority, evidence, next: next?.split('?')[0] ?? null, nextHref: next ?? null, nextLabel, blocked }
 }
+/** T-0076 — 지도 팝업 → 자세히(키보드) → 근거 상세: 바로잡기 상태 · 이번 판정 독립 확인 수(observe 뒤 팝업이 열린 상태에서) */
+async function evidenceDetail(page: Page) {
+  await page.locator('[data-testid="pop-detail"]').focus(); await page.keyboard.press('Enter')
+  const block = page.locator('[data-testid="task-inspector"] [data-testid="ins-evidence-claims"]')
+  await expect(block).toBeVisible({ timeout: 15_000 })
+  return { repair: (await block.locator('[data-testid="ev-repair"]').innerText()).trim(), items: await block.locator('[data-testid="ev-check"]').getAttribute('data-current-items') }
+}
 /** 실제 자료 받기 API(학습자 세션) — 지금 저장 PLAN · 단계의 수요로 공급. 줄마다 역할 · 받은 ref */
 async function supply(page: Page): Promise<{ role: string; delivered: string[]; requested: number }[]> {
   const r = await page.request.post('/api/csat/authored/supply', { data: { task: TASK, template: TEMPLATE } })
@@ -88,8 +95,8 @@ async function planRow(ws: string, version: number) {
   const t = (r.plan as { tasks: { task: string; stage?: string | null; planned?: unknown; available?: unknown }[] }).tasks.find((x) => x.task === TASK) ?? null
   return { ...r, stage: t?.stage ?? null, task: t ? { stage: t.stage ?? null, planned: t.planned ?? null, available: t.available ?? null } : null }
 }
-async function solve(page: Page, item: Item, did: string) {
-  await page.goto(`/csat/learn/${item.id}?d=${did}`, { waitUntil: 'domcontentloaded' })
+async function solve(page: Page, item: Item, did: string, query = '') {
+  await page.goto(`/csat/learn/${item.id}?d=${did}${query}`, { waitUntil: 'domcontentloaded' })
   const runner = page.locator('[data-testid="authored-runner"]')
   await expect(runner).toHaveAttribute('data-format', 'central_meaning', { timeout: 30_000 })
   await expect(page.locator('[data-testid="authored-result"]')).toHaveCount(0)
@@ -165,7 +172,30 @@ test('한 학습자 종단 — 시험 기록 → 목표 → PLAN → 지도 → 
   const nextId = before.next?.split('/').pop() ?? null
   const target = delivered.find((d) => d.item.role === 'independent_check' && d.item.id === nextId) ?? delivered[0]
   const solved = [target, delivered[2]]
-  for (const { item, did } of solved) await solve(page, item, did)
+  await solve(page, target.item, target.did)
+  // T-0075 — 통제 손실: 전이 풀이는 실제로 저장 · 결속되지만 첫 응답의 binding · attemptId 만 지운다 → 실제 bind API 로 다시 연결 → 같은 수행으로 지도 복귀
+  const rowCounts = async () => Promise.all(['learning_task_attempts', 'workspace_delivery_attempt', 'learner_workspace_plan'].map(async (t) => (await admin().from(t).select('*', { count: 'exact', head: true }).eq('user_id', uid)).count))
+  await page.route('**/api/csat/authored/*/attempt', async (route) => {
+    const res = await route.fetch()
+    const j = await res.json() as Record<string, unknown>
+    delete j.binding; delete j.attemptId
+    await route.fulfill({ response: res, json: j })
+  }, { times: 1 })
+  await solve(page, delivered[2].item, delivered[2].did, `&from=map&map_task=${TASK}`)
+  const lost = page.locator('[data-testid="authored-binding"]')
+  await expect(lost, '응답 메타 손실 = 확인 못 함(근거 · 도움으로 추정하지 않음)').toHaveAttribute('data-kind', 'unknown')
+  const backLink = page.locator('[data-testid="authored-result"] a', { hasText: '학습 지도로' })
+  expect(await backLink.getAttribute('href'), '특정 불가 = 이번 활동 없음').not.toContain('map_attempt=')
+  const countsBefore = await rowCounts()
+  const bindReq = page.waitForRequest((r) => r.url().endsWith('/api/csat/delivery/bind') && r.method() === 'POST')
+  await page.locator('[data-testid="authored-rebind"]').focus(); await page.keyboard.press('Enter')
+  const sentBind = (await bindReq).postDataJSON() as { deliveryId: string }
+  expect(sentBind.deliveryId).toBe(delivered[2].did)
+  await expect(lost).toHaveAttribute('data-kind', 'evidence', { timeout: 30_000 })
+  const boundRow = (await admin().from('workspace_delivery_attempt').select('attempt_id').eq('user_id', uid).eq('delivery_id', delivered[2].did).single()).data!
+  await expect(backLink, '같은 수행으로 복귀').toHaveAttribute('href', new RegExp(`map_attempt=${boundRow.attempt_id}(&|$)`))
+  expect(await rowCounts(), '다시 연결 = 시도 · G2 결속 · PLAN 행 수 불변').toEqual(countsBefore)
+  await snap(page, 'binding-recovered')
 
   // G2 — 푼 시도만 그 납품에 결속 · 독립 첫 시도 = 근거
   const bindings = (await admin().from('workspace_delivery_attempt').select('delivery_id, evidence, user_id').eq('user_id', uid)).data ?? []
@@ -311,6 +341,10 @@ for (const outcome of ['pass', 'fail'] as const) test(`양성 경로(${outcome})
   const afterWrong = await observe(page)
   expect(afterWrong.next, '오답 뒤에도 같은 안내 연습').toBe(`/csat/learn/${guided.id}`)
   expect(afterWrong.evidence).toBe('need_confirmed')
+  // T-0076 — 근거 상세 = PLAN repairGate 와 같은 판정: 결속된 안내 연습 오답 = 해 봤어요(성공 아님) · 이번 판정 독립 확인 2문항(0 으로 바꾸지 않음)
+  const wrongDetail = await evidenceDetail(page)
+  expect(wrongDetail.repair, '안내 연습 오답 = 시도').toContain('해 봤어요')
+  expect(wrongDetail.items, '이번 판정 독립 확인 수').toBe('2')
   // 2) 다시 열기 → 「다시 풀기」 → 정답(append-only 새 시도 · 앞 기록 유지)
   await page.goto(afterWrong.nextHref!, { waitUntil: 'domcontentloaded' })
   await page.locator('[data-testid="authored-retry"]').click()
@@ -319,6 +353,11 @@ for (const outcome of ['pass', 'fail'] as const) test(`양성 경로(${outcome})
   await expect.poll(async () => ((await admin().from('workspace_delivery_attempt').select('evidence').eq('user_id', uid).eq('delivery_id', guidedDid)).data ?? []).map((b) => b.evidence), { timeout: 15_000 }).toEqual([false, false])
   const guidedRows = (await admin().from('learning_task_attempts').select('is_correct').eq('user_id', uid).eq('item_ref', `authored:${guided.id}`).order('answered_at')).data ?? []
   expect(guidedRows.map((r) => r.is_correct), '안내 연습 이력 append-only').toEqual([false, true])
+  await observe(page)
+  const rightDetail = await evidenceDetail(page)
+  expect(rightDetail.repair, 'T-0076 결속된 안내 연습 정답 = 맞혀 봤어요(PLAN 바로잡기 통과와 같은 판정)').toContain('맞혀 봤어요')
+  expect(rightDetail.items).toBe('2')
+  await snap(page, 'map-evidence-guided-right')
   // 기록 — 처음 독립 오답 2 의 자격 · G2 결속은 그대로 · 안내 연습은 연습 활동
   const firstsAfter = (await admin().from('learning_first_attempts').select('item_ref, help_level, timing_uncertain, is_correct').eq('user_id', uid).in('item_ref', delivered.map((d) => `authored:${d.item.id}`))).data ?? []
   expect(firstsAfter.length).toBe(2)
@@ -385,6 +424,9 @@ for (const outcome of ['pass', 'fail'] as const) test(`양성 경로(${outcome})
     expect(resolved.evidence, '새 지문 독립 확인 2 정답 → 현재 정책 통과').toBe('passed_current_policy')
     expect(resolved.next, '해소 뒤 같은 TASK 를 다시 내밀지 않는다').not.toBe(withRecheck.next)
     expect(['repair', 'transfer'], '해소 → 바로잡기 · 적용 단계가 아니다').not.toContain(v6.task?.stage ?? null)
+    // T-0074 — 목표 계획 요약: 지금 정책 통과여도 시간 지나 다시 확인은 아직 근거 없음 + 다른 날 유지 미확인 안내
+    await expect(page.locator('[data-testid="goal-plan-evidence"][data-delay="NOT_ESTABLISHED"]').first()).toBeAttached()
+    await expect(page.locator('[data-testid="goal-plan-scope-note"]').first()).toBeAttached()
   } else {
     // 다시 틀림 = 새 바로잡기 회차. 회차 전의 안내 연습 정답은 이번 회차 성공이 아니다 → 단계 repair · 다음 행동은 다시 안내 연습
     expect(resolved.evidence, '다시 확인 실패 → 보완 필요 유지').toBe('need_confirmed')

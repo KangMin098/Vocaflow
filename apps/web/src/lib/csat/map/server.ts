@@ -12,6 +12,7 @@ import { randomUUID } from 'node:crypto'
 import { parseTaskId } from './payload'
 import { findGoalByKey, setGoal as setGoalStored } from './v4/plan-store'
 import { parseGoalInput, sameGoal, seoulToday, type GoalExam } from './v62/target-goal'
+import type { GoalBudget } from './v62/goal-budget'
 
 export class MapInputError extends Error {}
 /** 같은 요청키에 다른 목표 본문(LM-G1.3a) — 처음 저장을 덮지 않는다(409) */
@@ -21,7 +22,7 @@ export class GoalConflictError extends Error {}
  * 목표 저장 — 저장 구조(목표 이력)가 있으면 RPC 로 최신 값 + 이력 한 줄을 원자적으로(같은 clientKey 재전송은 같은 이력),
  * 없으면 기존처럼 최신 값만. 응답 mode 로 어느 쪽인지 알린다(이력이 없는데 「기록됨」처럼 보이지 않게).
  */
-export async function setGoal(db: SupabaseClient, userId: string, body: unknown, now: Date): Promise<{ goal: number; grade: number | null; exam: GoalExam | null; date: string | null; mode: 'versioned' | 'latest_only'; goalVersionId: number | null; reused: boolean }> {
+export async function setGoal(db: SupabaseClient, userId: string, body: unknown, now: Date): Promise<{ goal: number; grade: number | null; exam: GoalExam | null; date: string | null; budget?: GoalBudget | null; mode: 'versioned' | 'latest_only'; goalVersionId: number | null; reused: boolean }> {
   const today = seoulToday(now)
   // Validate shape first; an already committed exact replay remains valid after its date.
   const parsed = parseGoalInput(body, today, true)
@@ -35,7 +36,7 @@ export async function setGoal(db: SupabaseClient, userId: string, body: unknown,
     const prior = await findGoalByKey(db, userId, key)
     if (prior) {
       if (!sameGoal(g, prior)) throw new GoalConflictError('같은 요청 키로 다른 목표가 왔어요 — 화면을 새로 고쳐 주세요')
-      return { goal: prior.score, grade: prior.grade, exam: prior.exam, date: prior.date, mode: 'versioned', goalVersionId: prior.id, reused: true }
+      return { goal: prior.score, grade: prior.grade, exam: prior.exam, date: prior.date, ...(prior.budget ? { budget: prior.budget } : {}), mode: 'versioned', goalVersionId: prior.id, reused: true }
     }
   }
   const fresh = parseGoalInput(body, today)
@@ -47,7 +48,7 @@ export async function setGoal(db: SupabaseClient, userId: string, body: unknown,
     const committed = await findGoalByKey(db, userId, key)
     if (!committed || committed.id !== r.goalVersionId) throw new Error('목표 저장 결과를 확인하지 못했어요 — 같은 요청으로 다시 시도해 주세요')
     if (!sameGoal(g, committed)) throw new GoalConflictError('같은 요청 키로 다른 목표가 왔어요 — 화면을 새로 고쳐 주세요')
-    return { goal: committed.score, grade: committed.grade, exam: committed.exam, date: committed.date, ...r, reused: false }
+    return { goal: committed.score, grade: committed.grade, exam: committed.exam, date: committed.date, ...(committed.budget ? { budget: committed.budget } : {}), ...r, reused: false }
   }
   return { goal: g.score, grade: g.grade, exam: g.exam, date: g.date, ...r, reused: false }
 }

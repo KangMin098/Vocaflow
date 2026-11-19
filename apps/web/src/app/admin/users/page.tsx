@@ -33,20 +33,20 @@ export default async function AdminUsersPage() {
 
   const kpis: AdminKpi[] = [
     {
-      label: '총 사용자',
-      value: fmt(stats.learners.total),
+      label: '실사용 학습자',
+      value: fmt(stats.learners.verified),
       icon: Users,
       accent: 'var(--p)',
       bg: 'var(--p-light)',
-      hint: 'user_profiles 행 수 · 요청 시점 실측',
+      hint: `검증된 외부 계정만 · 전체 계정 ${fmt(stats.learners.total)}(내부·미분류 포함)`,
     },
     {
       label: '오늘 활성',
-      value: fmt(stats.learners.activeToday),
+      value: fmt(stats.learners.verifiedActiveToday),
       icon: TrendingUp,
       accent: 'var(--info)',
       bg: 'var(--info-light)',
-      hint: 'daily_activity 의 KST 오늘 행 수',
+      hint: `검증된 실사용 학습자만 · 전체 계정 오늘 ${fmt(stats.learners.activeToday)}`,
     },
     {
       label: 'Pro 구독',
@@ -76,7 +76,7 @@ export default async function AdminUsersPage() {
 
       <MockDataBanner
         className="mb-6"
-        what="가입자·오늘 활성 두 칸만 DB 실측이고, 구독·제재는 값이 아니라 — 입니다."
+        what="실사용 학습자·오늘 활성 두 칸만 DB 실측(검증된 외부 계정만)이고, 구독·제재는 값이 아니라 — 입니다."
         why="구독(subscriptions)·결제·제재 이력 테이블이 존재하지 않아 셀 대상이 없습니다. 계정별 조치(제재·플랜 변경·초대)도 아직 구현돼 있지 않습니다."
         instead={[
           { label: '파이프라인 실측 대시보드', href: '/admin' },

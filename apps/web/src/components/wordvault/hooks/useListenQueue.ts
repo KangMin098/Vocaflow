@@ -48,7 +48,9 @@ export function useListenQueue(settings: ListenSettings): UseListenQueueReturn {
         speak(w.word, {
           rate: r,
           onEnd: () => {
+            // 멈춤(stopQueue · 목록 내려감) 뒤에는 예문을 읽지 않는다 — cancel 이 낱말의 onEnd 를 부르므로 여기서 다시 확인한다.
             setTimeout(() => {
+              if (!playingRef.current) return
               speak(w.exampleEn, { rate: r * 0.95, onEnd: onComplete })
             }, 400)
           },

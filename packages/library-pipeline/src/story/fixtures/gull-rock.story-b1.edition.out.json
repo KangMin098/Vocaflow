@@ -1,0 +1,432 @@
+{
+  "schema": "lcp-story/edition@1",
+  "task_id": "gull-rock-r1:story-b1",
+  "binding": {
+    "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+    "source_identity_sha256": "0166607c7d9bcbc235c6c6793c633689df464d3e48eff9d317ece7a6f34fd29c",
+    "policy_sha256": "e183b2d037a6a58e1af5bf0155ba07cb2368d9f7610b1b9d886a24c6bd601787",
+    "target_sha256": "8f32737c4a392253b80a64cef4ac682d62410e9e0a2c716dbc94a59a5a988742"
+  },
+  "edition_key": "story-b1",
+  "kind": "story_edition",
+  "produced_by": {
+    "agent": "claude-code",
+    "session_id": "synthetic-fixture-producer",
+    "provenance": "synthetic_fixture"
+  },
+  "title": "The Keeper of Gull Rock",
+  "hook": {
+    "text": "Every evening, Mara counts the steps of the lighthouse: one hundred and nine. She knows that the ninth one is cracked.",
+    "source_anchors": [
+      {
+        "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+        "paragraph": 1,
+        "start": 351,
+        "end": 417,
+        "quote": "'One hundred and nine,' she would say, 'and the ninth is cracked.'"
+      }
+    ],
+    "spoiler_free": true
+  },
+  "units": [
+    {
+      "unit_id": "u1",
+      "order": 1,
+      "title": null,
+      "text": "On the windswept edge of Gull Rock stood a lighthouse. Old Tobias Wren lived there with his granddaughter, Mara, who was twelve years old.",
+      "source_anchors": [
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 0,
+          "start": 0,
+          "end": 172,
+          "quote": "Upon the bleak shoulder of Gull Rock there stood a lighthouse, and in the lighthouse dwelt old Tobias Wren and his granddaughter Mara, who was then but twelve years of age."
+        }
+      ],
+      "preserves": []
+    },
+    {
+      "unit_id": "u2",
+      "order": 2,
+      "title": null,
+      "text": "Every evening Tobias climbed the winding stairs to light the great lamp, and every evening Mara counted the steps out loud. She had decided to know the tower as well as he did. \"One hundred and nine,\" she would say, \"and the ninth one is cracked.\" Her grandfather laughed, but he did not forget it.",
+      "source_anchors": [
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 1,
+          "start": 174,
+          "end": 476,
+          "quote": "Each evening Tobias climbed the winding stair to kindle the great lamp, and each evening Mara counted the steps aloud, for she had resolved to know the tower as well as he did. 'One hundred and nine,' she would say, 'and the ninth is cracked.' Her grandfather laughed at this, but he did not forget it."
+        }
+      ],
+      "preserves": [
+        "mo-mara-knows-tower",
+        "fs-ninth-step",
+        "ca-crack-causes-fall"
+      ]
+    },
+    {
+      "unit_id": "u3",
+      "order": 3,
+      "title": null,
+      "text": "That autumn, a man from the harbor board rowed over to the rock. He looked at the lamp, and then he looked at Mara. \"A lighthouse is no place for a girl,\" he said. \"When the old man can't climb anymore, the board will send a proper keeper.\" Tobias said nothing, but his hand tightened on the rail.",
+      "source_anchors": [
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 2,
+          "start": 478,
+          "end": 788,
+          "quote": "In the autumn a gentleman from the harbour board came across in a rowing boat. He looked at the lamp, and he looked at Mara, and he said, 'A lighthouse is no place for a girl. When the old man can no longer climb, the board will send a proper keeper.' Tobias said nothing, but his hand tightened upon the rail."
+        }
+      ],
+      "preserves": [
+        "td-proper-keeper-irony"
+      ]
+    },
+    {
+      "unit_id": "u4",
+      "order": 4,
+      "title": null,
+      "text": "Less than two weeks later, a storm blew in from the west. Waves crashed against the rock, and the rain came sideways like gray nails. On the ninth step, Tobias's foot slipped on the cracked stone. He fell and could not get up.",
+      "source_anchors": [
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 3,
+          "start": 790,
+          "end": 1034,
+          "quote": "Not a fortnight later a gale rose out of the west. The sea flung itself against the rock, and the rain came sideways, like grey nails. Upon the ninth step Tobias's foot slipped where the stone was cracked, and he fell, and could not rise again."
+        }
+      ],
+      "preserves": [
+        "ev-gale-fall",
+        "ca-crack-causes-fall"
+      ]
+    },
+    {
+      "unit_id": "u5",
+      "order": 5,
+      "title": null,
+      "text": "\"The lamp,\" he whispered. \"The ships off the point will be looking for it.\" Mara knew that a brig, a two-masted sailing ship, had been seen at sunset, fighting its way against the wind. If the light went out, the ship would hit the reef that the sailors called the Teeth.",
+      "source_anchors": [
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 4,
+          "start": 1036,
+          "end": 1271,
+          "quote": "'The lamp,' he whispered. 'The ships off the point will be looking for it.' Mara knew that a brig had been sighted at sunset, beating up against the wind. If the light failed, it would strike the reef that the sailors called the Teeth."
+        }
+      ],
+      "preserves": [
+        "mo-mara-saves-brig"
+      ]
+    },
+    {
+      "unit_id": "u6",
+      "order": 6,
+      "title": null,
+      "text": "She didn't stop to be afraid. She counted the steps as she climbed, stepping over the ninth, and at the top she trimmed the wick with hands that shook only a little. The lamp caught, and its beam swept out across the black water.",
+      "source_anchors": [
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 5,
+          "start": 1273,
+          "end": 1506,
+          "quote": "She did not stop to be afraid. She counted the steps as she climbed, stepping wide of the ninth, and at the top she trimmed the wick with hands that shook only a little. The lamp caught, and its beam swung out across the black water."
+        }
+      ],
+      "preserves": [
+        "ev-mara-lights-lamp"
+      ]
+    },
+    {
+      "unit_id": "u7",
+      "order": 7,
+      "title": null,
+      "text": "Below the point, the brig turned as neatly as a dancer and slipped past the Teeth into the safety of the bay.",
+      "source_anchors": [
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 6,
+          "start": 1508,
+          "end": 1623,
+          "quote": "Below the point the brig came about, as neatly as a dancer, and slipped past the Teeth into the shelter of the bay."
+        }
+      ],
+      "preserves": [
+        "ev-brig-saved"
+      ]
+    },
+    {
+      "unit_id": "u8",
+      "order": 8,
+      "title": null,
+      "text": "The next morning, the man from the harbor board came back, because the brig's captain had gone straight to him. He climbed the stairs, counting nothing, and found Mara asleep beside the cold lamp. He stood there for a long time. Then he went back down and wrote a letter. The letter said that Gull Rock already had a proper keeper.",
+      "source_anchors": [
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 7,
+          "start": 1625,
+          "end": 1955,
+          "quote": "In the morning the gentleman from the harbour board returned, for the captain of the brig had gone straight to him. He climbed the stair, counting nothing, and found Mara asleep beside the cold lamp. He stood a long while. Then he went down again and wrote a letter, and the letter said that Gull Rock already had a proper keeper."
+        }
+      ],
+      "preserves": [
+        "td-proper-keeper-irony",
+        "td-counting-nothing"
+      ]
+    }
+  ],
+  "change_log": [
+    {
+      "change_id": "c-archaic-wording",
+      "type": "language_modernization",
+      "operation": "rewrite",
+      "unit_ids": [
+        "u1",
+        "u2",
+        "u6"
+      ],
+      "source_anchors": [
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 0,
+          "start": 0,
+          "end": 61,
+          "quote": "Upon the bleak shoulder of Gull Rock there stood a lighthouse"
+        },
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 0,
+          "start": 135,
+          "end": 171,
+          "quote": "who was then but twelve years of age"
+        },
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 5,
+          "start": 1342,
+          "end": 1368,
+          "quote": "stepping wide of the ninth"
+        }
+      ],
+      "sensitive_ref": null,
+      "rationale": "고어 어순 · 표현(Upon … there stood · but twelve years of age · stepping wide of)을 현대 영어로 바꿨다. 사건은 그대로다.",
+      "learner_note": null
+    },
+    {
+      "change_id": "c-british-forms",
+      "type": "language_modernization",
+      "operation": "rewrite",
+      "unit_ids": [
+        "u3",
+        "u4",
+        "u8"
+      ],
+      "source_anchors": [
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 2,
+          "start": 492,
+          "end": 526,
+          "quote": "a gentleman from the harbour board"
+        },
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 3,
+          "start": 790,
+          "end": 811,
+          "quote": "Not a fortnight later"
+        },
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 7,
+          "start": 1640,
+          "end": 1685,
+          "quote": "the gentleman from the harbour board returned"
+        }
+      ],
+      "sensitive_ref": null,
+      "rationale": "harbour · fortnight 를 harbor · two weeks 로 바꿨다.",
+      "learner_note": null
+    },
+    {
+      "change_id": "c-brig-gloss",
+      "type": "editorial_note",
+      "operation": "gloss",
+      "unit_ids": [
+        "u5"
+      ],
+      "source_anchors": [
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 4,
+          "start": 1127,
+          "end": 1160,
+          "quote": "a brig had been sighted at sunset"
+        }
+      ],
+      "sensitive_ref": null,
+      "rationale": "brig 에 짧은 풀이(a two-masted sailing ship)를 본문에 넣었다.",
+      "learner_note": "brig: 돛대가 둘인 범선"
+    },
+    {
+      "change_id": "c-girl-context",
+      "type": "editorial_note",
+      "operation": "context_note",
+      "unit_ids": [
+        "u3"
+      ],
+      "source_anchors": [
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 2,
+          "start": 616,
+          "end": 653,
+          "quote": "'A lighthouse is no place for a girl."
+        }
+      ],
+      "sensitive_ref": "se-no-place-for-a-girl",
+      "rationale": "갈등의 출발점이라 문장을 그대로 두고 맥락 설명을 붙인다.",
+      "learner_note": "이 말은 당시의 성차별적 고정관념을 보여 준다. 이야기는 마라의 행동으로 이 생각을 뒤집는다."
+    }
+  ],
+  "activities": [
+    {
+      "activity_id": "dr-why-fall",
+      "kind": "deep_reading",
+      "after_unit_id": "u4",
+      "prompt": "토비아스가 넘어진 이유를 앞 장면에서 찾아 근거를 고르세요.",
+      "task": {
+        "interaction": "choose_evidence",
+        "claim": "Tobias fell because of something Mara had noticed earlier.",
+        "options": [
+          {
+            "option_id": "o1",
+            "unit_id": "u2",
+            "start": 217,
+            "end": 245,
+            "quote": "and the ninth one is cracked"
+          },
+          {
+            "option_id": "o2",
+            "unit_id": "u4",
+            "start": 94,
+            "end": 132,
+            "quote": "the rain came sideways like gray nails"
+          },
+          {
+            "option_id": "o3",
+            "unit_id": "u3",
+            "start": 266,
+            "end": 296,
+            "quote": "his hand tightened on the rail"
+          }
+        ],
+        "answer": {
+          "basis": "factual",
+          "correct": [
+            "o1"
+          ]
+        }
+      }
+    },
+    {
+      "activity_id": "dr-order",
+      "kind": "deep_reading",
+      "after_unit_id": "u7",
+      "prompt": "일이 일어난 순서대로 놓아 보세요.",
+      "task": {
+        "interaction": "order_events",
+        "items": [
+          {
+            "item_id": "i-lamp",
+            "label": "Mara lights the lamp.",
+            "unit_id": "u6"
+          },
+          {
+            "item_id": "i-fall",
+            "label": "Tobias falls on the ninth step.",
+            "unit_id": "u4"
+          },
+          {
+            "item_id": "i-brig",
+            "label": "The brig slips past the Teeth.",
+            "unit_id": "u7"
+          }
+        ],
+        "answer": {
+          "basis": "factual",
+          "order": [
+            "i-fall",
+            "i-lamp",
+            "i-brig"
+          ]
+        }
+      }
+    },
+    {
+      "activity_id": "dr-letter",
+      "kind": "deep_reading",
+      "after_unit_id": "u8",
+      "prompt": "남자가 「이미 제대로 된 등대지기가 있다」고 쓴 까닭을 뒷받침하는 근거를 고르세요. 답은 하나가 아닐 수 있어요.",
+      "task": {
+        "interaction": "choose_evidence",
+        "claim": "The man changed his mind about who should keep the light.",
+        "options": [
+          {
+            "option_id": "o1",
+            "unit_id": "u8",
+            "start": 157,
+            "end": 195,
+            "quote": "found Mara asleep beside the cold lamp"
+          },
+          {
+            "option_id": "o2",
+            "unit_id": "u7",
+            "start": 17,
+            "end": 54,
+            "quote": "the brig turned as neatly as a dancer"
+          },
+          {
+            "option_id": "o3",
+            "unit_id": "u3",
+            "start": 117,
+            "end": 152,
+            "quote": "A lighthouse is no place for a girl"
+          }
+        ],
+        "answer": {
+          "basis": "interpretive",
+          "defensible": [
+            "o1",
+            "o2"
+          ],
+          "note": "두 근거 모두 해석으로 받아들일 수 있다. 채점하지 않고 근거 연결만 보여 준다."
+        }
+      }
+    },
+    {
+      "activity_id": "ob-proper-keeper",
+      "kind": "original_bridge",
+      "unit_id": "u8",
+      "edition_span": {
+        "unit_id": "u8",
+        "start": 293,
+        "end": 330,
+        "quote": "Gull Rock already had a proper keeper"
+      },
+      "source_anchors": [
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 7,
+          "start": 1917,
+          "end": 1954,
+          "quote": "Gull Rock already had a proper keeper"
+        }
+      ],
+      "focus": "tone",
+      "prompt": "「a proper keeper」가 2문단과 마지막 문장에서 어떻게 다르게 읽히는지 원문과 함께 비교해 보세요."
+    }
+  ],
+  "assets": []
+}

@@ -9,6 +9,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@vocaflow/types'
 
 import { ResourceContext } from '@/components/layout/ResourceContext'
+import { GameViewerGate } from '@/components/game/GameViewerGate'
 import { SpellForge } from '@/components/spellforge/SpellForge'
 import { contentRefFromScope } from '@/lib/content/content-ref'
 import { resolveSessionReturnHref } from '@/lib/layout/session-return'
@@ -51,8 +52,9 @@ export default async function SpellForgePlayPage({ searchParams }: PageProps) {
     })
     if (scoped && scoped.words.length > 0) {
       const words = applyLimit(scoped.words)
+      // 자료 제목(본인 글 제목일 수 있다) · 단어 · 입력은 서버가 단어를 읽은 사람의 것 — 같은 사람일 때만(GameViewerGate)
       return (
-        <>
+        <GameViewerGate viewerId={user?.id ?? null}>
           <ResourceContext
             resource={{
               type: set ? 'vocab' : 'script',
@@ -68,8 +70,9 @@ export default async function SpellForgePlayPage({ searchParams }: PageProps) {
             words={words}
             backHref={backHref}
             content={contentRefFromScope({ set, text, chapter })}
+            viewerId={user?.id ?? null}
           />
-        </>
+        </GameViewerGate>
       )
     }
     return <HubEmpty reason="empty" />
@@ -83,7 +86,7 @@ export default async function SpellForgePlayPage({ searchParams }: PageProps) {
   const words = applyLimit(all)
 
   return (
-    <>
+    <GameViewerGate viewerId={user.id}>
       <ResourceContext
         resource={{
           type: 'vocab',
@@ -100,8 +103,9 @@ export default async function SpellForgePlayPage({ searchParams }: PageProps) {
         words={words}
         backHref={backHref}
         content={{ type: 'mine' }}
+        viewerId={user.id}
       />
-    </>
+    </GameViewerGate>
   )
 }
 

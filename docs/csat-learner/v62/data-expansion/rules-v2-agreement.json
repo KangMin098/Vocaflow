@@ -1,0 +1,102 @@
+{
+ "batch": "rules-v2",
+ "input_sha256": "8107ac4cdd71165ec0ac90ef556f4211be1271cd64a78a9f7ec863ea45bc85db",
+ "items": 40,
+ "items_missing": 0,
+ "pairs": 360,
+ "agreement": 0.8611,
+ "kappa": 0.8051,
+ "source_defect_items": [],
+ "per_task": {
+  "e.evidence_location": {
+   "n": 40,
+   "direct_binary_kappa": 0.4217,
+   "agreement": 0.625,
+   "kappa": 0.3392,
+   "direct": 15,
+   "indirect": 9,
+   "unknown": 1,
+   "disputed": 15
+  },
+  "r.relation": {
+   "n": 40,
+   "direct_binary_kappa": 1,
+   "agreement": 0.85,
+   "kappa": 0.7692,
+   "disputed": 6,
+   "indirect": 15,
+   "not_applicable": 9,
+   "direct": 10
+  },
+  "v.core_meaning": {
+   "n": 40,
+   "direct_binary_kappa": 1,
+   "agreement": 0.8,
+   "kappa": 0.602,
+   "not_applicable": 21,
+   "disputed": 8,
+   "indirect": 9,
+   "direct": 2
+  },
+  "v.semantic_relation": {
+   "n": 40,
+   "direct_binary_kappa": 0.5,
+   "agreement": 0.625,
+   "kappa": 0.4158,
+   "disputed": 15,
+   "direct": 13,
+   "indirect": 8,
+   "not_applicable": 4
+  },
+  "r.discourse_structure": {
+   "n": 40,
+   "direct_binary_kappa": 1,
+   "agreement": 0.975,
+   "kappa": 0.9584,
+   "indirect": 16,
+   "disputed": 1,
+   "not_applicable": 18,
+   "direct": 5
+  },
+  "e.task_demand": {
+   "n": 40,
+   "direct_binary_kappa": 0.7778,
+   "agreement": 0.925,
+   "kappa": 0.7778,
+   "unknown": 30,
+   "direct": 7,
+   "disputed": 3
+  },
+  "r.o.global_meaning_model": {
+   "n": 40,
+   "direct_binary_kappa": null,
+   "agreement": 0.95,
+   "kappa": 0.7241,
+   "unknown": 35,
+   "indirect": 3,
+   "disputed": 2
+  },
+  "s.o.sentence_meaning_model": {
+   "n": 40,
+   "direct_binary_kappa": null,
+   "agreement": 1,
+   "kappa": null,
+   "unknown": 40
+  },
+  "e.o.final_judgment": {
+   "n": 40,
+   "direct_binary_kappa": null,
+   "agreement": 1,
+   "kappa": null,
+   "unknown": 40
+  }
+ },
+ "review_T0089": {
+  "sampled": 0,
+  "note": "R1 direct 표본 30 중 관련성 confirmed 29 · unclear 1(후보 내림). 계약 위반(인접 TASK 오정의 · 유형 지름길)은 관련성 값이 아니라 설명 문장의 결함 — 이 배치의 task_distinction 은 근거로 쓰지 않는다(청크에 인접 정의가 없었다)."
+ },
+ "task_distinction_reliable": true,
+ "human_review": 0,
+ "student_measurement": 0,
+ "note": "두 AI 판정의 일치는 사람 검수 · 학생 성취가 아니다. relevance 는 전부 unknown — 일치한 direct·indirect 만 candidateRelevance(R1)."
+}

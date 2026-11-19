@@ -12,9 +12,11 @@
 // 아무 계단이나 펼칠 수 있어야 하므로 경로가 다르다. 채점은 같은 `grade_dcp_item` 을 쓴다 —
 // 정답 판정을 두 곳에 두지 않는다.
 //
-// ⚠️ **화면이 그릴 수 있는 유형만 나온다**(순서·삽입). 생성형 9유형(요지·주제·빈칸 …)은
-//   `DcpPlayer` 가 아직 못 그리므로 RPC 가 아예 빼고 준다. 섞으면 빈 화면이 되는데,
-//   그건 이 저장소가 이미 한 번 겪은 사고다(처방에 교재용 유형이 섞여 42.5% 가 샜다).
+// ⚠️ **화면이 그릴 수 있는 유형만 나온다** — 순서 · 삽입 + 5지선다 계열(`PLAYABLE_DCP_TYPES`, parseItem 이 거른다).
+//   교재(인쇄물) 전용 유형이 섞이면 빈 화면이 된다 — 이 저장소가 이미 한 번 겪은 사고다(처방에 42.5% 가 샜다).
+//
+// ⚠️ **문항을 고른 경로를 학습 전에 알린다**(TextbookPracticeScope). 권 단위 함수가 없으면 V레벨 공통 풀이고,
+//   있더라도 수준 · 유형 기준일 뿐 인쇄본 수록 문항 목록과의 결속이 아니다 — 「교재 수록 문제」라고 말하지 않는다.
 
 import type { Metadata } from 'next'
 import Link from 'next/link'
@@ -22,7 +24,7 @@ import { notFound } from 'next/navigation'
 import { ArrowLeft, LogIn } from 'lucide-react'
 
 
-import { DcpPlayer } from '@/components/practice/DcpPlayer'
+import { TextbookPracticeBridge } from '@/components/practice/TextbookPracticeBridge'
 import { RETURN_PARAM } from '@/lib/auth/redirect'
 import { Screen } from '@/components/ui/ios'
 import { fetchTextbookPracticeItems } from '@/lib/learner/dcp-actions'
@@ -52,7 +54,7 @@ export async function generateMetadata({
   const rung = rungOf(series, Number(step))
   // 권마다 다른 제목을 준다 — 같은 제목이 여럿이면 탭·북마크·공유 카드에서 구별되지 않는다.
   return rung
-    ? { title: `${rung.volumeTitle} 연습 · Vocaflow`, description: `${rung.schoolBand} 계단의 순서·삽입 문항을 풀어요` }
+    ? { title: `${rung.volumeTitle} 연습 · Vocaflow`, description: `${rung.schoolBand} 계단 수준의 연습 문항을 풀어요` }
     : { title: '교재 연습' }
 }
 
@@ -70,7 +72,7 @@ export default async function TextbookPracticePage({
 
   // 한 계단이 여러 V-Level 을 덮을 수 있다 — 첫 밴드를 쓴다(권의 대표 난이도).
   const vLevel = rung.vLevels[0] ?? 0
-  const { items, unavailable, signedOut } = await fetchTextbookPracticeItems({ series, step, vLevel }, ITEM_LIMIT)
+  const { items, unavailable, signedOut, scope, ownerId } = await fetchTextbookPracticeItems({ series, step, vLevel }, ITEM_LIMIT)
 
   // 로그인 뒤 **여기로 돌아온다.** 복귀 경로가 없으면 로그인하고 나서 다시 길을 찾아야 하고,
   // 그 지점에서 사람이 빠져나간다(`library/scripts` 가 이미 쓰는 규약을 그대로 따른다).
@@ -89,12 +91,21 @@ export default async function TextbookPracticePage({
           </Link>
           <h1 className="font-editorial text-[20px] font-[800] text-[var(--t1)]">연습</h1>
           <p className="font-body text-[13px] text-[var(--t2)]">
-            {rung.schoolBand} 계단의 순서·삽입 문항이에요. 푼 기록은 다음 문항을 고르는 데 쓰여요.
+            {rung.schoolBand} 계단의 연습 문항이에요. 푼 기록은 다음 문항을 고르는 데 쓰여요.
           </p>
         </header>
 
-        {items.length > 0 ? (
-          <DcpPlayer items={items} />
+        {items.length > 0 && ownerId ? (
+          // 마치면 이 교재(권)로 돌아온다 — 기본값 /hub 로 보내면 방금 고른 교재 맥락을 잃었다(복습 · 다음 선택은 교재 화면에서)
+          // 계정 경계(TextbookPracticeBridge)가 같은 계정을 확인한 동안에만 문항 · 이미 본 해설 다시 보기를 그린다
+          <TextbookPracticeBridge
+            items={items}
+            scope={scope}
+            ownerId={ownerId}
+            backHref={`/library/textbooks/${series}/${step}`}
+            backCta="이 교재로 돌아가기"
+            reopenHref={`/library/textbooks/${series}/${step}/practice`}
+          />
         ) : (
           <section
             aria-label={
@@ -120,7 +131,7 @@ export default async function TextbookPracticePage({
                 ? '채점과 기록이 계정에 쌓이기 때문에 로그인이 필요해요. 로그인하면 이 화면으로 돌아옵니다.'
                 : unavailable
                   ? '잠시 문제가 있었어요. 잠시 뒤 다시 열어 볼까요?'
-                  : '이 계단은 아직 순서·삽입 문항이 준비되지 않았어요. 다른 계단을 펼쳐 볼까요?'}
+                  : '이 계단에는 아직 풀 수 있는 연습 문항이 준비되지 않았어요. 다른 계단을 펼쳐 볼까요?'}
             </p>
             <div className="flex flex-wrap items-center justify-center gap-2">
               {signedOut && (

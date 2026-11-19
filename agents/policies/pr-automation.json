@@ -4,6 +4,8 @@
   "version": "1.2",
   "adopted": "2026-10-20",
   "mode": "AUTO_CONTINUE",
+  "development_policy_source": "D:/workspace/Vocaflow-AI-Control/config/dev-mode.json#development_policy",
+  "required_checks_scope": "원격 GITHUB PR 병합에 적용한다. LOCAL_FAST 일반 개발은 중앙 development_policy의 L1~L4 영향 범위 검증과 TASK 없는 로컬 통합을 사용한다.",
   "approval_required": {
     "db_change": "DB 구조(테이블 · 컬럼 · 제약 · 인덱스) · 마이그레이션 적용 · RPC · 함수 · 트리거 · RLS · 권한 · 데이터 의미를 바꾸는 대량 변환",
     "data_deletion": "기존 사용자 · 시험 · 학습 · 콘텐츠 데이터 삭제 · DROP · TRUNCATE · 대량 DELETE · 기록을 잃는 초기화 · 재적재 · 덮어쓰기",
@@ -74,5 +76,5 @@
     "승인되지 않은 데이터 삭제",
     "수정 불가능한 외부 장애"
   ],
-  "ai_review": "사람 검수자가 필요한 일반 교육 · 개발 업무는 Claude Code · Codex · ChatGPT 에 역할 배정(독립 판정 · 반증 · 이견 조정 · 근거). 실제 사람의 수행 데이터 · 법적 동의를 AI 가 대신 만들거나 충족했다고 주장하지 않는다."
+  "ai_review": "단일 AI가 기획부터 구현·검증·로컬 통합까지 수행한다. 추가 AI 검토·인수인계는 실제 필요하거나 명시적 독립 검토 계약이 있을 때만 기존 기능으로 실행하며 커밋·작업 완료마다 자동 호출하지 않는다. 실제 사람의 수행 데이터·법적 동의를 대신 만들거나 충족했다고 주장하지 않는다."
 }

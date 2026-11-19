@@ -148,6 +148,7 @@ export default async function PdComicReaderPage({ params }: { params: { slug: st
             publishedYear: info?.publishedYear ?? null,
             sourceArchive: info?.sourceArchive ?? null,
             sourceUrl: info?.sourceUrl ?? null,
+            pdBasis: info?.pdBasis ?? null,
           }),
         }}
       />

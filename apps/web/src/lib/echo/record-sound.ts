@@ -61,7 +61,8 @@ export async function loadSoundLemmas(textId: string): Promise<SoundLemma[]> {
  */
 export async function recordEchoSound(
   records: SoundRecord[],
-  context: { sentenceId: string; overall: number },
+  /** expectedUserId — 이 발화를 한 사람. 주면 지금 로그인 사용자와 같을 때만 쓴다(늦게 바뀐 계정에 붙이지 않는다). */
+  context: { sentenceId: string; overall: number; expectedUserId?: string | null },
 ): Promise<{ ok: boolean; written: number; reason?: string }> {
   if (records.length === 0) return { ok: true, written: 0 }
 
@@ -69,6 +70,9 @@ export async function recordEchoSound(
   const { data: userData } = await supabase.auth.getUser()
   const userId = userData.user?.id
   if (!userId) return { ok: false, written: 0, reason: 'unauthenticated' }
+  if (context.expectedUserId !== undefined && context.expectedUserId !== userId) {
+    return { ok: false, written: 0, reason: 'owner-mismatch' }
+  }
 
   const rows = records.map((r) => ({
     user_id: userId,

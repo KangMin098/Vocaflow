@@ -22,6 +22,7 @@ import {
   SkipForward,
   X,
 } from 'lucide-react'
+import Link from 'next/link'
 import { useMemo } from 'react'
 
 import { normalizeWord } from '@/lib/workspace/shadow-match'
@@ -34,6 +35,8 @@ interface ShadowReadAlongProps {
   controls: ShadowControls
   /** "본문으로" / "종료" 시 호출 — 페이지가 mode 를 read 로 전환 */
   onExit: () => void
+  /** 같은 글의 EchoMatch(녹음 억양 비교) 주소 — 있을 때만 시작 전 · 완료 화면에 명시적 선택지를 둔다. 없으면 링크 없음 */
+  echoHref?: string
 }
 
 const RATES: { value: number; label: string }[] = [
@@ -41,7 +44,7 @@ const RATES: { value: number; label: string }[] = [
   { value: 1, label: '1.0×' },
 ]
 
-export function ShadowReadAlong({ sentences, state, controls, onExit }: ShadowReadAlongProps) {
+export function ShadowReadAlong({ sentences, state, controls, onExit, echoHref }: ShadowReadAlongProps) {
   const { running, paused, phase, index, total, sentenceIdx, transcript, matchedKeys, tone } = state
 
   const currentText = useMemo(() => {
@@ -69,10 +72,10 @@ export function ShadowReadAlong({ sentences, state, controls, onExit }: ShadowRe
           </span>
           <div>
             <p className="font-display text-[15px] font-[700] text-[var(--t1)]">
-              {total}개 문장을 모두 따라 읽었어요
+              {total}개 문장 따라읽기 연습이 끝났어요
             </p>
             <p className="mt-1 font-body text-[12.5px] italic text-[var(--t2)]">
-              소리 내어 읽은 만큼 더 또렷하게 남아요 · 잠깐 쉬어도 좋아요
+              다시 연습하거나, 내 녹음으로 억양을 비교해 볼 수 있어요
             </p>
           </div>
           <div className="mt-1 flex items-center gap-2">
@@ -90,6 +93,15 @@ export function ShadowReadAlong({ sentences, state, controls, onExit }: ShadowRe
             >
               본문으로
             </button>
+            {echoHref && (
+              <Link
+                href={echoHref}
+                data-testid="shadow-echo-link"
+                className="inline-flex h-11 items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] px-4 font-display text-[13px] font-[700] text-[var(--t1)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--bg2)] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+              >
+                <AudioLines size={15} aria-hidden /> 내 녹음과 억양 비교
+              </Link>
+            )}
           </div>
         </div>
       </PanelShell>
@@ -117,6 +129,15 @@ export function ShadowReadAlong({ sentences, state, controls, onExit }: ShadowRe
           >
             <Play size={17} fill="currentColor" aria-hidden /> 시작하기
           </button>
+          {echoHref && (
+            <Link
+              href={echoHref}
+              data-testid="shadow-echo-link"
+              className="inline-flex h-11 items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] px-4 font-display text-[13px] font-[700] text-[var(--t1)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--bg2)] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            >
+              <AudioLines size={15} aria-hidden /> 내 녹음과 억양 비교
+            </Link>
+          )}
           <p className="flex items-center gap-2 font-body text-[11px] text-[var(--t2)]">
             {state.recognitionSupported ? (
               <>
@@ -237,7 +258,7 @@ export function ShadowReadAlong({ sentences, state, controls, onExit }: ShadowRe
               type="button"
               onClick={() => controls.setRate(r.value)}
               aria-pressed={state.rate === r.value}
-              className={`h-7 rounded-[var(--r-full)] px-3 font-mono text-[11px] font-[600] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+              className={`h-11 rounded-[var(--r-full)] px-3 font-mono text-[11px] font-[600] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                 state.rate === r.value
                   ? 'bg-[var(--p)] text-white'
                   : 'text-[var(--t2)] hover:bg-[var(--bg2)]'

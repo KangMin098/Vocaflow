@@ -1,0 +1,15 @@
+{
+  "type": "review",
+  "command_or_protocol": "T-0089 run 6 remediation recheck at 00fa43d3b (a73a408bd): task show/status read; batch-run static review and node --check; 2724-link full scan, 60 review_T0089 bindings; DL-0199 scope assessment; recheck.json contains hashes and limitations. AC2/AC3/AC4 resolved.",
+  "result": "pass",
+  "skip_count": 0,
+  "artifact_path_or_url": "D:/workspace/Vocaflow-map-data-review/docs/csat-learner/v62/data-expansion/review/recheck.json",
+  "observed_at": "2026-10-23T13:05:39.658+09:00",
+  "covers": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "source": "csat_items+csat_item_units (published analysis units_version)",
+  "items": [
+    {
+      "id": "H2609G2#19",
+      "examId": "H2609G2",
+      "no": 19,
+      "typeId": "R-MOOD",
+      "stem": "다음 글에 드러난 ‘I’의 심경 변화로 가장 적절한 것은?",
+      "choices": [
+        "disappointed → delighted",
+        "nervous → indifferent",
+        "confident → confused",
+        "bored → thrilled",
+        "proud → embarrassed"
+      ],
+      "units": [
+        {
+          "id": "u1",
+          "n": 1,
+          "kind": "sentence",
+          "text": "I ran into the music room, breathing heavily."
+        },
+        {
+          "id": "u2",
+          "n": 2,
+          "kind": "sentence",
+          "text": "The rest of the band were sitting with long faces."
+        },
+        {
+          "id": "u3",
+          "n": 3,
+          "kind": "sentence",
+          "text": "Immy looked up at me and shook her head."
+        },
+        {
+          "id": "u4",
+          "n": 4,
+          "kind": "sentence",
+          "text": "I sank into a chair."
+        },
+        {
+          "id": "u5",
+          "n": 5,
+          "kind": "sentence",
+          "text": "I had truly believed we would make it; our audition had been flawless."
+        },
+        {
+          "id": "u6",
+          "n": 6,
+          "kind": "sentence",
+          "text": "My chest felt heavy as I asked, “So, who won?”"
+        },
+        {
+          "id": "u7",
+          "n": 7,
+          "kind": "sentence",
+          "text": "I was holding back my tears."
+        },
+        {
+          "id": "u8",
+          "n": 8,
+          "kind": "sentence",
+          "text": "“A band called A Happy Accident. They were quite good,” she said calmly."
+        },
+        {
+          "id": "u9",
+          "n": 9,
+          "kind": "sentence",
+          "text": "A moment later, a big smile spread across Immy’s face, and the others began to cheer."
+        },
+        {
+          "id": "u10",
+          "n": 10,
+          "kind": "sentence",
+          "text": "“Wait, what? That’s us!”"
+        },
+        {
+          "id": "u11",
+          "n": 11,
+          "kind": "sentence",
+          "text": "I said."
+        },
+        {
+          "id": "u12",
+          "n": 12,
+          "kind": "sentence",
+          "text": "Immy laughed and said, “Since you were late, we decided to play a joke on you! We made it!”"
+        },
+        {
+          "id": "u13",
+          "n": 13,
+          "kind": "sentence",
+          "text": "I was filled with joy."
+        },
+        {
+          "id": "u14",
+          "n": 14,
+          "kind": "sentence",
+          "text": "We jumped up and hugged each other."
+        },
+        {
+          "id": "u15",
+          "n": 15,
+          "kind": "sentence",
+          "text": "My heart was racing with excitement."
+        }
+      ],
+      "version": {
+        "unitsVersion": 1,
+        "unitsHash": "fc18dbf6eb855439b6b0e6cc7bdce6b484ebb25058f343ce17ffc6bd2ca6d8b3",
+        "analysisVersion": 1
+      }
+    },
+    {
+      "id": "H2609G1#19",
+      "examId": "H2609G1",
+      "no": 19,
+      "typeId": "R-MOOD",
+      "stem": "다음 글에 드러난 Maggie의 심경 변화로 가장 적절한 것은?",
+      "choices": [
+        "nervous → relieved",
+        "anxious → horrified",
+        "worried → furious",
+        "jealous → confident",
+        "thrilled → upset"
+      ],
+      "units": [
+        {
+          "id": "u1",
+          "n": 1,
+          "kind": "sentence",
+          "text": "Maggie stood up, her hands gripping the seat in front of her."
+        },
+        {
+          "id": "u2",
+          "n": 2,
+          "kind": "sentence",
+          "text": "She had never sung alone before, and as she opened her mouth to begin, her voice started shaking."
+        },
+        {
+          "id": "u3",
+          "n": 3,
+          "kind": "sentence",
+          "text": "A few children turned around to look at her, and her heart began to race."
+        },
+        {
+          "id": "u4",
+          "n": 4,
+          "kind": "sentence",
+          "text": "She focused hard on the lyrics, trying not to forget the words."
+        },
+        {
+          "id": "u5",
+          "n": 5,
+          "kind": "sentence",
+          "text": "Then she noticed movement beside her."
+        },
+        {
+          "id": "u6",
+          "n": 6,
+          "kind": "sentence",
+          "text": "Durwood quietly stood up and began to sing along."
+        },
+        {
+          "id": "u7",
+          "n": 7,
+          "kind": "sentence",
+          "text": "His voice was steady and calm, carrying the song forward."
+        },
+        {
+          "id": "u8",
+          "n": 8,
+          "kind": "sentence",
+          "text": "Maggie let out a breath she hadn’t realized she was holding."
+        },
+        {
+          "id": "u9",
+          "n": 9,
+          "kind": "sentence",
+          "text": "The tightness in her shoulders slowly faded."
+        },
+        {
+          "id": "u10",
+          "n": 10,
+          "kind": "sentence",
+          "text": "With Durwood singing beside her, the tension in her chest eased."
+        },
+        {
+          "id": "u11",
+          "n": 11,
+          "kind": "sentence",
+          "text": "She continued the song, no longer frozen, and they finished it together."
+        }
+      ],
+      "version": {
+        "unitsVersion": 1,
+        "unitsHash": "21689a69a3edac291cae980ca04bf24631c8a802731873d1f954ecd56670e83a",
+        "analysisVersion": 2
+      }
+    }
+  ]
+}

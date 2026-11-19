@@ -37,7 +37,8 @@ describe('supplyOutcome', () => {
   })
   it('서버가 확인한 거절 이유만 · 모르는 코드는 확인 불가 · 빈 재고를 권리 · Gold 로 추정하지 않는다', () => {
     expect(text({ lines: [line({ rejected: [{ ref: 'x', reason: 'exposure' }] })] })).toContain('이미 본 자료')
-    expect(text({ lines: [line({ rejected: [{ ref: 'x', reason: 'human_decision' }] })] })).toContain('사람 검수 결정')
+    // Historical wire code; the shipped label describes the rights/answer review decision.
+    expect(text({ lines: [line({ rejected: [{ ref: 'x', reason: 'human_decision' }] })] })).toContain('권리·정답 검수 결정')
     expect(text({ lines: [line({ rejected: [{ ref: 'x', reason: 'weird' }] })] })).toContain('이유를 확인하지 못했어요')
     const empty = text({ lines: [line({})] })
     expect(empty).not.toMatch(/권리|정답|Gold/)

@@ -164,7 +164,7 @@ export function BookDetailClient({
 
         {/* Tier 1.5 · 챕터별 grid (펼침 시) */}
         {primaryExpanded && (
-          <div className="border-t border-[var(--bd)] bg-[var(--bg2)]/40 p-4">
+          <div className="border-t border-[var(--bd)] bg-[color-mix(in_srgb,var(--bg2)_40%,transparent)] p-4">
             <p className="mb-3 font-body text-[11px] text-[var(--t2)]">
               챕터를 클릭하면 단어 미리보기 + 내 단어장에 추가할 수 있어요
             </p>
@@ -194,7 +194,7 @@ export function BookDetailClient({
                     key={set.id}
                     type="button"
                     onClick={() => setPreviewSet(set)}
-                    className={`group relative flex flex-col items-start gap-1 rounded-[var(--r-md)] border p-3 text-left shadow-[var(--sh-sm)] transition-all hover:-translate-y-0.5 hover:border-[#D97706] hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706] ${subscribed ? 'border-[var(--success)]/40 bg-[var(--success-light)]/40' : 'border-[var(--bd)] bg-[var(--bg)]'}`}
+                    className={`group relative flex flex-col items-start gap-1 rounded-[var(--r-md)] border p-3 text-left shadow-[var(--sh-sm)] transition-all hover:-translate-y-0.5 hover:border-[#D97706] hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706] ${subscribed ? 'border-[color-mix(in_srgb,var(--success)_40%,transparent)] bg-[color-mix(in_srgb,var(--success-light)_40%,transparent)]' : 'border-[var(--bd)] bg-[var(--bg)]'}`}
                     aria-label={`Ch.${set.chapterIdx} — ${set.wordCount}단어 미리보기`}
                   >
                     <div className="flex w-full items-center justify-between gap-1">
@@ -239,7 +239,7 @@ export function BookDetailClient({
 
       {/* Tier 2 · Supplementary — 이 책으로 만든 단어장 (없으면 종전 안내 유지) */}
       <details
-        className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)]/40"
+        className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[color-mix(in_srgb,var(--bg2)_40%,transparent)]"
         onToggle={(e) => setSupplementaryExpanded(e.currentTarget.open)}
       >
         <summary className="flex min-h-[44px] cursor-pointer items-center justify-between px-4 py-3 font-body text-[12px] text-[var(--t2)] transition-colors hover:text-[var(--t1)]">
@@ -274,7 +274,7 @@ export function BookDetailClient({
                   onClick={() => setPreviewSet(set)}
                   className={`flex min-h-[44px] items-start gap-3 rounded-[var(--r-md)] border p-3 text-left shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:translate-y-0 ${
                     subscribed
-                      ? 'border-[var(--success)]/40 bg-[var(--success-light)]/40'
+                      ? 'border-[color-mix(in_srgb,var(--success)_40%,transparent)] bg-[color-mix(in_srgb,var(--success-light)_40%,transparent)]'
                       : 'border-[var(--bd)] bg-[var(--bg)]'
                   }`}
                   aria-label={`${set.title} — ${set.wordCount}단어 미리보기`}

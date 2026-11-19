@@ -8,10 +8,10 @@
 
 'use client'
 
-import { ArrowRight, ClipboardList, PackageOpen, Pencil, PlayCircle, Target } from 'lucide-react'
+import { ArrowRight, ClipboardList, PackageOpen, Pencil, PlayCircle, Target, Info } from 'lucide-react'
 import Link from 'next/link'
 
-import { goalSummary, gradeOf } from '@/lib/csat/map/goal-view'
+import { goalSummary } from '@/lib/csat/map/goal-view'
 import type { MapPageData } from '@/lib/csat/map/load'
 import { withMapReturn } from '@/lib/csat/map-return'
 import { TASK_EVIDENCE_LABEL, type AsIsMap } from '@/lib/csat/map/v4/as-is'
@@ -21,11 +21,12 @@ import type { V4View } from '@/lib/csat/map/v4/compose'
 import type { TaskId } from '@/lib/csat/map/v4/definition'
 import type { Ranks } from '@/lib/csat/map/v62/rank'
 import { outgoingCtx } from '@/lib/csat/map/v62/return-ctx'
-import { GOAL_EXAM_LABEL, SCOPE_REASON_LABEL, gradeView } from '@/lib/csat/map/v62/target-goal'
+import { GOAL_EXAM_LABEL, SCOPE_REASON_LABEL } from '@/lib/csat/map/v62/target-goal'
 
 import { GoalPopover, type useGoal } from './GoalBar'
 import { homeWsOf } from './TaskInspector'
 import u from './unified.module.css'
+import d from './detail.module.css'
 
 const EXCLUDED_LABEL: Record<'after_as_of' | 'not_diagnosable' | 'exam_not_ready', string> = {
   after_as_of: '기준일 뒤',
@@ -92,9 +93,8 @@ export function GoalRecordBar({ data, g, goalSet, asIs, view, ranks, recordHref,
         <span className={u.topIcon} aria-hidden="true"><Target size={15} strokeWidth={1.9} /></span>
         <div className={u.topText}>
           <h2 className={u.topLabel}>내 목표</h2>
-          {/* 점수에서 계산한 등급은 「참고 구간」 — 저장한 목표 등급과 다른 값이다 */}
-          <p className={u.topBig} data-testid="goal-value">{goalSet ? <>영어 <strong>{gs.goal}점</strong> <span className={u.topSub}>· 참고 {gs.goalGrade}등급 구간</span></> : '아직 정하지 않았어요'}</p>
-          {goalSet && <GoalTargetLine data={data} score={gs.goal} />}
+          <p className={u.topBig} data-testid="goal-value">{goalSet ? <>영어 <strong>{gs.goal}점</strong></> : '아직 정하지 않았어요'}</p>
+          {goalSet && <GoalTargetLine data={data} />}
         </div>
         {past ? (
           <Link href={now} className={u.ghost} data-testid="map-goal-to-current">
@@ -120,7 +120,7 @@ export function GoalRecordBar({ data, g, goalSet, asIs, view, ranks, recordHref,
           <h3 className={u.topLabel}>시험 기록{past ? ` · ${asOf} 기준` : ''}</h3>
           <p className={u.topBig} title={excluded.length > 0 ? `빠진 기록: ${excluded.map((x) => `${EXCLUDED_LABEL[x.k]} ${x.n}`).join(' · ')}` : undefined}>
             전체 <strong>{total}</strong> · 진단에 씀 <strong>{used}</strong>
-            {gs.latest && <span className={u.topSub}> · {past ? '전체 기록의 최근' : '최근'} {gs.latest.raw}점{goalSet && gs.gap !== null && !past ? ` · 목표까지 ${gs.gap}점` : ''}</span>}
+            {gs.latest && <span className={u.topSub}> · {past ? '전체 기록의 최근' : '최근'} {gs.latest.raw}점</span>}
           </p>
         </div>
         {past ? (
@@ -134,7 +134,7 @@ export function GoalRecordBar({ data, g, goalSet, asIs, view, ranks, recordHref,
           {!past && next ? (
             <>
               <h3 className={u.topHead} data-testid="umap-next-task" data-task={next.task} data-kind={next.kind}>추천 · {next.name}</h3>
-              <p className={`${u.topSub} break-keep`} data-testid="umap-next-why">{whyText(next)}</p>
+              <details className={d.fold}><summary><Info size={14} aria-hidden="true" />이 학습부터 하는 이유</summary><p className={`${u.topSub} break-keep`} data-testid="umap-next-why">{whyText(next)}</p></details>
               {state === 'no_record' && <p className={`${u.topSub} break-keep`} data-testid="umap-no-record-note">{LEAD.no_record.p} 직접 확인으로 지금 수준부터 봐요.</p>}
             </>
           ) : (
@@ -188,6 +188,8 @@ function whyText(n: NextAction): string {
   if (n.why.need) parts.push(`${NEED_LABEL[n.why.need]}이 필요한 TASK`)
   if (n.why.evidence) parts.push(TASK_EVIDENCE_LABEL[n.why.evidence])
   if (n.why.items) parts.push(`목표 시험에서 이 힘을 쓰는 문항 ${n.why.items}개${n.why.pointsPerExam ? `(회당 ${n.why.pointsPerExam}점)` : ''}`)
+  // T-0074 — 지금 정책 통과는 도달 조건 전체가 아니다(시간 지나 다시 확인은 아직 근거 없음)
+  if (n.why.evidence === 'resolved') parts.push('시간 지나 다시 확인은 아직 근거 없음')
   return parts.length ? parts.join(' · ') : '목표와 관련된 순서의 첫 TASK 예요 — 약점 확정이 아니에요.'
 }
 
@@ -232,14 +234,13 @@ function NextActionFacts({ next, selected }: { next: NextAction; selected: TaskI
 }
 
 /**
- * 목표 통합 단계 — 저장된 목표의 점수 외 값과 기준 시험(짧게). 등급은 셋을 섞지 않는다: 저장한 목표 등급 · 점수에서 계산한 참고 구간(위 줄) · 기록 등급.
+ * 목표 통합 단계 — 저장한 목표 등급과 기준 시험. 원점수로 등급을 채우거나 비교하지 않는다.
  * 목표 시험이 분석 자료를 갖추지 못했으면(미지원) 그 사실을 말하고 다른 시험으로 대신하지 않는다.
  */
-function GoalTargetLine({ data, score }: { data: MapPageData; score: number }) {
+function GoalTargetLine({ data }: { data: MapPageData }) {
   const t = data.v4?.target
   if (!t) return null
   const g = t.goal
-  const gv = gradeView(score, g?.grade ?? null, gradeOf)
   const unsupported = t.scope.status === 'unsupported_content'
   const examText = t.scope.exam ? GOAL_EXAM_LABEL[t.scope.exam] : '평가원 최근'
   const reason = unsupported && t.scope.reason ? SCOPE_REASON_LABEL[t.scope.reason] : null
@@ -248,7 +249,7 @@ function GoalTargetLine({ data, score }: { data: MapPageData; score: number }) {
       <span title={reason ?? `기준 시험 ${t.scope.exams.length}회`} aria-label={reason ? `${examText} — ${reason}` : undefined}>
         {examText} 기준 {unsupported ? '· 분석 자료 준비 중' : `${t.scope.exams.length}회`}
       </span>
-      {g?.grade ? <> · 목표 {g.grade}등급{gv.mismatch ? ' (점수 구간과 달라요 — 바꾸지 않았어요)' : ''}</> : null}
+      {g?.grade ? <> · 목표 {g.grade}등급</> : null}
       {g?.date ? <> · ~{g.date}</> : null}
     </p>
   )

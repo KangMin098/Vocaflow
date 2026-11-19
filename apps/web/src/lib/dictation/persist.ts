@@ -53,6 +53,10 @@ export type { DictationOverview, WeaknessRow, RecentSessionRow } from './reads'
 export interface StartedSession {
   id: string
   persisted: boolean
+  /** 시작 때 확인된 사용자(로그인 없음 = null) */
+  owner?: string | null
+  /** 자료를 읽은 사람과 시작 시점 사용자가 달라 시작하지 않았다 */
+  identityChanged?: boolean
 }
 
 /**
@@ -69,13 +73,23 @@ export async function startDictationSession(
    * 없으면 진행 상태가 시작한 기기의 localStorage 에만 산다(사용자 신고 2026-08-15).
    */
   items?: DictationItem[],
+  /**
+   * 자료를 읽은 사람(설정 · 허브가 자료를 불러올 때의 사용자 · 로그인 없음 = null). 주면 시작 시점의 사용자와 다를 때
+   * 시작하지 않는다 — A 가 불러온 자료로 B 의 세션을 만들지 않는다(다른 탭 로그인).
+   */
+  expectedOwner?: string | null,
 ): Promise<StartedSession> {
   const localId = `local-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
+  let current: string | null
   try {
-    const {
-      data: { user },
-    } = await client.auth.getUser()
-    if (!user) return { id: localId, persisted: false }
+    current = (await client.auth.getUser()).data.user?.id ?? null
+  } catch {
+    current = null
+  }
+  if (expectedOwner !== undefined && current !== expectedOwner) return { id: localId, persisted: false, owner: current, identityChanged: true }
+  try {
+    const user = current ? { id: current } : null
+    if (!user) return { id: localId, persisted: false, owner: null }
 
     const { data, error } = await client
       .from('dictation_sessions')
@@ -94,10 +108,10 @@ export async function startDictationSession(
       .select('id')
       .single()
 
-    if (error || !data) return { id: localId, persisted: false }
-    return { id: (data as { id: string }).id, persisted: true }
+    if (error || !data) return { id: localId, persisted: false, owner: user.id }
+    return { id: (data as { id: string }).id, persisted: true, owner: user.id }
   } catch {
-    return { id: localId, persisted: false }
+    return { id: localId, persisted: false, owner: current }
   }
 }
 
@@ -118,7 +132,7 @@ export async function restoreDictationSession(
     const { data } = await client
       .from('dictation_sessions')
       .select(
-        'id, title, source_kind, text_id, library_book_id, chapter_idx, shared_set_id, config, items, started_at, completed_at, total_hints',
+        'id, user_id, title, source_kind, text_id, library_book_id, chapter_idx, shared_set_id, config, items, started_at, completed_at, total_hints',
       )
       .eq('id', sessionId)
       .maybeSingle()
@@ -153,6 +167,8 @@ export async function restoreDictationSession(
         currentIndex,
         startedAt: row.started_at ? new Date(String(row.started_at)).getTime() : Date.now(),
         totalHintsUsed: Number(row.total_hints ?? 0),
+        // 세션 주인 = 실제로 읽힌 행의 user_id — 응답이 온 뒤 따로 조회한 신원(그 사이 바뀌었을 수 있다)을 붙이지 않는다
+        owner: (row.user_id as string | null) ?? null,
       },
       reason: 'ok',
     }
@@ -163,6 +179,8 @@ export async function restoreDictationSession(
 
 export interface RestoredSession {
   id: string
+  /** 읽힌 행의 user_id(RLS 본인 행) — 세션 주인 */
+  owner: string | null
   config: DictationConfig
   resourceTitle: string
   sourceKind: string
@@ -179,6 +197,8 @@ export interface RestoredSession {
 // ── ② 문항 적재 ───────────────────────────────────────────────────
 
 export interface AttemptInput {
+  /** 세션 주인 — 주면 지금 사용자와 다를 때 적재하지 않는다 */
+  expectedOwner?: string | null
   sessionId: string
   itemIdx: number
   expected: string
@@ -204,6 +224,8 @@ export async function saveDictationAttempt(
       data: { user },
     } = await client.auth.getUser()
     if (!user) return
+    // 세션 주인과 지금 사용자가 다르면 남기지 않는다(옛 화면의 늦은 제출이 다른 계정으로 적재되지 않게)
+    if (input.expectedOwner !== undefined && input.expectedOwner !== user.id) return
     // upsert + ignoreDuplicates — `uniq_dictation_attempt_item`(session_id, item_idx) 에
     // 걸리면 **조용히 넘긴다**. 그게 옳은 동작이다: 같은 문항의 두 번째 적재는 데이터
     // 오염이지 학습자의 새 시도가 아니다(두 탭에서 같은 세션을 열었을 때 생긴다).
@@ -256,6 +278,8 @@ function contentRefFromDictationSource(source: DictationSource): ContentRef {
 // ── ③ 완주 ────────────────────────────────────────────────────────
 
 export interface CompleteInput {
+  /** 세션 주인 — 주면 완주 시점 사용자와 다를 때 세션 통계 · 점수 · FSRS 를 그 사용자로 남기지 않는다 */
+  expectedOwner?: string | null
   sessionId: string
   source: DictationSource
   completedItems: number
@@ -286,6 +310,15 @@ export async function completeDictationSession(
 ): Promise<CompleteResult> {
   const result: CompleteResult = { wordsPersisted: 0, wordsSkipped: 0 }
 
+  // 완주 시점의 사용자 — 세션 주인과 다르면(다른 탭 로그인 뒤 옛 화면의 완주) 아무것도 남기지 않는다
+  let current: string | null = null
+  try {
+    current = (await client.auth.getUser()).data.user?.id ?? null
+  } catch {
+    current = null
+  }
+  if (input.expectedOwner !== undefined && input.expectedOwner !== current) return result
+
   // 세션 통계
   if (!input.sessionId.startsWith('local-')) {
     try {
@@ -307,6 +340,7 @@ export async function completeDictationSession(
 
   // 홈/대시보드 최근 활동 (scores INSERT 트리거 → daily_activity)
   await recordGameScore({
+    ...(input.expectedOwner !== undefined ? { expectedUserId: input.expectedOwner } : {}),
     module: 'dictation',
     score: Math.round(input.avgAccuracy),
     totalQuestions: input.totalItems,
@@ -327,12 +361,19 @@ export async function completeDictationSession(
   })
 
   // 타깃 단어 → FSRS
-  const items: FlushItem[] = [...input.targetRatings.entries()].map(([word, rating]) => ({
-    word,
-    rating,
-    reviewedAt: new Date().toISOString(),
-    module: 'dictation',
-  }))
+  // 평가의 주인 = 완주 순간 검증된 로그인 계정(auth.getUser — 서버 확인). SRS 서버 액션은 주인이 로그인 계정과 같은 평가만
+  // 적용한다(T-0172 공용 기기) — 주인 없이 보내면 전부 걸러진다. 로그인이 없으면 보내지 않는다(서버도 거절한다).
+  // 주인 = 완주 시점 사용자(위에서 확인 · 세션 주인을 주면 그와 같음이 보장된다)
+  const owner: string | null = current
+  const items: FlushItem[] = owner
+    ? [...input.targetRatings.entries()].map(([word, rating]) => ({
+        word,
+        rating,
+        reviewedAt: new Date().toISOString(),
+        module: 'dictation',
+        owner,
+      }))
+    : []
   if (items.length > 0) {
     try {
       const res = await flushPendingSrsResults(items)
@@ -357,6 +398,8 @@ export interface SessionDetail {
     textId: string | null
     sharedSetId: string | null
     chapterIdx: number | null
+    /** 읽힌 세션 행의 user_id — 결과 복습(다시 듣기 · 당시 피드백)의 주인 결속 */
+    userId: string | null
   }
   attempts: Array<{
     itemIdx: number
@@ -373,31 +416,40 @@ export interface SessionDetail {
   }>
 }
 
-/** 결과 화면 — DB 에서 읽는다(다른 기기·나중에 다시 열어도 보인다). */
-export async function fetchDictationSessionDetail(
-  client: SupabaseClient,
-  sessionId: string,
-): Promise<SessionDetail | null> {
+/**
+ * 결과 조회의 판정(T-0254) — 확인된 부재와 조회 실패를 가른다.
+ * absent = 세션 조회가 오류 없이 행 0(없는 세션 · 다른 계정 · RLS 로 안 보임) ·
+ * failed = 세션 조회 오류(session) · 문항 조회 오류(attempts) · 예외(exception) — 문항이 빠진 불완전 결과는 ok 로 만들지 않는다.
+ */
+export type SessionDetailRead =
+  | { status: 'ok'; detail: SessionDetail }
+  | { status: 'absent' }
+  | { status: 'failed'; reason: 'session' | 'attempts' | 'exception' }
+
+/** 결과 화면 — DB 에서 읽는다(다른 기기·나중에 다시 열어도 보인다). 실패는 부재와 구분한다. */
+export async function readDictationSessionDetail(client: SupabaseClient, sessionId: string): Promise<SessionDetailRead> {
   try {
-    const { data: sData } = await client
+    const { data: sData, error: sErr } = await client
       .from('dictation_sessions')
       .select(
-        'id, title, source_kind, avg_accuracy, completed_items, total_items, completed_at, started_at, total_hints, duration_ms, longest_perfect_words, text_id, shared_set_id, chapter_idx',
+        'id, user_id, title, source_kind, avg_accuracy, completed_items, total_items, completed_at, started_at, total_hints, duration_ms, longest_perfect_words, text_id, shared_set_id, chapter_idx',
       )
       .eq('id', sessionId)
       .maybeSingle()
-    if (!sData) return null
+    if (sErr) return { status: 'failed', reason: 'session' }
+    if (!sData) return { status: 'absent' }
     const s = sData as Record<string, unknown>
 
-    const { data: aData } = await client
+    const { data: aData, error: aErr } = await client
       .from('dictation_attempts')
       .select(
         'item_idx, expected, user_input, accuracy, hints_used, replay_count, skipped, word_results, error_tags, target_words, target_hits',
       )
       .eq('session_id', sessionId)
       .order('item_idx', { ascending: true })
+    if (aErr) return { status: 'failed', reason: 'attempts' }
 
-    return {
+    const detail: SessionDetail = {
       session: {
         id: String(s.id),
         title: String(s.title ?? ''),
@@ -414,6 +466,7 @@ export async function fetchDictationSessionDetail(
         textId: (s.text_id as string | null) ?? null,
         sharedSetId: (s.shared_set_id as string | null) ?? null,
         chapterIdx: s.chapter_idx == null ? null : Number(s.chapter_idx),
+        userId: (s.user_id as string | null) ?? null,
       },
       attempts: ((aData ?? []) as Array<Record<string, unknown>>).map((r) => ({
         itemIdx: Number(r.item_idx ?? 0),
@@ -429,7 +482,14 @@ export async function fetchDictationSessionDetail(
         targetHits: (r.target_hits as string[]) ?? [],
       })),
     }
+    return { status: 'ok', detail }
   } catch {
-    return null
+    return { status: 'failed', reason: 'exception' }
   }
+}
+
+/** 기존 호출 호환 — 완전한 결과만, 그 밖(부재 · 실패)은 null. */
+export async function fetchDictationSessionDetail(client: SupabaseClient, sessionId: string): Promise<SessionDetail | null> {
+  const read = await readDictationSessionDetail(client, sessionId)
+  return read.status === 'ok' ? read.detail : null
 }

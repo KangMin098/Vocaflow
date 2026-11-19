@@ -1276,6 +1276,13 @@ a.tagChip:hover {
   color: var(--m-t2);
 }
 
+/* PC dialogs share the measured 3B frame; only their bodies scroll. */
+@media (min-width: 900px) {
+  .modal { width: min(var(--csat-modal-w), calc(100vw - var(--csat-modal-inset))); height: min(var(--csat-modal-h), calc(100dvh - var(--csat-modal-inset))); overflow: hidden; border-radius: 16px; }
+  .modal .modalHead { height: var(--csat-modal-head); flex: none; padding: 0 16px; }
+  .modal .modalFoot { height: var(--csat-modal-foot); flex: none; padding: 0 16px; }
+}
+
 .modal .cellBarFill,
 .modal .bubble[aria-checked='true'] span {
   border-color: var(--m-t1);

@@ -1,5 +1,49 @@
 # Learning Modules
 
+> LCP Story D5 I01/I02(T-0191, 2026-10-27): Story 단어 창에서 사전이 확정한 낱말만 「내 단어장에 담기」로 명시 저장한다(서버가 본문 · 사전을 다시 확인 · text_id null · manual · 기존 행/FSRS 보존). 담은 뒤 「내 단어장에서 보기」는 `story_release` · `story_unit` 두 값만 실어 단어장 위 작은 복귀 줄로 같은 단위에 돌아온다(지도 복귀와 섞이면 중립 · 영구 출처 없음). `WordVaultViewerGate`는 서버 주인과 브라우저 신원이 같다고 확인한 뒤 전체 개인 화면을 보여 주며 계정 전환·확인 실패·BFCache 재확인 때 목록·칩·듣기·복귀 줄을 함께 숨긴다. 저장의 신원·접근 거절은 기존 Story 세션 거부 전이로 연결한다. [D5 §12.2](./lcp-story/LCP_D5_INTEGRATION.md).
+>
+> LCP Story D4(T-0190, 2026-10-27): 서가 로그인은 고른 판본 입구로 돌아오고, 입구는 첫 장면 첫 문장 · 편집 목표 · 접힌 주의 → 시작 → 선택 펼침(첫 장면 전체 · 원천 · 도움) 순서다. 단위 화면은 단위 제목이 h1 이고 도구 줄에 결속된 맥락 설명 진입과 단어 창의 Stories 전용 비모달 초점 · 44px 대체 단추가 있다. 이어 읽기는 「마지막으로 연 단위」, 완료 뒤 행동은 실제 서가 공급에 맞춰 본문 한 곳에만 둔다. 실제 사람 효과는 미검증. [D4 구현](./lcp-story/D4_IMPLEMENTATION.md).
+>
+> LCP Story D3 W2(T-0189, 2026-10-27): 기존 독서 본문 뒤 `StoryContextNotes`가 단위별 시대적 맥락을 기본 접힌 native details로 제공한다. 현재 C01 R2 u03 두 항목/u04 한 항목이며 다른 단위는 무표시다. 실제 dev 원장20261026235109의 인증 읽기 API와 연결했고, 없음/미적용·오류/결속 불일치를 구분한다. 인증 확인·계정 전환 때 본문과 함께 숨기며 위치·완료 저장은 바꾸지 않는다. 352단위/40격리 브라우저와 정상 Auth A1440/B1280 실제 화면을 구분해 수용했다. B2는 편집 목표, 실제 사람 적합성·효과는 미검증이다. [D3 후속](./lcp-story/D3_FOLLOWUP.md).
+
+2026-10-29 Story 읽음 표시 뒤 초점(T-0224): `CompleteControl` 은 기다리는 동안 disabled 대신 aria-disabled(클릭 무시)로 단추가 초점을 지키고, 이 단추로 누른 표시가 반영된 그 순간 한 번만 안내(「이 단위는 읽음으로 표시했어요」 · tabIndex -1)로 초점을 옮긴다. 기다리는 사이 단추를 떠났으면 취소하고, 이미 표시된 단위 · 재렌더 · 실패에는 옮기지 않는다. 완료 호출 · 이벤트는 그대로다.
+2026-10-29 Story 근거 선택 활동(T-0228): 연결한 활동(`story-activity-slots.ts` — live r3 why-horner-is-safe 하나)의 after_unit 단위 본문 · 맥락 설명 뒤에 `StoryActivity` 를 붙인다. 긍정 확인(same)된 본인 화면에서 조회 1회 · 명시적 제출 1회(`story_unit_activity` · MAY_BE_MISSING — 함수가 없거나 진도 미달 · 없는 활동 · 자료 어긋남이면 그리지 않는다). 제출 전에는 정답 · 등록 근거가 없고, 제출 뒤 「내가 고른 근거 / 본문에 등록된 근거」와 「본문에서 다시 확인」(단위 본문 복귀 강조 재사용)을 보인다. 다시 고른 결과는 「도움을 받은 연습」 · 점수 · 완료 · 진도 · FSRS · 이벤트 기록 없음. 요청은 { viewerId, releaseKey, activityId, generation, authToken } 에 묶어 늦은 응답 · 계정 변경을 버린다.
+2026-10-29 SpellForge 처음 틀린 철자 대조(T-0238): delayed · blind 제출이 오답으로 처리된 순간의 낱말별 첫 입력 하나를 이 판의 화면 메모리에만 두고(`first-error.ts` — 본인 · 자료 · 판 시작과 낱말 id + 철자에 결속, 다른 오답 · 재시도 · 정답은 덮지 않음), 완료 복기의 「철자 확인」을 펼친 뒤에만 「처음 틀리게 제출한 입력 / 정답 철자」로 대조한다. realtime 미제출 · 건너뜀만 · 빈 입력은 대조가 없고, 계정 확인 전 · 바뀜에는 숨긴다. 점수 · FSRS · SRS · 기록 · 저장소 · URL 로 보내지 않는다.
+2026-10-29 복원만화 단어 검색(T-0242): 공개 복원만화 리더(`PdModernReader` publicPresentation)의 단어 뜻 시트에 「내 단어장에서 찾기」 링크를 둔다. 학습자가 탭한 낱말을 정규화(공백 · 소문자 · 영어 낱말 꼴만)해 기존 WordVault 검색 `?q=` 계약(`wordVaultSearchHref`)으로 보내고, 사전의 resolved_word 는 쓰지 않는다. 링크는 시트 안에만 있어 닫기 · 다른 낱말이면 바뀌고, prefetch 없음 · admin preview 에는 없음. 검색 링크일 뿐 저장 · 등록 · 숙달이 아니다.
+2026-10-29 EchoMatch 기기 인식 참고문장(T-0227 · ECHO-REF-01): `EchoMatchPlayer` 는 결과 화면에 이번 단어 비율을 계산할 때 실제로 쓴 기기 인식 문자열을 「기기가 인식한 참고문장」으로 보이고(0%여도), 인식 미지원 · 빈 값 · 실패는 확인하지 못했다는 사유만 말한다(발음 판정 아님). 문자열은 시도 세대 · 문장 자료 · 계정 경계에 묶은 화면 스냅숏이라 재시도 · 이동 · 같은 id 본문 변경 · 계정 변경 · 이탈에 사라지고, 정지 뒤 늦은 인식으로 바뀌지 않는다(`heard-reference.ts`). 저장 · 소리 기록 호출과 payload 는 그대로이며 문자열을 저장소 · 주소 · 로그에 싣지 않는다.
+2026-10-29 PairFlip 결과 다시 떠올리기(T-0218): 결과의 「학습한 단어」(`PairFlipPairsList`)는 확실히 다시 시도한 짝(attempts ≥ 3)만 뜻을 가린 채 보이고 — 현재 훅은 첫 성공도 attempts=2 로 세고 일부 과거 노출도 섞여 있어 attempts=2 는 완전히 분류할 수 없으므로 가리지 않는다 — 「뜻 확인」(aria-expanded · 44px)으로 연다. 한 번에 맞힌 짝과 전부 1회인 결과는 예전 목록 그대로다. 여닫기는 화면 메모리뿐이며 기록 · 점수 · SRS · 이벤트가 없다.
+2026-10-29 기사 서가 「연습 있음」(T-0215): `/library/scripts` 는 목록 요청당 한 번 `loadArticlePracticeAvailability`(로그인 확인 → `article_practice_availability()` RPC 1회 · DL-0230)를 읽어 연습이 설치된 글 카드(`ArticleCard`)에만 「연습 있음 · N문항」을 붙인다. 로그아웃은 부르지 않고, 조회 실패(오류 · 모양 불일치)는 「없음」과 갈라 표시를 생략한다. 카드별 조회 · 기사 id 하드코딩 · 쓰기 없음.
+
+2026-10-29 서가 임시 목표 진입(T-0222 · R0-C2-01): `/library/scripts` 진입면의 선택 단추 「짧은 글 한 편을 고르고 핵심 내용 확인해 보기」(`FirstArticleGoal`)가 같은 목록 ∩ 양수 문항 id 를 기존 `ArticleCard`(적합 표지 숨김 `hideFit`)로 보여 주고 학습자가 고른다. 방문 중 React 상태만 · 저장 · 자동 선택 · 추가 요청 없음 · 전체 탐색 유지.
+2026-10-28 ScriptQuiz 복기 근거 → Reader 문장(T-0209): 퀴즈 페이지가 본인 글 · 같은 도서/장 · 본문을 확인한 경우에만 `EvidenceReaderProvider` 로 글 id 를 건네고, 오답 복기(`MissReviewItem`)는 정답 공개 뒤 근거가 본문의 한 문장에만 맞을 때(`locateSingleEvidence`) 「글에서 이 문장 보기」(/text/<id>)를 보인다. 같은 탭 sessionStorage 에 글 id · 본문 해시 · 문장 번호만 남기고, Reader(layout 이 만든 본문 해시 · 번호→문장 id 표)는 같은 글 · 같은 해시 · 하나에만 맞을 때만 한 번 꺼내 `ReadingUniverse` 의 opt-in `anchorSentenceId` 로 그 문장을 강조 · 가운데 이동 · 초점한다. 그 밖은 첫머리. 주소에 본문 · 정답 · uid 없음 · 기록 · 채점 · TTS 변경 없음.
+2026-10-28 기사 연습 「읽은 글 참고」(T-0207): `loadArticlePractice` 는 관문(본인 글 · 현재 판본 해시 · 계정)이 검증한 그 본인 글 본문을 새 조회 없이 `readingText` 로 싣고, 관문 계정과 마지막 확인 계정이 다르면 문항 · 본문을 내보내지 않는다(signed_out). `DcpPlayer` 의 opt-in `afterFeedback` 로 기사 연습 다리만 채점 뒤 피드백 안에 접힘 「읽은 글 참고」(`ArticleReadingReference` · 일반 텍스트 · 발췌와 자동 대응 없음)를 넣는다. 여닫기는 화면 메모리뿐이며 채점 · 기록 · 이벤트가 없고 다음 문항에서 닫힌 채 시작한다. 다른 호출자는 그대로다.
+2026-10-28 기사 연습 실패 뒤 읽던 글 복귀(T-0206): `loadArticlePractice` 는 본인 글 · 현재 판본 · 계정 관문을 통과한 뒤 후보 조회만 실패했을 때(not_installed · query_failed · no_items) 지금 계정을 다시 확인하고 서버가 찾은 본인 글 id(`returnTextId`)를 함께 돌려준다. `/practice/article/[articleId]` 는 그때만 사유 문구 아래 「읽던 글로 돌아가기」(/text/<id>)를 더한다. 관문 실패 · 계정 미확인은 기존 글 목록만이며 주소 · referer 로 추정하지 않는다. 채점 · 기록 · DB 변경 없음.
+2026-10-28 의미 근거 견주기 관계 판단(T-0205): `MeaningEvidence` 는 견줄 선택지와 근거 문장을 모두 고른 견주기 결과 안에서만 「이 문장과 두 선택지의 관계 · 내 판단」(내 답 · 견준 선택지 · 둘 다 · 어느 쪽도 아님 · 아직 어려움) 하나를 고르고 고치게 한다. 학습자 자기 판단이며 채점·정답 표시·기록·이벤트가 없고(컴포넌트 메모리뿐), 대상·문장을 다르게 바꾸면 판단만 비운다. 고르지 않아도 다음·건너뛰기·완료는 그대로다.
+
+2026-10-28 근거 짚기 재개(T-0211): 건너뛴 뒤에도 같은 문항 안에서 「다시 짚어 보기」(44px · 키보드)로 기존 문장 후보에 돌아온다. 초점은 재개한 순간 한 번만 근거 제목으로 옮기고 부모가 다시 그려도 옮기지 않는다. 기록·채점·이벤트 없음, 다음 문항은 그대로 새로 시작한다.
+
+2026-10-29 기사 연습 완료 → 같은 글 단어(T-0212): 기사 연습 완료 화면에 선택 「이 글의 단어 살펴보기」 하나(DcpPlayer `doneChoice` opt-in · 기사 연습 다리만). 출처는 「단어를 몰랐어요」 와 같은 결정(articleVocabHref · from=/text/<검증 textId>) — set 은 그 세트 · text 는 본인 글 필터 · 조회 실패(unknown)는 생략. 정오와 무관, 완료 전·계정 확인/변경 중에는 없음. 새 조회·기록·이벤트 없음.
+
+2026-10-29 제출 전 본문 짚기(T-0230 · R0-PRE-EVIDENCE-01): `DcpPlayer` opt-in `preEvidence`(기사 연습 다리만)로 제목 · 주제 문항에서 답 제출 전 본문 문장 하나를 선택적으로 짚는다(`preEvidenceSentences` — 지문만 나눔, 정답 · 해설 · snippet 미사용, 후보 2문장 미만이면 생략). 제출 시작 순간 같은 문항 객체에 묶어 고정하고 성공한 피드백에만 「이번 제출 당시 짚은 문장」(읽기 전용 · 미선택은 짚지 않았다고)으로 보인다. 실패하면 입력은 남고 재시도 성공분만 보인다. 서버에는 그대로 `{choice}` 만, 채점 · 기록 · 이벤트 · 저장 없음.
+
+2026-10-29 완료 복기 읽은 글 참고(T-0231 · R0-REVISIT-READ-01): `DcpPlayer` opt-in `revisitExtra` 로 기사 연습 다리만 완료 뒤 「이미 본 해설 다시 보기」 안에 같은 검증 본문(`readingText`)의 「읽은 글 참고」(`ArticleReadingReference`)를 넣는다. 다시 보기마다 접힌 채 새로 시작하고, 새 조회 · 채점 · 기록 · 이벤트가 없다. 플레이어 키(`articlePlayerKey`)가 기사 · 본인 글 · 계정 · 본문 세대(이전 본문과 문자열 그대로 비교 — 해시 아님)에 결속해 하나라도 바뀌면 이전 다시 보기와 새 본문이 함께 보이지 않는다. 다른 호출자는 그대로다.
+2026-10-23 학습 정리: SystemLearningSummary는 근거 추적/조건 비교/다음 활동 탐색면이다. 선택지 선택에 따라 검수 해설 하나와 연결 문장을 함께 강조하며, 적용 조건/반례 선택에 따라 원리 분기와 경계 표시가 바뀐다. AnalysisTheater는 v3 문장 수가 현재 지도와 일치할 때만 원문 근거 연결을 제공한다. 탐색 이벤트에는 행동 종류·숫자 인덱스만 보내며 탐색 상태를 숙달·학습 기록으로 저장하지 않는다. 키보드 조작·읽기 전용 과거 기록·준비된 확인 과제 이동을 보존한다.
+2026-10-23 목표 계획·평가 통합 후보: `goalLearning`이 현재 목표/PLAN 버전·TASK 근거·시간·일정·시험 관찰·수정 이유를 한 번 공급한다. 기존 `replanOf`·`planDrift`·`scheduleChanges`와 PLAN 재확정을 재사용한다. 재풀이/기존 노출·선후 미확인은 독립 후속 시험에서 제외하고, 점수 기준 충족과 최종 목표 미확인을 구분한다. 화면은 목표일·주간 계획·다음 점검 제안일을 표시한다. [독립 수용·미적용 SQL](csat-learner/GOAL_ACHIEVEMENT_ACCEPTANCE.md).
+
+2026-10-23 목표 시간 배분(공유 DB 승인 대기): GoalEditor의 주간·선택 요일·단위 시간과 GoalSchedule의 현재 TASK PLAN 기반 오늘·주간·목표일까지 배분 제안을 추가했다. 기존 단계·수량·실행 링크·목표 변경 재확정 관문을 재사용하고 시간·자료·조회·관련성 제약을 미배정으로 구분한다. 달력은 자동 확정·전체 필요 학습량·목표 달성률이 아니다. 예산 저장 SQL은 미적용이며 설치 전503을 저장 성공으로 표시하지 않는다. [수용 범위](csat-learner/GOAL_ACHIEVEMENT.md).
+
+2026-10-23 TASK 상태 표시: taskInspector는 AsIs의 analysis_pending/insufficient/unmeasured를 각각 시험 분석 대기/관찰 근거 부족/확인 기록 없음으로 구분한다. NEED_V62_LABEL의 CONFIRM은 다음 활동 「직접 확인 필요」다. 원본 학습 판정·기록·완료 조건은 그대로이며 unmeasurable은 플랫폼 측정 도구 준비 중으로 표시한다. 여러 열을 건너는 관계선은 빈 행으로 우회하고 활성선 대비·다른 카드 교차를 격리 검증한다.
+
+2026-10-23 학습지도 TASK: UnifiedLearningMap은 카드 주변12px의 포인터·키보드 포커스를 임시 연결 미리보기로 처리한다. 클릭 선택·Workspace·복귀 주소와 독립적이며 이탈하면 기존 연결을 복원한다. 개요 카드는 높이46px·최대206px이고 상세는 기존 단일 창을 유지한다.
+
+2026-10-23 CSAT 공통 메뉴: CsatRail이 공간/탐구·개인 자료5종·첫3문항·기출 찾기를 모든 화면에 동일하게 제공한다. PERSONAL_LINKS가 개인 메뉴의 단일 출처이고 활성 항목은 RailPlace로 정한다. HomeLanding의 children 메뉴 주입과 별도 Finder 인스턴스는 제거했다. 홈/탐구/기록/진단 격리 화면에서 접힘 유지·폭·Finder 복귀를 검증하며 실제 DB 조회/학습 쓰기는 실행하지 않는다.
+
+2026-10-22 CSAT 홈 구성: HomeLanding 첫 진입은 패턴 배너 아래 Workspace 탭의 목록만 표시한다. 학습지도 탭으로 목표/기록/지도를 전환하며 기록·복습·진단·공식·연습·기출 찾기는 왼쪽 메뉴로 이동했다. 학습 복귀 문맥이 있으면 지도 탭에서 시작한다. MapScreen의 workspaceFirst 표시 옵션은 UnifiedLearningMap의 같은 상태/행/상세를 재사용하며 다른 진입의 지도 우선 순서는 유지한다. 지도 아이콘의 노드 이동·행 클릭 상세·복귀 문맥·실행 링크는 동일하다.
+
+2026-10-22 CSAT 팝업·설명: PC 중앙 팝업은 참조680×760·머리/바닥56 공통 치수를 사용한다. 목표 편집도 MapDialog에 통합하며 저장/API 계약은 유지한다. Workspace는 단계 아이콘·자료 수 카드·접힌 안내, 홈 첫 시작은 계획→자료→확인 도식으로 표시한다.
+
+2026-10-22 CSAT 지도 상세: 노드 한 번 클릭으로 LearningDetailDialog를 열고 개요·근거/학습 경로·학습계획을 같은 창 안에서 전환한다. 연결 TASK/Workspace 전환과 단계 근거 펼치기도 창을 겹치지 않는다. WorkspaceList는 리스트형으로 고정하며(보드 전환 없음) 지도 강조는 별도 지도 아이콘이다. 기존 계획 저장·활동 복귀·판정 출처는 유지한다. 디자인 정본은 [DESIGN.md](../DESIGN.md).
+
 도서 큐의 초기 상태 조회와 폴링은 관리자 GET `/api/admin/library/curation-jobs?kind=voice|quiz|review`를 사용한다. 기존 세션/RLS·큐 조회 함수·응답 형식을 유지하며, 읽기 Server Action과 URL 선택이 겹쳐 목록·상세가 재마운트되던 경합을 제거한다. 적재·삭제 등 변경 액션은 그대로다.
 
 관리자 사용성 점검(2026-10-20): 도서 검수 제목·상태 표시·어휘 필터 이름·VRL 구간 링크와 중첩 Dialog의 포커스/Back/스크롤 복원을 보완했다. 작업 중 닫기 거부는 `closeDisabled`/`canClose`로 이력까지 보존한다. 지도 셀과 진단 팝업 컨트롤은 44px, 선택 체크박스는 그림 대신 레이블의 클릭 영역을 보장한다. 만화 실행 시각은 KST 고정 표시를 사용한다. 관리자 경로·학습자 판정 규칙·DB 계약은 바꾸지 않는다. [범위와 실제 실행 결과](admin-restructure/usability-audit.md).
@@ -78,6 +122,12 @@ PC 학습자 본문 재배치(2026-10-19): `/library/books`의 검색·분류를
 기존 `SourceEligibilityClient`의 7축·등급·학령·결함·문항 계획은 판정/처리 보기에 유지한다.
 학습 모듈·판정 정본·DB 스키마는 바꾸지 않는다.
 <!-- csat-sources-workspace:end -->
+
+이야기 서가 · 판본 독서(LCP Story S5, 기존 코드 `9b39634c5` 독립 수용): `/library/stories`는 작품별 HOOK·편집 목표·판본을 보이고, `/library/stories/[releaseKey]`는 입구 → 명시적 시작 → 본문 → 단위별 읽음 표시 → 이어 읽기를 기록한다(`components/library/story/**`·`lib/library/story/learner.ts`). 원문 대응·기존 `WordLookupPopover` 뜻은 요청 시에만 열고 독서 완료로 세지 않는다. 원본 Books·`texts`·단어장·FSRS를 쓰지 않는다. 승인 SQL r3(원장 `20261025143031`)이 없는 환경은 「준비 중」이다. 2026-10-26 대표 실제 dev 발행본과 정상 학습자 A1440/B1280에서 독서·도움·저장·재로그인·완료 구분·계정 격리·철회 접근을 검증했다. 진도는 release key별이며 새 발행본에 자동 이전하지 않는다. B2는 편집 목표이고 사전 주의와 시대적 맥락은 U1/W2 후속에서 전달됐고 실제 수준 적합성·파일럿 효과는 미검증이다. [S7 실제 증거](./lcp-story/S7_PILOT.md)·[정본 §12](./LCP_STORY.md).
+
+Story D2 U1(T-0187)은 같은 서가·입구에 접힌 주의와 편집 판단 부담을 추가하고 시작 전에 실제 도움을 설명한다. 새 공개 읽기 RPC는 **승인 v2 적용 완료(원장20261026110732)**이며, 없는 환경에서는 안내를 못 불러온 상태와 주의 없음이 다름을 표시한다. 합성 콘텐츠의1440/1280·키보드·axe 및 기존 S5 회귀를 검사했으며 실제 dev 양성 안내/사람 적합성·교육 효과와 구분한다. [후속 결과](./lcp-story/D2_S7_FOLLOWUP.md).
+
+FAST 빠른 학습지(`/admin/csat/new/fast`, 2026-10-21): 원문 파생 지도 연습 DCP 팩(중심 의미 3유형) 하나를 고쳐 교사가 내려받는 **로컬 검수 초안**이다. 학습자 화면·DB 공급 판본과 별개이며 authored 세트나 DEEP 교수 순서를 바꾸지 않는다. 학생용 문제지에는 정답·해설·Gold 가 없고 교사용 해설지는 관리자 응답에서만 만든다.
 
 | # | 모듈 | 계층 | 인지 유형 | 라우트 | 구현 상태 |
 |---|---|---|---|---|---|
@@ -267,8 +317,10 @@ Lexile·ATOS 는 글만 재고 LingQ 의 known-word 카운트는 이진값이라
 - `layout.tsx` — RSC 진입, `v_text_content` 1쿼리 + `library_book_id` / `user_book_group_id` 분기
 - `page.tsx` — `'use client'` ReadingUniverse
 - `text-content-context.tsx` — TextContentProvider
+- `article-practice-entry.tsx` — 기사 발췌 연습 진입. layout 이 `article_practice_items` 응답을 `lib/learner/reader-article-practice.ts` 로 failed(오류·배열 아님)/none(빈 배열)/available 로 나눈다. available 은 기존 연습 링크, none 은 표시 없음, failed 는 「연습 여부를 확인하지 못했어요」 + 같은 글 `/practice/article/<id>` 링크(그 페이지 loader 가 본인 글·계정·판본을 다시 확인 — 화면 안 재호출·자동 재시도 없음). 기사가 아닌 글·책·Story 는 상태 없음(T-0204, 2026-10-28)
 - `text-content-helpers.ts` — buildParagraphsFromContent
 - `echo/page.tsx` — EchoMatch 라우트
+  - 결과 화면 다시 듣기(2026-10-28): `components/echo/ReplayPanel.tsx` + `lib/echo/replay-controller.ts`. 예시는 문장 내용 키 캐시, 내 발화는 현재 문장·화면 수명 동안 메모리에만 두고 다음 녹음·이동·계정 변경·이탈에 놓는다. 앱은 녹음을 저장·업로드하지 않으며, 단어 인식(브라우저 SpeechRecognition)은 브라우저에 따라 원격 처리될 수 있다. 재생은 저장·점수·SRS 를 부르지 않는다.
 
 ### 컴포넌트 (`components/workspace/`)
 - `ContextBar.tsx` (sticky · 북마크·타이포·인사이트·집중)
@@ -358,7 +410,9 @@ R < 0.70              → risk     #EF4444 (빨강)
 ### Browse (`/wordvault/browse`)
 - `WordVaultBrowseClient.tsx` — 풀스크린 클라이언트
 - `ScriptsChipNav.tsx` — 스크립트 칩 nav (전체+스크립트별 단어 수)
-- `WordRow.tsx` v4 — 16px 컴팩트
+- `WordRow.tsx` v4 — 16px 컴팩트 · 행 끝 「전체 보기」(aria-expanded)로 잘린 뜻·예문을 행 아래에 줄바꿈 표시 — 숨김 중인 칸은 펼쳐도 가림, 예문 없으면 만들지 않음(T-0208)
+  - T-0210: 발행 기사 단어장(set:) 필터에서만 정본 shared_words.source_sentence 가 **지금 기사 본문에 있을 때** 펼침에 「선택한 기사에서 쓰인 문장」으로 사전 예문과 따로 보인다(loadArticleSetMembership 같은 조회에 필드만 · 쓰기 0 · 단어/뜻 숨김 시 가림 · 없음/불일치/빈 값은 표시 안 함)
+  - T-0214: 그 문장 아래 「글에서 이 부분 보기」 — 세트당 한 번 본인 글(texts id · source_url article:<id>)과 Reader 와 같은 v_text_content(content · paragraph_offsets)를 읽어 지금 기사 본문과 같을 때, 경계 결정 Rev1.0 공식(공백만 정규화한 출처 = Reader 표시 단위 하나 전체 · 본문에서 대소문자 무시 1회 · 기존 buildEvidenceSentenceMap 으로 그 단위에 풀리는 번호)을 모두 만족할 때만. 누르면 같은 탭 앵커(reader-anchor · textId · 본문 hash · sentenceIndex 만)를 남기고 그 글로 1회 이동. 본인 글 없음 · 다른 판본 · 중복 · 조회 실패 · 숨김 중에는 링크 없음(문장 · 목록 그대로)
 - `HideToggleBar.tsx` — Active Recall 토글
 - `ListenPanel.tsx` — 듣기 패널 (설정 항상 노출)
 
@@ -463,6 +517,8 @@ flush 는 원래 `isComplete` 에만 걸려 있었다. ✕ · Esc · 뒤로가�
 ### 컴포넌트
 `components/game/wordblitz/WordBlitzGame.tsx`(게임 본체 · 계약 wordPool/onExit/onCorrect/onWrong FSRS) · `WordBlitzUI.tsx`(로딩 폴백) · `lib/wordblitz/data.ts`(Word/SAMPLE_WORDS/POINTS).
 
+- 끝화면 놓친 단어 대조(2026-10-28): `WordBlitzMistakes.tsx` — 이번 판 메모리에 처음 놓친 순간의 target·chosen·form·prompt 를 보관(en 중복 제거·횟수, 시간 초과는 「선택하지 못함」), 전체 목록에서 하나를 골라 당시 질문·내 선택·정답·단어 예문(원문 아님)을 나란히. 점수·콤보·재출제·FSRS·기록 콜백 불변, 끝화면만 자체 스크롤.
+
 ---
 
 ## 6. PairFlip (L4a 공간기억 · v06.21)
@@ -510,6 +566,7 @@ flush 는 원래 `isComplete` 에만 걸려 있었다. ✕ · Esc · 뒤로가�
 스크립트 맥락 4지선다. Recognition + Transfer — 텍스트 단위 의미 통합 검증.
 
 ### 라우트
+- `/scriptquiz/play` 범위(T-0193): 읽기 화면 Quiz 는 그 챕터(`?book&ch&text`)·글(`?text`) 퀴즈로 연다. 채점 뒤 본문 문장 4개 중 근거를 고르면 **등록 근거와 대조만** 한다(정오 판정·기록·점수 아님). 본문은 본인 texts·같은 도서/챕터일 때만, 근거가 한 문장에 유일하게 대응할 때만 피커. 범위가 잘못됐거나(`ch=1junk` 등) 문항이 없으면 데모 대신 빈 상태. 범위 없음만 데모.
 - `/scriptquiz` — **확인 대기열** (v08.6 재설계) — server `page.tsx` → `lib/scriptquiz/queue.ts`(카탈로그 × `texts.status` × `scores`) → client `ScriptQuizQueue`.
   **읽은 챕터만** 내준다: 이전 `ScriptQuizHub`(삭제)는 카탈로그 129챕터를 전부 나열해 **미열람 41챕터의 줄거리를 스포일러**했다.
   구성 = 다음 한 걸음 1개(읽은 지 가장 오래된 미확인 챕터 · 간격 인출) + 책 카드(기본 접힘, 펼치면 읽은 챕터 칩) + 한영 토글
@@ -569,6 +626,7 @@ const QUIZ_GENERATION_PROMPT = `
 - `/dictate/setup?text=|set=|custom=1` — Setup (미리보기 3지표 + 분량/문항수/순서/채점/듣기)
 - `/dictate/session?sessionId=` — 세션 (TTS · 단어별 채점 · 4단계 힌트 · Focus Mode)
 - `/dictate/results?sessionId=` — 결과 (**DB 조회** · 복습 반영 단어 · 청취 폭 · 반복된 태그)
+- 들어온 자리 `?from=`(읽던 글 등)은 설정 → 세션 → 결과 → 같은 자료 재시도로 이어진다(`lib/dictation/return.ts` · 기존 `sanitizeInternalPath` 만 통과). 세션 틀의 닫기/Esc 는 그 from 으로, 결과에는 from 이 있을 때만 「하던 학습으로 돌아가기」(`DictationResultActions`). 붙여넣기 · 오늘의 받아쓰기 재시도는 허브(from 없음).
 
 ### 자료 4소스 (v07)
 | 소스 | 스코프 | 문장 출처 | 타깃 단어 |
@@ -732,7 +790,7 @@ forward(오늘 할 일·조치)는 `/hub` 와 셸 나침반 띠 소관 — 이 �
 Shadow Reading — 원어민 발화 따라하기. 음운+발화 쌍둥이.
 
 ### 라우트
-- `/text/[id]/echo` — 별도 라우트 (ModePills 'shadow' → 이 라우트)
+- `/text/[id]/echo` — 별도 라우트. ModePills 'shadow' 는 같은 글의 인라인 따라읽기(`?mode=shadow` · `ShadowReadAlong`)를 열고, 그 패널의 시작 전 · 완료 화면에 「내 녹음과 억양 비교」 링크(`echoHref` = 같은 `text.id` 의 echo)가 있다. 진행 중에는 링크가 없다.
 
 ### 4-Phase Cycle
 1. **idle** — 대기
@@ -1126,10 +1184,17 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 | 극장 화면 | [`components/csat/theater/AnalysisTheater.tsx`](../apps/web/src/components/csat/theater/AnalysisTheater.tsx) — 레일(차례) · 무대(`PassageMap` + 블록) · 장 카드 · 「전부 펼쳐 읽기」 · ←/→ · 배속. 기출 탐구 작업공간(2026-10-13 · [WORKSPACE_COMPACT](./csat-learner/WORKSPACE_COMPACT.md)): 원문 열 → 메인 프레임(근거·관계 판 36% · 설명·판단 판 64% · 근거 판 접기) → 하단 탐구 도크 `InquiryDock`(네 요소 · 일곱 장면 아이콘 · `lib/csat/inquiry/dock.ts`) · 강의 도구(읽기 강의 · 진행 · 같은 유형 · 재생) · 자기 설명/원리 노트 초안 문항별 탭 메모리 · 저장 실제 결과(`lib/csat/explain-draft.ts`) · 원리 노트 근거 연결(`evidence`) · 원문 폭 선호 ≠ 표시(`lib/csat/paper-width.ts`). 일곱 장면(v3 · 옛 `SceneNav` 탭은 도크로 대체 · 배정 `lib/csat/inquiry/scenes.ts` `parseScene` — 블록 하나는 한 장면 · 정답·오답은 문항 성립, 출제 의도는 설계 재구성 · 재생 중이면 강의가 가리키는 블록의 장면으로 따라감). 장면 도식 `SceneDiagrams`(설계 주석 `passage_design`): 본질=이 지문을 고른 이유 · 지문 구조=역할 사슬·패턴·허용 대안·단서(지도 문장 수와 다르면 번호 없음) · 정답 설계=원문→정답 변환. 모두 「설계 가설」 라벨. 오답 설계=선지별 유지/바뀜/변환(`DistractorDesign`) · 공통 원리=통하는/적용 안 되는 조건(`PrincipleDesign`) — v3 패널 `InquiryV3Panels`(평가 과제 · 원문 의미 · 문항 성립 · 설계 — verified 문항만, 근거 버튼 → `PassageMap focusSentences`) · 데이터 `lib/csat/inquiry-data.json`(분석 버전이 같을 때만 · 계약 docs/csat-learner/ITEM_INQUIRY_V2_CONTRACT.md). v3 M4/M5: `V3CompareExplorer`(검수된 비교 쌍 — 종류 필터 · listbox 선택 `?pair=` · 대응 표 · 근거 강조/해제 · 상대 이동 `back` · 상대 상태별 withheld/absence, 서버 projection `lib/csat/inquiry/compare-v3.ts`) · `V3PrincipleLevels`(candidate/bounded) · `ReasoningNoteForm`(원리 노트 → `DissectionRecord.reasoningNotes`, 검수된 원리와 스스로 대조 · 채점 없음) · `mapReturn`(「학습 지도로」) · `PaperResizer`(기출 원문 열 폭 — 끌기 · ←/→ · Home/End · 더블클릭 기본 · `--paper-w` · 기기 저장). v3.1: `MeaningSupportPanel`(원문 이해 장면 안 선택적 탐구 — 의미 · 관계(`MeaningRelationView`) · 깊이 brief/why/deep · `MeaningDraft`(v3.2 「내 말로 이해하기」 — 펼쳐야 보이는 입력 → 저장 `DissectionRecord.meaningNotes`(문항|의미 id · 분석 버전 + 교수 본문 해시 결속 · `lib/csat/meaning-note.ts`) → 검수된 쉬운 말 · 지킬 조건과 나란히(점수 없음) → 고쳐 쓰기(처음 설명 보존 · 달라진 점 선택) → 앞뒤 관계 · 글 전체 단계로 · 예전 설명으로 쓴 노트 표시) · 글 전체 통합 단계 · 읽기의 경계 `MeaningWholeView` · 읽어 주기 `useMeaningNarration`(검수 본문만 큐로 `lib/csat/meaning-support/narration.ts`) · 지도 `PassageMap onSentenceSelect` · URL `meaning=` `depth=` allowlist · 서버 결속 + 검수 재확인 `lib/csat/meaning-support/data.ts` — 맞지 않으면 기존 `V3Meaning` · 구절 대응 행 · 원문 대조 `lib/csat/meaning-support/align.ts`(기기 문제지 `ItemPaper` status/highlight) · v3 F08: 원본 크롭 위 밑줄 강조(`ItemPaper mark` — 근거로 고른 선지 `choice-n` · 평가 과제 장면의 함축 밑줄 어구, 크롭 비율 좌표 · 대응 확정분만 · 아니면 이유 한 줄 `lib/csat/reflow/crop-mark-view.ts`, 위치 계산 `lib/csat/reflow/paper-marks.ts` · 크롭과 같은 PDF 해시에 묶인 탭 메모리 `read-paper cropEntryOf`) · 성립/설계 이어 가기 `MeaningBridgeFocus`) · 레일 `CsatRail` 은 상시 메뉴 두 개(내 학습 지도 · 기출 탐구 — v3 M1) · 지도 홈 `home/HomeLanding`(첫 제안 `lib/csat/home-suggestion` · 핵심 학습 지도 · 내 자료) · 서가 조건 ↔ 주소 `lib/csat/browse-url` · 기본 아이콘 64px(왼쪽 위 표지 = 펼침/접힘 토글 · `csat-rail` 기기 저장) |
 | 효과음 | [`lib/csat/theater-sfx.ts`](../apps/web/src/lib/csat/theater-sfx.ts) — 넷(step·mark·trap·seal), 큐 경계에서만. 기존 **실녹음 샘플을 배속으로** 다시 쓴다(새 자산 0). `wrong.wav` 는 쓰지 않는다 · 기본 끔 · 샘플을 못 받으면 무음 |
 | 엔진 | **변경 없음** — `LecturePlayer` · `LectureStage` · `PassageMap` 그대로 |
-| 학습 세션 (G1 · 2026-10-08) | [`lib/csat/learning-session.ts`](../apps/web/src/lib/csat/learning-session.ts) — 연 문항마다 세션(시도 0건이어도) · 단계 위치 저장 → 재개 · 마지막 단계 「이 문항 마치기」 → [`SessionDone`](../apps/web/src/components/csat/theater/SessionDone.tsx)(독립/도움 문구 · 다음 문항 · 3일 뒤 다시 보기 · 처음부터 다시) · 「모르겠어요」= `viewed_first`(적중률 제외). 이어서 판에 「하다 만 문항 · 다시 볼 문항」. 계약 [G0](./csat-learner/G0_LEARNING_CONTRACT.md) · 회귀 단위 26 + E2E [`csat-learning-loop.spec.ts`](../apps/web/tests/e2e/csat-learning-loop.spec.ts) 11(DB 무쓰기) |
+| 학습 세션 (G1 · 2026-10-08) | [`lib/csat/learning-session.ts`](../apps/web/src/lib/csat/learning-session.ts) — 연 문항마다 세션(시도 0건이어도) · 단계 위치 저장 → 재개 · 마지막 단계 「이 문항 마치기」 → [`SessionDone`](../apps/web/src/components/csat/theater/SessionDone.tsx)(독립/도움 문구 · 다음 문항 · 「N일 뒤 다시 보기」 — 표시와 예약이 같은 reviewDays(1·3·7일, T-0216) · 처음부터 다시) · 「모르겠어요」= `viewed_first`(적중률 제외). 이어서 판에 「하다 만 문항 · 다시 볼 문항」. 계약 [G0](./csat-learner/G0_LEARNING_CONTRACT.md) · 회귀 단위 26 + E2E [`csat-learning-loop.spec.ts`](../apps/web/tests/e2e/csat-learning-loop.spec.ts) 11(DB 무쓰기) |
 | 회귀 | 순수 **28** — [`theater.test.ts`](../apps/web/src/lib/csat/__tests__/theater.test.ts) 16(차례·이름·소리·블록·빈 칸 없음·정답표 없는 회차) + [`browse-model.test.ts`](../apps/web/src/lib/csat/__tests__/browse-model.test.ts) 12(축 AND · 거르지 않음 · 번호 완전 일치 · 회차 순서) |
 
 ---
+
+## 교재 연습 — `/library/textbooks/[series]/[step]/practice` (2026-10-28)
+
+- 조회 경로를 알린다: `fetchTextbookPracticeItems` 가 `scope`(volume | legacy_v_level)와 서버 `getUser` owner 를 돌려준다. 권 함수 `textbook_practice_items_for` 가 없으면 V레벨 공통 풀로 대체하며, 이때(및 미확인)는 「선택한 교재의 기준 수준으로 고른 공통 문항 · 수록 문제와 같다는 뜻 아님」 안내 뒤 「공통 문항으로 연습하기」를 눌러야 문항이 나온다. volume 도 인쇄본 수록 일치를 약속하지 않는다.
+- `TextbookPracticeBridge` 가 기존 `useStoryAuthGuard` 로 감싼다: checking/changed 에 문항·답·해설을 그리지 않고 「연습 다시 열기」·권 복귀만. 같은 계정일 때만 DcpPlayer `revisit`(이미 본 답·해설, 새 채점·기록 없음).
+- 채점은 `gradeTextbookPracticeItem(expectedOwner, …)`: 요청 사용자가 없거나 다르면 `grade_dcp_item` 호출 전에 실패로 거부. 지원 유형은 `dcp-types.ts` PLAYABLE(순서·삽입 + 선택형).
+- 미완: 인쇄본 수록 문항 ID/판본 결속, 권 전용 단어 복습, 완료 문구.
 
 ## 기출 주장과 근거 연습 — `/csat/practice` (2026-10-08 이식)
 
@@ -1139,6 +1204,26 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 - 상세 · 수용 기준 대응은 [PRACTICE_PORT](./csat-learner/PRACTICE_PORT.md).
 - 2026-10-17 연습 ↔ 독립 확인 경계(#281 E01): 지도가 독립 확인 문항으로 쓰는 문항(과제 키 무관)은 그 학습자가 어떤 경로로도 아직 안 봤으면 연습에서 뺀다(`practiceReservation` — 노출 원장 `lib/csat/map/v62/exposure-ledger.ts`: G2 시도 · 세션(삭제 포함) · 함정 · 문제지 · 복습 큐 · 진단 응답 + 정규화 지문). 제출 · 해설 열람 · 복습 예약 API 도 409로 막는다. 원장을 못 읽으면 전부 예약(fail-closed). 남는 문항이 없으면 404 대신 `PracticeReservedNotice`(학습 지도 확인 과제 안내). 전이(주제 · 제목) 문항은 이 화면이 전이 수행 경로라 예약하지 않는다.
 - 같은 날 공급 판정(`supply.ts`): 독립 확인 · 전이 · 지연 줄은 정식 자격(FQ) reader 가 적격이라 한 미노출 문항만 `available`. 기존 출시 경로로 열 수 있을 뿐이면 `open_unqualified`(「기존 과제로 풀 수 있어요 · 정식 자격 확인 전」 · 7필드 true 없음 · 공급 수 0). FQ 표가 없으면 `not_installed`, 조회 실패는 `error`로 구별한다(`loadFqReader`).
+
+## 원문 교수 자기 설명 — `/csat/factory/[deliveryId]` 안 (2B · 2026-10-21)
+
+- **T-0091(2026-10-23) 학습 정리 전환**: 관계 · 절차 서술 칸 대신 시스템 카드(`lib/csat/system-learning.ts` `RELATION_CARDS` · `TITLE_RELATION_CARDS` · `PROCEDURE_CARDS`)를 고르고, 요지의 「시범과의 대조」 는 고른 문장과 시범 문장을 센 자동 사실 문장이다(학습자 글 · 자기 평가 아님). 저장 계약 · 서버 형성 피드백 · 다음 단계 연결은 그대로, 2C 재진입 때 예전에 직접 쓴 설명은 「저장된 기록 · 읽기 전용」. 같은 날 기출 문항 `scene=explain` 은 「학습 정리」(SystemLearningSummary)로 바뀌었다 — 사용자별 콘텐츠 평가는 지원하지 않는다([DECISIONS CL-SL-1](./csat-learner/DECISIONS.md)).
+
+- 교수 자료 원문의 납품이면 `page.tsx`가 단계별 답변 전 지원(`beforeAnswerSupport`)만 `FactoryDcpRunner`에 넘긴다. 풀이 저장(영수증 id) 뒤 `SourceLessonPanel`이 열린다: 번호 붙은 문장 목록 · 주장/근거 선택 · 관계 · (요지) 시범 + 비교 · (주제) 절차 → `POST …/lesson`. 같은 본문 재시도 = 같은 키, 실패해도 글 유지, 저장 확인 뒤 「다음: 같은 글의 제목/주제」 또는 Workspace 복귀.
+- 2C 재진입: `page.tsx` 가 `savedReflection`(본인 · 납품 · Workspace · 교수 자료 SHA 로 좁힌 닫힌 값)을 읽어 `lesson.restored` 로 넘기면 Runner 는 풀이 칸을 그리지 않고 패널을 저장값으로 잠가 보여 주며 다음 단계/Workspace 링크를 낸다. 읽기 실패는 `restoreFailed` 안내(새 풀이로 덮지 않음).
+- 코드: `lib/csat/map/v62/factory-bridge/source-lesson.ts` · `components/csat/factory/SourceLessonPanel.tsx` · `app/api/csat/factory/[deliveryId]/lesson/route.ts`. `FactoryDcpCard` 목록 응답은 `readFactoryList`로 닫힌 모양만 받는다(미상 수치를 0으로 바꾸지 않음).
+
+## 공장 DCP 안내 연습 — `/csat/factory/[deliveryId]` (1D · 2026-10-21)
+
+- 2F 요청: 같은 카드가 미설치가 아니면 「공장 연습 자료 요청」 단추를 보인다(`POST /api/csat/factory/request` · 서비스 `factory-bridge/dcp-request.ts`). 결과는 받음(첫 「요지 고르기부터 시작」 링크 + 목록 새로고침) · 제작 연결 대기 · 승인 대기 · 지금 단계 아님 · 계획 먼저 · 실패(「다시 요청」, 같은 키라 중복 없음)로 나뉘고 0건/완료로 삼키지 않는다. 응답은 `readFactoryRequest`가 닫힌 모양만 받는다. 학습자 화면에 내부 id는 보이지 않는다.
+- 진입: 학습 지도 Workspace 팝업 `FactoryDcpCard`(r.central_meaning · 납품이 있을 때만). 화면 `components/csat/factory/FactoryDcpRunner.tsx` 가 기존 `DcpPlayer` 를 쓰고, 채점만 `POST /api/csat/factory/[id]/attempt`(실제 `grade_dcp_item` + 납품 결속 영수증, 같은 응답 = 같은 UUID 키로 멱등) 로 바꾼다. 서비스 `lib/csat/map/v62/factory-bridge/dcp-learning.ts`.
+- 저장 실패 · 모양이 다른 200(영수증 · 실제 채점 시도 id 없음)은 「채점을 못 했어요」(오답 · 완료 아님 · 고른 답 유지). 완료 문구는 `DcpPlayer` 의 `doneCopy` 로 연습 기록 경계를 말하고, 돌아가기는 같은 Workspace 의 기존 다음 행동으로 간다. 근거 경계는 [LEARNING_MODEL](./LEARNING_MODEL.md) §공장 DCP 안내 연습.
+- 계측 `csat_factory_dcp_opened`(type · attempts) · `_submitted`(type · correct · replayed) · `_returned`(finished). DB 허용 목록은 보류 SQL 에 있어 적용 전에는 0건이다.
+
+## 창작 평가 자료의 AI 검토 공급 (2A · 2026-10-21)
+
+- 관리자 세션 서비스 `lib/csat/authored/ai-review.ts`(`verifyAiReviewReceipt` → `recordAiReviewedSupply`: 등록 → `content_ai_decision_record` → `authored_ai_qualify` → 승인). 영수증 원본 `docs/implementation/learning-outcomes-20261021/evidence/2a-ai-review/`. 학습자 화면 · 라우트는 기존 창작 경로(`/api/csat/authored/*`) 그대로이며, `server.ts` 재고 선택은 `authored_supply_decision_state` 가 `human`·`ai` 인 자격만 후보로 둔다(함수 미설치 시 기존 동작).
+- 관리자 API 라우트는 아직 없다(2B 이후). SQL 미적용 상태에서는 아무 행도 만들지 않는다.
 
 ---
 

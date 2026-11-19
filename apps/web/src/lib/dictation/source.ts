@@ -443,7 +443,24 @@ export async function resolveCustomSource(
   payload: CustomScript,
   userId: string | null,
 ): Promise<DictationSource | null> {
-  const sentences0 = splitSentences(payload.script).filter(isUsableSentence)
+  return customSourceFromSentences(client, payload.title, splitSentences(payload.script), userId)
+}
+
+/**
+ * 이미 문항 단위로 나뉜 목록 → custom 자료. 다시 쪼개지 않는다(결과의 「틀린 문항만 다시」 — 원 문항 그대로).
+ * 붙여넣은 글과 같은 규칙(isUsableSentence · 내 단어 타깃)을 쓰고, 기록도 같은 source_kind='custom' 으로 남는다.
+ */
+export async function customSourceFromSentences(
+  client: SupabaseClient,
+  title: string,
+  rawSentences: readonly string[],
+  userId: string | null,
+  /** keepAll — 이미 받아쓴 원 문항(재시도 입력 정책): 빈 문자열만 버리고 새 원문용 문장 필터(isUsableSentence)로 거르지 않는다 */
+  opts: { keepAll?: boolean } = {},
+): Promise<DictationSource | null> {
+  const payload = { title }
+  const trimmed = rawSentences.map((s) => s.trim())
+  const sentences0 = opts.keepAll ? trimmed.filter((s) => s.length > 0) : trimmed.filter(isUsableSentence)
   if (sentences0.length === 0) return null
 
   let lemmas: TargetLemma[] = []

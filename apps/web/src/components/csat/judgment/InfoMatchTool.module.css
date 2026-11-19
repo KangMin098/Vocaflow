@@ -1,0 +1,38 @@
+/* apps/web/src/components/csat/judgment/InfoMatchTool.module.css */
+/* 정보 일치 판단면 — 선지 성분 · 근거 연결 · 성분 단위 표시. 색 외에 기호(=, ≠, ∅)와 글자로 상태를 함께 보인다 */
+.root { word-break: keep-all; }
+.choiceBar { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; }
+.choiceBtn { justify-content: flex-start; text-align: left; gap: 10px; }
+.choiceNo { font-weight: 600; }
+.choiceText { flex: 1; line-height: 1.45; }
+.choiceSum { font-size: 13px; color: var(--t2); font-variant-numeric: tabular-nums; }
+
+.tokens { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 12px; }
+.token { min-height: 44px; min-width: 44px; padding: 6px 10px; border: 1px solid var(--bd); border-radius: 6px; background: var(--bg); color: var(--t1); font-size: 16px; cursor: pointer; }
+.token:hover { background: var(--bg2); }
+.token:focus-visible { outline: 2px solid var(--t1); outline-offset: 2px; }
+.token[data-comp] { border-style: solid; text-decoration: underline; text-underline-offset: 4px; }
+.token[data-comp][data-origin='learner'] { text-decoration-style: dashed; }
+.token[data-free] { border-style: dashed; color: var(--t2); }
+.token[aria-pressed='true'] { border-color: var(--t1); background: var(--bg2); color: var(--t1); font-weight: 600; }
+
+.comps { list-style: none; margin: 16px 0 8px; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.comp { padding: 10px 12px; border: 1px solid var(--bd); border-radius: var(--r-md, 10px); }
+.comp[data-active] { border-color: var(--t1); }
+.compHead { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.compName { font-weight: 600; }
+.origin { font-size: 13px; color: var(--t2); }
+.links { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 8px 0; }
+.markRow { display: flex; gap: 6px; }
+.markBtn[aria-disabled='true'] { opacity: .5; }
+.markers { margin: 8px 0 0; font-size: 13px; line-height: 1.6; color: var(--t2); }
+
+.rules { margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.7; color: var(--t2); }
+.rules b { margin-right: 6px; color: var(--t1); }
+
+.cmp { margin-top: 12px; }
+.cmp h4 { margin: 0 0 6px; font-size: 15px; }
+.explain { margin: 0 0 8px; font-size: 15px; line-height: 1.7; }
+.cmpList { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; margin: 0; font-size: 14px; }
+.cmpList dt { color: var(--t2); }
+.cmpList dd { margin: 0; display: flex; gap: 8px; flex-wrap: wrap; }

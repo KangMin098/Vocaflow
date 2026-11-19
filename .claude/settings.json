@@ -25,7 +25,18 @@
       "Bash(node agents/scripts/sync.mjs:*)",
       "Bash(node agents/scripts/lock.mjs:*)",
       "Bash(node agents/scripts/handoff.mjs:*)",
-      "Bash(node --test agents/scripts/__tests__/*)"
+      "Bash(node --test agents/scripts/__tests__/*)",
+      "Bash(pnpm build:*)",
+      "Bash(git add:*)",
+      "Bash(git worktree add:*)"
+    ],
+    "ask": [
+      "Bash(git push:*)",
+      "Bash(git merge:*)",
+      "Bash(supabase db:*)",
+      "Bash(psql:*)",
+      "mcp__supabase__apply_migration",
+      "mcp__claude_ai_Supabase__apply_migration"
     ],
     "deny": [
       "Bash(rm -rf:*)",
@@ -48,7 +59,8 @@
       "Read(./**/.env)",
       "Read(./**/.env.local)",
       "Read(./**/.env.*.local)",
-      "Read(./**/.env.production)"
+      "Read(./**/.env.production)",
+      "Bash(git clean:*)"
     ]
   },
   "hooks": {

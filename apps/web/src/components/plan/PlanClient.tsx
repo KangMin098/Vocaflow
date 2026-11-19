@@ -19,6 +19,7 @@ import {
   Pencil,
   Play,
   Plus,
+  RotateCw,
   Trash2,
   X,
 } from 'lucide-react'
@@ -26,6 +27,7 @@ import Link from 'next/link'
 import { useEffect, useRef, useState, useTransition } from 'react'
 
 import { ActivityGlyph } from '@/components/plan/ActivityGlyph'
+import { useStoryAuthGuard } from '@/components/library/story/use-story-auth-guard'
 import { MATERIAL_ICON } from '@/lib/learner/activity-icons'
 
 import {
@@ -45,7 +47,9 @@ import {
 } from '@/lib/learner/plan-activities'
 import { V_BANDS, vBandOf } from '@/lib/library/genres'
 import {
+  fetchAvailableMaterials,
   fetchBookChapters,
+  fetchStudyPlanSnapshot,
   removePlanItem,
   savePlanItem,
   type AvailableMaterials,
@@ -71,24 +75,280 @@ function defaultActivities(type: MaterialType): Set<PlanActivity> {
 
 export function PlanClient({
   initialItems,
-  materials,
+  initialFailed = false,
+  viewerId = null,
+  materials: initialMaterials,
+  initialMaterialsFailed = false,
+  snapshotAt,
   todayWeekday,
   weekDates,
 }: {
   initialItems: PlanItem[]
+  /** 계획 읽기 실패(T-0240) — true 면 initialItems 는 완전한 계획이 아니다(빈 계획으로 보이지 않게) */
+  initialFailed?: boolean
+  /** 이 계획을 읽은 서버 Auth 의 id — 화면의 계정 경계(비로그인 null) */
+  viewerId?: string | null
   materials: AvailableMaterials
+  /** 서버에서 자료 목록 조회가 던졌는가(r13) — 처음부터 「자료 다시 불러오기」를 보인다 */
+  initialMaterialsFailed?: boolean
+  /** 이 props snapshot 이 출발한 서버 시각(T-0251) — 마지막 쓰기(서버 시각)보다 이르면 반영하지 않는다 */
+  snapshotAt?: number
   todayWeekday: number
   /** 이번 주(월~일) 날짜 'M/D' 7개 — index 0=월 (서버 KST 산출) */
   weekDates: string[]
 }) {
   const [items, setItems] = useState<PlanItem[]>(initialItems)
   const [error, setError] = useState<string | null>(null)
+  // 읽기 상태(T-0240) — confirmed: 이 viewer 의 계획을 한 번이라도 온전히 읽었는가 · readFailed: 마지막 읽기가 실패했는가
+  const [confirmed, setConfirmed] = useState(!initialFailed)
+  const [readFailed, setReadFailed] = useState(initialFailed)
+  const [reloading, setReloading] = useState(false)
+  // 계정 경계 — 이 목록을 읽은 viewer 와 브라우저 신원이 같을 때만 계획을 보이고 조작하게 한다
+  // 소유자 경계(T-0240 r4) — 처음엔 서버가 읽은 viewer. 첫 읽기가 인증 실패로 viewer 를 모르면(null) 재시도가 성공했을 때
+  //   그 응답의 viewer 로 새로 세운다(useStoryAuthGuard 가 새 경계를 만들고 브라우저 신원을 다시 확인한다).
+  //   viewer 가 null 인 경로: ① 비로그인 확인(failed false) ② 첫 인증 조회 실패(failed true) ③ 재시도 중 일시 인증 실패(failed true)
+  //   ④ 재시도에서 로그아웃 확인(failed false) — ①②는 소유자 미확정이라 쓰기 금지, ③은 기존 화면·선택·재시도 유지, ④는 확정된 계정 변경.
+  const [ownerId, setOwnerId] = useState<string | null>(viewerId)
+  const { guard, status: authStatus } = useStoryAuthGuard(ownerId)
+  const guardRef = useRef(guard)
+  guardRef.current = guard
+  // 자료 목록의 소유자 경계(r11) — 개인 스크립트 제목이 섞인다. 목록을 읽은 viewer 가 지금 계획 소유자와 같을 때만 쓰고,
+  //   다르면(첫 인증 실패 뒤 다른 계정으로 확립 등) 즉시 비우고 1회만 다시 읽는다. 응답도 소유자가 같을 때만 반영한다
+  const [mats, setMats] = useState<AvailableMaterials>(initialMaterials)
+  const ownerRef = useRef(ownerId)
+  ownerRef.current = ownerId
+  const matsRefetched = useRef(false)
+  const firstMats = useRef(true)
+  useEffect(() => {
+    if (firstMats.current) {
+      firstMats.current = false
+      return
+    }
+    // 새 props 마다 그 props 의 자료 결과로 실패 표시를 다시 계산한다(r14) — 실패면 「자료 다시 불러오기」가 보인다
+    setMats(initialMaterials)
+    setMatsFailed(initialMaterialsFailed)
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- 자료 props 교체에만 반응한다
+  }, [initialMaterials, initialMaterialsFailed])
+  const matsOwner = mats.viewerId ?? null
+  const materials: AvailableMaterials = matsOwner === ownerId ? mats : EMPTY_MATERIALS
+  // 자료 재조회 실패(r12) — 선택기가 조용히 빈 채로 남지 않게 표시하고, 명시적 「자료 다시 불러오기」로 다시 연다.
+  //   소유자가 바뀌면 1회 재조회 표식을 다시 연다
+  const [matsFailed, setMatsFailed] = useState(initialMaterialsFailed)
+  const [matsTry, setMatsTry] = useState(0)
+  const matsFor = useRef<string | null>(ownerId)
+  if (matsFor.current !== ownerId) {
+    matsFor.current = ownerId
+    matsRefetched.current = false
+  }
+  useEffect(() => {
+    if (ownerId === null || matsOwner === ownerId || matsRefetched.current) return
+    matsRefetched.current = true
+    const forOwner = ownerId
+    void fetchAvailableMaterials()
+      .then((m) => {
+        if (ownerRef.current !== forOwner) return
+        if ((m.viewerId ?? null) === forOwner) {
+          // 성공하면 1회 표식을 다시 연다(r14) — 뒤에 같은 소유자의 자료가 다시 어긋나도 다시 읽을 수 있게
+          matsRefetched.current = false
+          setMats(m)
+          setMatsFailed(false)
+        } else setMatsFailed(true)
+      })
+      .catch(() => {
+        if (ownerRef.current === forOwner) setMatsFailed(true)
+      })
+  }, [ownerId, matsOwner, matsTry])
+  const retryMaterials = () => {
+    matsRefetched.current = false
+    setMatsFailed(false)
+    setMatsTry((n) => n + 1)
+  }
+  const readGen = useRef(0)
+  const retryRef = useRef<HTMLButtonElement | null>(null)
+  const headingRef = useRef<HTMLHeadingElement | null>(null)
+  const focusAfterReload = useRef(false)
+  // 재시도 성공 뒤 초점(r6) — 제목이 **실제로 그려져 초점을 받은 뒤에만** 표식을 지운다.
+  //   새 소유자 경계가 확인 중(checking)이라 제목이 없으면 표식을 남겨 두고, 제목이 붙는 순간(ref 콜백) · 다음 렌더(effect)에 다시 시도한다
+  const tryFocusHeading = () => {
+    const el = headingRef.current
+    if (!focusAfterReload.current || readFailed || !el || !el.isConnected) return
+    el.focus()
+    if (typeof document !== 'undefined' && document.activeElement === el) focusAfterReload.current = false
+  }
+  const setHeading = (el: HTMLHeadingElement | null) => {
+    headingRef.current = el
+    tryFocusHeading()
+  }
+  useEffect(() => {
+    tryFocusHeading()
+  })
+  // 쓰기 진행 수(r6) — 수정 · 삭제가 응답을 기다리는 동안 재조회를 막는다(읽기와 쓰기가 겹치지 않게)
+  const [pendingWrites, setPendingWrites] = useState(0)
+  // props 교체(T-0240 r2 · r5) — page 는 key 로 재마운트하지 않는다. 소유자 판정은 여기서 한다:
+  //   · 실패 · viewer null(일시 인증 실패) → 소유자 확인 실패: 기존 화면 · 선택 유지, 실패 고지만
+  //   · 소유자 미확정 → 이 snapshot 의 viewer 로 경계를 세운다 · 같은 viewer → 새 snapshot 반영
+  //   · 확정된 다른 viewer(로그아웃 확인 포함) → 확정된 변경: 경계를 닫는다(계획 · 선택을 그리지 않는다)
+  //   진행 중이던 읽기는 무효로 한다. 미저장 선택(draft · artSel 등)은 건드리지 않는다
+  const firstProps = useRef(true)
+  const deferredProps = useRef(false)
+  /** 마지막으로 성공한 쓰기의 서버 시각(T-0251) — 쓰기 결과의 at 중 가장 늦은 것 */
+  const lastWriteAt = useRef(0)
+  const noteWrite = (res: { ok: boolean; at?: number }) => {
+    if (res.ok && typeof res.at === 'number' && res.at > lastWriteAt.current) lastWriteAt.current = res.at
+  }
+  /** 진행 중인 재조회의 세대(r15) — 현재 세대와 같을 때만 「진행 중」. props 교체로 세대가 바뀌면 자동으로 풀린다 */
+  const reloadInFlight = useRef<number | null>(null)
+  const focusRetryAfter = useRef(false)
+  useEffect(() => {
+    if (firstProps.current) {
+      firstProps.current = false
+      return
+    }
+    const transient = initialFailed && viewerId === null
+    // ① viewer 판정이 먼저(r8) — 확정된 다른 viewer · 로그아웃이면 쓰기 중이어도 즉시 경계를 닫는다
+    // ① 소유자와 다른 viewer 의 props(늦게 온 이전 계정 · 로그아웃 확인 등) — 그 props 를 버린다(r13).
+    //    경계를 닫는 것은 브라우저 인증 이벤트로 실제 변경이 확인될 때(guard)뿐이다 — 늦은 props 로 같은 계정 화면을 닫지 않게
+    if (!transient && ownerId !== null && viewerId !== ownerId) return
+    // ② 같은 viewer(또는 소유자 확인 실패)의 props 만 쓰기 중 보류(r7) — 낙관적 변경을 덮지 않게. 쓰기가 끝나면 보류분은 버리고 재조회 1회
+    if (writing) {
+      deferredProps.current = true
+      return
+    }
+    // ③ 마지막 쓰기보다 먼저 출발한 snapshot(T-0251) — 저장 전 출발해 저장 뒤 도착한 갱신이 성공한 변경을 덮지 않게 버리고, 재조회 1회로 확인한다
+    if (snapshotAt !== undefined && snapshotAt < lastWriteAt.current) {
+      void reloadPlan()
+      return
+    }
+    readGen.current++
+    setReloading(false)
+    if (transient) {
+      setReadFailed(true)
+      return
+    }
+    if (ownerId === null && viewerId !== null) {
+      // 소유자를 새로 정한다(r14) — 비로그인 때의 확인 상태 · 계획을 물려받지 않는다(첫 조회가 실패하면 「확인한 계획 없음」)
+      setOwnerId(viewerId)
+      setConfirmed(false)
+      setItems([])
+    }
+    if (initialFailed) {
+      setReadFailed(true)
+      return
+    }
+    setItems(initialItems)
+    setConfirmed(true)
+    setReadFailed(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- props(snapshot) 교체에만 반응한다. ownerId 는 판정 시점 값이면 된다
+  }, [initialItems, initialFailed, viewerId])
+  /** 쓰기 직전 계정 확인(T-0240 r2 P1) — 이 화면의 viewer 와 지금 브라우저 신원이 같고, 시작할 때의 세대 그대로일 때만 */
+  //   소유자가 확정되기 전(ownerId null)에는 쓰지 않는다(r4) — 기대 주인 없이 저장하지 않게
+  const canWrite = (token: number) => ownerId !== null && guard.isCurrent(token) && guardRef.current === guard
+  /** 서버에 넘기는 기대 주인(T-0240 r3) — 서버 getUser 가 다르면 쓰기 전에 거부된다 */
+  const owner = ownerId ?? undefined
+  /** 명시적 읽기 재시도 — 읽기만 한다(저장 · 삭제를 다시 보내지 않는다). 늦은 응답 · 다른 viewer 응답은 버린다 */
+  async function reloadPlan() {
+    // 쓰기 중에는 재조회하지 않는다(r6) — 낡은 읽기 결과가 낙관적 변경을 덮지 않게 · 이미 재조회 중이면 다시 부르지 않는다(r8)
+    if (writing || (reloadInFlight.current !== null && reloadInFlight.current === readGen.current)) return
+    // 누른 순간 재시도 단추에 초점이 있었는가(r8) — 재조회 중 단추가 disabled 되면 초점이 풀리므로 시작할 때 기억한다
+    const fromRetry = typeof document !== 'undefined' && document.activeElement === retryRef.current
+    let succeeded = false
+    const gen = ++readGen.current
+    reloadInFlight.current = gen
+    const startGuard = guard
+    const token = guard.token()
+    setReloading(true)
+    try {
+      const snap = await fetchStudyPlanSnapshot()
+      if (gen !== readGen.current) return
+      // ③ 소유자 확인 실패(일시 인증 실패) — 계정 변경으로 확정하지 않는다. 기존 화면 · 선택 · 재시도를 그대로 둔다
+      if (snap.viewerId === null && snap.failed) {
+        setReadFailed(true)
+        return
+      }
+      if (ownerId !== null) {
+        // 시작할 때의 경계가 그 사이 바뀌었으면(인증 이벤트) 버린다 — 경계 자신이 상태를 이미 바꿨다
+        if (guardRef.current !== startGuard || !startGuard.isCurrent(token)) return
+        // ④ 로그아웃 확인 · 다른 계정의 계획 — 확정된 계정 변경
+        if (snap.viewerId !== ownerId) {
+          startGuard.invalidate()
+          return
+        }
+      } else if (snap.viewerId !== null) {
+        // ② 뒤 재시도 성공 — 그 응답의 viewer 로 소유자 경계를 새로 세운다. 새 경계가 브라우저 신원을 확인하기 전(checking) ·
+        //   다르면(changed) 화면은 계획을 그리지 않고 쓰기도 막힌다(canWrite 는 새 경계의 same 에서만)
+        setOwnerId(snap.viewerId)
+        // 새 소유자(r14) — 이전(비로그인) 확인 상태 · 계획을 물려받지 않는다
+        setConfirmed(false)
+        setItems([])
+      }
+      if (snap.failed) {
+        setReadFailed(true)
+        return
+      }
+      // 재시도 단추에 초점이 있었으면(누른 단추가 사라진다) 성공 뒤 계획 제목으로 옮긴다(r5)
+      if (fromRetry) focusAfterReload.current = true
+      succeeded = true
+      setItems(snap.items)
+      setConfirmed(true)
+      setReadFailed(false)
+      setWriteUnknown(false)
+    } catch {
+      if (gen === readGen.current) setReadFailed(true)
+    } finally {
+      if (reloadInFlight.current === gen) reloadInFlight.current = null
+      if (gen === readGen.current) setReloading(false)
+      // 키보드로 재시도했는데 다시 실패 · 예외(r10) — 단추가 다시 활성이 된 뒤 그 단추로 초점을 돌려준다(아래 effect)
+      if (fromRetry && !succeeded && gen === readGen.current) focusRetryAfter.current = true
+    }
+  }
   const [, startTransition] = useTransition()
 
   // 컴포저 상태 — draft(신규 자료) 또는 editId(담은 자료) 중 하나만 활성
   const [draft, setDraft] = useState<Draft | null>(null)
   const [editId, setEditId] = useState<string | null>(null)
   const [adding, setAdding] = useState(false)
+  /** 쓰기 결과를 확인하지 못함(r12) — 읽기 실패 고지와 같은 자리에 재조회 단추를 보인다. 재조회 성공 시 해제 */
+  const [writeUnknown, setWriteUnknown] = useState(false)
+  /** 서버 액션이 던져도(네트워크 등) 기존 실패 계약으로 — 쓰기 상태(adding · pendingWrites)가 남지 않게(r10) */
+  const safeSave = async (input: Parameters<typeof savePlanItem>[0]) => {
+    try {
+      const res = await savePlanItem(input)
+      noteWrite(res)
+      return res
+    } catch {
+      // 저장 여부를 모른다(r12) — 안내가 말하는 「다시 불러와 확인」을 지금 화면에서 할 수 있게 재조회 단추를 띄운다
+      setWriteUnknown(true)
+      return { ok: false as const, error: '저장 여부를 확인하지 못했어요. 계획을 다시 불러와 확인해 주세요.' }
+    }
+  }
+  const safeRemove = async (id: string, expected: string | undefined) => {
+    try {
+      const res = await removePlanItem(id, expected)
+      noteWrite(res)
+      return res
+    } catch {
+      setWriteUnknown(true)
+      return { ok: false as const, error: '삭제 여부를 확인하지 못했어요. 계획을 다시 불러와 확인해 주세요.' }
+    }
+  }
+  /** 쓰기 진행 중(r6) — 담기 · 수정 · 삭제 중에는 재조회 단추를 잠근다 */
+  const writing = adding || pendingWrites > 0
+  // 재시도 실패 뒤 초점 복구(r10) — 단추가 다시 활성이고, 사용자가 초점을 다른 곳으로 옮기지 않았을 때(body)만
+  useEffect(() => {
+    if (!focusRetryAfter.current || reloading) return
+    const b = retryRef.current
+    if (!b || b.disabled) return
+    focusRetryAfter.current = false
+    const a = typeof document !== 'undefined' ? document.activeElement : null
+    if (!a || a === document.body) b.focus()
+  })
+  // 쓰기 중 보류한 props 가 있으면(r7) 쓰기가 끝난 뒤 그 props 를 버리고 재조회 1회 — 기존 재조회 잠금 경로를 그대로 탄다
+  useEffect(() => {
+    if (writing || !deferredProps.current) return
+    deferredProps.current = false
+    void reloadPlan()
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- 쓰기 종료 전환에만 반응한다
+  }, [writing])
   /** 구성 패널 — 보드/목록에서 선택하면 화면 밖일 때 스크롤로 데려온다 */
   const composerRef = useRef<HTMLElement | null>(null)
   function revealComposer() {
@@ -216,11 +476,23 @@ export function PlanClient({
     const weekdays = Array.from(draft.weekdays).sort((a, b) => a - b)
     const m = draft.option
     const type = draft.type
+    const token = guard.token()
+    if (!canWrite(token)) {
+      if (ownerId === null) setError(NO_OWNER)
+      return
+    }
+    if (reloading) return
     setError(null)
     setAdding(true)
     startTransition(async () => {
-      const res = await savePlanItem({ materialType: type, materialId: m.id, modules, chapters, weekdays })
-      setAdding(false)
+      let res: Awaited<ReturnType<typeof safeSave>>
+      try {
+        res = await safeSave({ materialType: type, materialId: m.id, modules, chapters, weekdays, expectedOwner: owner })
+      } finally {
+        setAdding(false)
+      }
+      // 응답 사이 계정이 바뀌었으면 이 화면에 싣지 않는다
+      if (!canWrite(token)) return
       if (!res.ok || !res.id) {
         setError(res.error ?? '추가에 실패했어요.')
         return
@@ -285,17 +557,27 @@ export function PlanClient({
     const pool =
       type === 'script' ? materials.scripts : type === 'word_set' ? materials.wordSets : materials.articles
     const picks = pool.filter((a) => artSel.has(a.id))
+    const token = guard.token()
+    if (!canWrite(token)) {
+      if (ownerId === null) setError(NO_OWNER)
+      return
+    }
+    if (reloading) return
     setError(null)
     setAdding(true)
     startTransition(async () => {
+      try {
       const added: PlanItem[] = []
       for (const m of picks) {
-        const res = await savePlanItem({
+        // 각 쓰기 직전 — 계정이 바뀌었으면 남은 선택을 새 계정에 저장하지 않고 멈춘다
+        if (!canWrite(token)) break
+        const res = await safeSave({
           materialType: type,
           materialId: m.id,
           modules,
           chapters: [],
           weekdays,
+          expectedOwner: owner,
         })
         if (res.ok && res.id) {
           added.push({
@@ -318,12 +600,17 @@ export function PlanClient({
         }
       }
       setAdding(false)
+      if (!canWrite(token)) return
       if (added.length === 0) {
         setError('추가에 실패했어요.')
         return
       }
       setItems((prev) => [...prev, ...added])
       setArtSel(new Set())
+      } finally {
+        // 어떤 경로로 끝나도 담기 상태를 푼다(r10) — 남으면 읽기 재시도까지 잠긴다
+        setAdding(false)
+      }
     })
   }
 
@@ -332,16 +619,26 @@ export function PlanClient({
     const modules = patch.modules ?? item.modules
     const chapters = patch.chapters ?? item.chapters
     const weekdays = patch.weekdays ?? item.weekdays
+    const token = guard.token()
+    if (!canWrite(token)) {
+      if (ownerId === null) setError(NO_OWNER)
+      return
+    }
+    if (reloading) return
     setItems((prev) => prev.map((it) => (it.id === item.id ? { ...it, modules, chapters, weekdays } : it)))
     setError(null)
+    setPendingWrites((n) => n + 1)
     startTransition(async () => {
-      const res = await savePlanItem({
+      try {
+      if (!canWrite(token)) return
+      const res = await safeSave({
         id: item.id,
         materialType: item.materialType,
         materialId: item.materialId,
         modules,
         chapters,
         weekdays,
+        expectedOwner: owner,
       })
       if (!res.ok) {
         setItems((prev) =>
@@ -353,20 +650,38 @@ export function PlanClient({
         )
         setError(res.error ?? '저장에 실패했어요.')
       }
-    })
-  }
-  function removeItem(item: PlanItem) {
-    setItems((prev) => prev.filter((it) => it.id !== item.id))
-    if (editId === item.id) setEditId(null)
-    setError(null)
-    startTransition(async () => {
-      const res = await removePlanItem(item.id)
-      if (!res.ok) {
-        setItems((prev) => [...prev, item])
-        setError(res.error ?? '삭제에 실패했어요.')
+      } finally {
+        setPendingWrites((n) => n - 1)
       }
     })
   }
+  function removeItem(item: PlanItem) {
+    const token = guard.token()
+    if (!canWrite(token)) {
+      if (ownerId === null) setError(NO_OWNER)
+      return
+    }
+    if (reloading) return
+    setItems((prev) => prev.filter((it) => it.id !== item.id))
+    if (editId === item.id) setEditId(null)
+    setError(null)
+    setPendingWrites((n) => n + 1)
+    startTransition(async () => {
+      try {
+        if (!canWrite(token)) return
+        const res = await safeRemove(item.id, owner)
+        if (!res.ok) {
+          setItems((prev) => [...prev, item])
+          setError(res.error ?? '삭제에 실패했어요.')
+        }
+      } finally {
+        setPendingWrites((n) => n - 1)
+      }
+    })
+  }
+
+  // 계정 확인 전 · 바뀜 — 이 viewer 의 계획을 확인한 것처럼 보이거나 저장 조작을 받지 않는다
+  if (ownerId && authStatus !== 'same') return <PlanIdentityNotice status={authStatus} />
 
   return (
     // 폭/가로 패딩은 페이지의 <Screen width="wide" padX> 가 담당 — 내부 이중 제약(max-w-3xl·px) 금지
@@ -375,7 +690,7 @@ export function PlanClient({
       <header className="account-reference__intro">
         {/* v07 — 둥근 아이콘 칩 + `Sparkles` 를 주묵 획으로. `Sparkles` 는 지금 AI 생성 UI 의
             공통 표식이라 화면마다 붙이면 출신 표시가 된다(00-inventory C4). */}
-        <h1 className="flex items-center gap-2.5 font-editorial text-[24px] font-[600] text-[var(--t1)] md:text-[28px]">
+        <h1 ref={setHeading} tabIndex={-1} data-testid="plan-heading" className="flex items-center gap-2.5 rounded-[var(--r-sm)] font-editorial text-[24px] font-[600] text-[var(--t1)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 md:text-[28px]">
           <span aria-hidden className="inline-block h-[22px] w-[3px] shrink-0 bg-[var(--ju)]" />
           나의 학습 계획
         </h1>
@@ -397,6 +712,46 @@ export function PlanClient({
         </p>
       )}
 
+      {/* 계획 읽기 실패(T-0240) — 빈 계획 · 삭제된 자료로 보이지 않게. 다시 불러오기는 읽기만 한다 */}
+      {(readFailed || writeUnknown) && (
+        <div role="alert" data-testid="plan-read-failed" data-write-unknown={writeUnknown && !readFailed ? 'true' : undefined} className="flex flex-wrap items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3">
+          <p className="m-0 min-w-0 flex-1 break-keep font-body text-[13px] leading-relaxed text-[var(--t1)]">
+            {!readFailed
+              ? '저장 결과를 확인하지 못했어요. 다시 불러와 지금 계획을 확인해 주세요.'
+              : confirmed
+              ? '계획을 다시 불러오지 못했어요. 아래는 마지막으로 확인한 계획이에요.'
+              : '학습 계획을 불러오지 못했어요. 계획이 비어 있다는 뜻이 아니에요 — 다시 불러와 확인해 주세요.'}
+          </p>
+          <button
+            type="button"
+            ref={retryRef}
+            onClick={() => void reloadPlan()}
+            aria-disabled={reloading}
+            disabled={writing || reloading}
+            aria-describedby={writing ? 'plan-writing-note' : undefined}
+            data-testid="plan-read-retry"
+            className="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12.5px] font-[700] text-[var(--t1)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1"
+          >
+            <RotateCw size={13} aria-hidden className={reloading ? 'animate-spin motion-reduce:animate-none' : ''} />
+            {reloading ? '불러오는 중' : '다시 불러오기'}
+          </button>
+        </div>
+      )}
+
+      {/* 읽기 · 쓰기가 겹치지 않게(r6) — 재조회 중에는 보드 · 구성 조작을 잠그고, 쓰기 중에는 재조회를 잠근다 */}
+      {reloading && confirmed && (
+        <p id="plan-reloading-note" role="status" data-testid="plan-reloading-note" className="m-0 break-keep font-body text-[12.5px] text-[var(--t2)]">
+          계획을 다시 불러오는 동안에는 담기 · 수정 · 삭제를 잠시 멈춰요.
+        </p>
+      )}
+      {writing && readFailed && (
+        <p id="plan-writing-note" role="status" data-testid="plan-writing-note" className="m-0 break-keep font-body text-[12.5px] text-[var(--t2)]">
+          저장 중이에요. 끝나면 다시 불러올 수 있어요.
+        </p>
+      )}
+
+      {/* 한 번도 온전히 읽지 못했으면 보드 · 컴포저를 그리지 않는다 — 빈 계획처럼 보이거나 중복 계획을 만들지 않게 */}
+      {confirmed && (<fieldset disabled={reloading} aria-describedby={reloading ? 'plan-reloading-note' : undefined} data-testid="plan-controls" className="m-0 flex min-w-0 flex-col gap-5 border-0 p-0">
       {/* 오늘의 학습 */}
       {items.length > 0 && <TodayStrip items={items} today={todayWeekday} weekDates={weekDates} />}
 
@@ -420,6 +775,21 @@ export function PlanClient({
           <h2 className="flex items-center gap-2 font-display text-[14px] font-[800] text-[var(--t1)]">
             <Plus size={15} strokeWidth={2} className="text-[var(--p)]" aria-hidden /> 자료 고르기
           </h2>
+          {/* 자료 목록을 이 계정으로 다시 읽지 못했을 때(r12) — 빈 선택기로 두지 않고 말하고, 다시 읽게 한다 */}
+          {matsFailed && (
+            <div role="alert" data-testid="plan-materials-failed" className="flex flex-wrap items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2">
+              <p className="m-0 min-w-0 flex-1 break-keep font-body text-[12.5px] text-[var(--t1)]">자료 목록을 불러오지 못했어요.</p>
+              <button
+                type="button"
+                onClick={retryMaterials}
+                data-testid="plan-materials-retry"
+                className="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12.5px] font-[700] text-[var(--t1)] hover:bg-[var(--bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1"
+              >
+                <RotateCw size={13} aria-hidden />
+                자료 다시 불러오기
+              </button>
+            </div>
+          )}
 
           <div role="tablist" aria-label="자료 유형" className="flex flex-wrap gap-2">
             {TYPE_TABS.map((t) => {
@@ -605,6 +975,36 @@ export function PlanClient({
           )}
         </div>
       </section>
+      </fieldset>)}
+    </div>
+  )
+}
+
+/** 소유자가 다른 자료 목록 대신 쓰는 빈 목록(r11) */
+const EMPTY_MATERIALS: AvailableMaterials = { viewerId: null, books: [], articles: [], wordSets: [], scripts: [] }
+
+/** 소유자(로그인 계정)를 아직 확인하지 못해 쓰지 않을 때(T-0240 r4) */
+const NO_OWNER = '로그인한 계정을 확인한 뒤에 계획을 저장할 수 있어요. 다시 불러오거나 로그인해 주세요.'
+
+/** 계정 확인 전 · 바뀜(T-0240) — 계획을 보이지도 조작을 받지도 않는다 */
+function PlanIdentityNotice({ status }: { status: 'checking' | 'changed' }) {
+  const changed = status === 'changed'
+  return (
+    <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-6 py-24 text-center" data-plan-private={status} role="status" aria-live="polite">
+      <h1 className="break-keep font-editorial text-[16px] font-[700] text-[var(--t1)]">
+        {changed ? '로그인 상태가 바뀌었어요' : '로그인한 계정을 확인하고 있어요'}
+      </h1>
+      <p className="break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
+        {changed ? '이 계획 화면을 멈췄어요. 지금 로그인한 계정으로 다시 열어 주세요.' : '확인이 끝나면 학습 계획을 보여 드려요.'}
+      </p>
+      {changed && (
+        <a
+          href="/plan"
+          className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] px-5 py-3 font-display text-[13px] font-[700] text-[var(--t1)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] focus-visible:ring-offset-2"
+        >
+          다시 열기
+        </a>
+      )}
     </div>
   )
 }
@@ -1037,7 +1437,7 @@ function ItemConfig({
         right={
           <Link
             href={item.href}
-            className="inline-flex h-8 shrink-0 items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-colors hover:border-[var(--p)] hover:text-[var(--p)]"
+            className="relative inline-flex h-8 shrink-0 items-center gap-1 after:absolute after:-inset-x-[3px] after:-inset-y-[7px] after:content-[''] rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-colors hover:border-[var(--p)] hover:text-[var(--p)]"
           >
             열기 <ExternalLink size={12} strokeWidth={2} aria-hidden />
           </Link>
@@ -1106,7 +1506,7 @@ function ConfigHeader({
         type="button"
         onClick={onClose}
         aria-label="구성 닫기"
-        className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        className="relative inline-flex h-8 w-8 shrink-0 items-center justify-center after:absolute after:-inset-[6px] after:content-[''] rounded-[var(--r-md)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         <X size={15} strokeWidth={2} aria-hidden />
       </button>
