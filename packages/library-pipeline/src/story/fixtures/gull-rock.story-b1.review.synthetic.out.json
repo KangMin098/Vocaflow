@@ -1,0 +1,86 @@
+{
+  "schema": "lcp-story/review@1",
+  "review_id": "synthetic-review-story-b1",
+  "binding": {
+    "task_id": "gull-rock-r1:story-b1",
+    "edition_key": "story-b1",
+    "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+    "source_identity_sha256": "0166607c7d9bcbc235c6c6793c633689df464d3e48eff9d317ece7a6f34fd29c",
+    "policy_sha256": "e183b2d037a6a58e1af5bf0155ba07cb2368d9f7610b1b9d886a24c6bd601787",
+    "target_sha256": "8f32737c4a392253b80a64cef4ac682d62410e9e0a2c716dbc94a59a5a988742",
+    "edition_sha256": "57c309bb7396bec26225bd367e65ecad888c665f92f91af85a15a87db1ed8fee",
+    "activities_sha256": "1ef49358fd604141faf1e1a5166d0a8eeef5a9cbd04d47b22ddf4f742abca2ae"
+  },
+  "reviewer": {
+    "kind": "ai_model",
+    "agent": "synthetic-fixture",
+    "session_id": "synthetic-fixture-reviewer",
+    "role": "합성 예시 검수자 — 실제 검토 아님"
+  },
+  "provenance": "synthetic_fixture",
+  "checks": [
+    {
+      "check": "source_alignment",
+      "verdict": "pass",
+      "note": "합성 예시 값 — 실제 검토 판정이 아니다."
+    },
+    {
+      "check": "meaning_preservation",
+      "verdict": "pass",
+      "note": "합성 예시 값 — 실제 검토 판정이 아니다."
+    },
+    {
+      "check": "preserve_items",
+      "verdict": "pass",
+      "note": "합성 예시 값 — 실제 검토 판정이 아니다."
+    },
+    {
+      "check": "language_target",
+      "verdict": "pass",
+      "note": "합성 예시 값 — 실제 검토 판정이 아니다."
+    },
+    {
+      "check": "cognitive_target",
+      "verdict": "pass",
+      "note": "합성 예시 값 — 실제 검토 판정이 아니다."
+    },
+    {
+      "check": "background_supports",
+      "verdict": "pass",
+      "note": "합성 예시 값 — 실제 검토 판정이 아니다."
+    },
+    {
+      "check": "sensitivity_handling",
+      "verdict": "pass",
+      "note": "합성 예시 값 — 실제 검토 판정이 아니다."
+    },
+    {
+      "check": "hook_spoiler_free",
+      "verdict": "pass",
+      "note": "합성 예시 값 — 실제 검토 판정이 아니다."
+    },
+    {
+      "check": "naturalness",
+      "verdict": "pass",
+      "note": "합성 예시 값 — 실제 검토 판정이 아니다."
+    },
+    {
+      "check": "activities",
+      "verdict": "pass",
+      "note": "합성 예시 값 — 실제 검토 판정이 아니다."
+    }
+  ],
+  "issues": [
+    {
+      "issue_id": "i-hook-length",
+      "severity": "minor",
+      "status": "accepted_risk",
+      "unit_ids": [
+        "u2"
+      ],
+      "summary": "합성 예시 값 — 진입 문장이 원문 2문단과 겹친다는 가상의 사소한 지적."
+    }
+  ],
+  "verdict": "approve",
+  "reviewed_at": "2026-10-25T01:00:00+09:00"
+}

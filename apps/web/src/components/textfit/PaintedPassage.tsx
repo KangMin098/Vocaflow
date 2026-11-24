@@ -84,7 +84,7 @@ export function PaintedPassage({ tokens, readings, fitLevel, level, onLevelChang
               <mark className="rounded-[var(--r-sm)] bg-[var(--ju-wash)] px-[1px] font-english text-[13px] text-[var(--t1)] underline decoration-[var(--ju)] decoration-1 underline-offset-[4px]">
                 Aa
               </mark>
-              {LEVEL_LABEL[level]}에서 처음 만나는 낱말{' '}
+              {LEVEL_LABEL[level]} 어휘 기준 밖 낱말{' '}
               <b className="font-mono tabular-nums text-[var(--t1)]">{unknown}</b>개
             </li>
             {unleveled > 0 && (

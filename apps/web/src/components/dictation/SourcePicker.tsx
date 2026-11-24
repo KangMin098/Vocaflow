@@ -258,7 +258,7 @@ function QuickPaste() {
         aria-label="붙여넣을 영어 스크립트"
         aria-invalid={error != null}
         rows={4}
-        className={`resize-none rounded-[var(--r-sm)] border bg-[var(--bg)] px-3 py-2 font-body text-[13px] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20 ${
+        className={`resize-none rounded-[var(--r-sm)] border bg-[var(--bg)] px-3 py-2 font-body text-[13px] focus:outline-none focus:ring-2 focus:ring-[color-mix(in_srgb,var(--p)_20%,transparent)] ${
           error
             ? 'border-[var(--warning)] focus:border-[var(--warning)]'
             : 'border-[var(--bd)] focus:border-[var(--bdf)]'

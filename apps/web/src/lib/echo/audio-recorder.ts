@@ -96,14 +96,35 @@ export async function recordUntilStop(): Promise<{
   return { stop, analyser }
 }
 
-/** AudioBuffer 재생 (Promise) */
-export function playAudioBuffer(buffer: AudioBuffer): Promise<void> {
+/**
+ * AudioBuffer 재생 (Promise).
+ * signal 을 주면 abort 때 **이 소스만** 멈추고 끝난 것으로 resolve 한다 — 공용 AudioContext 는 닫지 않는다
+ * (다른 재생까지 끊지 않게). 이미 abort 된 signal 이면 시작하지 않는다.
+ */
+export function playAudioBuffer(buffer: AudioBuffer, opts?: { signal?: AbortSignal }): Promise<void> {
   return new Promise((resolve) => {
+    const signal = opts?.signal
+    if (signal?.aborted) {
+      resolve()
+      return
+    }
     const ctx = getAudioContext()
     const src = ctx.createBufferSource()
     src.buffer = buffer
     src.connect(ctx.destination)
-    src.onended = () => resolve()
+    const onAbort = () => {
+      try {
+        src.stop()
+      } catch {
+        /* 이미 끝남 */
+      }
+    }
+    src.onended = () => {
+      signal?.removeEventListener('abort', onAbort)
+      src.disconnect()
+      resolve()
+    }
+    signal?.addEventListener('abort', onAbort, { once: true })
     src.start()
   })
 }

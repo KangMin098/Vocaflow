@@ -59,10 +59,10 @@ export interface BookFacts {
 /**
  * 발행 도서 상세 — `Book`.
  *
- * `isAccessibleForFree` 와 퍼블릭 도메인 라이선스를 명시한다. 이 카탈로그의 성질이자
- * 검색하는 사람이 실제로 알고 싶어 하는 것이다("무료로 읽을 수 있나").
- * 도서는 전부 `copyright_safe_in_kr` 를 통과한 것만 발행되므로(같은 조건을 sitemap 도 쓴다)
- * 이 표기는 추정이 아니라 파이프라인이 보장하는 사실이다.
+ * `isAccessibleForFree` 를 명시한다("무료로 읽을 수 있나"). **라이선스는 넣지 않는다** — 예전에는 모든 도서에
+ * Public Domain Mark 를 박았는데, `copyright_safe_in_kr` 는 「국내 이용 가능」 판정이지 퍼블릭 도메인과 같은 말이 아니다.
+ * 발행 도서 312권 중 21권이 CC BY 4.0(StoryWeaver 20 · Pressbooks 1)이고, 책별 고지에 CC BY 가 적힌 책(Drone 62772)까지
+ * 퍼블릭 도메인이라 말하고 있었다(2026-10-28 읽기 전용 집계). 책마다 확인된 라이선스 입력이 없으므로 주장하지 않는다.
  */
 export function bookJsonLd(b: BookFacts): JsonLdString {
   return serialize(
@@ -74,7 +74,6 @@ export function bookJsonLd(b: BookFacts): JsonLdString {
       inLanguage: 'en',
       bookFormat: 'https://schema.org/EBook',
       isAccessibleForFree: true,
-      license: 'https://creativecommons.org/publicdomain/mark/1.0/',
       author: b.author ? { '@type': 'Person', name: b.author } : undefined,
       numberOfPages: undefined, // 쪽 수는 DB 에 없다 — 낱말 수로 대신하지 않는다(다른 단위다)
       // 학습용 서술 — 이 카탈로그가 원문 그대로가 아니라 **어휘와 함께** 읽히는 곳임을 말한다.
@@ -160,7 +159,16 @@ export interface ComicFacts {
   publishedYear?: number | null
   sourceArchive?: string | null
   sourceUrl?: string | null
+  /**
+   * 이 호의 퍼블릭 도메인 판정 근거 토큰(pd_comic_issues.pd_basis — 수집 연도 힌트(pre-1929 · ingest-bulk 가 연도로 자동 기입) 또는 확인 기록).
+   * PD 토큰(PD_BASIS)일 때만 Public Domain Mark 를 단다 — 'explicit-license' 는 PD 가 아니라 다른 라이선스라 키를 넣지 않는다.
+   * 예전에는 모든 호에 박았다 — 969호 중 근거가 적힌 것은 131호, 전부 no-renewal · explicit-license 0(2026-10-28 읽기 전용 집계).
+   */
+  pdBasis?: string | null
 }
+
+/** 퍼블릭 도메인을 뜻하는 pd_basis 토큰(DB CHECK 와 같은 이름). 'explicit-license' 는 뺀다. */
+const PD_BASIS: ReadonlySet<string> = new Set(['term-expired', 'pre-1929', 'no-renewal'])
 
 /**
  * 복원 만화 상세 — `ComicIssue`.
@@ -180,7 +188,7 @@ export function comicIssueJsonLd(c: ComicFacts): JsonLdString {
       url: absoluteUrl(`/comics/restored/${c.slug}`),
       inLanguage: 'en',
       isAccessibleForFree: true,
-      license: 'https://creativecommons.org/publicdomain/mark/1.0/',
+      ...(c.pdBasis && PD_BASIS.has(c.pdBasis.trim()) ? { license: 'https://creativecommons.org/publicdomain/mark/1.0/' } : {}),
       ...(typeof c.issueNo === 'number' ? { issueNumber: c.issueNo } : {}),
       ...(typeof c.publishedYear === 'number'
         ? { datePublished: String(c.publishedYear) }

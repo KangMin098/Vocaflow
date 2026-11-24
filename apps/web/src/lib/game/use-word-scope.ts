@@ -47,6 +47,12 @@ export interface WordScope {
   book?: string
   from?: string
   chapter: number | null
+  /**
+   * 이 판의 주인 — 단어를 **실제로 읽은** 브라우저 사용자(로그인 없음 = null). undefined = 아직 모름(로딩).
+   * 기록 · 화면 경계(useGameSessionRecorder)가 이 값에 결속한다 — 나중에 따로 읽은 신원으로 자료 주인을 추론하지 않는다.
+   * 권한 증명이 아니다(서버 기록은 언제나 서버 getUser · RLS).
+   */
+  viewerId?: string | null
 }
 
 interface Loaded {
@@ -54,6 +60,8 @@ interface Loaded {
   words: Word[]
   title: string
   subtitle: string
+  /** 이 단어를 읽을 때의 사용자 */
+  viewerId: string | null
 }
 
 export function useGameWordScope({
@@ -79,6 +87,23 @@ export function useGameWordScope({
   const loadsPool = explicit || useMine
 
   const [loaded, setLoaded] = useState<Loaded | null>(null)
+  // 내장 뱅크 게임도 기록(scores)은 남긴다 — 그 판의 주인은 시작 때의 사용자
+  const [bankViewer, setBankViewer] = useState<string | null | undefined>(undefined)
+  useEffect(() => {
+    if (loadsPool) return
+    let mounted = true
+    void createClient()
+      .auth.getUser()
+      .then(({ data: { user } }) => {
+        if (mounted) setBankViewer(user?.id ?? null)
+      })
+      .catch(() => {
+        if (mounted) setBankViewer(null)
+      })
+    return () => {
+      mounted = false
+    }
+  }, [loadsPool])
 
   useEffect(() => {
     if (!loadsPool) return
@@ -106,6 +131,7 @@ export function useGameWordScope({
           })),
           title: res?.title ?? label,
           subtitle: res?.subtitle ?? '',
+          viewerId: user?.id ?? null,
         })
         return
       }
@@ -119,7 +145,7 @@ export function useGameWordScope({
       //    세션이 게임 도중 만료되는 경우 하나뿐이다 — 그때 빈 화면 대신 맛보기가 뜬다.
       //    비로그인 방문자에게 하는 안내는 `/arcade` 카탈로그가 한 곳에서 한다.
       if (!user) {
-        if (mounted) setLoaded({ kind: 'mine', words: [], title: label, subtitle: '' })
+        if (mounted) setLoaded({ kind: 'mine', words: [], title: label, subtitle: '', viewerId: null })
         return
       }
       const due = await fetchDueGameWords(client, user.id)
@@ -129,6 +155,7 @@ export function useGameWordScope({
         words: due.words,
         title: '내 복습 단어',
         subtitle: `${due.words.length}개 · 복습 임박순`,
+        viewerId: user.id,
       })
     })()
     return () => {
@@ -150,6 +177,7 @@ export function useGameWordScope({
       book,
       from,
       chapter,
+      viewerId: bankViewer,
     }
   }
 
@@ -189,5 +217,6 @@ export function useGameWordScope({
     book,
     from,
     chapter,
+    viewerId: loaded.viewerId,
   }
 }

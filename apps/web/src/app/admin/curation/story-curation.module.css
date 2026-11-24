@@ -1,0 +1,68 @@
+/* apps/web/src/app/admin/curation/story-curation.module.css */
+/* 이야기 판본 라인 — 관리자 3B 스킨 토큰만 쓴다. 강조는 색만으로 구분하지 않는다(밑줄 · 취소선 + 범례 · 숨은 글). */
+
+.root {
+  color: var(--t1);
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+/* 해시 · 발행 키 · uuid 처럼 끊을 곳이 없는 긴 값 — 줄을 넘기지 않고 칸 안에서 끊는다. */
+.mono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  word-break: break-all;
+  overflow-wrap: anywhere;
+}
+
+/* 영어 원문 · 판본 본문은 낱말 단위로 끊는다(keep-all 은 한글용). */
+.english {
+  word-break: normal;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  line-height: 1.7;
+}
+
+/* 선택한 단위가 가리키는 원문 구간. */
+.markUnit {
+  background: var(--warning-light);
+  color: var(--warning-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* 판본에서 생략된 원문 구간. */
+.markOmit {
+  background: transparent;
+  color: var(--t2);
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+.unitButton[aria-pressed='true'] {
+  border-color: var(--p);
+  box-shadow: inset 3px 0 0 var(--p);
+  background: var(--bg2);
+}
+
+.slotButton[aria-current='true'] {
+  border-color: var(--p);
+  box-shadow: inset 3px 0 0 var(--p);
+  background: var(--bg2);
+}
+
+.unitList {
+  max-height: 32rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root * {
+    scroll-behavior: auto;
+  }
+}

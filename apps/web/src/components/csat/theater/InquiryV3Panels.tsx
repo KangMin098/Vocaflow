@@ -13,6 +13,7 @@ import { useState } from 'react'
 import { BASIS_LABEL, CONTENT_TRUTH_LABEL, FIT_LABEL, PRINCIPLE_LEVEL_LABEL, SCOPE_LABEL, type InquiryV3, type V3PairView } from '@/lib/csat/inquiry/labels'
 
 import styles from './theater.module.css'
+import { Compare34, Design34, InquiryDisclosureNotice, InquiryResourceNotice, Scope34, type InquiryDisclosure } from './inquiry/Interactive34'
 
 const CIRCLED = ['', '①', '②', '③', '④', '⑤']
 const VERIFIED = '독립 검수'
@@ -30,7 +31,9 @@ function EvidenceButton({ sentences, label, onEvidence, linkable, selected }: { 
   )
 }
 
-export function V3Task({ v3 }: { v3: InquiryV3 }) {
+export function V3Task({ v3, answerRevealed = false }: { v3: InquiryV3 } & InquiryDisclosure) {
+  if (v3.interaction34 && answerRevealed !== true) return <InquiryDisclosureNotice />
+  if (v3.interaction34) return v3.interaction34.state === 'ready' ? <Scope34 key={v3.units_hash} v3={v3} answerRevealed={answerRevealed} /> : <InquiryResourceNotice state="VERIFICATION_FAILED" />
   const r = v3.requirement
   return (
     <section className={styles.diagram} aria-label="발문이 요구하는 판단" data-testid="v3-task">
@@ -51,7 +54,9 @@ export function V3Task({ v3 }: { v3: InquiryV3 }) {
   )
 }
 
-export function V3Meaning({ v3, onEvidence, linkable, selectedKey }: { v3: InquiryV3; onEvidence: Evidence; linkable: boolean; selectedKey: string | null }) {
+export function V3Meaning({ v3, onEvidence, linkable, selectedKey, answerRevealed = false }: { v3: InquiryV3; onEvidence: Evidence; linkable: boolean; selectedKey: string | null } & InquiryDisclosure) {
+  if (v3.interaction34 && answerRevealed !== true) return <InquiryDisclosureNotice />
+  if (v3.interaction34) return v3.interaction34.state === 'ready' ? <Scope34 key={v3.units_hash} v3={v3} answerRevealed={answerRevealed} /> : <InquiryResourceNotice state="VERIFICATION_FAILED" />
   return (
     <section className={styles.diagram} aria-label="원문의 실제 의미와 범위" data-testid="v3-meaning">
       <p className={styles.diagramHead}>
@@ -100,7 +105,18 @@ function BridgeBanner({ focus, what }: { focus: MeaningBridgeFocus; what: string
   )
 }
 
-export function V3Judgment({ v3, onEvidence, linkable, selectedKey, focus = null }: { v3: InquiryV3; onEvidence: Evidence; linkable: boolean; selectedKey: string | null; focus?: MeaningBridgeFocus | null }) {
+export function V3Judgment(props: { v3: InquiryV3; onEvidence: Evidence; linkable: boolean; selectedKey: string | null; focus?: MeaningBridgeFocus | null; sourceUnitsHash?: string } & InquiryDisclosure) {
+  const { v3, focus, answerRevealed = false } = props
+  if (v3.interaction34 && answerRevealed !== true) return <InquiryDisclosureNotice />
+  if (v3.interaction34) return v3.interaction34.state === 'ready' ? <>
+    {focus ? <BridgeBanner focus={focus} what="등록된 의미에서 두 명제를 대조해요" /> : null}
+    <Scope34 key={`scope-${v3.units_hash}`} v3={v3} answerRevealed={answerRevealed} />
+    <Compare34 key={v3.units_hash} {...props} initialChoices={focus?.choices} />
+  </> : <InquiryResourceNotice state="VERIFICATION_FAILED" />
+  return <LegacyJudgment {...props} />
+}
+
+function LegacyJudgment({ v3, onEvidence, linkable, selectedKey, focus = null }: { v3: InquiryV3; onEvidence: Evidence; linkable: boolean; selectedKey: string | null; focus?: MeaningBridgeFocus | null }) {
   const answer = v3.choices.find((c) => c.selected_as_answer)?.n ?? v3.choices[0]?.n ?? 1
   // 원문 이해에서 왔으면 그 의미가 걸린 첫 선택지부터 연다(부모가 focus 마다 key 를 바꿔 다시 연다)
   const restored = selectedKey ? /^choice-(\d)$/.exec(selectedKey) : null
@@ -155,7 +171,12 @@ export function V3Judgment({ v3, onEvidence, linkable, selectedKey, focus = null
   )
 }
 
-export function V3Design({ v3, onEvidence, linkable, selectedKey, focus = null }: { v3: InquiryV3; onEvidence: Evidence; linkable: boolean; selectedKey: string | null; focus?: MeaningBridgeFocus | null }) {
+export function V3Design({ v3, onEvidence, linkable, selectedKey, focus = null, answerRevealed = false }: { v3: InquiryV3; onEvidence: Evidence; linkable: boolean; selectedKey: string | null; focus?: MeaningBridgeFocus | null } & InquiryDisclosure) {
+  if (v3.interaction34 && answerRevealed !== true) return <InquiryDisclosureNotice />
+  if (v3.interaction34) return v3.interaction34.state === 'ready' ? <>
+    {focus ? <BridgeBanner focus={focus} what={focus.claims.length ? '이 의미가 받치는 설계 근거를 대조해요' : '이 의미가 받치는 설계 근거는 등록되어 있지 않아요'} /> : null}
+    <Design34 key={v3.units_hash} v3={v3} initialClaims={focus?.claims} answerRevealed={answerRevealed} />
+  </> : <InquiryResourceNotice state="VERIFICATION_FAILED" />
   return (
     <section className={styles.diagram} aria-label="관찰에서 설계 해석으로" data-testid="v3-design">
       <p className={styles.diagramHead}>

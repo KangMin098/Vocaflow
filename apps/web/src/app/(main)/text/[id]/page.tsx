@@ -4,15 +4,18 @@
 'use client'
 
 import Link from 'next/link'
+import { readerScopeQuery, readerWordsHref } from '@/lib/wordvault/source-filter'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 
 import { SpellForge } from '@/components/spellforge/SpellForge'
+import { GameViewerGate } from '@/components/game/GameViewerGate'
 import { ExtractionPanel } from '@/components/text-extract/ExtractionPanel'
 import { ChapterBottomNav } from '@/components/workspace/ChapterBottomNav'
 import { FloatingAudioPlayer } from '@/components/workspace/FloatingAudioPlayer'
 import { useTTS, type SentenceItem } from '@/lib/workspace/tts-controller'
+import { useReaderEvidenceAnchor } from '@/lib/scriptquiz/reader-anchor-context'
 import { useShadowSession } from '@/lib/workspace/use-shadow-session'
 import { FloatingSparkle } from '@/components/workspace/FloatingSparkle'
 import { InsightPanel } from '@/components/workspace/InsightPanel'
@@ -43,6 +46,7 @@ import {
 import { fetchBookmarked, setBookmarked } from '@/lib/text-viewer/bookmark'
 import { useToast } from '@/components/ui/Toast'
 import { annotateSupport } from './text-content-helpers'
+import { ArticlePracticeEntry } from './article-practice-entry'
 
 const MODE_STATUS: Record<ModeKey, ModeStatus> = {
   listen: 'done',
@@ -126,6 +130,11 @@ export default function WorkspacePage({ params }: PageProps) {
     [ctx],
   )
 
+  // T-0209 — ScriptQuiz 복기 「글에서 이 문장 보기」 로 왔으면(같은 탭 · 같은 글 · 같은 본문 해시) 그 근거 문장 id 를 한 번 꺼낸다.
+  //   표에서 하나에 맞지 않으면(-1) 없음 — 지금처럼 첫머리. 꺼낸 뒤 지우므로 새로 고침 · 다른 글에서는 다시 쓰지 않는다.
+  //   「옮김」 은 이 페이지가 기억한다 — 읽기 ↔ Spell 등 모드 전환으로 Reader 가 다시 마운트돼도 스크롤 · 초점은 한 번만(Codex P2).
+  const { anchorSentenceId, anchorAutoMove, onAnchorMoved } = useReaderEvidenceAnchor(ctx.textId, ctx.evidenceAnchor)
+
   // Chapter 내 학습 단어 카운트 (참고 풋터용)
   const wordsOnPage = useMemo(() => {
     let count = 0
@@ -145,35 +154,36 @@ export default function WorkspacePage({ params }: PageProps) {
   //   · 라이브러리 도서 chapter (단어장 발행됨) → filter=set:{setId} + book/chapter query
   //     - ScriptsChipNav 자동 활성 + SessionFrame resource (book › Chapter N)
   //     - Browse 안에서 prev/next chapter nav 가능 (allChapterWordSets 전달)
-  //   · 라이브러리 도서 chapter (단어장 없음)   → filter={textId}
-  //   · 사용자 스크립트                        → filter={textId}
+  //   · 라이브러리 도서 chapter (단어장 없음)   → filter=text:{textId}
+  //   · 사용자 스크립트                        → filter=text:{textId}  (접두어 없으면 Browse 가 전체를 보였다)
   //   · ctx 없음                               → 전체
-  const wordsHref = useMemo(() => {
-    if (ctx?.currentChapterWordSet && ctx?.libraryBookId && ctx?.chapterIdx != null) {
-      const qs = new URLSearchParams({
-        filter: `set:${ctx.currentChapterWordSet.id}`,
-        book: ctx.libraryBookId,
-        chapter: String(ctx.chapterIdx),
-      })
-      return `/wordvault/browse?${qs.toString()}`
-    }
-    if (ctx?.textId) return `/wordvault/browse?filter=${encodeURIComponent(ctx.textId)}`
-    return `/wordvault/browse`
-  }, [ctx?.currentChapterWordSet, ctx?.libraryBookId, ctx?.chapterIdx, ctx?.textId])
+  const wordsHref = useMemo(
+    () => readerWordsHref(ctx),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [ctx?.currentChapterWordSet, ctx?.libraryBookId, ctx?.chapterIdx, ctx?.textId],
+  )
 
   // 게임 모드(카드·블리츠) 자료 스코프 — wordsHref 와 동일 규칙.
   //   · 도서 챕터(단어장 발행됨) → ?set={setId}  (shared_words)
   //   · 사용자 스크립트          → ?text={textId} (vocabularies)
   //   · ctx 없음(스코프 X)       → null → 각 모듈 일반 허브로
-  const scopeQuery = useMemo(() => {
-    if (ctx?.currentChapterWordSet && ctx?.libraryBookId && ctx?.chapterIdx != null) {
-      return `?set=${ctx.currentChapterWordSet.id}`
-    }
-    if (ctx?.textId) return `?text=${encodeURIComponent(ctx.textId)}`
-    return null
-  }, [ctx?.currentChapterWordSet, ctx?.libraryBookId, ctx?.chapterIdx, ctx?.textId])
+  const scopeQuery = useMemo(
+    () => readerScopeQuery(ctx),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [ctx?.currentChapterWordSet, ctx?.libraryBookId, ctx?.chapterIdx, ctx?.textId],
+  )
 
   const flashcardHref = scopeQuery ? `/flashcard/play${scopeQuery}` : '/flashcard'
+  // 퀴즈는 단어 스코프가 아니라 **이 글**로 연다 — 도서 챕터면 그 챕터 퀴즈 + 본문(text), 사용자 글이면 그 글의 퀴즈.
+  //   본문은 퀴즈 화면이 본인 texts 행을 다시 확인한 뒤에만 읽는다(채점 뒤 근거 문장 짚기, T-0193).
+  const quizHref = useMemo(() => {
+    if (!ctx?.textId) return undefined
+    if (ctx.libraryBookId && ctx.chapterIdx != null) {
+      const qs = new URLSearchParams({ book: ctx.libraryBookId, ch: String(ctx.chapterIdx), text: ctx.textId })
+      return `/scriptquiz/play?${qs.toString()}`
+    }
+    return `/scriptquiz/play?text=${encodeURIComponent(ctx.textId)}`
+  }, [ctx?.textId, ctx?.libraryBookId, ctx?.chapterIdx])
   const wordblitzHref = scopeQuery ? `/play/wordblitz${scopeQuery}` : '/wordblitz'
   // 아케이드 허브로 같은 스코프를 넘긴다 — 허브가 ?set/?text 를 받아 19종 카드 전부에
   // 실어주므로(v07.8), 이 pill 하나로 이 자료의 단어가 모든 게임에 연결된다.
@@ -487,14 +497,20 @@ export default function WorkspacePage({ params }: PageProps) {
   )
 
   // SpellForge 모드 — 워크스페이스 레이아웃 우회, 전용 화면 단독 렌더
+  // 개인 글 제목 · 단어 · 철자 평가는 이 글을 읽은 주인(ctx.ownerId)의 것 — 같은 사람으로 긍정 확인될 때만(/spellforge/play 와 같은 경계).
+  //   주인을 모르면(문맥 없음) null 주인으로 경계를 걸어 로그인한 브라우저에는 그리지 않는다 — 개인 자료를 추측으로 열지 않는다.
   if (currentMode === 'spellforge') {
+    const owner = ctx?.ownerId ?? null
     return (
-      <SpellForge
-        textId={text.id}
-        textTitle={text.title}
-        words={spellforgeWords}
-        backHref={`/text/${text.id}?mode=read`}
-      />
+      <GameViewerGate viewerId={owner} reopenHref={`/text/${text.id}?mode=spellforge`}>
+        <SpellForge
+          textId={text.id}
+          textTitle={text.title}
+          words={spellforgeWords}
+          backHref={`/text/${text.id}?mode=read`}
+          viewerId={owner}
+        />
+      </GameViewerGate>
     )
   }
 
@@ -524,7 +540,7 @@ export default function WorkspacePage({ params }: PageProps) {
           <p className="mt-1.5 font-body text-[13px] leading-relaxed text-[var(--t2)]">
             이 스크립트의 단어를 AI로 추출해 내 단어장에 담아보세요.
           </p>
-          <ExtractionPanel text={scriptContent} textId={text.id} defaultStrategy="text" />
+          <ExtractionPanel text={scriptContent} textId={text.id} ownerId={ctx.ownerId ?? null} defaultStrategy="text" />
         </div>
       </div>
     )
@@ -549,6 +565,7 @@ export default function WorkspacePage({ params }: PageProps) {
         modeStatus={MODE_STATUS}
         wordsHref={wordsHref}
         flashcardHref={flashcardHref}
+        quizHref={quizHref}
         wordblitzHref={wordblitzHref}
         arcadeHref={arcadeHref}
       />
@@ -559,6 +576,7 @@ export default function WorkspacePage({ params }: PageProps) {
           state={shadow.state}
           controls={shadow.controls}
           onExit={() => router.push(`/text/${text.id}?mode=read`)}
+          echoHref={`/text/${text.id}/echo`}
         />
       )}
 
@@ -570,9 +588,16 @@ export default function WorkspacePage({ params }: PageProps) {
         onSentencePlay={isShadow ? shadow.controls.jumpTo : handleSentencePlay}
         playingSentenceId={playingSentenceId}
         chapterMeta={chapterMeta}
+        articleSourceHref={ctx?.articleSourceHref ?? null}
+        anchorSentenceId={anchorSentenceId}
+        anchorAutoMove={anchorAutoMove}
+        onAnchorMoved={onAnchorMoved}
         onSupportTap={handleSupportTap}
         onWordLookup={handleWordLookup}
       />
+
+      {/* R0 — 이 기사의 발췌 연습: 있음 → 링크 · 없음 → 없음 · 조회 실패 → 안내 + 연습 페이지 링크(T-0204) */}
+      <ArticlePracticeEntry practice={ctx?.articlePractice} />
 
       {/* Chapter bottom nav — 책 chapter context 만 (사용자 직접 입력 텍스트는 Pagination) */}
       {ctx?.libraryBookId && ctx.chapterIdx != null && ctx.chapters.length > 1 && (

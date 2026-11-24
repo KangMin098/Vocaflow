@@ -1,0 +1,320 @@
+{
+  "schema": "lcp-story/edition@1",
+  "task_id": "gull-rock-r1:easy-a2",
+  "binding": {
+    "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+    "source_identity_sha256": "0166607c7d9bcbc235c6c6793c633689df464d3e48eff9d317ece7a6f34fd29c",
+    "policy_sha256": "e183b2d037a6a58e1af5bf0155ba07cb2368d9f7610b1b9d886a24c6bd601787",
+    "target_sha256": "8f239b8d068beaff79f645c4f24aaf32673c37d986ccc8012aa21112605b14a9"
+  },
+  "edition_key": "easy-a2",
+  "kind": "easy_reader",
+  "produced_by": {
+    "agent": "claude-code",
+    "session_id": "synthetic-fixture-producer",
+    "provenance": "synthetic_fixture"
+  },
+  "title": "The Keeper of Gull Rock",
+  "hook": {
+    "text": "Mara knows every step of the lighthouse. But one step is broken.",
+    "source_anchors": [
+      {
+        "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+        "paragraph": 1,
+        "start": 390,
+        "end": 417,
+        "quote": "'and the ninth is cracked.'"
+      }
+    ],
+    "spoiler_free": true
+  },
+  "units": [
+    {
+      "unit_id": "e1",
+      "order": 1,
+      "title": null,
+      "text": "Old Tobias lived in a lighthouse on Gull Rock with his granddaughter, Mara. Mara was twelve. Every evening, Tobias climbed the stairs to light the big lamp. Mara counted the steps. She wanted to know the tower well. \"One hundred and nine,\" she said. \"And step nine is broken.\"",
+      "source_anchors": [
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 0,
+          "start": 0,
+          "end": 172,
+          "quote": "Upon the bleak shoulder of Gull Rock there stood a lighthouse, and in the lighthouse dwelt old Tobias Wren and his granddaughter Mara, who was then but twelve years of age."
+        },
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 1,
+          "start": 174,
+          "end": 476,
+          "quote": "Each evening Tobias climbed the winding stair to kindle the great lamp, and each evening Mara counted the steps aloud, for she had resolved to know the tower as well as he did. 'One hundred and nine,' she would say, 'and the ninth is cracked.' Her grandfather laughed at this, but he did not forget it."
+        }
+      ],
+      "preserves": [
+        "mo-mara-knows-tower",
+        "fs-ninth-step",
+        "ca-crack-causes-fall"
+      ]
+    },
+    {
+      "unit_id": "e2",
+      "order": 2,
+      "title": null,
+      "text": "One day, a man from the harbor came to the rock. \"A lighthouse is no place for a girl,\" he said. \"Soon we will send a proper keeper.\" Tobias did not answer, but he held the rail tightly.",
+      "source_anchors": [
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 2,
+          "start": 478,
+          "end": 788,
+          "quote": "In the autumn a gentleman from the harbour board came across in a rowing boat. He looked at the lamp, and he looked at Mara, and he said, 'A lighthouse is no place for a girl. When the old man can no longer climb, the board will send a proper keeper.' Tobias said nothing, but his hand tightened upon the rail."
+        }
+      ],
+      "preserves": [
+        "td-proper-keeper-irony"
+      ]
+    },
+    {
+      "unit_id": "e3",
+      "order": 3,
+      "title": null,
+      "text": "Two weeks later, a big storm came. On step nine, Tobias's foot slipped on the broken stone. He fell and could not stand up.",
+      "source_anchors": [
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 3,
+          "start": 790,
+          "end": 840,
+          "quote": "Not a fortnight later a gale rose out of the west."
+        },
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 3,
+          "start": 925,
+          "end": 1034,
+          "quote": "Upon the ninth step Tobias's foot slipped where the stone was cracked, and he fell, and could not rise again."
+        }
+      ],
+      "preserves": [
+        "ev-gale-fall",
+        "ca-crack-causes-fall"
+      ]
+    },
+    {
+      "unit_id": "e4",
+      "order": 4,
+      "title": null,
+      "text": "\"The lamp,\" he said quietly. \"The ships need it.\" Mara knew that a ship was near. Without the light, it would hit the rocks called the Teeth.",
+      "source_anchors": [
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 4,
+          "start": 1036,
+          "end": 1271,
+          "quote": "'The lamp,' he whispered. 'The ships off the point will be looking for it.' Mara knew that a brig had been sighted at sunset, beating up against the wind. If the light failed, it would strike the reef that the sailors called the Teeth."
+        }
+      ],
+      "preserves": [
+        "mo-mara-saves-brig"
+      ]
+    },
+    {
+      "unit_id": "e5",
+      "order": 5,
+      "title": null,
+      "text": "Mara was brave. She climbed and counted the steps. She stepped over step nine. At the top, she lit the lamp. The light moved across the dark sea, and the ship turned away from the Teeth just in time.",
+      "source_anchors": [
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 5,
+          "start": 1273,
+          "end": 1506,
+          "quote": "She did not stop to be afraid. She counted the steps as she climbed, stepping wide of the ninth, and at the top she trimmed the wick with hands that shook only a little. The lamp caught, and its beam swung out across the black water."
+        },
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 6,
+          "start": 1508,
+          "end": 1623,
+          "quote": "Below the point the brig came about, as neatly as a dancer, and slipped past the Teeth into the shelter of the bay."
+        }
+      ],
+      "preserves": [
+        "ev-mara-lights-lamp",
+        "ev-brig-saved"
+      ]
+    },
+    {
+      "unit_id": "e6",
+      "order": 6,
+      "title": null,
+      "text": "The next morning, the man came back. He found Mara asleep next to the lamp. He wrote a letter. It said, \"Gull Rock already has a proper keeper.\"",
+      "source_anchors": [
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 7,
+          "start": 1625,
+          "end": 1685,
+          "quote": "In the morning the gentleman from the harbour board returned"
+        },
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 7,
+          "start": 1785,
+          "end": 1823,
+          "quote": "found Mara asleep beside the cold lamp"
+        },
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 7,
+          "start": 1917,
+          "end": 1954,
+          "quote": "Gull Rock already had a proper keeper"
+        }
+      ],
+      "preserves": [
+        "td-proper-keeper-irony"
+      ]
+    }
+  ],
+  "change_log": [
+    {
+      "change_id": "c-simplify",
+      "type": "level_adaptation",
+      "operation": "rewrite",
+      "unit_ids": [
+        "e1",
+        "e2",
+        "e3",
+        "e4",
+        "e5",
+        "e6"
+      ],
+      "source_anchors": [
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 0,
+          "start": 0,
+          "end": 61,
+          "quote": "Upon the bleak shoulder of Gull Rock there stood a lighthouse"
+        },
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 1,
+          "start": 223,
+          "end": 244,
+          "quote": "kindle the great lamp"
+        },
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 3,
+          "start": 967,
+          "end": 994,
+          "quote": "where the stone was cracked"
+        }
+      ],
+      "sensitive_ref": null,
+      "rationale": "A2 목표에 맞춰 어휘(kindle → light, cracked → broken)와 문장 길이를 낮췄다.",
+      "learner_note": null
+    },
+    {
+      "change_id": "c-omit-storm-image",
+      "type": "level_adaptation",
+      "operation": "omit",
+      "unit_ids": [],
+      "source_anchors": [
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 3,
+          "start": 841,
+          "end": 924,
+          "quote": "The sea flung itself against the rock, and the rain came sideways, like grey nails."
+        }
+      ],
+      "sensitive_ref": null,
+      "rationale": "폭풍 묘사 비유를 뺐다. 사건과 원인은 남겼다.",
+      "learner_note": null
+    },
+    {
+      "change_id": "c-condense-rescue",
+      "type": "level_adaptation",
+      "operation": "condense",
+      "unit_ids": [
+        "e5"
+      ],
+      "source_anchors": [
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 5,
+          "start": 1273,
+          "end": 1506,
+          "quote": "She did not stop to be afraid. She counted the steps as she climbed, stepping wide of the ninth, and at the top she trimmed the wick with hands that shook only a little. The lamp caught, and its beam swung out across the black water."
+        },
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 6,
+          "start": 1508,
+          "end": 1623,
+          "quote": "Below the point the brig came about, as neatly as a dancer, and slipped past the Teeth into the shelter of the bay."
+        }
+      ],
+      "sensitive_ref": null,
+      "rationale": "등불을 켜는 장면과 범선이 피하는 장면을 한 단위로 합쳤다.",
+      "learner_note": null
+    },
+    {
+      "change_id": "c-omit-captain",
+      "type": "level_adaptation",
+      "operation": "omit",
+      "unit_ids": [],
+      "source_anchors": [
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 7,
+          "start": 1687,
+          "end": 1739,
+          "quote": "for the captain of the brig had gone straight to him"
+        },
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 7,
+          "start": 1763,
+          "end": 1779,
+          "quote": "counting nothing"
+        },
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 7,
+          "start": 1825,
+          "end": 1847,
+          "quote": "He stood a long while."
+        }
+      ],
+      "sensitive_ref": null,
+      "rationale": "선장 이야기와 「counting nothing」 대조, 오래 서 있는 장면을 뺐다. 「counting nothing」은 이 판본의 필수 보존 요소가 아니다.",
+      "learner_note": null
+    },
+    {
+      "change_id": "c-girl-context",
+      "type": "editorial_note",
+      "operation": "context_note",
+      "unit_ids": [
+        "e2"
+      ],
+      "source_anchors": [
+        {
+          "source_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+          "paragraph": 2,
+          "start": 616,
+          "end": 653,
+          "quote": "'A lighthouse is no place for a girl."
+        }
+      ],
+      "sensitive_ref": "se-no-place-for-a-girl",
+      "rationale": "갈등의 출발점이라 문장을 그대로 두고 맥락 설명을 붙인다.",
+      "learner_note": "옛날에는 여자아이가 이런 일을 못 한다는 편견이 있었다. 이야기는 마라의 행동으로 이 편견을 뒤집는다."
+    }
+  ],
+  "activities": [],
+  "assets": []
+}

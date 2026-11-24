@@ -31,6 +31,11 @@ export interface ActivityRow {
    * guided_practice 납품 결속을 확인했을 때만 채운다). 클라이언트 값 · 추측으로 채우지 않는다 — 없으면 바로잡기 성공 근거가 아니다.
    */
   repairRole?: 'guided_practice'
+  /**
+   * 2E — 여러 단계로 된 교수 활동(원문 안내 연습)의 **첫 단계 시작 시각**(원장 그대로). 주어지면 그 활동 전체가 이번 회차 안에서 시작했을 때만
+   * 바로잡기를 진전시킨다(회차 앞에서 시작해 회차 안에서 끝난 활동은 새 회차의 완료가 아니다). 없으면 행 하나 = 활동 하나(기존).
+   */
+  lessonStartedAt?: string | null
 }
 
 /** 기출 바로잡기 분기 대상 — 창작 자료(authored:*)가 아닌 문항. 창작 평가 자료를 다시 푼 기록은 바로잡기가 아니다(FI-011 · 평가 자료 재사용 없음) */
@@ -45,13 +50,13 @@ export function isInstructional(a: Pick<ActivityRow, 'itemRef' | 'activity' | 'r
  * 이번 회차의 안내 연습 시도(시각 순 · LM-G1.1 · PLAN · lifecycle 공용) — 정확한 납품 결속(repairRole) · 같은 과제 키 ·
  * 판단 시각과 **서버 수신 시각 둘 다** 회차 시작 뒤. 서버 수신이 없거나(옛 입력 · 미확인) 회차 앞이면 이번 회차를 진전시키지 않는다.
  */
-export function guidedRepairAttempts<A extends Pick<ActivityRow, 'itemRef' | 'taskKey' | 'answeredAt' | 'receivedAt' | 'repairRole'>>(skill: SkillLike, taskKeys: ReadonlySet<string>, activity: readonly A[]): A[] {
+export function guidedRepairAttempts<A extends Pick<ActivityRow, 'itemRef' | 'taskKey' | 'answeredAt' | 'receivedAt' | 'repairRole'> & { lessonStartedAt?: string | null }>(skill: SkillLike, taskKeys: ReadonlySet<string>, activity: readonly A[]): A[] {
   const w = repairWindow(skill)
   if (!w) return []
   const t0 = new Date(w.since).getTime()
   const after = (x: string | null | undefined) => !!x && new Date(x).getTime() > t0
   return activity
-    .filter((a) => a.repairRole === 'guided_practice' && a.itemRef !== null && taskKeys.has(a.taskKey) && after(a.answeredAt) && after(a.receivedAt))
+    .filter((a) => a.repairRole === 'guided_practice' && a.itemRef !== null && taskKeys.has(a.taskKey) && after(a.answeredAt) && after(a.receivedAt) && (a.lessonStartedAt === undefined || after(a.lessonStartedAt)))
     .sort((x, y) => (x.answeredAt as string).localeCompare(y.answeredAt as string))
 }
 

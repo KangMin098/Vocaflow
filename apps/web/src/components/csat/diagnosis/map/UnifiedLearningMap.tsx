@@ -3,7 +3,7 @@
 // 학습지도 v6.2 단일 지도 — `/csat` 홈 · `?tab=map` · `?tab=map&view=full` 이 모두 이 화면 하나를 쓴다(교육 그래프 · 판정 출처 하나).
 // LM-W1(2026-10-15) 학습지도 × Workspace 통합 — 위에서 아래로 한 줄기:
 //   ① 상단 컴팩트 띠(목표 · 기록 · 지금 상태 · 다음 한 행동)   ② 관계도 캔버스(6영역 열 · TASK 30 · 관계선 — 화면 폭 전체)
-//   ③ 캔버스 바로 아래 Workspace 리스트   ④ TASK 빠른 팝업 · Workspace 상세 모달 · 자세한 근거 드로어   ⑤ PLAN 편집 = Workspace 모달의 계획 탭
+//   ③ Workspace 리스트(홈은 배너 직후, 다른 진입은 캔버스 아래)   ④ TASK · Workspace 공통 상세   ⑤ PLAN 편집 = 상세의 계획 탭
 // 선택(TASK · Workspace)과 열린 팝업은 **여기 한 곳**이 갖는다 — 리스트 · 지도 · 팝업은 값을 받고 요청만 올린다(서로 상태를 되먹이지 않는다).
 // TASK 를 고르면 그 TASK 를 담은 Workspace 로(지금 Workspace 가 이미 담으면 그대로), Workspace 를 고르면 그 중심 TASK 로(지금 TASK 가 담기면 그대로).
 // 고른 문맥은 주소(map_task · ws)에 replaceState 로 실어 새로 고침 · 뒤로가기 · 학습 후 복귀에서 같은 문맥으로 돌아온다(정본 TASK id · 묶음 id).
@@ -12,8 +12,9 @@
 
 'use client'
 
-import { Headphones, MoreVertical, Search, Timer, X } from 'lucide-react'
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { Boxes, Headphones, Map as MapIcon, MoreVertical, Search, Timer, X } from 'lucide-react'
+import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState, useTransition, type ReactNode, type KeyboardEvent as ReactKeyboardEvent } from 'react'
+import { useRouter } from 'next/navigation'
 
 import { track } from '@/lib/analytics/client'
 import type { MapPageData } from '@/lib/csat/map/load'
@@ -24,6 +25,8 @@ import { goalCoverageLedger } from '@/lib/csat/map/v62/coverage'
 import { domainTaskGraph, taskInspector, type GraphTask } from '@/lib/csat/map/v62/graph'
 import type { WorkspacePlan } from '@/lib/csat/map/v4/workspace'
 import { goalPlanRows } from '@/lib/csat/map/v62/goal-plan'
+import { goalLearning, type GoalLearning } from '@/lib/csat/map/v62/goal-learning'
+import { ReplanPanel } from './ReplanPanel'
 import { ranksOf } from '@/lib/csat/map/v62/rank'
 import { RETURN_NOTE_LABEL, returnNotes } from '@/lib/csat/map/v62/return-ctx'
 import { taskForWs, workspaceRows, wsForTask, wsLinkOf, type WsLink } from '@/lib/csat/map/v62/workspace-list'
@@ -32,14 +35,18 @@ import type { CoreCode } from '@/lib/csat/map/core'
 
 import { useGoal } from './GoalBar'
 import { GoalPlanSummary } from './GoalPlanSummary'
+import { GoalSchedule } from './GoalSchedule'
+import { FinalAssessment } from './FinalAssessment'
+import { GoalOutcome } from './GoalOutcome'
 import { AXIS_ICON } from './icons'
 import { GoalRecordBar } from './GoalRecordBar'
-import { MapDialog } from './MapDialog'
-import { EVIDENCE_V62_LABEL, NEED_V62_LABEL, returnLinesFor, TaskInspector } from './TaskInspector'
-import { TaskPopup } from './TaskPopup'
+import { EVIDENCE_V62_LABEL, NEED_V62_LABEL, returnLinesFor } from './TaskInspector'
+import { LearningDetailDialog, type DetailState, type DetailTab } from './LearningDetailDialog'
 import u from './unified.module.css'
+import { MapReadUnavailable } from './MapReadUnavailable'
+import { evidenceReadOf } from '@/lib/csat/map/v62/evidence-read'
 import { WorkspaceList } from './WorkspaceList'
-import { WorkspaceModal, type WsTab } from './WorkspaceModal'
+import { nearestTask } from './task-proximity'
 
 export type UnifiedMode = 'core' | 'full'
 
@@ -49,7 +56,7 @@ const FALLBACK_TASK: TaskId = 'r.central_meaning'
  * 이 탭(브라우저 문서) 동안만 남는 지도 문맥 — 계획 저장 뒤 라우터 새로 고침으로 지도가 다시 올라올 때 열린 계획 모달을 잇는 데만 쓴다.
  * 고른 TASK · Workspace 는 주소(map_task · ws)가 정본이다.
  */
-const SESSION_CTX: { selected: TaskId | null; ws: string | null; modal: { id: string; tab: WsTab } | null } = { selected: null, ws: null, modal: null }
+const SESSION_CTX: { selected: TaskId | null; ws: string | null; modal: DetailState | null } = { selected: null, ws: null, modal: null }
 
 /** 대표 학습 묶음을 고른 이유(계획 머리에 한 줄) — 약점 확정 문구가 아니다 */
 const REASON_LABEL: Record<NonNullable<WorkspacePlan['reason']>, string> = {
@@ -67,13 +74,34 @@ export function wsSlug(id: string | null): WsSlug | null {
   return s === 'central-meaning' || s === 'option-match' || s === 'evidence-locate' || s === 'cohesion' ? s : null
 }
 
-export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = null, viewToggle = null }: { data: MapPageData; mode: UnifiedMode; recordHref: string; asOf?: string; restore?: MapReturnCtx | null; viewToggle?: ReactNode }) {
+type UnifiedProps = { data: MapPageData; mode: UnifiedMode; recordHref: string; asOf?: string; restore?: MapReturnCtx | null; viewToggle?: ReactNode; workspaceFirst?: boolean }
+
+/**
+ * T-0078 — 필수 원장(확인 첫 시도 · 수행 기록)을 못 읽으면 지도를 0건으로 계산하지 않고 복구 상태만 그린다.
+ *   지도 본체는 읽힌 데이터가 왔을 때 새로 마운트돼 복귀 문맥(map_task · ws · map_plan)으로 처음 상태를 잡는다(빈 데이터로 굳은 상태를 잇지 않는다)
+ */
+export function UnifiedLearningMap(props: UnifiedProps) {
+  const router = useRouter()
+  const [retrying, startRetry] = useTransition()
+  if (props.data.v4 && props.data.now && evidenceReadOf(props.data) !== 'ok') {
+    return <MapReadUnavailable retrying={retrying} onRetry={() => startRetry(() => router.refresh())} />
+  }
+  return <UnifiedLearningMapView {...props} />
+}
+
+function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, viewToggle = null, workspaceFirst = false }: UnifiedProps) {
+  const [homePanel, setHomePanel] = useState<'workspace' | 'map'>(() => restore?.mapTask || restore?.ws ? 'map' : 'workspace')
+  const homeTabId = useId()
   const g = useGoal(data)
   const goalSet = data.model.goalSet || g.saved
   const view = useMemo(() => composeV4(data, { score: g.goal, set: goalSet }, asOf), [data, g.goal, goalSet, asOf])
   const graph = useMemo(() => domainTaskGraph(), [])
   const ranks = useMemo(() => (view ? ranksOf(view) : null), [view])
   const rows = useMemo(() => (view ? workspaceRows(view) : []), [view])
+  const summary = useMemo(() => view && ranks ? goalPlanRows(view, ranks, data.v4?.saved) : null, [view, ranks, data.v4?.saved])
+  const previousLearning = useRef<GoalLearning | null>(null)
+  const learning = useMemo(() => summary && view && data.now ? goalLearning({ summary, saved: data.v4?.saved ?? null, plans: view.plans, taskPlans: view.taskPlans, sessions: data.v4?.sessions ?? [], activity: data.lifecycleActivity ?? [], asOf: data.now, profileWeeklyMinutes: data.v4?.profileWeeklyMinutes, finalAssessment: data.v4?.finalAssessment, previous: previousLearning.current }) : null, [summary, view, data])
+  useEffect(() => { previousLearning.current = learning }, [learning])
   const ledger = useMemo(() => {
     if (!view) return null
     const confirmItems = Object.fromEntries(Object.entries(confirmLinksOf(data)).map(([k, l]) => [k, l.length]))
@@ -96,16 +124,14 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
   })
   const [focus, setFocus] = useState<Domain | null>(() => (mode === 'full' ? null : taskOf(initial).axis))
   const [query, setQuery] = useState('')
-  const [pop, setPop] = useState(false)
-  const [drawer, setDrawer] = useState(false)
   // 초점(3B Access map 「Click to focus」) — 처음엔 꺼져 지도 전체가 선명하다. 노드 · Workspace 를 고르면 켜지고(관련만 선명 · 나머지 흐림) Esc 로 끈다.
   // 복귀 문맥(map_task · ws)으로 들어오면 켠 채로 시작한다(떠날 때 보던 초점)
   const [lit, setLit] = useState<boolean>(() => !!(restore?.mapTask || restore?.ws))
   // 열린 계획 모달 — ① 학습 뒤 복귀(저장 계획 문맥 ws + map_plan)면 그 묶음의 계획 탭을 다시 연다(옛 「계획 열림」 복귀 계약)
   //   ② 계획 저장 뒤 서버가 화면을 다시 그리면 열려 있던 모달을 잇는다. 주소의 map_task · ws 만으로는(새로 고침) 열지 않는다
-  const [modal, setModal] = useState<{ id: string; tab: WsTab } | null>(() => {
-    if (restore?.ws && restore.mapPlan && view?.plans[restore.ws]) return { id: restore.ws, tab: 'plan' }
-    return !restore?.mapPlan && SESSION_CTX.modal && view?.plans[SESSION_CTX.modal.id] ? SESSION_CTX.modal : null
+  const [modal, setModal] = useState<DetailState | null>(() => {
+    if (restore?.ws && restore.mapPlan && view?.plans[restore.ws]) return { id: restore.ws, tab: 'plan', task: null }
+    return !restore?.mapPlan && SESSION_CTX.modal && (!SESSION_CTX.modal.id || view?.plans[SESSION_CTX.modal.id]) ? SESSION_CTX.modal : null
   })
   const opener = useRef<HTMLElement | null>(null)
 
@@ -115,6 +141,8 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
 
   // 고른 문맥 → 탭 기억 · 주소(replaceState — 새로 고침 · 뒤로가기에서 같은 문맥). 다른 쿼리(tab · view · asof)는 그대로 둔다
   useEffect(() => {
+    // T-0078 — 계산 결과가 없으면(읽기 실패) 대체 TASK 로 탭 기억 · 주소 문맥(map_task · ws · 일회성 복귀 키)을 덮지 않는다 — 재조회 뒤 같은 문맥에서 잇는다
+    if (!view) return
     SESSION_CTX.selected = selected
     SESSION_CTX.ws = ws
     SESSION_CTX.modal = modal
@@ -127,21 +155,29 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
     if (lit && ws) url.searchParams.set('ws', ws)
     else url.searchParams.delete('ws')
     if (url.href !== window.location.href) window.history.replaceState(window.history.state, '', url.href)
-  }, [selected, ws, modal, lit])
+  }, [selected, ws, modal, lit, view])
   // 지도 진입(목표 점수만 — 숫자) · TASK 열기(닫힌 열거형). 옛 지도가 보내던 계측을 그대로 잇는다(D2 · D3)
   useEffect(() => {
+    if (workspaceFirst && homePanel !== 'map') return
     track({ name: 'csat_map_viewed', props: { goal: goalSet ? g.goal : 0 } })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [workspaceFirst, homePanel])
 
-  /** TASK 고르기 — 초점을 켠다(팝업은 openPop 일 때만). Workspace 는 이 TASK 를 담는 것으로(지금 것이 담으면 그대로 — 튀지 않게) */
-  const chooseTask = (id: TaskId, openPop = false) => {
+  /** Selection and detail share one TASK/Workspace context. */
+  const chooseTask = (id: TaskId, openDetail = false) => {
     if (id !== selected) track({ name: 'csat_map_node_opened', props: { kind: 'task' } })
     setLit(true)
     setSelected(id)
-    setWs((cur) => wsForTask(rows, id, cur))
+    const nextWs = wsForTask(rows, id, ws)
+    setWs(nextWs)
     if (mode !== 'full') setFocus(taskOf(id).axis)
-    setPop(openPop)
+    if (openDetail) {
+      if (!modal) {
+        opener.current = document.activeElement as HTMLElement | null
+        track({ name: 'csat_path_chosen', props: { axis: 'map_detail', need: 'none', action: 'open', source: 'task' } })
+      }
+      setModal({ id: nextWs, task: id, tab: 'overview' })
+    }
   }
   /** Workspace 고르기 — 지도에 중심 · 지원 TASK 를 강조. TASK 는 지금 것이 담기면 그대로, 아니면 첫 중심 TASK(팝업은 닫는다) */
   const chooseWs = (id: string) => {
@@ -154,17 +190,13 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
       setSelected(t)
       if (mode !== 'full') setFocus(taskOf(t).axis)
     }
-    setPop(false)
   }
-  const openWs = (id: string, from: HTMLElement | null, tab: WsTab = 'overview') => {
-    opener.current = from
+  const openWs = (id: string, from: HTMLElement | null, tab: DetailTab = 'overview') => {
+    if (!modal) track({ name: 'csat_path_chosen', props: { axis: 'map_detail', need: 'none', action: 'open', source: 'workspace' } })
+    opener.current = from ?? document.activeElement as HTMLElement | null
     chooseWs(id)
-    setModal({ id, tab })
+    setModal({ id, tab, task: null })
   }
-  const closePop = useCallback((restoreFocus: boolean) => {
-    setPop(false)
-    if (restoreFocus) requestAnimationFrame(() => document.querySelector<HTMLElement>(`[data-node="${CSS.escape(selected)}"]`)?.focus())
-  }, [selected])
   const closeModal = useCallback(() => {
     setModal(null)
     const back = opener.current
@@ -173,18 +205,12 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
   // Esc — 열린 팝업 · 모달 · 드로어가 없을 때 초점을 끈다(3B 와 같은 해제)
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape' || pop || drawer || modal || document.querySelector('[aria-modal="true"], [data-testid="goal-popover"]')) return
+      if (e.key !== 'Escape' || modal || document.querySelector('[aria-modal="true"], [data-testid="goal-popover"]')) return
       setLit(false)
     }
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
-  }, [pop, drawer, modal])
-  const closeDrawer = useCallback(() => {
-    setDrawer(false)
-    const back = opener.current
-    requestAnimationFrame(() => back?.isConnected && back.focus())
-  }, [])
-
+  }, [modal])
   // 대표 학습 묶음 노출 — 묶음 · 이유가 바뀔 때만(기존 NeedPanel 과 같은 이벤트)
   const primaryWs = wsSlug(view?.plan.primary?.id ?? null)
   const primaryReason = view?.plan.reason ?? null
@@ -199,44 +225,71 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
 
   // 관계선 — 노드 중심 좌표를 재서 그린다. 평소엔 승인 관계만 희미하게. 진하게: 고른 TASK 의 관계 + 고른 Workspace 안의 TASK 끼리 관계
   const canvasRef = useRef<HTMLDivElement>(null)
-  const [lines, setLines] = useState<{ id: string; d: string; approval: 'approved' | 'proposed'; active: boolean }[]>([])
+  const [hovered, setHovered] = useState<TaskId | null>(null)
+  const [focused, setFocused] = useState<TaskId | null>(null)
+  const pointerFrame = useRef<number | null>(null)
+  const preview = modal ? null : hovered ?? focused
+  const clearHover = () => {
+    if (pointerFrame.current !== null) cancelAnimationFrame(pointerFrame.current)
+    pointerFrame.current = null
+    setHovered(null)
+  }
+  useEffect(() => () => {
+    if (pointerFrame.current !== null) cancelAnimationFrame(pointerFrame.current)
+  }, [])
+  const [lines, setLines] = useState<{ id: string; from: TaskId; to: TaskId; d: string; approval: 'approved' | 'proposed'; active: boolean }[]>([])
   const wsSet = useMemo(() => new Set<string>(lit && row ? [...row.core, ...row.support] : []), [row, lit])
   // 초점일 때 선명하게 남길 TASK — 고른 TASK · 그와 관계선으로 이어진 TASK · 고른 Workspace 의 TASK(나머지는 흐림 · 숨기지 않음)
   const related = useMemo(() => {
-    if (!lit) return null
-    const out = new Set<string>([selected, ...wsSet])
+    const target = preview ?? (lit ? selected : null)
+    if (!target) return null
+    const out = new Set<string>(preview ? [target] : [target, ...wsSet])
     for (const e of graph.edges) {
-      if (e.from === selected) out.add(e.to)
-      if (e.to === selected) out.add(e.from)
+      if (e.from === target) out.add(e.to)
+      if (e.to === target) out.add(e.from)
     }
     return out
-  }, [lit, selected, wsSet, graph.edges])
+  }, [lit, selected, wsSet, graph.edges, preview])
   useLayoutEffect(() => {
     const el = canvasRef.current
     if (!el) return
     const draw = () => {
       const box = el.getBoundingClientRect()
+      const gap = parseFloat(getComputedStyle(el.querySelector(`.${u.cols}`)!).columnGap)
+      const rowGap = parseFloat(getComputedStyle(el.querySelector(`.${u.nodes}`)!).rowGap)
+      const domainIndex = (id: string) => graph.domains.findIndex(domain => domain.id === taskOf(id).axis)
       const at = (id: string) => {
         const n = el.querySelector<HTMLElement>(`[data-node="${CSS.escape(id)}"]`)
         if (!n) return null
         const r = n.getBoundingClientRect()
-        return { l: r.left - box.left, r: r.right - box.left, y: r.top - box.top + r.height / 2 }
+        return { l: r.left - box.left, r: r.right - box.left, bottom: r.bottom - box.top, y: r.top - box.top + r.height / 2 }
       }
       const out: typeof lines = []
       for (const e of graph.edges) {
-        const active = lit && (e.from === selected || e.to === selected || (wsSet.has(e.from) && wsSet.has(e.to)))
+        const active = preview ? e.from === preview || e.to === preview : lit && (e.from === selected || e.to === selected || (wsSet.has(e.from) && wsSet.has(e.to)))
         if (!active && e.approval !== 'approved') continue
         const a = at(e.from)
         const b = at(e.to)
         if (!a || !b) continue
         // 같은 열 안의 연결은 열 오른쪽으로 둥글게, 다른 열은 가까운 변끼리
         const same = Math.abs(a.l - b.l) < 4
-        const d = same
+        // 여러 열을 건너는 선은 같은 높이의 카드 사이 빈 행으로 우회한다.
+        // 곧바로 베지어 곡선을 그리면 중간 열의 TASK 뒤에 가려 연결이 끊겨 보인다.
+        const skipsColumn = Math.abs(domainIndex(e.from) - domainIndex(e.to)) > 1
+        const forward = a.l < b.l
+        const source = forward ? a.r : a.l
+        const target = forward ? b.l : b.r
+        const outX = source + (forward ? gap / 2 : -gap / 2)
+        const inX = target + (forward ? -gap / 2 : gap / 2)
+        const laneY = a.bottom + rowGap / 2
+        const d = skipsColumn
+          ? `M ${source} ${a.y} H ${outX} V ${laneY} H ${inX} V ${b.y} H ${target}`
+          : same
           ? `M ${a.r} ${a.y} C ${a.r + 22} ${a.y}, ${b.r + 22} ${b.y}, ${b.r} ${b.y}`
           : a.l < b.l
             ? `M ${a.r} ${a.y} C ${(a.r + b.l) / 2} ${a.y}, ${(a.r + b.l) / 2} ${b.y}, ${b.l} ${b.y}`
             : `M ${a.l} ${a.y} C ${(a.l + b.r) / 2} ${a.y}, ${(a.l + b.r) / 2} ${b.y}, ${b.r} ${b.y}`
-        out.push({ id: e.id, d, approval: e.approval, active })
+        out.push({ id: e.id, from: e.from, to: e.to, d, approval: e.approval, active })
       }
       setLines(out)
     }
@@ -244,7 +297,7 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
     const ro = new ResizeObserver(draw)
     ro.observe(el)
     return () => ro.disconnect()
-  }, [graph.edges, selected, wsSet, lit, focus, mode, q])
+  }, [graph.edges, graph.domains, selected, wsSet, lit, focus, mode, q, preview])
 
   if (!view || !ranks) return null
   const ins = taskInspector(selected, view, ranks, ledger)
@@ -252,19 +305,52 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
   const notes = returnNotes(data.v4?.saved, restore)
   const past = view.asIs.mode === 'past_reanalysis'
   const modalRow = modal ? rows.find((r) => r.id === modal.id) ?? null : null
-  const anchor = pop && typeof document !== 'undefined' ? document.querySelector<HTMLElement>(`[data-node="${CSS.escape(selected)}"]`) : null
 
-  return (
-    <div className={u.wrap} data-testid="unified-map" data-mode={mode} data-selected={selected} data-ws={ws ?? ''} data-lit={lit} data-goal-set={goalSet}>
+  const workspace = (
+      <WorkspaceList
+        rows={rows}
+        ranks={ranks}
+        data={data}
+        past={past}
+        selectedTask={lit ? selected : null}
+        selectedWs={lit ? ws : null}
+        onSelectWs={(id) => {
+          const chosen = rows.find((r) => r.id === id)
+          const target = chosen ? taskForWs(chosen, selected) : null
+          chooseWs(id)
+          if (workspaceFirst) setHomePanel('map')
+          if (target) requestAnimationFrame(() => {
+            const node = document.querySelector<HTMLElement>(`[data-node="${CSS.escape(target)}"]`)
+            node?.scrollIntoView({ block: 'center', inline: 'nearest' })
+            node?.focus({ preventScroll: true })
+          })
+        }}
+        onOpenWs={(id, el) => openWs(id, el)}
+        onSelectTask={(id) => chooseTask(id, true)}
+      />
+  )
+
+  const selectHomePanel = (panel: 'workspace' | 'map') => {
+    if (panel === homePanel) return
+    setHomePanel(panel)
+    track({ name: 'csat_path_chosen', props: { axis: 'home_panel', need: 'none', action: 'apply', view: panel } })
+  }
+  const mapContent = (<>
       <GoalRecordBar data={data} g={g} goalSet={goalSet} asIs={view.asIs} view={view} ranks={ranks} recordHref={recordHref} past={past} currentHref={`${recordHref.split('?')[0]}?tab=map${mode === 'full' ? '&view=full' : ''}`} onSelect={(id) => chooseTask(id, false)} selected={selected} onOpenWs={(id, tab) => openWs(id, null, tab)} />
       {/* T-0070 — 목표 → TASK 별 근거 · 이번 학습량 · 도달 조건 → 지금 할 행동 · 같은 Workspace 계획 · 자료(접힌 요약 · 새 순위 없음) */}
-      <GoalPlanSummary data={goalPlanRows(view, ranks, data.v4?.saved)} goalSet={goalSet} saved={data.v4?.saved ?? null} past={past} onSelect={(id) => chooseTask(id, false)} onOpenWs={(id, tab) => openWs(id, null, tab)} />
+      <GoalPlanSummary data={summary!} goalSet={goalSet} saved={data.v4?.saved ?? null} past={past} evidence={view.evidence ?? null} onSelect={(id) => chooseTask(id, false)} onOpenWs={(id, tab) => openWs(id, null, tab)} />
+      {learning && <GoalSchedule learning={learning} past={past} onOpenWs={(id, tab) => openWs(id, null, tab)} />}
+      {/* GOAL-ACHIEVEMENT 3차 — 목표 뒤 실제 시험 기록으로 목표 대비 판정(TASK 활동과 분리) */}
+      <GoalOutcome outcome={learning?.outcome ?? null} past={past} />
+      {/* 최종 평가 결속 — 학습자가 정한 응시일의 목표 시험 기록 하나로만 최종 목표를 판정한다 */}
+      {!past && learning?.goal && learning.final && <FinalAssessment goal={learning.goal} final={learning.final} />}
+      {!past && learning && <ReplanPanel p={learning.replan} onOpenWs={(id, tab) => openWs(id, null, tab)} />}
 
       <section className={u.canvasCard} aria-labelledby="umap-h">
         <div className={u.canvasHead}>
           <h2 id="umap-h" className={u.h}>학습지도</h2>
           <p className={u.headNote}>
-            영역 6 · TASK {graph.counts.tasks}(측정 중 {graph.counts.nonHold} · 보류 {graph.counts.hold}) · 번호 = 먼저 볼 순서
+            영역 {graph.domains.length} · TASK {graph.counts.tasks}(측정 중 {graph.counts.nonHold} · 보류 {graph.counts.hold}) · 번호 = 먼저 볼 순서
             <a href="#ws-h" className={u.wsJump} data-testid="umap-ws-jump" onClick={(e) => {
               e.preventDefault()
               const heading = document.getElementById('ws-h')
@@ -287,20 +373,36 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
         {past && <p className={u.pastNote} data-testid="umap-past">과거 기준({view.asIs.asOf.slice(0, 10)})으로 다시 분석한 지도예요 — 보기 전용이고 학습 활동은 지금 기준에서 해요.</p>}
 
         <div className={u.mapStage}>
-        <div className={u.canvas} data-focus={focus ?? 'all'} data-mode={mode} data-lit={lit} data-testid="umap-canvas">
-         <div ref={canvasRef} className={u.inner}>
+        <div className={u.canvas} data-focus={focus ?? 'all'} data-mode={mode} data-lit={lit} data-preview={preview ?? ''} data-testid="umap-canvas" onScroll={clearHover}>
+         <div ref={canvasRef} className={u.inner} onPointerLeave={clearHover} onPointerMove={(event) => {
+           if (event.pointerType === 'touch') return
+           const point = { x: event.clientX, y: event.clientY }
+           if (pointerFrame.current !== null) cancelAnimationFrame(pointerFrame.current)
+           pointerFrame.current = requestAnimationFrame(() => {
+             pointerFrame.current = null
+             const canvas = canvasRef.current
+             if (!canvas) return
+             const reach = parseFloat(getComputedStyle(canvas).getPropertyValue('--g-hover-reach')) || 0
+             const cards = Array.from(canvas.querySelectorAll<HTMLButtonElement>('[data-node]'), node => {
+               const { left, right, top, bottom } = node.getBoundingClientRect()
+               return { id: node.dataset.node as TaskId, left, right, top, bottom }
+             })
+             setHovered(nearestTask(point, cards, reach))
+           })
+         }}>
           <svg className={u.lines} aria-hidden="true">
             {lines.map((l) => (
-              <path key={l.id} d={l.d} className={u.line} data-approval={l.approval} data-active={l.active} />
+              <path key={l.id} d={l.d} className={u.line} data-from={l.from} data-to={l.to} data-approval={l.approval} data-active={l.active} />
             ))}
           </svg>
           <div className={u.cols} data-mode={mode}>
             {graph.domains.map((d) => {
               const wide = mode === 'full' || focus === d.id
+              const DomainIcon = AXIS_ICON[d.id as CoreCode]
               return (
                 <section key={d.id} className={u.col} data-domain={d.id} data-wide={wide} data-hold={d.hold} aria-label={`${d.id} ${d.name}`}>
                   <button type="button" className={u.colHead} onClick={() => setFocus(focus === d.id && mode !== 'full' ? null : d.id)} aria-pressed={wide} data-testid="umap-domain" title={`${d.id} ${d.name} — ${d.question}`}>
-                    <span className={u.colCode}>{d.id}</span>
+                    <span className={u.colCode}><DomainIcon size={14} aria-hidden="true" />{d.id}</span>
                     <span className={u.colName}>{d.name}</span>
                     {d.hold ? (
                       <span className={u.colTag}>
@@ -316,16 +418,17 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
                       <li key={id}>
                         <Node
                           t={graph.tasks.find((x) => x.id === id)!}
-                          wide={wide}
                           selected={lit && selected === id}
+                          preview={preview === id}
                           order={rank.get(id) ?? null}
                           link={lit && row ? wsLinkOf(row, id) : null}
                           faded={related !== null && !related.has(id)}
                           dim={matches !== null && !matches.has(id)}
                           need={needOf.get(id)?.need ?? null}
                           evidence={EVIDENCE_V62_LABEL[taskInspector(id, view, ranks, null).now.evidence]}
-                          // 3B 와 같이 첫 누름 = 초점, 초점 잡힌 TASK 를 다시 누르면 빠른 팝업(여닫기)
-                          onClick={() => (lit && selected === id ? (pop ? closePop(false) : setPop(true)) : chooseTask(id))}
+                          onClick={(element) => { opener.current = element; chooseTask(id, true) }}
+                          onFocus={() => setFocused(id)}
+                          onBlur={() => setFocused(null)}
                         />
                       </li>
                     ))}
@@ -342,15 +445,15 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
             <span className={u.dockCode}>{ins.task.display}</span>
             <span className={u.dockName}>{ins.task.name.replace(/\(통합 관찰\)$/, '')}</span>
             <span className={u.dockSub}>{EVIDENCE_V62_LABEL[ins.now.evidence]}{row ? ` · ${row.name}` : ''}</span>
-            <button type="button" className={u.dockBtn} onClick={() => setPop((v) => !v)} aria-expanded={pop} aria-haspopup="dialog" data-testid="umap-dock-more" aria-label="이 TASK 자세히" title="자세히">
+            <button type="button" className={u.dockBtn} onClick={(e) => { opener.current = e.currentTarget; chooseTask(selected, true) }} aria-expanded={modal !== null} aria-haspopup="dialog" data-testid="umap-dock-more" aria-label="이 TASK 자세히" title="자세히">
               <MoreVertical size={14} aria-hidden="true" />
             </button>
-            <button type="button" className={u.dockBtn} onClick={() => { setPop(false); setLit(false) }} data-testid="umap-dock-clear" aria-label="초점 해제" title="초점 해제(Esc)">
+            <button type="button" className={u.dockBtn} onClick={() => setLit(false)} data-testid="umap-dock-clear" aria-label="초점 해제" title="초점 해제(Esc)">
               <X size={14} aria-hidden="true" />
             </button>
           </div>
         ) : (
-          <p className={u.dockL} data-testid="umap-dock-help">TASK 를 누르면 초점 · 다시 누르면 자세히 · Esc 해제</p>
+          <p className={u.dockL} data-testid="umap-dock-help">TASK 를 누르면 상세 · 영역 제목으로 지도 펼치기 · Esc 초점 해제</p>
         )}
         <p className={u.dockR} data-testid="umap-legend">
           <span className={u.lgItem}><span className={u.lgOrder} aria-hidden="true">1</span>먼저 볼 순서</span>
@@ -363,93 +466,42 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
         </div>
       </section>
 
-      <WorkspaceList
-        rows={rows}
-        ranks={ranks}
-        data={data}
-        past={past}
-        selectedTask={lit ? selected : null}
-        selectedWs={lit ? ws : null}
-        onSelectWs={(id) => {
-          const chosen = rows.find((r) => r.id === id)
-          const target = chosen ? taskForWs(chosen, selected) : null
-          chooseWs(id)
-          if (target) requestAnimationFrame(() => {
-            const node = document.querySelector<HTMLElement>(`[data-node="${CSS.escape(target)}"]`)
-            node?.scrollIntoView({ block: 'center', inline: 'nearest' })
-            node?.focus({ preventScroll: true })
-          })
-        }}
-        onOpenWs={(id, el) => openWs(id, el)}
-        onSelectTask={(id) => chooseTask(id, true)}
-      />
+  </>)
 
-      {pop && anchor && (
-        <TaskPopup
-          ins={ins}
-          anchor={anchor}
-          rows={rows}
-          selectedWs={ws}
-          data={data}
-          past={past}
-          goalSet={!!view.toBe}
-          evidence={view.evidence?.[ins.task.id]}
-          onClose={closePop}
-          onSelectWs={(id) => {
-            chooseWs(id)
-            requestAnimationFrame(() => document.querySelector<HTMLElement>(`[data-testid="ws-row"][data-ws="${CSS.escape(id)}"] [data-testid="ws-select"]`)?.focus())
-          }}
-          onDetail={() => {
-            opener.current = anchor
-            setPop(false)
-            setDrawer(true)
-          }}
-        />
-      )}
+  return (
+    <div className={u.wrap} data-testid="unified-map" data-mode={mode} data-selected={selected} data-ws={ws ?? ''} data-lit={lit} data-goal-set={goalSet} data-workspace-first={workspaceFirst}>
+      {workspaceFirst ? <>
+        <div className={u.homeTabs} role="tablist" aria-label="학습 공간 보기">
+          {(['workspace', 'map'] as const).map((panel, index) => <button key={panel} type="button" role="tab" id={homeTabId + '-' + panel} aria-selected={homePanel === panel} aria-controls={homeTabId + '-' + panel + '-content'} tabIndex={homePanel === panel ? 0 : -1} className={u.homeTab} onClick={() => selectHomePanel(panel)} onKeyDown={(event: ReactKeyboardEvent<HTMLButtonElement>) => {
+            if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return
+            event.preventDefault()
+            const next = event.key === 'Home' ? 'workspace' : event.key === 'End' ? 'map' : index === 0 ? 'map' : 'workspace'
+            selectHomePanel(next)
+            document.getElementById(homeTabId + '-' + next)?.focus()
+          }} data-testid={'home-tab-' + panel}>{panel === 'workspace' ? <Boxes size={15} aria-hidden="true" /> : <MapIcon size={15} aria-hidden="true" />}{panel === 'workspace' ? 'Workspace' : '학습지도'}{panel === 'workspace' && <span className={u.homeTabCount}>{rows.filter(r => r.kind !== 'preparing').length}</span>}</button>)}
+        </div>
+        <div id={homeTabId + '-workspace-content'} role="tabpanel" aria-labelledby={homeTabId + '-workspace'} hidden={homePanel !== 'workspace'} className={u.homeWorkspacePanel} data-testid="home-workspace-panel">{workspace}</div>
+        <div id={homeTabId + '-map-content'} role="tabpanel" aria-labelledby={homeTabId + '-map'} hidden={homePanel !== 'map'} className={u.homeMapPanel} data-testid="home-map-panel">{mapContent}</div>
+      </> : <>{mapContent}{workspace}</>}
 
-      {drawer && (
-        <MapDialog kind="drawer" labelledBy="ins-h" testId="ins-drawer" onClose={closeDrawer} head={<span className={u.drawerHead}>자세한 근거 · 학습 경로</span>}>
-          <TaskInspector
-            ins={ins}
-            view={view}
-            data={data}
-            past={past}
-            restoreWs={ws}
-            planOpen={false}
-            returned={restore?.mapTask === selected ? notes : null}
-            returnRef={restore ? { item: restore.mapItem ?? null, attempt: restore.mapAttempt ?? null } : null}
-            onTogglePlan={(id) => {
-              setDrawer(false)
-              openWs(id, opener.current, 'plan')
-            }}
-          />
-        </MapDialog>
-      )}
-
-      {modal && modalRow && (
-        <WorkspaceModal
-          row={modalRow}
-          view={view}
-          data={data}
-          past={past}
-          goal={g.goal}
-          reason={modalRow.id === view.plan.primary?.id && view.plan.reason ? REASON_LABEL[view.plan.reason] : null}
-          tab={modal.tab}
-          onTab={(tab) => setModal({ id: modalRow.id, tab })}
-          returned={restore?.mapTask && (modalRow.core.includes(restore.mapTask as TaskId) || modalRow.support.includes(restore.mapTask as TaskId)) ? { task: restore.mapTask as TaskId, lines: returnLinesFor(restore.mapTask as TaskId, view, data, modalRow.id, notes, { item: restore.mapItem ?? null, attempt: restore.mapAttempt ?? null }) } : null}
+      {modal && (
+        <LearningDetailDialog
+          state={modal} ins={ins} row={modalRow} rows={rows} view={view} data={data} past={past} goal={g.goal}
+          reason={modalRow?.id === view.plan.primary?.id && view.plan.reason ? REASON_LABEL[view.plan.reason] : null}
+          notes={restore?.mapTask === selected ? notes : null}
+          returnRef={restore ? { item: restore.mapItem ?? null, attempt: restore.mapAttempt ?? null } : null}
+          returned={restore?.mapTask && modalRow && (modalRow.core.includes(restore.mapTask as TaskId) || modalRow.support.includes(restore.mapTask as TaskId)) ? { task: restore.mapTask as TaskId, lines: returnLinesFor(restore.mapTask as TaskId, view, data, modalRow.id, notes, { item: restore.mapItem ?? null, attempt: restore.mapAttempt ?? null }) } : null}
+          onTab={(tab) => setModal(current => current ? { ...current, tab } : null)}
           onClose={closeModal}
-          onPickTask={(id) => {
-            setModal(null)
-            chooseTask(id)
-            requestAnimationFrame(() => document.querySelector<HTMLElement>(`[data-node="${CSS.escape(id)}"]`)?.scrollIntoView({ block: 'nearest', inline: 'nearest' }))
-          }}
+          onPickTask={(id) => chooseTask(id, true)}
+          onPickWorkspace={(id, tab = 'overview') => { chooseWs(id); setModal({ id, tab, task: null }) }}
         />
       )}
     </div>
   )
 }
 
-function Node({ t, wide, selected, order, link, faded, dim, need, evidence, onClick }: { t: GraphTask; wide: boolean; selected: boolean; order: number | null; link: WsLink | null; faded: boolean; dim: boolean; need: string | null; evidence: string; onClick: () => void }) {
+function Node({ t, selected, preview, order, link, faded, dim, need, evidence, onClick, onFocus, onBlur }: { t: GraphTask; selected: boolean; preview: boolean; order: number | null; link: WsLink | null; faded: boolean; dim: boolean; need: string | null; evidence: string; onClick: (element: HTMLButtonElement) => void; onFocus: () => void; onBlur: () => void }) {
   const Icon = AXIS_ICON[t.domain as CoreCode]
   return (
     <button
@@ -460,6 +512,7 @@ function Node({ t, wide, selected, order, link, faded, dim, need, evidence, onCl
       data-hold={t.hold}
       data-check={t.directCheck}
       data-selected={selected}
+      data-preview={preview}
       data-priority={order !== null}
       data-link={link ?? 'none'}
       data-faded={faded}
@@ -467,15 +520,18 @@ function Node({ t, wide, selected, order, link, faded, dim, need, evidence, onCl
       data-testid="umap-node"
       aria-pressed={selected}
       aria-haspopup="dialog"
-      aria-label={`${t.display} ${t.name} — ${evidence}${need ? ` · ${NEED_V62_LABEL[need as keyof typeof NEED_V62_LABEL] ?? ''}` : ''}${order ? ` · 먼저 볼 순서 ${order}` : ''}${link ? ` · 고른 Workspace 의 ${link === 'core' ? '중심' : '지원'} TASK` : ''} · ${selected ? '다시 누르면 자세히 · Esc 초점 해제' : '누르면 초점 · 다시 누르면 자세히'}`}
-      onClick={onClick}
+      title={`${t.display} ${t.name} · ${evidence}`}
+      aria-label={`${t.display} ${t.name} — ${evidence}${need ? ` · ${NEED_V62_LABEL[need as keyof typeof NEED_V62_LABEL] ?? ''}` : ''}${order ? ` · 먼저 볼 순서 ${order}` : ''}${link ? ` · 고른 Workspace 의 ${link === 'core' ? '중심' : '지원'} TASK` : ''} · 누르면 상세 보기`}
+      onClick={(e) => onClick(e.currentTarget)}
+      onFocus={onFocus}
+      onBlur={onBlur}
     >
-      {/* 3B Access map 노드 — 아이콘 타일(영역) + 이름 한 줄 + 보조 한 줄. 좁은 개요 열에서는 타일 · 보조 줄 없이 이름만 */}
-      {wide && <span className={u.nodeTile} data-domain={t.domain} aria-hidden="true"><Icon size={16} strokeWidth={1.8} /></span>}
+      {/* Compact cards retain the domain icon, name and evidence. Full names remain accessible. */}
+      <span className={u.nodeTile} data-domain={t.domain} aria-hidden="true"><Icon size={16} strokeWidth={1.8} /></span>
       <span className={u.nodeText}>
         <span className={u.nodeName}>
           <span className={u.nodeCode}>{t.display}</span>{' '}{t.name.replace(/\(통합 관찰\)$/, '')}</span>
-        {wide && <span className={u.nodeState}>{t.hold ? '보류 · 측정 방법 정하는 중' : evidence}</span>}
+        <span className={u.nodeState}>{t.hold ? `보류 · ${evidence}` : evidence}</span>
       </span>
       {order !== null && <span className={u.nodeOrder} aria-hidden="true">{order}</span>}
       {selected && <span className={u.nodeMore} data-testid="node-more" aria-hidden="true"><MoreVertical size={12} /></span>}

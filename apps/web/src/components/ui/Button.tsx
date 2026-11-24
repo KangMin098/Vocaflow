@@ -105,7 +105,7 @@ const variantStyles: Record<ButtonVariant, string> = {
 // Size Styles
 // ══════════════════════════════════════════════════════════════
 const sizeStyles: Record<ButtonSize, string> = {
-  sm: "px-s-4 py-s-2 text-sm rounded-sm min-h-[36px]",
+  sm: "px-s-4 py-s-2 text-sm rounded-sm min-h-[44px]",
   md: "px-s-6 py-s-3 text-base rounded-md min-h-[44px]", // 기본 (WCAG AA)
   lg: "px-s-8 py-s-4 text-lg rounded-lg min-h-[52px]",
 };

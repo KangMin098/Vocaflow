@@ -1,0 +1,9 @@
+{
+  "type": "review",
+  "command_or_protocol": "T-0101 IN_PROGRESS confirmed on second task-show poll after a 10-second wait; read acceptance, ANALYST_CONTRACT section 1 and all 21 reference_tasks definitions; independently judged all 94 source items for R5/R6 without reading Claude judgments or prior analysis; wrote chunk-X-01.out.json (48 rows) and chunk-X-02.out.json (46 rows), all AI_PROPOSED. Authored judgments and reasons individually; serialization only copied SHA and assembled authored fields. Repaired initial PowerShell encoding corruption (first validation: 38 quote defects). Final user-specified pilot-lib validateLinkChunk + validateLinkRow against expand-input.json: defects 0; additionally confirmed exact input item order, source SHA, row counts, 188 links, reason lengths and anchor inclusion. Recorded difficult boundaries and missing-chart unknowns in xmodel-notes.md. No skipped items; three chart items retain unknown for both tasks. No model-agreement comparison or commit performed; coordinator owns those steps.",
+  "result": "pass",
+  "skip_count": 0,
+  "artifact_path_or_url": "D:/workspace/Vocaflow-map-data-review/docs/csat-learner/v62/data-expansion/review/xmodel-notes.md",
+  "observed_at": "2026-10-23T15:03:19+09:00",
+  "covers": [0, 1, 2, 3]
+}

@@ -1,0 +1,15 @@
+{
+    "type":  "review",
+    "command_or_protocol":  "T-0094 independent B; input HEAD c1e5f1e3c3d14bbe170cd624082ae9a12ed44adb; ANALYST_CONTRACT and RULES_V2 v2.1; 40x9+8x2=376 original-only links. batch-run validate rules-v21: B 40 defects 0; validate r5r6-fix: B 8 defects 0 (both full commands exit 1 solely due to missing A outputs). Development-project read-only GET/select: 20/20 old_md5 matches, client-side UTF-8 MD5 equivalent to md5(stem), standard stems compared; 11 restore/drop and 9 needs_source decisions confirmed. DB writes 0. btrack-notes includes 2026#44 marker inconsistency and 2026#25 missing graph. Snapshot/verdict/proposal consistency passed.",
+    "result":  "pass",
+    "skip_count":  0,
+    "artifact_path_or_url":  "D:/workspace/Vocaflow-map-data-review/docs/csat-learner/v62/data-expansion/review/stem-fix-2-verdict.json",
+    "observed_at":  "2026-10-23T13:41:27.4749613+09:00",
+    "covers":  [
+                   0,
+                   1,
+                   2,
+                   3,
+                   4
+               ]
+}

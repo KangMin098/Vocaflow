@@ -1,13 +1,13 @@
 // apps/web/src/components/csat/diagnosis/map/WorkspaceList.tsx
 //
-// 학습지도 × Workspace 통합(LM-W1) — 지도 캔버스 **바로 아래** 상시 Workspace 리스트.
+// 학습지도 × Workspace 통합(LM-W1) — 홈은 배너 아래, 다른 지도 진입은 캔버스 아래의 Workspace 리스트.
 // 행 = 아이콘 타일 · 이름 · 중심/지원 TASK 칩 · 단계 흐름(4점) · 이번 계획 수행량(작은 막대 — 숙달률 아님) · 상태 · 다음 행동 하나.
 // 순서와 값은 workspaceRows(composeV4 결과)를 그대로 쓴다 — 여기서 판정하지 않는다. 선택 상태는 상위(UnifiedLearningMap)가 갖는다.
 // 처음엔 실행 가능한 행만 보이고, 자료 준비 중 행은 접힌 묶음 안에(실제 학습 가능으로 보이지 않게). 리스트는 최대 높이 안에서만 스크롤.
 
 'use client'
 
-import { ArrowRight, BookOpenText, Boxes, ChevronDown, Crosshair, Link2, ListChecks, Maximize2, PlayCircle, type LucideIcon } from 'lucide-react'
+import { ArrowRight, BookOpenText, Boxes, ChevronDown, Crosshair, Link2, ListChecks, Map, Maximize2, PlayCircle, type LucideIcon } from 'lucide-react'
 import Link from 'next/link'
 
 import type { MapPageData } from '@/lib/csat/map/load'
@@ -35,6 +35,7 @@ export const WS_STATE_LABEL: Record<WsRowState, string> = {
   runnable: '바로 할 수 있어요',
   in_progress: '진행 중',
   locked: '앞 단계 뒤에 열려요',
+  maintain: '지금 확인 통과 · 다른 날 유지 확인 기준 미정',
   preparing: '자료 준비 중',
 }
 export const READINESS_LABEL: Record<string, string> = {
@@ -51,6 +52,7 @@ const WHY_NOT: Record<NotActionableReason, string> = {
   canon_hold: '측정 방법 정하는 중',
   relevance_unknown: '목표 시험과의 연결 확인 전',
   no_next_activity: '지금 이어 할 활동 없음',
+  maintain_pending: '지금 확인 통과 · 다른 날 유지 확인 기준 미정',
 }
 
 export const taskLabel = (id: TaskId) => {
@@ -108,7 +110,7 @@ export function WorkspaceList({ rows, ranks, data, past, selectedTask, selectedW
     const on = selectedWs === r.id
     return (
       <li key={r.id} className={u.wsRow} data-testid="ws-row" data-ws={r.id} data-kind={r.kind} data-state={r.state} data-link={link ?? 'none'} data-selected={on}>
-        <button type="button" className={u.wsMain} onClick={() => onSelectWs(r.id)} aria-pressed={on} data-testid="ws-select" aria-label={`${r.name} — 지도에서 관련 TASK 보기`}>
+        <button type="button" className={u.wsMain} onClick={(e) => onOpenWs(r.id, e.currentTarget)} aria-haspopup="dialog" data-testid="ws-select" aria-label={`${r.name} — 상세 보기`}>
           <span className={u.wsTile} data-kind={r.kind} aria-hidden="true"><Icon size={16} strokeWidth={1.9} /></span>
           <span className={u.wsName}>
             <span className={u.wsTitle}>
@@ -127,10 +129,11 @@ export function WorkspaceList({ rows, ranks, data, past, selectedTask, selectedW
         <span className={u.wsAmt}><Amount row={r} /></span>
         <span className={u.wsState} data-state={r.state}>{WS_STATE_LABEL[r.state]}</span>
         <span className={u.wsActs}>
+          <button type="button" className={u.iconBtn} onClick={() => onSelectWs(r.id)} aria-label={`${r.name} — 지도에서 관련 TASK 보기`} title="지도에서 보기"><Map size={14} aria-hidden="true" /></button>
           {r.next && !past ? (
-            <Link href={withMapReturn(r.next.href, outgoingCtx(data.v4?.saved, r.next.task, r.id))} className={u.wsGo2} data-testid="ws-next" title={r.next.label}>
+            <Link href={withMapReturn(r.next.href, outgoingCtx(data.v4?.saved, r.next.task, r.id))} className={u.wsGo2} data-testid="ws-next" title={r.next.label} aria-label={`${r.name} · ${r.next.label}`}>
               <PlayCircle size={14} strokeWidth={1.9} aria-hidden="true" />
-              <span className={u.ctaText}>{r.next.label}</span>
+              <span className={u.ctaText}>시작</span>
               <ArrowRight size={13} aria-hidden="true" />
             </Link>
           ) : (
@@ -145,9 +148,9 @@ export function WorkspaceList({ rows, ranks, data, past, selectedTask, selectedW
   }
 
   return (
-    <section className={u.wsList} aria-labelledby="ws-h" data-testid="ws-list" data-count={rows.length}>
+    <section className={u.wsList} aria-labelledby="ws-h" data-testid="ws-list" data-count={rows.length} data-view="list">
       <header className={u.wsHead}>
-        <h2 id="ws-h" className={u.h} tabIndex={-1}>학습 Workspace</h2>
+        <h2 id="ws-h" className={u.h} tabIndex={-1}><Boxes size={16} aria-hidden="true" />Workspace</h2>
         <span className={u.wsCount}>{live.length}개 · 준비 중 {prep.length}</span>
         {selectedTask && (
           <span className={u.wsFocus} data-testid="ws-focus-note">
@@ -155,9 +158,6 @@ export function WorkspaceList({ rows, ranks, data, past, selectedTask, selectedW
             {selectedHasWs ? '와 연결된 Workspace 를 강조했어요' : '를 다루는 Workspace 는 아직 없어요 — 자료가 준비되면 생겨요'}
           </span>
         )}
-        <span className={u.wsLegend} aria-hidden="true">
-          <span className={u.trackDot} data-st="done" /> 마침 <span className={u.trackDot} data-st="now" /> 지금 <span className={u.trackDot} data-st="open" /> 열림 <span className={u.trackDot} data-st="closed" /> 닫힘
-        </span>
       </header>
       <div className={u.wsScroll}>
         {live.length > 0 && (
@@ -168,13 +168,13 @@ export function WorkspaceList({ rows, ranks, data, past, selectedTask, selectedW
         {live.length > 0 ? <ol className={u.wsRows}>{live.map(row)}</ol> : <p className={u.fine}>지금 실행할 수 있는 Workspace 가 없어요. 아래 준비 상태를 확인해요.</p>}
         {prep.length > 0 && (
           <details className={u.wsPrep} data-testid="ws-preparing" open={linkedPrep || undefined}>
-            <summary><ChevronDown size={14} aria-hidden="true" className={u.chev} />자료 준비 중 Workspace {prep.length}개 — 학습 가능 아님</summary>
+            <summary><ChevronDown size={14} aria-hidden="true" className={u.chev} />자료 준비 중 {prep.length}개</summary>
             <ol className={u.wsRows}>{prep.map((r) => row(r, -1))}</ol>
           </details>
         )}
         {blocked.length > 0 && (
           <details className={u.wsPrep} data-testid="focus-blocked">
-            <summary><ChevronDown size={14} aria-hidden="true" className={u.chev} />필요하지만 지금은 할 수 없는 TASK {blocked.length}개 — 학생의 부족이 아니라 준비 상태예요</summary>
+            <summary><ChevronDown size={14} aria-hidden="true" className={u.chev} />학습 자료 대기 {blocked.length}개</summary>
             <ul className={u.blockedChips}>
               {blocked.map((b) => (
                 <li key={b.task}>

@@ -16,8 +16,10 @@
 
 import 'server-only'
 
-
 import { createAdminClient } from '@/lib/supabase/admin'
+import { keysetSelect } from '@/lib/supabase/keyset-select'
+
+import { cohortOf, rowsOrError } from './account-cohort'
 
 export interface TeacherFunnelGaps {
   /** 허브에 도달한 사람 수 (funnel_events.teacher_hub_view 주체) */
@@ -62,26 +64,54 @@ export async function fetchTeacherFunnelGaps(): Promise<TeacherFunnelGaps | null
     console.error('[teacher-funnel] service_role 클라이언트 생성 실패', e)
     return null
   }
-  const loose = client as unknown as {
-    from: (t: string) => {
-      select: (c: string) => Promise<{ data: unknown; error: unknown }>
-    }
-  }
-
-  const [events, classes, members] = await Promise.all([
-    loose.from('funnel_events').select('user_id, event'),
-    loose.from('classes').select('id, teacher_id'),
-    loose.from('class_members').select('class_id, user_id'),
-  ])
-
-  if (events.error || classes.error || members.error) {
-    console.error('[teacher-funnel] 조회 실패', events.error ?? classes.error ?? members.error)
+  // T-0084 — 교사 · 학생 모두 **검증된 외부 계정만** 센다(운영 · 개발 · QA · 합성 · 미분류 제외).
+  //   cohort 를 못 정하면 퍼널 전체를 못 쟀다고 말한다(null) — 전 계정 수로 대신하지 않는다.
+  //   세 표는 키셋으로 끝까지 읽는다 — 한 장(1,000행)에서 잘리면 분모가 조용히 작아지고,
+  //   OFFSET 은 뒤 페이지가 앞을 다시 훑는다(funnel_events 는 수만 행 · `offset-paging-budget`).
+  //   검증 계정이 0 이면 셀 주체가 없으므로 실제 0 — 표를 읽지 않는다.
+  let evRows: Row[], classRows: Row[], memberRows: Row[]
+  try {
+    const cohort = await cohortOf(client)
+    if (cohort.status !== 'ok') return null
+    if (cohort.verified.size === 0) return { hubVisitors: 0, createdClass: 0, sharedInvite: 0, gotStudent: 0 }
+    const [events, classes, members] = await Promise.all([
+      keysetSelect<Row, number>(
+        (after, limit) => {
+          const q = client.from('funnel_events').select('id, user_id, event').in('event', ['teacher_hub_view', 'invite_shared'])
+          return rowsOrError((after === null ? q : q.gt('id', after)).order('id', { ascending: true }).limit(limit))
+        },
+        (r) => r.id as number,
+        'teacher-funnel funnel_events',
+      ),
+      keysetSelect<Row, string>(
+        (after, limit) => {
+          const q = client.from('classes').select('id, teacher_id')
+          return rowsOrError((after === null ? q : q.gt('id', after)).order('id', { ascending: true }).limit(limit))
+        },
+        (r) => r.id as string,
+        'teacher-funnel classes',
+      ),
+      // 고유 키가 (class_id, user_id) 쌍이라 쌍 커서로 넘긴다
+      keysetSelect<Row, { c: string; u: string }>(
+        (after, limit) => {
+          const q = client.from('class_members').select('class_id, user_id')
+          return rowsOrError((after === null ? q : q.or(`class_id.gt.${after.c},and(class_id.eq.${after.c},user_id.gt.${after.u})`))
+            .order('class_id', { ascending: true })
+            .order('user_id', { ascending: true })
+            .limit(limit))
+        },
+        (r) => ({ c: r.class_id as string, u: r.user_id as string }),
+        'teacher-funnel class_members',
+      ),
+    ])
+    const verified = (id: unknown) => typeof id === 'string' && cohort.verified.has(id)
+    evRows = events.filter((r) => verified(r.user_id))
+    classRows = classes.filter((r) => verified(r.teacher_id))
+    memberRows = members.filter((r) => verified(r.user_id))
+  } catch (e) {
+    console.error('[teacher-funnel] 조회 실패', e)
     return null
   }
-
-  const evRows = (events.data ?? []) as Row[]
-  const classRows = (classes.data ?? []) as Row[]
-  const memberRows = (members.data ?? []) as Row[]
 
   const subjectsOf = (event: string): Set<string> =>
     new Set(

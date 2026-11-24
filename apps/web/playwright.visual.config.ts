@@ -25,6 +25,8 @@ export default defineConfig({
   timeout: 90_000,
   retries: 0,
   reporter: [
+    // 맨 앞 — 다른 reporter 가 읽기 전에 인증 세션 흔적을 가린다(2026-10-26 쿠키 노출)
+    ['./tests/e2e/utils/secret-redact-reporter.ts'],
     ['list'],
     ['html', { outputFolder: 'playwright-report/design-qa', open: 'never' }],
     ['json', { outputFile: 'playwright-report/design-qa/results.json' }],

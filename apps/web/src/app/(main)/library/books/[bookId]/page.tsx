@@ -129,7 +129,7 @@ export default async function LibraryBookPreviewPage({
   return (
     <div className="book-preview-reference catalog-detail-reference flex flex-col gap-4">
       {/*
-        검색엔진에 **작품으로** 보이게 한다 — 제목 한 줄이 아니라 저자·무료·퍼블릭 도메인까지.
+        검색엔진에 **작품으로** 보이게 한다 — 제목 한 줄이 아니라 저자·무료까지(라이선스는 책별 근거가 없어 넣지 않는다).
         이 화면은 비로그인 방문자가 보는 미리보기라 검색 유입의 착지점이다.
         내용은 코드가 만든 JSON 문자열이고 사용자 입력이 섞이지 않는다(/fit 과 같은 패턴).
       */}

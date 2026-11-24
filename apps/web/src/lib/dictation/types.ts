@@ -115,4 +115,10 @@ export interface DictationSession {
   totalAccuracy?: number
   totalTimeMs?: number
   totalHintsUsed: number
+  /**
+   * 이 세션의 주인 — 시작(또는 DB 복원) 때 확인된 로그인 사용자 · 로그인 없이 한 연습은 null.
+   * **undefined = 주인 정보가 없는 예전 캐시** — 지금 사용자 것으로 채택하지도 지우지도 않고 보류한다(화면이 안내).
+   * 화면 · 시도 · 완주 기록의 경계가 이 값에 결속한다. 권한 증명이 아니다(쓰는 주인은 getUser · RLS).
+   */
+  owner?: string | null
 }

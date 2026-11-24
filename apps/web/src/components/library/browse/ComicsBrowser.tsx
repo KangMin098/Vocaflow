@@ -137,7 +137,7 @@ export function ComicsBrowser({
                   type="button"
                   aria-pressed={active}
                   onClick={() => setBand(active ? null : b.key)}
-                  className={`inline-flex min-h-11 items-center gap-1 rounded-[var(--r-full)] border px-3 py-1 font-display text-[11.5px] font-[600] transition-colors duration-[var(--dur-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]/40 ${
+                  className={`inline-flex min-h-11 items-center gap-1 rounded-[var(--r-full)] border px-3 py-1 font-display text-[11.5px] font-[600] transition-colors duration-[var(--dur-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--p)_40%,transparent)] ${
                     active
                       ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--on-p-tint)]'
                       : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--t3)] hover:bg-[var(--bg2)]'

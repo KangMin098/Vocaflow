@@ -67,6 +67,8 @@ export function SRSBar({ visible, srs, onJudge }: SRSBarProps) {
         visible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-2.5 opacity-0'
       } `}
       aria-hidden={!visible}
+      // 숨은 동안 버튼이 Tab 에 걸리면 aria-hidden 안의 포커스(axe aria-hidden-focus)다 — inert 로 포커스·클릭을 함께 막는다.
+      ref={(node) => { if (node) node.inert = !visible }}
       role="group"
       aria-label="SRS 평가"
     >

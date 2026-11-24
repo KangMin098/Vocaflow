@@ -1,0 +1,199 @@
+{
+  "schema": "vf.source-central-meaning-lesson/1",
+  "id": "title-route-central-meaning.v3",
+  "task": "r.central_meaning",
+  "role": "guided_practice",
+  "source": {
+    "id": "003946dd-f5e6-4efe-9254-b7a69ca39e61",
+    "content_sha256": "33dc4880f42b6b5815b93da059beb2dae640b138371e0cb1992ad46ba6452b0f",
+    "sentences": [
+      "Show one painting to two groups, give each group a different title for it, and they will describe two different scenes.",
+      "One group notices the sky; the other notices the small figure in the corner.",
+      "This happens because a title tells the eye where to begin.",
+      "A viewer facing a new image has no order to follow, so the first words attached to it become a kind of route through the frame.",
+      "Once that route is set, the details along it feel important and the rest fades into background.",
+      "The same is true of a song or a story, since a name at the top decides what counts as the subject.",
+      "For this reason a title is not a label stuck on after the work is done.",
+      "It belongs to the work, and choosing it is a real decision.",
+      "Some artists refuse to name a piece at all, and that refusal is a choice too, because it hands the route back to the viewer."
+    ],
+    "raw_content": "Show one painting to two groups, give each group a different title for it, and they will describe two different scenes. One group notices the sky; the other notices the small figure in the corner. This happens because a title tells the eye where to begin. A viewer facing a new image has no order to follow, so the first words attached to it become a kind of route through the frame. Once that route is set, the details along it feel important and the rest fades into background.\n\nThe same is true of a song or a story, since a name at the top decides what counts as the subject. For this reason a title is not a label stuck on after the work is done. It belongs to the work, and choosing it is a real decision. Some artists refuse to name a piece at all, and that refusal is a choice too, because it hands the route back to the viewer.",
+    "paragraphs": [
+      {
+        "sentences": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "sentences": [
+          5,
+          6,
+          7,
+          8
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "kind": "source_derived_lesson",
+    "author": "Codex",
+    "derivedFrom": [
+      "003946dd-f5e6-4efe-9254-b7a69ca39e61"
+    ],
+    "rights_basis": "stored CC0-1.0 (Vocaflow Original) declaration, not a new rights grant"
+  },
+  "indexing": "internal sentence and choice indexes 0-based; display sentence numbers 1-based",
+  "model": [
+    {
+      "title": "사례와 판단을 가르기",
+      "text": "처음 두 문장은 같은 그림에 서로 다른 제목을 주어 보는 가정 사례다. 실제 실험 보고가 아니다. 하늘과 구석 중 어디를 보느냐는 차이 자체보다, 그 차이를 만들어 내는 제목의 기능을 찾는다.",
+      "sentences": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "title": "구체 사례를 넘어서는 설명 찾기",
+      "text": "제목이 시선의 시작점을 정한다는 설명을 그림의 사례와 잇는다. 노래와 이야기에도 같은 원리가 적용된다는 문장은 그림 하나의 이야기를 작품 일반의 판단으로 넓힌다.",
+      "sentences": [
+        2,
+        5
+      ]
+    },
+    {
+      "title": "필자의 중심 판단으로 압축하기",
+      "text": "부정 표현 a label stuck on after와 긍정 표현 belongs to the work를 함께 읽어 필자가 제목을 단순한 이름표보다 넓게 보는지 판단한다. 마지막의 제목 거부 사례는 이 판단과 양립하는 확장이다. 그 확장까지 요지에 모두 적어야 하는 것은 아니다.",
+      "sentences": [
+        6,
+        7,
+        8
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "type": "main_point",
+      "support": "strategy_then_model_after_submission",
+      "prompt": "요지를 먼저 고르고 이유를 적으세요. 제출 뒤 시범과 비교하면서 도입 사례보다 넓은 판단을 어떻게 찾았는지 설명해 보세요.",
+      "acceptedEvidenceSets": [
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ]
+      ],
+      "feedbackPolicy": "Formative only. Accept any complete listed evidence set without remediation. Other faithful evidence is discussable, never automatically wrong. Global claim-support policy applies only to main_point, not title/topic."
+    },
+    {
+      "type": "title",
+      "support": "cue",
+      "prompt": "제목을 고른 뒤, 글 전체를 묶는 비유와 그것을 뒷받침하는 문장을 찾아보세요.",
+      "cue": "어느 세부를 보았는가와 그 세부를 보게 만든 길을 구분해 보세요.",
+      "acceptedEvidenceSets": [
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          8
+        ]
+      ],
+      "feedbackPolicy": "Formative only. Accept any complete listed evidence set without remediation. Other faithful evidence is discussable, never automatically wrong. Global claim-support policy applies only to main_point, not title/topic."
+    },
+    {
+      "type": "topic",
+      "support": "none",
+      "prompt": "새 단서 없이 주제를 고르고, 중심 문장·뒷받침 문장·그 관계를 직접 구성하세요. 마지막에는 다른 글에서도 쓸 수 있는 자신의 절차를 한 문장으로 적어 보세요.",
+      "acceptedEvidenceSets": [
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "feedbackPolicy": "Formative only. Accept any complete listed evidence set without remediation. Other faithful evidence is discussable, never automatically wrong. Global claim-support policy applies only to main_point, not title/topic."
+    }
+  ],
+  "annotation": {
+    "claim": 7,
+    "claimRestated": [
+      6
+    ],
+    "support": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "supportDisputed": [
+      0,
+      1,
+      8
+    ],
+    "opposed": [],
+    "relationProbe": {
+      "sentence": 2,
+      "relation": "reason"
+    },
+    "gist": "제목은 감상자의 주목을 이끄므로 작품의 일부이다.",
+    "acceptedSupportSets": [
+      [
+        2
+      ],
+      [
+        3
+      ],
+      [
+        4
+      ],
+      [
+        5
+      ]
+    ],
+    "supportPolicy": "Formative feedback only: any accepted direct support set is sufficient; do not require all four sentences. Initial hypothetical example sentences 0/1 and extension 8 are discussable support, not errors. A response using those gets a prompt to connect the mechanism, not a wrong verdict. Claim 6 or 7 is equally accepted.",
+    "gist_extension": "제목을 거부하는 것도 감상의 경로에 관한 선택이다. 요지 요약에 반드시 포함할 필요는 없다."
+  },
+  "assessment_scope": {
+    "choice": "original three DCP keys",
+    "claim_support_relation": "guided feedback only, reasonable alternative support may be discussed",
+    "evidence": false,
+    "non_evidence_reason": "role_not_evidence"
+  },
+  "next": "새 지문에서 사례와 설명을 가르고 중심 판단을 자기 말로 압축한 뒤 근거·관계로 확인한다. 이것은 생각해 볼 질문의 순서이지 모든 글의 전개 순서가 아니다. 처음에 주장이 있는 글과 암묵 주장이 있는 글에도 적용해 본다. 안내 연습의 정답은 독립 능력이나 향상을 입증하지 않는다.",
+  "revision": 3,
+  "beforeFirstAttempt": "구체 사례가 다른 상황으로 바뀌어도 남는 설명을 찾고, 그 설명을 필자의 중심 판단으로 압축해 보세요. 주장은 처음이나 끝에 있거나 직접 쓰이지 않을 수도 있어요. 본문 위치가 아니라 문장들이 하는 일을 살펴보세요.",
+  "modelTiming": "after_first_committed_attempt_before_second_item",
+  "reviewResolution": {
+    "previous": "8feed375-bbd2-4bda-a6d6-a1396b9d8e82",
+    "paragraph_context": "Reviewer v1 saw only sentence array. Actual source has two paragraphs; raw text and exact paragraph map now supplied. Original item paragraph references are valid and unchanged.",
+    "changes": [
+      "accept direct support alternatives 2/3/4/5 without requiring all",
+      "show content-specific model only after the first answer",
+      "replace answer-word copying with contrast/compression procedure",
+      "explicit portable strategy and nonfixed claim position",
+      "extension clause is optional in main-point summary"
+    ],
+    "v2": "Per-step evidence alternatives align title/topic with their actual keys; gist core and optional extension separated."
+  }
+}

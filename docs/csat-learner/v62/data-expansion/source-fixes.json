@@ -1,0 +1,155 @@
+{
+ "note": "개발 DB csat_items.stem 수정 이력(2026-10-23 사용자 승인 · SQL 은 README §9). 이 목록의 문항은 수정 전 오염 발문으로 판정한 기존 배치(r5r6)에서 계속 제외하고, 수정 후 발문으로 새 배치(r5r6-fix)에서 재판정한다. 되돌리기: csat_items_stem_fix_20261023_bk. 2차(11행): stem-fix-2.sql r2 · 사용자 승인 · 백업 csat_items_stem_fix_20261023b_bk.",
+ "applied_at": "2026-10-23",
+ "approval": "사용자 대화 승인(SQL · 영향 범위 제시 후 「승인함」)",
+ "backup_table": "public.csat_items_stem_fix_20261023_bk",
+ "fixes": [
+  {
+   "item": "M2206#44",
+   "defect": "truncated(끝 「것은?」 소실)",
+   "old_md5": "2a44139ca666fc085ab3282a69887a09",
+   "new_md5": "33c4959d9351fd4711400dbd570f9568"
+  },
+  {
+   "item": "M2306#38",
+   "defect": "duplicate_long_stem(옆 문항 문장 섞임)",
+   "old_md5": "42e0e0c6eb193dc34d88dfcbd8bbeeca",
+   "new_md5": "21656fb0f2aa2a10bbb49ac29b7440df"
+  },
+  {
+   "item": "M2306#39",
+   "defect": "duplicate_long_stem",
+   "old_md5": "42e0e0c6eb193dc34d88dfcbd8bbeeca",
+   "new_md5": "21656fb0f2aa2a10bbb49ac29b7440df"
+  },
+  {
+   "item": "M2406#38",
+   "defect": "duplicate_long_stem(#40 지문 문장)",
+   "old_md5": "6f9d7f19cad84ed8f2f15891a68ec222",
+   "new_md5": "21656fb0f2aa2a10bbb49ac29b7440df"
+  },
+  {
+   "item": "M2406#39",
+   "defect": "duplicate_long_stem",
+   "old_md5": "6f9d7f19cad84ed8f2f15891a68ec222",
+   "new_md5": "21656fb0f2aa2a10bbb49ac29b7440df"
+  },
+  {
+   "item": "M2406#43",
+   "defect": "duplicate_long_stem(세트 머리글 + #45 질문)",
+   "old_md5": "a42e4a7224c25392890413a7d0963d75",
+   "new_md5": "f8b18d1ef61ceed8ff9441b93b2105de"
+  },
+  {
+   "item": "M2406#44",
+   "defect": "duplicate_long_stem",
+   "old_md5": "a42e4a7224c25392890413a7d0963d75",
+   "new_md5": "33c4959d9351fd4711400dbd570f9568"
+  },
+  {
+   "item": "M2406#45",
+   "defect": "duplicate_long_stem",
+   "old_md5": "a42e4a7224c25392890413a7d0963d75",
+   "new_md5": "33c98422715d69626f03bbfefa3bb4c4"
+  },
+  {
+   "item": "2015#24",
+   "defect": "truncated(끝 「것은?」 소실)",
+   "old_md5": "06a4386d3e9ec3190664f92776065e73",
+   "new_md5": "1b07d9ee60024fc76b78d70fde1429cd",
+   "batch": "2",
+   "backup_table": "public.csat_items_stem_fix_20261023b_bk",
+   "sql": "stem-fix-2.sql r2 (Codex T-0106 pass)"
+  },
+  {
+   "item": "2018#29",
+   "defect": "truncated(끝 「것은?」 소실)",
+   "old_md5": "305881c804b0ce8597e6b96166795c4b",
+   "new_md5": "bbf6fee3cfff0979f12a01d922580944",
+   "batch": "2",
+   "backup_table": "public.csat_items_stem_fix_20261023b_bk",
+   "sql": "stem-fix-2.sql r2 (Codex T-0106 pass)"
+  },
+  {
+   "item": "2019#30",
+   "defect": "truncated(끝 「것은?」 소실)",
+   "old_md5": "305881c804b0ce8597e6b96166795c4b",
+   "new_md5": "bbf6fee3cfff0979f12a01d922580944",
+   "batch": "2",
+   "backup_table": "public.csat_items_stem_fix_20261023b_bk",
+   "sql": "stem-fix-2.sql r2 (Codex T-0106 pass)"
+  },
+  {
+   "item": "2021#26",
+   "defect": "truncated(끝 「것은?」 소실)",
+   "old_md5": "4761a92212d1ac3866633fa7eaf79ef5",
+   "new_md5": "08fb34e73f508bf8a95a40958808d85a",
+   "batch": "2",
+   "backup_table": "public.csat_items_stem_fix_20261023b_bk",
+   "sql": "stem-fix-2.sql r2 (Codex T-0106 pass)"
+  },
+  {
+   "item": "2021#30",
+   "defect": "truncated(끝 「것은?」 소실)",
+   "old_md5": "305881c804b0ce8597e6b96166795c4b",
+   "new_md5": "bbf6fee3cfff0979f12a01d922580944",
+   "batch": "2",
+   "backup_table": "public.csat_items_stem_fix_20261023b_bk",
+   "sql": "stem-fix-2.sql r2 (Codex T-0106 pass)"
+  },
+  {
+   "item": "2022#30",
+   "defect": "truncated(끝 「것은?」 소실)",
+   "old_md5": "305881c804b0ce8597e6b96166795c4b",
+   "new_md5": "bbf6fee3cfff0979f12a01d922580944",
+   "batch": "2",
+   "backup_table": "public.csat_items_stem_fix_20261023b_bk",
+   "sql": "stem-fix-2.sql r2 (Codex T-0106 pass)"
+  },
+  {
+   "item": "2024#27",
+   "defect": "truncated(끝 「것은?」 소실)",
+   "old_md5": "37e1e3e1efc20c9f39443a8b546eb560",
+   "new_md5": "33be9e562eb79cacd473a3b07fff4ffc",
+   "batch": "2",
+   "backup_table": "public.csat_items_stem_fix_20261023b_bk",
+   "sql": "stem-fix-2.sql r2 (Codex T-0106 pass)"
+  },
+  {
+   "item": "M2406#42",
+   "defect": "truncated(끝 「것은?」 소실)",
+   "old_md5": "f9ef8475d220d42125fcc5262ee4185e",
+   "new_md5": "f57383df8452ba43f816af796995ec97",
+   "batch": "2",
+   "backup_table": "public.csat_items_stem_fix_20261023b_bk",
+   "sql": "stem-fix-2.sql r2 (Codex T-0106 pass)"
+  },
+  {
+   "item": "M2506#36",
+   "defect": "truncated(끝 「것은?」 소실)",
+   "old_md5": "91f89e42cf796396580a0a7c2dc4c737",
+   "new_md5": "fac8ad22a46c51ac2c82c9b5b26fc9ba",
+   "batch": "2",
+   "backup_table": "public.csat_items_stem_fix_20261023b_bk",
+   "sql": "stem-fix-2.sql r2 (Codex T-0106 pass)"
+  },
+  {
+   "item": "M2506#37",
+   "defect": "truncated(끝 「것은?」 소실)",
+   "old_md5": "91f89e42cf796396580a0a7c2dc4c737",
+   "new_md5": "fac8ad22a46c51ac2c82c9b5b26fc9ba",
+   "batch": "2",
+   "backup_table": "public.csat_items_stem_fix_20261023b_bk",
+   "sql": "stem-fix-2.sql r2 (Codex T-0106 pass)"
+  },
+  {
+   "item": "M2506#25",
+   "defect": "tail_after_question(물음 뒤 조각)",
+   "old_md5": "01eff7155356a3769384f31458529f36",
+   "new_md5": "7bb96d353693a325b2ea9a57d0f8ed9f",
+   "batch": "2",
+   "backup_table": "public.csat_items_stem_fix_20261023b_bk",
+   "sql": "stem-fix-2.sql r2 (Codex T-0106 pass)"
+  }
+ ]
+}

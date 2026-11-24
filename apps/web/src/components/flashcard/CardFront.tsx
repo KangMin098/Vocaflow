@@ -9,6 +9,8 @@ interface CardFrontProps {
   word: FlashcardWord
   hintVisible: boolean
   showFlipHint: boolean
+  /** 회상·평가 중 — 뒤집기가 아직(이미) 동작하지 않는다. */
+  flipLocked: boolean
   isAudioPlaying: boolean
   onPlayAudio: () => void
   /** 이 브라우저가 음성 합성을 지원하는가 — 아니면 버튼을 그리지 않는다. */
@@ -21,6 +23,7 @@ export function CardFront({
   word,
   hintVisible,
   showFlipHint,
+  flipLocked,
   isAudioPlaying,
   onPlayAudio,
   canPlayAudio,
@@ -62,7 +65,17 @@ export function CardFront({
       {/* Word Display */}
       <div className="flex flex-1 flex-col items-center justify-center text-center">
         <h2 className="mb-3 break-words font-english text-[56px] font-[600] leading-[1.1] tracking-[-0.01em] text-[var(--t1)]">
-          {word.text}
+          {/* 키보드·보조기기의 뒤집기 컨트롤. onClick 을 따로 두지 않는다 — 클릭이 카드(Card.tsx)로 올라가
+              카드 면 클릭과 같은 경로로 뒤집는다(두 번 뒤집히지 않게). 회상 중에는 카드가 클릭을 받지 않는다. */}
+          <button
+            type="button"
+            data-card-flip
+            aria-label={`${word.text} — 카드 뒤집어 정답 확인`}
+            aria-disabled={flipLocked}
+            className={`break-words rounded-[var(--r-sm)] ${flipLocked ? 'cursor-default' : 'cursor-pointer'}`}
+          >
+            {word.text}
+          </button>
         </h2>
 
         <p className="mb-7 font-mono text-[16px] text-[var(--t2)]">{word.pronunciation}</p>

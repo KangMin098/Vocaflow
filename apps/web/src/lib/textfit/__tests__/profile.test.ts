@@ -172,16 +172,19 @@ describe('buildLevelProfile — 레벨별 판정', () => {
     expect(uncertain.fitLevel).toBeNull()
   })
 
-  it('교육과정을 넘는 지문은 fitLevel 이 null 이고 문구가 그걸 말한다', () => {
+  it('고레벨 지문은 fitLevel 이 null 이고 문구는 난이도를 단정하지 않는다', () => {
     const p = buildLevelProfile([lv('a', 30, 11)], 100)
     expect(p.fitLevel).toBeNull()
-    expect(profileHeadline(p)).toContain('학술 원서')
+    expect(profileHeadline(p)).toContain('확인하지 못했어요')
+    expect(profileHeadline(p)).not.toMatch(/학술|원서|넘어섭/)
   })
 
   it('적정 레벨이 있으면 그 학년 이름으로 답한다', () => {
     const p = buildLevelProfile([lv('a', 6, 7)], 100)
     expect(p.fitLevel).toBe(7)
     expect(profileHeadline(p)).toContain(LEVEL_LABEL[7])
+    expect(profileHeadline(p)).toContain('추정')
+    expect(profileHeadline(p)).not.toContain('편하게 읽혀요')
   })
 
   it('빈 지문은 안내 문구를 낸다 — 0% 로 겁주지 않는다', () => {
@@ -239,5 +242,39 @@ describe('buildLevelProfile — 레벨별 판정', () => {
   it('레벨 미상 단어는 "가장 어려운 단어" 에 넣지 않는다 — 모르는 것을 어렵다고 말하지 않는다', () => {
     const p = buildLevelProfile([un('mystery', 50), lv('known', 1, 6)], 100)
     expect(p.hardestWords.map((w) => w.surface)).toEqual(['known'])
+  })
+})
+
+describe('profileHeadline — 공개 결과의 의미 경계(어휘 추정이지 학습자 측정이 아니다)', () => {
+  it('미상 20/100 으로 null 이면 학술·고난도라고 단정하지 않고 미상 가능성을 말한다', () => {
+    const p = buildLevelProfile([un('x', 20)], 100)
+    expect(p.fitLevel).toBeNull()
+    const h = profileHeadline(p)
+    expect(h).not.toMatch(/학술|원서|넘어섭|고등 교육과정/)
+    expect(h).toContain('레벨을 확인하지 못한 낱말')
+  })
+
+  it('진짜 고레벨 지문도 같은 문구 — 숫자는 그대로', () => {
+    const p = buildLevelProfile([lv('a', 30, 11)], 100)
+    expect(p.fitLevel).toBeNull()
+    expect(profileHeadline(p)).toContain('확인하지 못했어요')
+  })
+
+  it('적정 레벨이 있으면 어휘 기반 추정으로 말하고 읽힘·이해를 주장하지 않는다', () => {
+    const h = profileHeadline(buildLevelProfile([lv('a', 6, 7)], 100))
+    expect(h).toContain('어휘 기준')
+    expect(h).not.toMatch(/읽혀요|이해/)
+  })
+
+  it('빈 입력 문구는 그대로', () => {
+    expect(profileHeadline(buildLevelProfile([], 0))).toBe('분석할 영어 단어가 아직 없어요.')
+  })
+
+  it('수치 필드는 문구 변경과 무관하다(스냅샷)', () => {
+    const p = buildLevelProfile([lv('a', 6, 7), un('x', 3)], 100)
+    expect({
+      fitLevel: p.fitLevel,
+      readings: p.readings.map((r) => [r.coverage, r.coverageLow, r.coverageHigh]),
+    }).toMatchSnapshot()
   })
 })

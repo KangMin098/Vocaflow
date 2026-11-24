@@ -14,6 +14,7 @@ import { ArrowLeft, ArrowRight, Volume2 } from 'lucide-react'
 import { SealMark } from '@/components/ui/press'
 import { TRACK_FIT_META, type TrackStat } from '@/lib/articles/source-map'
 import type { PublishedArticle } from '@/lib/articles/types'
+import { practiceCountFor, type ArticlePracticeAvailability } from '@/lib/learner/article-practice-availability'
 
 import { ArticleCard } from './ArticleCard'
 
@@ -66,10 +67,13 @@ export function SeriesDetail({
   stat,
   userV,
   onBack,
+  practice = null,
 }: {
   stat: TrackStat
   userV: number
   onBack: () => void
+  /** T-0215 — 서버가 한 번 읽은 「연습 있음」(없으면 카드에 표시 없음) */
+  practice?: ArticlePracticeAvailability | null
 }) {
   const { track, count, cefrLabel, hasAudio, fit, sources } = stat
   const fitMeta = TRACK_FIT_META[fit]
@@ -84,7 +88,7 @@ export function SeriesDetail({
       <button
         type="button"
         onClick={onBack}
-        className="inline-flex w-fit items-center gap-2 rounded-[var(--r-md)] px-1 py-1 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        className="relative inline-flex w-fit after:absolute after:-inset-x-1 after:-inset-y-[10px] after:content-[''] items-center gap-2 rounded-[var(--r-md)] px-1 py-1 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         <ArrowLeft size={15} aria-hidden /> 시리즈 목록
       </button>
@@ -128,7 +132,7 @@ export function SeriesDetail({
         {lead && (
           <div role="list">
             <div role="listitem">
-              <ArticleCard article={lead} userVLevel={userV} featured />
+              <ArticleCard article={lead} userVLevel={userV} featured practiceCount={practiceCountFor(practice, lead.id)} />
             </div>
           </div>
         )}
@@ -166,7 +170,7 @@ export function SeriesDetail({
                   <div role="list" className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {g.items.map((a) => (
                       <div role="listitem" key={a.id}>
-                        <ArticleCard article={a} userVLevel={userV} />
+                        <ArticleCard article={a} userVLevel={userV} practiceCount={practiceCountFor(practice, a.id)} />
                       </div>
                     ))}
                   </div>
@@ -176,7 +180,7 @@ export function SeriesDetail({
               <div role="list" className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {rest.map((a) => (
                   <div role="listitem" key={a.id}>
-                    <ArticleCard article={a} userVLevel={userV} />
+                    <ArticleCard article={a} userVLevel={userV} practiceCount={practiceCountFor(practice, a.id)} />
                   </div>
                 ))}
               </div>

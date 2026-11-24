@@ -158,7 +158,7 @@ export function TextHubContent({
       {effectiveView === 'textbooks' ? (
         <Link
           href="/library/textbooks"
-          className="group flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-gradient-to-r from-[var(--p)]/5 to-[var(--bg)] p-4 transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:from-[var(--p)]/10 hover:shadow-[var(--sh-sm)]"
+          className="group flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-gradient-to-r from-[color-mix(in_srgb,var(--p)_5%,transparent)] to-[var(--bg)] p-4 transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:from-[color-mix(in_srgb,var(--p)_10%,transparent)] hover:shadow-[var(--sh-sm)]"
         >
           <span
             className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[var(--p-light)] to-[var(--p)] text-white shadow-[var(--sh-xs)]"
@@ -184,7 +184,7 @@ export function TextHubContent({
       ) : effectiveView === 'vocab' ? (
         <Link
           href="/library/vocab"
-          className="group flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-gradient-to-r from-[var(--p)]/5 to-[var(--bg)] p-4 transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:from-[var(--p)]/10 hover:shadow-[var(--sh-sm)]"
+          className="group flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-gradient-to-r from-[color-mix(in_srgb,var(--p)_5%,transparent)] to-[var(--bg)] p-4 transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:from-[color-mix(in_srgb,var(--p)_10%,transparent)] hover:shadow-[var(--sh-sm)]"
         >
           <span
             className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[#A5B4FC] to-[var(--learn-fresh)] text-white shadow-[var(--sh-xs)]"
@@ -210,7 +210,7 @@ export function TextHubContent({
       ) : (
         <Link
           href="/text/new"
-          className="group flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-gradient-to-r from-[var(--p)]/5 to-[var(--bg)] p-4 transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:from-[var(--p)]/10 hover:shadow-[var(--sh-sm)]"
+          className="group flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-gradient-to-r from-[color-mix(in_srgb,var(--p)_5%,transparent)] to-[var(--bg)] p-4 transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:from-[color-mix(in_srgb,var(--p)_10%,transparent)] hover:shadow-[var(--sh-sm)]"
         >
           <span
             className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[#A5B4FC] to-[var(--learn-fresh)] text-white shadow-[var(--sh-xs)]"

@@ -127,7 +127,7 @@ function NavArrow({
       disabled={disabled}
       aria-label={label}
       title={label}
-      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent"
+      className="relative after:absolute after:-inset-[6px] after:content-[''] flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent"
     >
       {dir === 'prev' ? <ChevronLeft size={16} aria-hidden /> : <ChevronRight size={16} aria-hidden />}
     </button>
@@ -151,7 +151,7 @@ function SourceLink({
     <Link
       href={href}
       title={title}
-      className={`inline-flex h-8 items-center gap-2 rounded-[var(--r-md)] px-3 font-display text-[12px] font-[700] transition-all ${
+      className={`relative after:absolute after:-inset-[6px] after:content-[''] inline-flex h-8 items-center gap-2 rounded-[var(--r-md)] px-3 font-display text-[12px] font-[700] transition-all ${
         primary
           ? 'bg-[var(--ju)] text-[var(--on-ju)] hover:bg-[var(--ju-ink)]'
           : 'border border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]'

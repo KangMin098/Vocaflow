@@ -42,42 +42,24 @@ async function login(page: Page) {
   await page.waitForURL((u) => !u.pathname.startsWith('/login'), { timeout: 60_000 })
 }
 
-test('자기 설명 — 저장 실패면 입력을 지키고 같은 기록으로 다시 저장한다', async ({ page }) => {
+test('학습 정리 — 서술 입력 없음 · 열람이 과거 기록을 바꾸지 않는다', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
   await login(page)
   await page.goto('/csat/item/2026-34?scene=explain', { waitUntil: 'domcontentloaded' })
-  const card = page.getByTestId('self-explain')
-  await expect(card).toBeVisible({ timeout: 120_000 })
-  const before = await page.evaluate(() => document.querySelectorAll('[data-testid="self-explain"]').length)
-  expect(before).toBe(1)
-  const text = `실패 재현 ${Date.now()}`
-  // 하이드레이션 전 클릭은 사라질 수 있다 — 선지가 실제로 눌릴 때까지
-  const pickChoice = card.locator('[role="group"] button').first()
-  await expect(async () => {
-    await pickChoice.click()
-    await expect(pickChoice).toHaveAttribute('aria-pressed', 'true', { timeout: 1000 })
-  }).toPass({ timeout: 30_000 })
-  await card.locator('textarea').first().fill(text)
-  await page.evaluate(() => { (window as unknown as { __failPut?: boolean }).__failPut = true })
-  await page.getByTestId('self-explain-save').click()
-  // 실패했으면 쓴 글이 남고 「다시 저장」 이 열린다 — 저장된 것처럼 비우지 않는다
-  await expect(card.locator('textarea').first()).toHaveValue(text, { timeout: 10_000 })
-  await expect(page.getByTestId('self-explain-save')).toHaveText(/다시 저장/)
-  await expect(page.getByTestId('self-explain-status')).toHaveAttribute('data-status', 'failed')
-  // 다시 저장(같은 기록) → 성공 → 비워짐
-  await page.evaluate(() => { (window as unknown as { __failPut?: boolean }).__failPut = false })
-  await page.getByTestId('self-explain-save').click()
-  await expect(page.getByTestId('self-explain-status')).toHaveAttribute('data-status', 'saved', { timeout: 10_000 })
-  await expect(card.locator('textarea').first()).toHaveValue('')
-  // 새로고침 뒤 그 글은 한 건만 — 재시도가 중복 기록을 만들지 않는다
-  await page.reload({ waitUntil: 'domcontentloaded' })
-  await expect(page.getByTestId('self-explain')).toBeVisible({ timeout: 120_000 })
-  const count = await page.evaluate(async (t) => {
+  // T-0091 — 학습 정리: 쓰는 칸이 없고, 열람만으로 기기 기록(explanations · reasoningNotes)을 지우거나 덮지 않는다
+  const summary = page.getByTestId('learning-summary')
+  await expect(summary).toBeVisible({ timeout: 120_000 })
+  await expect(summary.locator('textarea')).toHaveCount(0)
+  await expect(page.getByTestId('self-explain-save')).toHaveCount(0)
+  const counts = () => page.evaluate(async () => {
     const db: IDBDatabase = await new Promise((ok, no) => { const r = indexedDB.open('vocaflow-csat'); r.onsuccess = () => ok(r.result); r.onerror = () => no(r.error) })
-    const rec = await new Promise<{ explanations?: { tempting: string }[] }>((ok) => { const g = db.transaction('record').objectStore('record').get('dissection-v1'); g.onsuccess = () => ok(g.result) })
-    return (rec.explanations ?? []).filter((x) => x.tempting === t).length
-  }, text)
-  expect(count).toBe(1)
+    const rec = await new Promise<{ explanations?: unknown[]; reasoningNotes?: unknown[] } | undefined>((ok) => { const g = db.transaction('record').objectStore('record').get('dissection-v1'); g.onsuccess = () => ok(g.result) })
+    return { explanations: rec?.explanations?.length ?? 0, notes: rec?.reasoningNotes?.length ?? 0 }
+  })
+  const before = await counts()
+  await page.reload({ waitUntil: 'domcontentloaded' })
+  await expect(page.getByTestId('learning-summary')).toBeVisible({ timeout: 120_000 })
+  expect(await counts(), '과거 기록 보존').toEqual(before)
 })
 
 const SHOTS = path.resolve('test-results-csat-learner/workspace')
@@ -221,7 +203,7 @@ test('2026#34 — 도크 ↔ 장면 ↔ 주소 · 키보드 · 장면별 근거 
   await page.keyboard.press('ArrowRight')
   expect(await page.evaluate(() => document.activeElement?.textContent)).toBe('문항 설계')
   await page.keyboard.press('End')
-  expect(await page.evaluate(() => document.activeElement?.textContent)).toBe('내 설명')
+  expect(await page.evaluate(() => document.activeElement?.textContent)).toBe('학습 정리')
   await page.keyboard.press('Home')
   expect(await page.evaluate(() => document.activeElement?.textContent)).toBe('원문 이해')
   await expect(frame).toHaveAttribute('data-scene', 'design') // 포커스 이동은 선택이 아니다
@@ -261,35 +243,20 @@ test('2026#34 — 도크 ↔ 장면 ↔ 주소 · 키보드 · 장면별 근거 
   expect(errors).toEqual([])
 })
 
-test('초안 왕복 · 원리 노트 근거 연결 · 근거 판 접기 · 강의 도구 · 직접 선택 우선', async ({ page }) => {
+test('학습 정리 → 근거 다시 짚기 · 근거 판 접기 · 강의 도구 · 직접 선택 우선', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
   await login(page)
-  await page.goto('/csat/item/2026-34?scene=judgment', { waitUntil: 'domcontentloaded' })
-  await expect(page.getByTestId('inquiry-dock')).toBeVisible({ timeout: 120_000 })
-  // 근거 하나를 고른 뒤 내 설명으로
+  await page.goto('/csat/item/2026-34?scene=explain', { waitUntil: 'domcontentloaded' })
+  await expect(page.getByTestId('learning-summary')).toBeVisible({ timeout: 120_000 })
+  // 학습 정리(T-0091) — 쓰는 칸 없이 다음 활동으로 문항 성립(근거) 장면에 간다
+  await expect(page.getByTestId('learning-summary').locator('textarea')).toHaveCount(0)
+  await page.getByTestId('summary-stage-2').click()
+  await page.getByTestId('summary-next-evidence').click()
+  await expect(page.getByTestId('workspace-frame')).toHaveAttribute('data-scene', 'judgment')
   await press(page, 'button[data-choice="3"]', async () => expect(page.locator('[data-testid="v3-evidence"][data-key="choice-3"]')).toBeVisible({ timeout: 1000 }))
   await page.locator('[data-testid="v3-evidence"][data-key="choice-3"]').click()
-  await page.locator('[data-testid="dock-scene"][data-scene="explain"]').click()
-  const statement = `원리 초안 ${Date.now()}`
-  await page.getByTestId('note-statement').fill(statement)
-  await page.getByTestId('note-grounds').fill('근거 초안')
-  // 장면 왕복 — 초안이 남는다
-  await page.locator('[data-testid="dock-scene"][data-scene="meaning"]').click()
-  await page.locator('[data-testid="dock-scene"][data-scene="explain"]').click()
-  await expect(page.getByTestId('note-statement')).toHaveValue(statement)
-  await expect(page.getByTestId('note-grounds')).toHaveValue('근거 초안')
-  // 근거 연결(선택) → 해제 → 다시 연결 → 저장 → 다시 열면 그 문장을 짚는다
-  await page.getByTestId('note-evidence-link').click()
-  await expect(page.getByTestId('note-evidence')).toHaveAttribute('data-linked', 'true')
-  await page.getByTestId('note-evidence-unlink').click()
-  await expect(page.getByTestId('note-evidence')).toHaveAttribute('data-linked', 'false')
-  await page.getByTestId('note-evidence-link').click()
-  await page.getByTestId('note-save').click()
-  await expect(page.getByTestId('note-status')).toHaveAttribute('data-status', 'saved')
-  await expect(page.getByTestId('note-statement')).toHaveValue('')
-  await page.getByTestId('note-evidence-show').click()
   await expect(page.getByTestId('map-chosen-evidence')).toBeVisible()
-  await page.screenshot({ path: `${SHOTS}/34-note-evidence.png` })
+  await page.screenshot({ path: `${SHOTS}/34-summary-evidence.png` })
   // 근거 판 접기 — 근거 요약과 다시 열기 · 설명 판이 넓어진다
   const exBefore = (await page.getByTestId('pane-explain').boundingBox())!.width
   await page.getByTestId('evidence-toggle').click()
@@ -335,7 +302,7 @@ test('2026#38 — 비교 한 쌍 · 상대 이동 링크가 같은 쌍 · 서가
   await page.screenshot({ path: `${SHOTS}/38-compare.png` })
 })
 
-test('검수 회귀 — 뒤로/앞으로 근거 유지 · 해제한 근거는 노트 후보 아님 · 접힌 채 마치기도 완료 안내', async ({ page }) => {
+test('검수 회귀 — 뒤로/앞으로 근거 유지 · 학습 정리에 노트 후보 없음 · 접힌 채 마치기도 완료 안내', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
   await login(page)
   await page.goto('/csat/item/2026-34?scene=judgment', { waitUntil: 'domcontentloaded' })
@@ -352,12 +319,12 @@ test('검수 회귀 — 뒤로/앞으로 근거 유지 · 해제한 근거는 �
   await page.goForward()
   await page.goBack()
   await expect(page.getByTestId('map-chosen-evidence')).toBeVisible()
-  // 해제하면 내 설명의 「지금 고른 근거」 후보도 사라진다
+  // 해제한 뒤 학습 정리로 — 노트 연결 후보 · 작성 칸이 없다(T-0091)
   await page.locator('button[data-choice="3"]').first().click()
   await ev.click()
   await expect(ev).toHaveAttribute('aria-pressed', 'false')
   await page.locator('[data-testid="dock-scene"][data-scene="explain"]').click()
-  await expect(page.getByTestId('reasoning-note')).toBeVisible()
+  await expect(page.getByTestId('learning-summary')).toBeVisible()
   await expect(page.getByTestId('note-evidence-link')).toHaveCount(0)
   // 근거 판을 접은 채 마쳐도 완료 안내가 설명 판에 보인다
   await page.getByTestId('evidence-toggle').click()

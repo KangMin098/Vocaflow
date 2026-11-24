@@ -1,0 +1,28 @@
+/* apps/web/src/components/csat/judgment/GrammarTool.module.css */
+.tool { word-break: keep-all; }
+.marks { display: flex; flex-wrap: wrap; gap: 8px; }
+.markBtn { max-width: 100%; text-align: left; }
+.sym { font-weight: 700; margin-right: 4px; }
+.brushes, .needs, .judgs { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+.sentence { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 2px; margin: 12px 0; padding: 12px; border: 1px solid var(--bd); border-radius: var(--r-md, 10px); font-size: 17px; line-height: 1.6; }
+.tokWrap { display: inline-flex; align-items: center; }
+.tok { position: relative; min-height: 44px; min-width: 44px; padding: 4px 6px; border: 1px solid transparent; border-radius: 6px; background: none; color: var(--t1); font-size: 17px; cursor: pointer; }
+.tok:hover { background: var(--bg2); }
+.tok:focus-visible { outline: 2px solid var(--t1); outline-offset: 1px; }
+.tok[data-span] { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.tok[data-role='S'] { border-color: var(--info); }
+.tok[data-role='V'] { border-color: var(--t1); font-weight: 600; }
+.tok[data-role='M'] { border-style: dashed; border-color: var(--t2); color: var(--t2); }
+.roleTag { margin-left: 2px; font-size: 11px; font-weight: 700; color: var(--t2); }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.ask { margin: 8px 0 4px; font-size: 15px; }
+.alts { width: 100%; border-collapse: collapse; }
+.alts th { padding: 6px 8px 6px 0; font-weight: 500; font-size: 15px; text-align: left; vertical-align: middle; }
+.alts td { padding: 2px 0; }
+.alts tr + tr { border-top: 1px solid var(--bd); }
+.warn { margin: 12px 0 0; padding: 10px 12px; border-left: 3px solid var(--error); font-size: 14px; line-height: 1.6; }
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px; }
+.compare h4 { margin: 0 0 6px; font-size: 14px; font-weight: 600; }
+.dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 10px; margin: 0; font-size: 14px; line-height: 1.6; }
+.dl dt { color: var(--t2); }
+.dl dd { margin: 0; }

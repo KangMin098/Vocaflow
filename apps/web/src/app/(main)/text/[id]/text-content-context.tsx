@@ -6,6 +6,7 @@
 
 'use client';
 
+import type { ReaderArticlePractice } from '@/lib/learner/reader-article-practice';
 import { createContext, useContext, type ReactNode } from 'react';
 import type { LibraryText } from '@/types/library';
 import type { ChapterAudio } from '@/lib/workspace/chapter-audio';
@@ -35,6 +36,12 @@ export interface BookInfo {
 export interface TextContentData {
   /** texts.id — Phase 11.7 WordVault 추가 시 provenance */
   textId: string;
+  /**
+   * 이 글을 **실제로 읽은** 자료의 주인(v_text_content.user_id · 서버 쿠키 세션의 RLS 로 읽힌 행).
+   * 개인 연습(철자 등)의 화면 · 평가 경계가 여기에 결속한다 — 나중에 따로 읽은 브라우저 신원으로 주인을 정하지 않는다.
+   * 권한 증명이 아니다(쓰기 권한은 서버 getUser · RLS). 없으면 null(예: 시험 대역).
+   */
+  ownerId?: string | null;
   /** Phase 11.9 — WordBlitz 등 game mode가 chapter 단어 풀 fetch 시 사용 */
   libraryBookId: string | null;
   chapterIdx: number | null;
@@ -48,6 +55,12 @@ export interface TextContentData {
   bookWordSetStats: { subscribed: number; total: number } | null;
   /** v06.34 — 현재 챕터의 단어장 set (워크스페이스 "단어" pill → /wordvault/browse?filter=set:{id}) */
   currentChapterWordSet: { id: string; title: string } | null;
+  /** R0 — 이 기사(본인이 연 글)에 검수한 발췌 연습이 있으면 그 주소(/practice/article/[articleId]). 없으면 null */
+  articlePracticeHref?: string | null;
+  /** R0 — 연습 조회 세 상태(있음 · 없음 · 조회 실패). 기사 글이 아니면 null (T-0204) */
+  articlePractice?: ReaderArticlePractice | null;
+  /** 본인이 연 기사 글(article:<uuid>)의 공개 원문 주소 — 보이스 유무와 무관. 개인 글·부적합 주소는 null */
+  articleSourceHref?: string | null;
   /** v06.34 — 도서의 모든 챕터 단어장 (Browse 안에서 prev/next chapter nav) */
   allChapterWordSets: Array<{ id: string; chapterIdx: number; title: string }>;
   /** v06.x — 현재 챕터의 LibriVox 원어민 보이스 (큐레이터 연결 + 챕터 정합 시만 non-null) */
@@ -56,6 +69,11 @@ export interface TextContentData {
   illustrations: Array<{ idx: number; url: string; alt?: string }> | null;
   text: Partial<LibraryText>;
   paragraphs: TextParagraph[];
+  /**
+   * T-0209 — ScriptQuiz 복기의 「글에서 이 문장 보기」 결속: 본문 해시(contentHash)와 본문 문장 번호 → Reader 문장 id 표(-1 = 하나에 맞지 않음).
+   * 본문은 다시 보내지 않는다. 없으면 근거 이동 없음.
+   */
+  evidenceAnchor?: { hash: string; map: number[] } | null;
 }
 
 const TextContentContext = createContext<TextContentData | null>(null);

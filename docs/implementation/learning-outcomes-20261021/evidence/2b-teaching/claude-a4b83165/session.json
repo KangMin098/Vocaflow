@@ -1,0 +1,15 @@
+{
+  "agent": "claude",
+  "label": "source-lesson-v3-review",
+  "request_id": "a4b83165-d00f-4b98-a168-f5aab27de56e",
+  "prompt_sha256": "770f65203c0e8bebda7ac68e018f324709f7aa42f92545e556725c7bdb3b0229",
+  "status": "exited",
+  "started_at": "2026-10-21T09:16:07.573Z",
+  "pid": 25204,
+  "exit_code": 0,
+  "signal": null,
+  "ended_at": "2026-10-21T09:16:41.042Z",
+  "session_id": "a4b83165-d00f-4b98-a168-f5aab27de56e",
+  "is_error": false,
+  "cost_usd": 0.16247479999999997
+}
